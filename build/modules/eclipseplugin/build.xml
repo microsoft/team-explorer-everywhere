@@ -1,0 +1,14 @@
+<project name="eclipseplugin" basedir=".">
+
+	<target name="clean.eclipseplugin" />
+
+	<target name="eclipseplugin">
+		<echo message="[TFSBuildStep] Building feature ${id.feature.eclipseplugin}" />
+
+		<macro.build-feature id.feature="${id.feature.eclipseplugin}"
+		                     dir.builder="${dir.global.buildtooling}/modules/eclipseplugin/builder"
+		                     dir.buildDirectory="${dir.global.build.output}">
+		</macro.build-feature>
+	</target>
+
+</project>

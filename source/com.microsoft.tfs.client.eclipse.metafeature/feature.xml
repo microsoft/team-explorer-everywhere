@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.microsoft.tfs.client.eclipse.metafeature"
+      label="%Feature-Name"
+      version="14.0.2.qualifier"
+      provider-name="%Feature-Vendor">
+
+   <description>
+      Provides access to version control (TF and Git), work item, build, and other features of Microsoft Team Foundation Server and Visual Studio Team Services from within your Eclipse IDE.
+   </description>
+
+   <includes
+         id="com.microsoft.tfs.client.eclipse.feature"
+         version="0.0.0"/>
+
+</feature>

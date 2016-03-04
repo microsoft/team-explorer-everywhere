@@ -1,0 +1,175 @@
+#!/bin/sh
+#
+# Script for debugging the CLC while developing in Eclipse.  Eclipse builds the classes into
+# ../bin and the projects the CLC depends on must reside at ../..
+#
+
+LAUNCHER_APPLICATION="Team Foundation Version Control Tool"
+LAUNCHER_CLASS=com.microsoft.tfs.client.clc.vc.Main
+SETTINGS_VENDOR=Microsoft
+SETTINGS_VENDOR_LOWERCASE=microsoft
+SETTINGS_APPLICATION="Team Foundation"
+SETTINGS_VERSION=4.0
+
+# BASE_DIRECTORY is the directory containing the Java libraries
+if [ -z "$TF_CLC_HOME" ] ; then
+    BASE_DIRECTORY=`dirname "$0"`
+else
+    BASE_DIRECTORY="$TF_CLC_HOME"
+fi
+
+# Default location for most Unix platforms.
+SETTINGS_DIRECTORY="~/.$SETTINGS_VENDOR_LOWERCASE/$SETTINGS_APPLICATION/$SETTINGS_VERSION"
+
+# Detect platform, architecture, and settings directory.
+case `uname -s` in
+    CYGWIN_NT*)
+        PLATFORM=cygwin
+        ARCH=`uname -m`
+        SETTINGS_DIRECTORY="`cygpath -u $USERPROFILE`/Local Settings/Application Data/$SETTINGS_VENDOR/$SETTINGS_APPLICATION/$SETTINGS_VERSION"
+        # Need to escape embedded spaces in the directory name
+        SETTINGS_DIRECTORY=`echo $SETTINGS_DIRECTORY | sed "s/ /\\ /g"`
+        ;;
+    AIX)
+        PLATFORM=aix
+        ARCH=`uname -p`
+        ;;
+    Linux)
+        PLATFORM=linux
+        ARCH=`uname -m`
+        ;;
+    SunOS)
+        PLATFORM=solaris
+        ARCH=`uname -p`
+        ;;
+    HP-UX)
+        PLATFORM=hpux
+        ARCH=`uname -m`
+        ;;
+    Darwin)
+        PLATFORM=macosx
+        ARCH=""
+        SETTINGS_DIRECTORY=~/Library/$SETTINGS_VENDOR/$SETTINGS_APPLICATION/$SETTINGS_VERSION/
+        ;;
+    FreeBSD)
+        PLATFORM=freebsd
+        ARCH=`uname -m`
+        ;;
+    OS/390)
+        PLATFORM=zos
+        ARCH=390
+        ;;
+    *)
+        PLATFORM=unknown
+        ARCH=unknown
+        ;;
+esac
+
+# Map uname's architecture into OSGI architecture.
+case $ARCH in
+    i386|i486|i586|i686)
+        ARCH=x86
+        
+        # Solaris reports i386 for both x86 and AMD64 versions, so we have
+        # to do more detection for architecture size.
+        if [ "$PLATFORM" = "solaris" ] ; then
+            if [ `isainfo -b` = "64" ] ; then
+                ARCH="x86_64"
+            fi
+        fi
+        ;;
+    x86_64)
+        ARCH=x86_64
+        ;;
+    sparc)
+        ARCH=sparc
+        ;;
+    ppc|ppc64|powerpc)
+        ARCH=ppc
+        ;;
+    9000/*)
+        ARCH=PA_RISC
+        ;;
+    ia64)
+        # Eclipse only supports the ia64_32 JVM.
+        ARCH=ia64_32
+        ;;
+    390)
+        ;;
+    unknown)
+        ;;
+esac
+
+CLC_CLASSPATH=
+export CLC_CLASSPATH
+
+# Add all the debug project libraries.
+DEP_PROJECTS=" \
+	com.microsoft.tfs.client.clc \
+	com.microsoft.tfs.core \
+	com.microsoft.tfs.core.httpclient \
+	com.microsoft.tfs.client.common \
+	com.microsoft.tfs.client.common.pid \
+	com.microsoft.tfs.core.ws.runtime \
+	com.microsoft.tfs.core.ws \
+	com.microsoft.tfs.util \
+	com.microsoft.tfs.jni \
+	com.microsoft.tfs.logging \
+	com.microsoft.tfs.console \
+	com.microsoft.tfs.checkinpolicies \
+	com.microsoft.tfs.checkinpolicies.checkforcomments \
+	com.microsoft.tfs.checkinpolicies.forbiddenpatterns \
+	com.microsoft.tfs.checkinpolicies.workitempolicy \
+	com.microsoft.tfs.checkinpolicies.workitemquerypolicy"
+
+# Add the dep projects' "bin" directories and all JARs inside each dep
+for DEP in $DEP_PROJECTS ; do
+  FULL_DEP_PROJECT="$BASE_DIRECTORY/../../$DEP"
+  CLC_CLASSPATH="$CLC_CLASSPATH:$FULL_DEP_PROJECT/bin"
+  
+  for JAR in $FULL_DEP_PROJECT/lib/*.jar $FULL_DEP_PROJECT/lib/*/*.jar $FULL_DEP_PROJECT/libs/*.jar $FULL_DEP_PROJECT/libs/*/*.jar ; do
+    # Test for the file to work around the empty wildcard expansion case.
+    if [ -f "$JAR" ] ; then
+  		CLC_CLASSPATH="$CLC_CLASSPATH:$JAR"
+    fi
+  done 
+done
+
+# Add check-in policy implementations in the user's home directory
+# first, so they can override standard CLC libraries.
+if [ -d "$SETTINGS_DIRECTORY"/policies ] ; then
+    for POLICY_JAR in "$SETTINGS_DIRECTORY"/policies/*.jar ; do
+        # Test for the file to work around the empty wildcard expansion case.
+        if [ -f "$POLICY_JAR" ] ; then
+            CLC_CLASSPATH="$CLC_CLASSPATH:$POLICY_JAR"
+        fi
+    done
+fi
+
+# Standard CLC resources.  Site-wide check-in policies can be dropped in 
+# the lib directory.
+for LIBRARY_JAR in "$BASE_DIRECTORY"/lib/*.jar ; do
+    CLC_CLASSPATH="$CLC_CLASSPATH:$LIBRARY_JAR"
+done
+
+# Convert to Windows-style classpath
+if [ "$PLATFORM" = "cygwin" ] ; then
+    CLC_CLASSPATH=`cygpath -wp "$CLC_CLASSPATH"`
+    BASE_DIRECTORY=`cygpath -w "$BASE_DIRECTORY"`
+fi
+
+# Sun's JVM 1.4 on Linux may block for lack of entropy and cause the
+# client to hang if /dev/random is used.  /dev/urandom will not block.
+RANDOM_DEVICE_PROPERTY=""
+if [ `uname` = "Linux" ] ; then
+    RANDOM_DEVICE_PROPERTY="-Djava.security.egd=file:/dev/urandom"
+fi
+
+# Set up remote debugger if requested
+if [ $JAVA_DEBUG ]; then
+	JAVA_DEBUG_FLAGS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y"
+fi
+
+exec java -Xmx512M $JAVA_DEBUG_FLAGS -classpath "$CLC_CLASSPATH" \
+	"-Dcom.microsoft.tfs.jni.native.base-directory=$BASE_DIRECTORY/../../com.microsoft.tfs.jni/os" \
+    $RANDOM_DEVICE_PROPERTY $LAUNCHER_CLASS "$@"

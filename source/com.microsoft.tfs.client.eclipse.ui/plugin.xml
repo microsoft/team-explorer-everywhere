@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+        	
+
+		 <!-- Menu Contributions -->
+    <extension
+            point="org.eclipse.ui.actionSets">
+        <actionSet
+                label="%actionSet.tfs.label"
+                visible="true"
+                id="org.eclipse.ui.tfs.actionSet">
+            <action
+                    label="%actionSet.tfs.supportMenuAction.label"
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.workbench.SupportMenuAction"
+                    menubarPath="help/helpStart"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.workbench.SupportMenuAction">
+            </action>
+        </actionSet>
+    </extension>
+
+    <!-- Project Manager UI (profile) data provider -->
+
+    <!-- Share Wizard Contribution -->
+     <extension
+           point="com.microsoft.tfs.client.eclipse.projectManagerDataProvider">
+        <provider
+              class="com.microsoft.tfs.client.eclipse.ui.project.ProjectManagerUIDataProvider"
+              id="com.microsoft.tfs.client.eclipse.ui.project.ProjectManagerUIDataProvider">
+        </provider>
+     </extension>
+
+	<extension
+			point="org.eclipse.team.ui.configurationWizards">
+		<wizard
+				class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizard"
+				icon="images/wizard/icon_share.gif"
+				id="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizard"
+				name="%configurationWizard.name">
+		</wizard>
+	</extension>
+
+    <!-- Import Wizard Contribution -->
+	<extension
+			point="org.eclipse.ui.importWizards">
+		<wizard
+				category="org.eclipse.team.ui.importWizards"
+				class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.TfsImportWizard"
+				icon="images/wizard/icon_import.gif"
+				id="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.TfsImportWizard"
+				name="%importWizard.name">
+			<description>
+				%importWizard.description
+			</description>
+		</wizard>
+	</extension>
+
+    <!-- Label Decorator Contribution -->
+	<extension
+			point="org.eclipse.ui.decorators">
+		<decorator
+				adaptable="true"
+				class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator"
+				id="com.microsoft.tfs.client.eclipse.ui.decorators.LabelDecorator"
+				label="%decorator.resource.label"
+				lightweight="true"
+				objectClass="org.eclipse.core.resources.IResource"
+				state="true">
+         <description>
+            %decorator.resource.description
+         </description>
+		</decorator>
+	</extension>
+
+    <!-- Menu Contribution -->
+	<extension
+			point="org.eclipse.ui.popupMenus">
+		<objectContribution
+				adaptable="true"
+				id="com.microsoft.tfs.client.eclipse.ui.actions.ProjectActions"
+				objectClass="org.eclipse.core.resources.IProject">
+
+			<filter
+					name="projectPersistentProperty"
+					value="org.eclipse.team.core.repository=com.microsoft.tfs.client.eclipse.TFSRepositoryProvider" />
+
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.DisconnectProjectAction"
+                  definitionId="com.microsoft.tfs.client.common.ui.commands.vc.DisconnectProjectCommand"
+                  enablesFor="+"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.DisconnectProjectAction"
+                  label="%action.project.disconnectProject.label"
+                  menubarPath="team.main/group9"/>
+
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.RefreshServerItemInformationAction"
+                  definitionId="com.microsoft.tfs.client.common.ui.commands.vc.RefreshServerItemInformationCommand"
+                  enablesFor="+"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.RefreshServerItemInformationAction"
+                  label="%action.project.refreshServerItemInformation.label"
+                  menubarPath="team.main/group9"/>
+
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ManageWorkspacesAction"
+                  definitionId="com.microsoft.tfs.client.common.ui.commands.vc.ManageWorkspacesCommand"
+                  enablesFor="1"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ManageWorkspacesAction"
+                  label="%action.project.manageWorkspaces.label"
+                  menubarPath="team.main/group9"/>
+
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.SwitchToBranchAction"
+                  definitionId="com.microsoft.tfs.client.common.ui.commands.vc.SwitchToBranchCommand"
+                  enablesFor="1"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.SwitchToBranchAction"
+                  label="%action.project.switchToBranch.label"
+                  menubarPath="team.main/group9"/>
+
+		</objectContribution>
+
+		<objectContribution
+				adaptable="true"
+				id="com.microsoft.tfs.client.eclipse.ui.actions.ResourceActions"
+				objectClass="org.eclipse.core.resources.IResource">
+
+			<filter
+					name="projectPersistentProperty"
+					value="org.eclipse.team.core.repository=com.microsoft.tfs.client.eclipse.TFSRepositoryProvider" />
+
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ReturnOnlineAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.ReturnOnlineCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ReturnOnlineAction"
+                    label="%action.resource.returnOnline.label"
+                    menubarPath="team.main/group8"
+                    tooltip="%action.resource.returnOnline.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GoOfflineAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.GoOfflineCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.GoOfflineAction"
+                    label="%action.resource.goOffline.label"
+                    menubarPath="team.main/group8"
+                    tooltip="%action.resource.goOffline.tooltip" />
+
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.UnignoreAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.UnignoreCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.UnignoreAction"
+                    label="%action.resource.unignore.label"
+                    menubarPath="team.main/group7"
+                    tooltip="%action.resource.unignore.tooltip" />
+                    
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.IgnoreAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.IgnoreCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.IgnoreAction"
+                    label="%action.resource.ignore.label"
+                    menubarPath="team.main/group7"
+                    tooltip="%action.resource.ignore.tooltip" />
+
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.DetectLocalChangesAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.DetectLocalChangesCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.DetectLocalChangesAction"
+                    label="%action.resource.detectLocalChanges.label"
+                    menubarPath="team.main/group7"
+                    tooltip="%action.resource.detectLocalChanges.tooltip" />
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.AddAction"
+                  definitionId="com.microsoft.tfs.client.common.ui.commands.vc.AddCommand"
+                  enablesFor="1"
+                  icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/add.gif"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.AddAction"
+                  label="%action.resource.add.label"
+                  menubarPath="team.main/group7">
+               <enablement>
+                  <or>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFolder">
+                     </objectClass>
+                     <objectClass
+                           name="org.eclipse.core.resources.IProject">
+                     </objectClass>
+                  </or>
+               </enablement>
+            </action>
+
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ApplyLabelAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.ApplyLabelCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ApplyLabelAction"
+                    label="%action.resource.applyLabel.label"
+                    menubarPath="team.main/group6"
+                    tooltip="%action.resource.applyLabel.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.FindLabelAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.FindLabelCommand"
+                    enablesFor="*"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.FindLabelAction"
+                    label="%action.resource.findLabel.label"
+                    menubarPath="team.main/group6"
+                    tooltip="%action.resource.findLabel.tooltip" />
+
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.SynchronizeAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.SynchronizeCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.SynchronizeAction"
+                    label="%action.resource.synchronize.label"
+                    menubarPath="team.main/group5"
+                    tooltip="%action.resource.synchronize.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.AnnotateAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.AnnotateCommand"
+                    enablesFor="1"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.AnnotateAction"
+                    label="%action.resource.annotate.label"
+                    menubarPath="team.main/group5">
+               <enablement>
+                  <objectClass
+                        name="org.eclipse.core.resources.IFile">
+                  </objectClass>
+               </enablement>
+            </action>
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GotoChangesetAction"
+                  definitionId="com.microsoft.tfs.client.common.ui.commands.vc.GotoChangesetCommand"
+                  enablesFor="+"
+                  icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/goto.gif"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.GotoChangesetAction"
+                  label="%action.resource.gotoChangeset.label"
+                  menubarPath="team.main/group5"/>
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithSpecifiedAction"
+                    definitionId="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithSpecifiedAction"
+                    enablesFor="1"
+                    icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/compare.gif"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithSpecifiedAction"
+                    label="%action.resource.compareWithSpecified.label"
+                    menubarPath="team.main/group5"
+                    tooltip="%action.resource.compareWithSpecified.tooltip" />
+   <action
+         class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ShowInSourceControlExplorerAction"
+         definitionId="com.microsoft.tfs.client.common.ui.commands.vc.ShowInSourceControlExplorerCommand"
+         enablesFor="1"
+         icon="team.main/group5"
+         id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ShowInSourceControlExplorerAction"
+         label="%action.resource.showInSourceControlExplorer"
+         menubarPath="team.main/group5">
+   </action>
+            <action
+                  class="org.eclipse.team.internal.ui.history.ShowLocalHistory"
+                  enablesFor="1"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ShowLocalHistoryAction"
+                  label="%action.resource.showLocalHistory.label"
+                  menubarPath="team.main/group5"
+                  overrideActionId="org.eclipse.team.ui.showLocalHistory">
+                  <enablement>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+               </enablement>
+            </action>
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ViewHistoryAction"
+                  definitionId="com.microsoft.tfs.client.common.ui.commands.vc.ViewHistoryCommand"
+                  enablesFor="1"
+                  icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/history.gif"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ViewHistoryAction"
+                  label="%action.resource.viewHistory.label"
+                  menubarPath="team.main/group5"/>
+
+			<action
+					class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ShelveAction"
+					definitionId="com.microsoft.tfs.client.common.ui.commands.vc.ShelveCommand"
+					enablesFor="+"
+					icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/shelve.gif"
+					id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ShelveAction"
+					label="%action.resource.shelve.label"
+					menubarPath="team.main/group4"
+					tooltip="%action.resource.shelve.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CheckinAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.CheckinCommand"
+                    enablesFor="+"
+                    icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/checkin.gif"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.CheckinAction"
+                    label="%action.resource.checkin.label"
+                    menubarPath="team.main/group4"
+                    tooltip="%action.resource.checkin.tooltip" />
+
+
+			<action
+					class="com.microsoft.tfs.client.eclipse.ui.actions.vc.UndoPendingChangesAction"
+					definitionId="com.microsoft.tfs.client.common.ui.commands.vc.UndoCommand"
+					enablesFor="+"
+					icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/undo.gif"
+					id="com.microsoft.tfs.client.eclipse.ui.actions.vc.UndoPendingChangesAction"
+					label="%action.resource.undoPendingChanges.label"
+					menubarPath="team.main/group3"
+					tooltip="%action.resource.undoPendingChanges.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.RollbackAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.RollbackCommand"
+                    enablesFor="1"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.RollbackAction"
+                    label="%action.resource.rollback.label"
+                    menubarPath="team.main/group3"
+                    tooltip="%action.resource.rollback.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.UnlockAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.UnlockCommand"
+                    enablesFor="+"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.UnlockAction"
+                    label="%action.resource.unlock.label"
+                    menubarPath="team.main/group3"
+                    tooltip="%action.resource.unlock.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.LockAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.LockCommand"
+                    enablesFor="+"
+                    icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/lock.gif"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.LockAction"
+                    label="%action.resource.lock.label"
+                    menubarPath="team.main/group3"
+                    tooltip="%action.resource.lock.tooltip" />
+            <action
+                    class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CheckoutAction"
+                    definitionId="com.microsoft.tfs.client.common.ui.commands.vc.CheckoutCommand"
+                    enablesFor="+"
+                    icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/checkout.gif"
+                    id="com.microsoft.tfs.client.eclipse.ui.actions.vc.CheckoutAction"
+                    label="%action.resource.checkout.label"
+                    menubarPath="team.main/group3"
+                    tooltip="%action.resource.checkout.tooltip" />
+			<action
+					class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GetSpecificAction"
+					definitionId="com.microsoft.tfs.client.common.ui.commands.vc.GetSpecificCommand"
+					enablesFor="+"
+					icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/getspecific.gif"
+					id="com.microsoft.tfs.client.eclipse.ui.actions.vc.GetSpecificAction"
+					label="%action.resource.getSpecific.label"
+					menubarPath="team.main/group2"
+					tooltip="%action.resource.getSpecific.tooltip" />
+			<action
+					class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GetLatestAction"
+					definitionId="com.microsoft.tfs.client.common.ui.commands.vc.GetLatestCommand"
+					enablesFor="+"
+					icon="platform:/plugin/com.microsoft.tfs.client.common.ui/images/vc/getlatest.gif"
+					id="com.microsoft.tfs.client.eclipse.ui.actions.vc.GetLatestAction"
+					label="%action.resource.getLatest.label"
+					menubarPath="team.main/group2"
+					tooltip="%action.resource.getLatest.tooltip" />
+        </objectContribution>
+
+        <objectContribution
+            adaptable="true"
+            id="com.microsoft.tfs.client.eclipse.ui.actions.CompareActions"
+            objectClass="org.eclipse.core.resources.IResource">
+
+            <filter
+                name="projectPersistentProperty"
+                value="org.eclipse.team.core.repository=com.microsoft.tfs.client.eclipse.TFSRepositoryProvider" />
+
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithSpecifiedAction"
+                  enablesFor="1"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithSpecifiedAction"
+                  label="%action.resource.compare.compareWithSpecified.label"
+                  menubarPath="compareWithMenu/compareWithGroup"/>
+
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithLatestAction"
+                  enablesFor="1"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithLatestAction"
+                  label="%action.resource.compare.compareWithLatest.label"
+                  menubarPath="compareWithMenu/compareWithGroup"/>
+
+            <action
+                  class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithUnmodifiedAction"
+                  enablesFor="1"
+                  id="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithUnmodifiedAction"
+                  label="%action.resource.compare.compareWithUnmodified.label"
+                  menubarPath="compareWithMenu/compareWithGroup"/>
+        </objectContribution>
+
+		<!-- Items added to TFVC Source Control Explorer by Eclipse plug-in -->
+		<objectContribution
+			adaptable="false"
+			id="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.Properties"
+			objectClass="com.microsoft.tfs.client.common.ui.vc.tfsitem.TFSFolder">
+
+         <action
+            class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ImportFolderAction"
+            enablesFor="+"
+            icon="/images/vc/import.gif"
+            id="com.microsoft.tfs.client.eclipse.ui.actions.vc.ImportFolderAction"
+            label="%action.tfsFolder.importFolder.label"
+            menubarPath="group2"/>
+
+		</objectContribution>
+
+	</extension>
+
+	<!-- Command Definitions -->
+	<extension
+			point="org.eclipse.ui.commands">
+
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.GoOfflineCommand"
+                name="%command.versionControl.goOffline.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.ReturnOnlineCommand"
+                name="%command.versionControl.returnOnline.name">
+        </command>
+		<command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.DisconnectProjectCommand"
+                name="%command.versionControl.disconnectProject.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.ManageWorkspacesCommand"
+                name="%command.versionControl.manageWorkspaces.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.RefreshServerItemInformationCommand"
+                name="%command.versionControl.refreshServerItemInformation.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.SwitchToBranchCommand"
+                name="%command.versionControl.switchToBranch.name">
+        </command>
+
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.UnignoreCommand"
+                name="%command.versionControl.unignore.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.IgnoreCommand"
+                name="%command.versionControl.ignore.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.DetectLocalChangesCommand"
+                name="%command.versionControl.detectLocalChanges.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.AddCommand"
+                name="%command.versionControl.add.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.ApplyLabelCommand"
+                name="%command.versionControl.applyLabel.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.FindLabelCommand"
+                name="%command.versionControl.findLabel.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.GotoChangesetCommand"
+                name="%command.versionControl.gotoChangeset.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.ViewHistoryCommand"
+                name="%command.versionControl.viewHistory.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.ShelveCommand"
+                name="%command.versionControl.shelve.name">
+        </command>
+		<command
+				id="com.microsoft.tfs.client.common.ui.commands.vc.CheckinCommand"
+				name="%command.versionControl.checkin.name">
+		</command>
+		<command
+            id="com.microsoft.tfs.client.common.ui.commands.vc.LockCommand"
+            name="%command.versionControl.lock.name">
+        </command>
+        <command
+            id="com.microsoft.tfs.client.common.ui.commands.vc.UnlockCommand"
+            name="%command.versionControl.unlock.name">
+        </command>
+        <command
+            id="com.microsoft.tfs.client.common.ui.commands.vc.CheckoutCommand"
+            name="%command.versionControl.checkout.name">
+        </command>
+		<command
+				id="com.microsoft.tfs.client.common.ui.commands.vc.GetLatestCommand"
+				name="%command.versionControl.getLatest.name">
+		</command>
+		<command
+				id="com.microsoft.tfs.client.common.ui.commands.vc.GetSpecificCommand"
+				name="%command.versionControl.getSpecific.name">
+		</command>
+		<command
+				id="com.microsoft.tfs.client.common.ui.commands.vc.RollbackCommand"
+				name="%command.versionControl.rollback.name">
+		</command>
+		<command
+				id="com.microsoft.tfs.client.common.ui.commands.vc.UndoCommand"
+				name="%command.versionControl.undo.name">
+		</command>
+		<command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.AnnotateCommand"
+                name="%command.versionControl.annotate.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithSpecifiedAction"
+                name="%command.versionControl.compareWithSpecified.name">
+        </command>
+        <command
+                id="com.microsoft.tfs.client.common.ui.commands.vc.SynchronizeCommand"
+                name="%command.versionControl.synchronize.name">
+        </command>
+        <command
+              id="com.microsoft.tfs.client.common.ui.commands.vc.ShowInSourceControlExplorerCommand"
+              name="%command.versionControl.showinsce.name">
+        </command>
+	</extension>
+
+	<!-- Key Bindings / Accelerators -->
+
+   <extension
+        point="org.eclipse.team.ui.synchronizeParticipants">
+      <participant
+            class="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant"
+            icon="images/wizard/icon_synchronize.gif"
+            id="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant"
+            name="%synchronizeParticipant.name"
+            persistent="true"/>
+   </extension>
+
+   <extension
+         point="org.eclipse.team.ui.synchronizeWizards">
+      <wizard
+            class="com.microsoft.tfs.client.eclipse.ui.wizard.sync.SynchronizeWizard"
+            description="%synchronizeWizard.description"
+            icon="images/wizard/icon_synchronize.gif"
+            id="com.microsoft.tfs.client.eclipse.ui.wizard.sync.SynchronizeWizard"
+            name="%synchronizeWizard.name"/>
+   </extension>
+
+   <extension
+         point="com.microsoft.tfs.client.common.resourceChangingCommandListeners">
+      <resourceChangingCommandListener
+            class="com.microsoft.tfs.client.eclipse.ui.EclipsePluginResourceChangingCommandListener">
+      </resourceChangingCommandListener>
+   </extension>
+
+   <extension
+         point="com.microsoft.tfs.client.eclipse.fileModificationAdvisor">
+      <advisor
+            class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUIAdvisor"
+            id="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUIAdvisor">
+      </advisor>
+   </extension>
+
+    <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Changeset"
+            class="com.microsoft.tfs.client.eclipse.ui.adapters.ChangesetAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Shelveset"
+            class="com.microsoft.tfs.client.eclipse.ui.adapters.ShelvesetAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="com.microsoft.tfs.client.common.ui.controls.vc.changes.ChangeItem"
+            class="com.microsoft.tfs.client.eclipse.ui.adapters.ChangeItemAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+         <adapter
+               type="org.eclipse.ui.model.IWorkbenchAdapter">
+         </adapter>
+      </factory>
+   </extension>
+
+    <!-- Property Pages in Package Explorer / file editors -->
+    <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            class="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemGeneralPropertyPage"
+            id="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemGeneralPropertyPage"
+            name="%propertyPage.changeItem.general.name"
+            objectClass="com.microsoft.tfs.client.common.ui.controls.vc.changes.ChangeItem">
+      </page>
+      <page
+            class="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemStatusPropertyPage"
+            id="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemStatusPropertyPage"
+            category="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemGeneralPropertyPage"
+            name="%propertyPage.changeItem.status.name"
+            objectClass="com.microsoft.tfs.client.common.ui.controls.vc.changes.ChangeItem">
+      </page>
+      <page
+            class="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemBranchesPropertyPage"
+            id="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemBranchesPropertyPage"
+			category="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemGeneralPropertyPage"
+            name="%propertyPage.changeItem.branches.name"
+            objectClass="com.microsoft.tfs.client.common.ui.controls.vc.changes.ChangeItem">
+      </page>
+      <page
+            adaptable="true"
+            class="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceGeneralPropertyPage"
+            id="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceGeneralPropertyPage"
+            name="%propertyPage.resource.general.name"
+            objectClass="org.eclipse.core.resources.IResource">
+         <filter
+               name="projectPersistentProperty"
+               value="org.eclipse.team.core.repository=com.microsoft.tfs.client.eclipse.TFSRepositoryProvider">
+         </filter>
+      </page>
+      <page
+            adaptable="true"
+            category="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceGeneralPropertyPage"
+            class="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceStatusPropertyPage"
+            id="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceStatusPropertyPage"
+            name="%propertyPage.resource.status.name"
+            objectClass="org.eclipse.core.resources.IResource">
+         <filter
+               name="projectPersistentProperty"
+               value="org.eclipse.team.core.repository=com.microsoft.tfs.client.eclipse.TFSRepositoryProvider">
+         </filter>
+      </page>
+      <page
+            adaptable="true"
+            category="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceGeneralPropertyPage"
+            class="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceBranchesPropertyPage"
+            id="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceBranchesPropertyPage"
+            name="%propertyPage.resource.branches.name"
+            objectClass="org.eclipse.core.resources.IResource">
+         <filter
+               name="projectPersistentProperty"
+               value="org.eclipse.team.core.repository=com.microsoft.tfs.client.eclipse.TFSRepositoryProvider">
+         </filter>
+      </page>
+   </extension>
+
+	<!-- Preference Pages -->
+	<extension
+			point="org.eclipse.ui.preferencePages">
+		<page
+				category="org.eclipse.team.ui.TeamPreferences"
+				class="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				name="%preferencePages.main.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.common.ui.prefs.SourceControlPreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.SourceControlPreferencePage"
+				name="%preferencePages.sourceControl.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.common.ui.prefs.LabelDecoratorPreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.LabelDecoratorPreferencePage"
+				name="%preferencePages.labelDecorator.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.common.ui.prefs.ComparePreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.ComparePreferencePage"
+				name="%preferencePages.compare.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.common.ui.prefs.MergePreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.MergePreferencePage"
+				name="%preferencePages.merge.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.common.ui.prefs.WITPreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.WITPreferencePage"
+				name="%preferencePages.wit.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.common.ui.prefs.TFSGlobalProxiesPreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.TFSGlobalProxiesPreferencePage"
+				name="%preferencePages.tfsGlobalProxies.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.common.ui.prefs.CredentialsPreferencePage"
+				id="com.microsoft.tfs.client.common.ui.prefs.CredentialsPreferencePage"
+				name="%preferencePages.credentials.name"/>
+		<page
+				category="com.microsoft.tfs.client.common.ui.prefs.MainPreferencePage"
+				class="com.microsoft.tfs.client.eclipse.ui.prefs.OfflinePreferencePage"
+				id="com.microsoft.tfs.client.eclipse.ui.prefs.OfflinePreferencePage"
+				name="%preferencePages.offline.name"/>
+	</extension>
+ <extension
+       point="com.microsoft.tfs.client.eclipse.resourceChangeStatusReporters">
+    <reporter
+          class="com.microsoft.tfs.client.eclipse.ui.resourcechange.TFSResourceChangeUIStatusReporter"
+          id="com.microsoft.tfs.client.eclipse.ui.resourcechange.TFSResourceChangeUIStatusReporter">
+    </reporter>
+ </extension>
+ <extension
+       point="com.microsoft.tfs.client.eclipse.licenseChecker">
+    <checker
+          class="com.microsoft.tfs.client.eclipse.ui.license.TFSEclipseClientUILicenseChecker"
+          id="com.microsoft.tfs.client.eclipse.ui.license.TFSEclipseClientUILicenseChecker">
+    </checker>
+ </extension>
+ <extension
+       point="org.eclipse.core.runtime.adapters">
+    <factory
+          adaptableType="com.microsoft.tfs.client.eclipse.TFSRepositoryProvider"
+          class="com.microsoft.tfs.client.eclipse.ui.history.TFSLocalHistoryAdapterFactory">
+       <adapter
+             type="org.eclipse.team.ui.history.IHistoryPageSource">
+       </adapter>
+    </factory>
+ </extension>
+ <extension
+       point="com.microsoft.tfs.client.common.autoConnector">
+    <autoConnector
+          class="com.microsoft.tfs.client.eclipse.ui.EclipseAutoConnector">
+    </autoConnector>
+ </extension>
+ <extension
+       point="com.microsoft.tfs.client.common.ui.productPluginProvider">
+    <provider
+          class="com.microsoft.tfs.client.eclipse.ui.productplugin.EclipseProductPluginProvider"
+          id="com.microsoft.tfs.client.eclipse.ui.productplugin.EclipseProductPluginProvider">
+    </provider>
+ </extension>
+</plugin>

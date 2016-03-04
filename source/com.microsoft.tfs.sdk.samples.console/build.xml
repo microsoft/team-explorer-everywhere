@@ -1,0 +1,39 @@
+<!--
+ Copyright (c) Microsoft. All rights reserved.
+ Licensed under the MIT license. See License.txt in the repository root.
+-->
+
+<project name="consolesamples" default="instructions">
+
+    <!-- The tfs-sdk-jar property can override the default. -->
+    <path id="sdk-classpath">
+        <fileset file="${tfs-sdk-jar}" />
+        <!-- The "dir" value must exist; the "includes" may reference non-existent paths. -->
+        <fileset dir="../.." includes="redist/lib/com.microsoft.tfs.sdk-14.0.2.jar" />
+    </path>
+
+    <target name="instructions" description="Prints instructions on compiling and using the console samples">
+        <concat>
+            <filelist dir=".">
+                <file name="readme.txt" />
+            </filelist>
+        </concat>
+    </target>
+
+    <target name="compile" description="Compiles all console samples">
+        <mkdir dir="bin" />
+
+        <!-- copy resources -->
+        <copy todir="bin" overwrite="true">
+            <fileset dir="src" includes="**/*.properties" />
+        </copy>
+        <javac srcdir="."
+               destdir="bin"
+               includeantruntime="false"
+               classpathref="sdk-classpath"
+               debug="true"
+               encoding="utf-8" />
+    </target>
+
+</project>
+

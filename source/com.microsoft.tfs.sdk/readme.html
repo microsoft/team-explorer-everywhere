@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Microsoft Team Foundation Server Software Development Kit for Java</title>
+<style type="text/css">
+body {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+table {
+	border-spacing: 1.5em 0em;
+}
+
+th {
+	text-align: left;
+}
+
+li {
+	margin-top: .5em;
+}
+
+a.path,span.path,span.argument {
+	font-family: 'Courier New', Courier, monospace;
+}
+
+p.commandline {
+	font-family: 'Courier New', Courier, monospace;
+	padding-left: 1em;
+}
+</style>
+</head>
+<body>
+
+	<h1>Microsoft&reg; Team Foundation Server Software Development Kit for Java</h1> 
+
+	<h2>Overview</h2>
+
+	<p>The TFS SDK for Java package contains documentation, samples, and
+		redistributable files that help you extend Team Explorer Everywhere
+		clients and access Team Foundation features from Java applications.
+		The SDK for Java requires Java 6 or later.</p>
+
+	<p>
+		<em>There are multiple ways to develop software with this SDK.
+			Decide which scenario below best fits your situation and read the
+			corresponding section below.</em>
+	</p>
+
+	<h4>
+		<a href="#clientObjectModel">Scenario 1: Client Object Model</a>
+	</h4>
+
+	<p>You want to access Team Foundation features from a Java
+		application where Team Explorer Everywhere is not
+		installed.</p>
+
+	<p>In this scenario you add the redistributable JAR and native
+		libraries to your application, then use classes in the client object
+		model to interact with a Team Foundation Server. High-level classes
+		locate services, perform authentication, and expose version control,
+		work item, and build features to your application. You can customize
+		the behavior of some of the client object model classes.</p>
+
+	<h4>
+		<a href="#extendingPlugin">Scenario 2: Extending Team Explorer Everywhere</a>
+	</h4>
+
+	<p>You want to use Eclipse extension points and other APIs to
+		extend Team Explorer Everywhere or use some of its
+		features in your own Eclipse-based application.</p>
+
+	<h4>
+		<a href="#customPolicy">Scenario 3: Developing a Custom Check-in
+			Policy</a>
+	</h4>
+
+	<p>You want to enforce custom rules before files are checked into
+		Team Foundation Server from Team Explorer Everywhere
+		or the Team Explorer Everywhere Cross-platform Command-line
+		Client.</p>
+
+	<h2>SDK Contents</h2>
+
+	<p>A list of some of the items inside the SDK for Java:</p>
+
+	<table>
+		<tr>
+			<td><a class="path" href="docs">docs</a>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><span class="path">&nbsp;&nbsp;</span><a class="path"
+				href="docs/javadoc/index.html">javadoc</a>
+			</td>
+			<td>API documentation for the SDK classes in HTML format</td>
+		</tr>
+		<tr>
+			<td><a class="path" href="redist">redist</a>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><span class="path">&nbsp;&nbsp;</span><a class="path"
+				href="redist/lib">lib</a>
+			</td>
+			<td>Java archives containing client object model
+				classes and resources</td>
+		</tr>
+		<tr>
+			<td><span class="path">&nbsp;&nbsp;</span><a class="path"
+				href="redist/native">native</a></td>
+			<td>Native library files required by client
+				object model</td>
+		</tr>
+		<tr>
+			<td><span class="path">&nbsp;&nbsp;</span><a class="path"
+				href="redist/notice.html">notice.html</a>
+			</td>
+			<td>Third-party software notices</td>
+		</tr>
+		<tr>
+			<td><span class="path">&nbsp;&nbsp;</span><a class="path"
+				href="redist/redist.txt">redist.txt</a>
+			</td>
+			<td>A list of files you may redistribute under the terms of the software license</td>
+		</tr>
+		<tr>
+			<td><a class="path" href="samples">samples</a>
+			</td>
+			<td>Code samples</td>
+		</tr>
+		<tr>
+			<td><a class="path" href="license.html">license.html</a></td>
+			<td>Software license terms</td>
+		</tr>
+	</table>
+
+	<h2 id="clientObjectModel">Scenario 1: Client Object Model</h2>
+
+	<p>This scenario applies when developing an application that uses
+		Team Foundation features but does not run in the Eclipse environment.
+		The SDK for Java client object model offers features
+		similar to the Team Foundation client object model for .NET and Visual
+		Studio.</p>
+
+	<p>Client object model classes do not provide graphical interfaces
+		to Team Foundation features. They do not depend on packages such as
+		Swing or SWT/Eclipse, but may be used safely in programs that use
+		them.</p>
+
+	<p></p>
+
+	<h3>Getting Started</h3>
+
+	<p>The client object model is packaged as one JAR file and a
+		collection of native code libraries. The native libraries are required
+		by the client object model classes to perform tasks such as single
+		sign-on authentication, filesystem attribute modification, console
+		measurement, and reading information from the process's environment.</p>
+
+	<p>Follow these steps to get started using the client object model:</p>
+
+	<ul>
+		<li>Copy the <span class="path">redist/lib/com.microsoft.tfs.sdk-14.0.2.jar</span>
+			file and <span class="path">redist/native</span> directory (including
+			all subdirectories and files) to your application's development or
+			runtime location.</li>
+
+		<li>Configure your application's Java classpath to include the <span
+			class="path">com.microsoft.tfs.sdk-14.0.2.jar</span> file.</li>
+
+		<li>Use classes from the client object model in your application.
+			Sample client application source code can be found in the <a
+			class="path" href="samples">samples</a> directory in the SDK. Class
+			documentation can be found in the <a class="path"
+			href="docs/javadoc/index.html">docs/javadoc</a> directory.</li>
+
+		<li>When you run your application, you must define the <span
+			class="argument">com.microsoft.tfs.jni.native.base-directory</span>
+			Java system property with a value that is the local filesystem path
+			to the <span class="path">redist/native</span> directory. If you do
+			not define this system property, the client object model classes will
+			be unable to load the native libraries and will fail.</li>
+	</ul>
+
+	<h3 id="nativenotes">Notes on Native Libraries</h3>
+	<p>
+		To define a Java system property, use the <span class="argument">-D</span>
+		option when you start the Java virtual machine. For example, on Unix
+		operating systems:
+	</p>
+
+	<p class="commandline">java
+		-D"com.microsoft.tfs.jni.native.base-directory=/home/username/YourApplication/native"</p>
+	<p>and on Windows:</p>
+	<p class="commandline">java.exe
+		-D"com.microsoft.tfs.jni.native.base-directory=C:\Users\Username\YourApplication\native"</p>
+
+	<p class="notecontent">
+		When you deploy the native libraries with your application you must
+		preserve the file and directory structure inside the <span
+			class="path">native</span> directory.
+	</p>
+
+	<h3>Snippets Sample</h3>
+
+	<p>
+		The <span class="path">com.microsoft.tfs.sdk.samples.snippets</span>
+		project in the <span class="path">samples</span> directory contains
+		source code for several sample programs that each perform a basic task
+		with the client object model.
+	</p>
+	<p>
+		You can import this project into the Eclipse IDE or build it manually
+		with Apache Ant using the <span class="path">build.xml</span> file.
+		See the <span class="path">readme.txt</span> file in the sample
+		project for manual build instructions.
+	</p>
+
+	<h3>Console Sample</h3>
+
+	<p>
+		The <span class="path">com.microsoft.tfs.sdk.samples.console</span>
+		project in the <span class="path">samples</span> directory contains
+		source code for several applications that use the client object model
+		in advanced ways. Read these samples to learn about topics such as:
+	</p>
+
+	<ul>
+		<li>Connecting to Team Foundation Server (authentication, HTTP proxies, 
+			etc.)</li>
+		<li>Customizing the persistence mechanisms used by the object
+			model</li>
+		<li>Logging</li>
+		<li>Handling client object model events</li>
+		<li>Specifying the Locale and TimeZone the client object model
+			uses</li>
+		<li>Changing the User-Agent HTTP header sent to Team Foundation
+			Server</li>
+	</ul>
+
+	<p>
+		You can import this project into the Eclipse IDE or build it manually
+		with Apache Ant using the <span class="path">build.xml</span> file.
+		See the <span class="path">readme.txt</span> file in the sample
+		project for manual build instructions.
+	</p>
+
+	<h2 id="extendingPlugin">Scenario 2: Extending Team Explorer
+		Everywhere Plug-in for Eclipse</h2>
+
+	<p>Extending the plug-in for Eclipse is done with Eclipse extension
+		points. Use Eclipse's plug-in artifact discovery features to find
+		public extension points in the Team Explorer Everywhere plug-ins.
+		Client object model classes and features are available in this
+		scenario because the packages are re-exported from the Team Explorer
+		Everywhere plug-ins. Customization of the connection process through
+		the client object model is not supported because the plug-in for
+		Eclipse requires specific connection behavior.</p>
+
+	<h3>Work Item Control Sample</h3>
+
+	<p>
+		The <span class="path">com.microsoft.tfs.sdk.samples.witcontrols</span>
+		project in the <span class="path">samples</span> directory adds custom
+		work item control types to the Team Explorer Everywhere work item
+		editor.
+	</p>
+	<p>
+		Import this project into the Eclipse IDE where the Team Explorer
+		Everywhere plug-in for Eclipse is installed. See the <span
+			class="path">readme.html</span> file in the sample project for help
+		using this sample.
+	</p>
+
+	<h2 id="customPolicy">Scenario 3: Developing a Custom Check-in
+		Policy</h2>
+
+	<p>You can write custom check-in policies in Java and deploy them
+		where Team Explorer Everywhere clients are installed.</p>
+
+	<h3>Cusotm Check-in Policy Sample</h3>
+
+	<p>
+		The <span class="path">com.microsoft.tfs.sdk.samples.checkinpolicy</span>
+		project in the <span class="path">samples</span> directory is an
+		implementation of a custom check-in policy that works with both the
+		graphical Team Explorer Everywhere and with the
+		non-graphical Cross-platform Command-line Client programs.
+	</p>
+	<p>
+		Import this project into the Eclipse IDE where the Team Explorer
+		Everywhere plug-in for Eclipse is installed. See the <span
+			class="path">readme.html</span> file in the sample project for help
+		using this sample.
+	</p>
+
+	<h2 id="samplesInEclipse">Building Samples with Eclipse</h2>
+
+	<p>Sample projects which are not Eclipse plug-in projects require
+		manual configuration before they will build and run in Eclipse. If one
+		of the samples you imported into your workspace does not build or run,
+		follow the steps in this section.</p>
+
+	<h3>Java Build Path</h3>
+
+	<p>Some samples cannot be compiled until the redistributable JAR is
+		added to the project's build path. To add the JAR to the build path:</p>
+	<ul>
+		<li>Right click on the sample project in the Package Explorer or
+			Project Explorer view and choose Build Path &gt; Configure Build
+			Path...</li>
+		<li>When the Properties dialog containing the Java Build Path
+			page appears, click the Libraries tab then click the Add External
+			JARs... button</li>
+		<li>Browse to the SDK's <span class="path">redist/lib/com.microsoft.tfs.sdk-14.0.2.jar</span>
+			file and click Open</li>
+		<li>Click OK to close the Properties dialog</li>
+	</ul>
+
+	<p>The sample project should now compile without errors.</p>
+
+	<h3>Native Libraries</h3>
+
+	<p>To debug and run sample projects which are not plug-in projects,
+		you must edit your debug or run configuration to set the system
+		property the native library loader users. If you do not know how to
+		create and edit debug or run configurations, refer to the Eclipse
+		documentation. To set the system property:</p>
+	<ul>
+		<li>Edit an existing debug or run configuration</li>
+		<li>In the Debug Configurations or Run Configurations dialog,
+			select your configuration on the left, then click the Arguments tab</li>
+		<li>In the VM arguments text box add add the Java system property
+			argument (see <a href="#nativenotes">Notes on Native Libraries</a>
+			for how to determine this value)</li>
+		<li>Click Apply to save the configuration changes</li>
+	</ul>
+	<p>Now the native libraries can be loaded by the client object
+		model when you debug or run your application.</p>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Thread Safety Levels</title>
+        <!-- The stylesheet token here gets replaced during the build process by a Taglets shutdown hook; see taglets.properties. -->
+        <link rel="stylesheet" type="text/css" href="../stylesheet.css" title="Style" />
+    </head>
+    <body>
+        <h2>Thread Safety Levels Explained</h2>
+        <p>
+            Many classes in the TFS SDK for Java document their thread-safey level.  This document describes the
+            different degrees of thread-safety.  Consider classes which do not document thread-safety to be <tt>thread-compatible</tt>. 
+        </p>
+        
+        <h3>Class Thread-Safety</h3>
+        <p>
+            The thread-safety level advertised for a non-abstract class is the degree of safety
+            users can expect from that class.  Abstract classes may document the safety of their implementation,
+            but subclasses may declare a safer or less safe level of safety.  
+        </p>
+        <p>
+            If a class does not specify a required level of thread-safety, assume <tt>thread-compatible</tt>. 
+        </p>
+
+        <h3>Interface Thread-Safety</h3>
+        <p>
+            A thread-safety requirement for an interface is different than for a class.  The level specified for an interface
+            is the <em>minimum level</em> of thread-safety required for all implementations of that interface.  
+            Interfaces will rarely require <tt>immutable</tt>, 
+            <tt>conditionally thread-safe</tt>, or <tt>thread-hostile</tt> implementations because of the
+            design constraints they would impose.  Interfaces will occasionally require <tt>thread-safe</tt> 
+            or <tt>thread-compatible</tt> implementations. 
+        </p>
+        <p>
+            If an interface does not specify a required level of thread-safety, assume <tt>thread-compatible</tt>. 
+        </p>
+        
+        <h3>Levels Defined</h3>
+        <p>
+            Below are the levels of thread-safety the TFS SDK for Java documentation declares.  The safest
+            levels (most concurrency-friendly) are described first, and the least safe (least concurrency-friendly)
+            are last.  Find more detailed information about these degrees of safety in the article 
+            <a href="http://www.ibm.com/developerworks/java/library/j-jtp09263.html">Java theory and practice:
+            Characterizing thread safety</a> by Brian Goetz.
+        </p>
+        <dl>
+            <dt>Immutable</dt>
+            <dd>
+                <tt>Immutable</tt> objects are always thread-safe and require no external synchronization.
+            </dd>
+            
+            <dt>Thread-safe</dt>
+            <dd>
+                <tt>Thread-safe</tt> objects operate according to their specifications when accessed by multiple 
+                threads without requiring external synchronization 
+            </dd>
+            
+            <dt>Conditionally thread-safe</dt>
+            <dd>
+                <tt>Conditionally thread-safe</tt> objects have operations which are individually thread-safe, but may
+                require external synchronization if they are used together in certain sequences.  An example is 
+                the iterator object returned by some Java collections: if the collection is modified during
+                iteration, the iterator may throw an exception.  The caller is required to prevent
+                modification to the object (external synchronization) while the iterator is in use.    
+            </dd>
+            
+            <dt>Thread-compatible</dt>
+            <dd>
+                <tt>Thread-compatible</tt> objects are not thread-safe but can be made safe for use by multiple threads if 
+                external synchronization is used.  Most classes are at least this thread-safe, even if they 
+                perform no internal synchronization.
+            </dd>
+            
+            <dt>Thread-hostile</dt>
+            <dd>
+                <tt>Thread-hostile</tt> objects can't be made safe for concurrent use, even if external 
+                synchronization is used.  These kinds of objects are rare, and include classes that modify static
+                data in a way that affects other threads.  An example is a class that calls System.setOut(), which 
+                uses native code to reassign a static final field, System.out.
+            </dd>
+        </dl>
+    </body>
+</html>

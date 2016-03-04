@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+     <extension point="com.microsoft.tfs.checkinpolicies.checkinPolicy">
+      <policy
+        typeID="com.microsoft.tfs.sdk.samples.checkinpolicy.SampleCheckinPolicy-1"
+        class="com.microsoft.tfs.sdk.samples.checkinpolicy.SamplePolicy" />
+   </extension>
+</plugin>

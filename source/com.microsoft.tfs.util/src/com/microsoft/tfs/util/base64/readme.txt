@@ -1,0 +1,1 @@
+This code was simply copied from Apache Commons Codec 1.3.

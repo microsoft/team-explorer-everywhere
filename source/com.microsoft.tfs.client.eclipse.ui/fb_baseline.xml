@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265809988131" analysisTimestamp="1265809978007" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="getPendingChanges" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="68" end="68" startBytecode="0" endBytecode="46" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="pendingChanges" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="68" end="68" startBytecode="4" endBytecode="4" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="getRepositories" signature="()[Lcom/microsoft/tfs/client/common/repository/TFSRepository;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="59" end="59" startBytecode="0" endBytecode="46" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="repositories" signature="[Lcom/microsoft/tfs/client/common/repository/TFSRepository;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="59" end="59" startBytecode="4" endBytecode="4" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="getResources" signature="()[Lorg/eclipse/core/resources/IResource;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="50" end="50" startBytecode="0" endBytecode="46" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="resources" signature="[Lorg/eclipse/core/resources/IResource;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="50" end="50" startBytecode="4" endBytecode="4" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="&lt;init&gt;" signature="([Lorg/eclipse/core/resources/IResource;[Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="32" end="42" startBytecode="0" endBytecode="137" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="pendingChanges" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Field>
+    <LocalVariable name="pendingChanges" register="3" pc="34" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="41" end="41" startBytecode="34" endBytecode="34" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="&lt;init&gt;" signature="([Lorg/eclipse/core/resources/IResource;[Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="32" end="42" startBytecode="0" endBytecode="137" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="repositories" signature="[Lcom/microsoft/tfs/client/common/repository/TFSRepository;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Field>
+    <LocalVariable name="repositories" register="2" pc="29" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="39" end="39" startBytecode="29" endBytecode="29" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="&lt;init&gt;" signature="([Lorg/eclipse/core/resources/IResource;[Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="32" end="42" startBytecode="0" endBytecode="137" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" name="resources" signature="[Lorg/eclipse/core/resources/IResource;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+    </Field>
+    <LocalVariable name="resources" register="1" pc="24" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" start="38" end="38" startBytecode="24" endBytecode="24" sourcefile="AdaptedSelectionInfo.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/actions/AdaptedSelectionInfo.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand" sourcefile="RefreshSubscriberCommand.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/commands/sync/RefreshSubscriberCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand" name="&lt;init&gt;" signature="(Lorg/eclipse/team/core/subscribers/Subscriber;[Lorg/eclipse/core/resources/IResource;I)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand" start="29" end="34" startBytecode="0" endBytecode="107" sourcefile="RefreshSubscriberCommand.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/commands/sync/RefreshSubscriberCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand" name="roots" signature="[Lorg/eclipse/core/resources/IResource;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand" sourcefile="RefreshSubscriberCommand.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/commands/sync/RefreshSubscriberCommand.java"/>
+    </Field>
+    <LocalVariable name="roots" register="2" pc="11" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand" start="32" end="32" startBytecode="11" endBytecode="11" sourcefile="RefreshSubscriberCommand.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/commands/sync/RefreshSubscriberCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog" sourcefile="GoOfflineDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/GoOfflineDialog.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog" name="setProjects" signature="([Lorg/eclipse/core/resources/IProject;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog" start="57" end="63" startBytecode="0" endBytecode="94" sourcefile="GoOfflineDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/GoOfflineDialog.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog" name="projects" signature="[Lorg/eclipse/core/resources/IProject;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog" sourcefile="GoOfflineDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/GoOfflineDialog.java"/>
+    </Field>
+    <LocalVariable name="projects" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog" start="57" end="57" startBytecode="2" endBytecode="2" sourcefile="GoOfflineDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/GoOfflineDialog.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog" sourcefile="ReturnOnlineProjectsDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/ReturnOnlineProjectsDialog.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog" name="setProjects" signature="([Lorg/eclipse/core/resources/IProject;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog" start="57" end="63" startBytecode="0" endBytecode="94" sourcefile="ReturnOnlineProjectsDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/ReturnOnlineProjectsDialog.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog" name="projects" signature="[Lorg/eclipse/core/resources/IProject;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog" sourcefile="ReturnOnlineProjectsDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/ReturnOnlineProjectsDialog.java"/>
+    </Field>
+    <LocalVariable name="projects" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog" start="57" end="57" startBytecode="2" endBytecode="2" sourcefile="ReturnOnlineProjectsDialog.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/dialogs/vc/ReturnOnlineProjectsDialog.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" name="getResources" signature="()[Lorg/eclipse/core/resources/IResource;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" start="123" end="126" startBytecode="0" endBytecode="66" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" name="resources" signature="[Lorg/eclipse/core/resources/IResource;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" start="124" end="124" startBytecode="11" endBytecode="11" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" name="setResources" signature="([Lorg/eclipse/core/resources/IResource;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" start="73" end="76" startBytecode="0" endBytecode="73" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" name="resources" signature="[Lorg/eclipse/core/resources/IResource;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+    </Field>
+    <LocalVariable name="resources" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" start="73" end="73" startBytecode="2" endBytecode="2" sourcefile="SynchronizeParticipant.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/sync/SynchronizeParticipant.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable" sourcefile="ImportTaskWorkspaceRunnable.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/ImportTaskWorkspaceRunnable.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable" name="&lt;init&gt;" signature="([Lcom/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/ImportTask;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable" start="40" end="43" startBytecode="0" endBytecode="84" sourcefile="ImportTaskWorkspaceRunnable.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/ImportTaskWorkspaceRunnable.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable" name="importTasks" signature="[Lcom/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/ImportTask;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable" sourcefile="ImportTaskWorkspaceRunnable.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/ImportTaskWorkspaceRunnable.java"/>
+    </Field>
+    <LocalVariable name="importTasks" register="1" pc="17" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable" start="42" end="42" startBytecode="17" endBytecode="17" sourcefile="ImportTaskWorkspaceRunnable.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/ImportTaskWorkspaceRunnable.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard" sourcefile="ImportLocalPathStrategy.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/strategies/ImportLocalPathStrategy.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard" name="getFilePathsToAdd" signature="()[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard" start="135" end="135" startBytecode="0" endBytecode="46" sourcefile="ImportLocalPathStrategy.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/strategies/ImportLocalPathStrategy.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard" name="filepaths" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard" sourcefile="ImportLocalPathStrategy.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/strategies/ImportLocalPathStrategy.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard" start="135" end="135" startBytecode="4" endBytecode="4" sourcefile="ImportLocalPathStrategy.java" sourcepath="com/microsoft/tfs/client/eclipse/ui/wizard/importwizard/support/strategies/ImportLocalPathStrategy.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 13:52:58 +0000" total_classes="164" referenced_classes="812" total_bugs="0" total_size="5291" num_packages="26" vm_version="14.3-b01" cpu_seconds="79.00" clock_seconds="7588.96" peak_mbytes="352.64" alloc_mbytes="254.06" gc_seconds="54.28">
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui" total_bugs="0" total_types="2" total_size="27">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.EclipsePluginResourceChangingCommandListener" sourceFile="EclipsePluginResourceChangingCommandListener.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.TFSEclipseClientUiPlugin" sourceFile="TFSEclipseClientUiPlugin.java" interface="false" size="17" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.actions" total_bugs="0" total_types="2" total_size="106">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.ActionHelpers" sourceFile="ActionHelpers.java" interface="false" size="87" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.AdaptedSelectionInfo" sourceFile="AdaptedSelectionInfo.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.actions.sync" total_bugs="0" total_types="10" total_size="366">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.CheckinAction" sourceFile="CheckinAction.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.CheckoutAction" sourceFile="CheckoutAction.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.ExternalCompareAction" sourceFile="ExternalCompareAction.java" interface="false" size="80" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.GetLatestAction" sourceFile="GetLatestAction.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.GetSpecificAction" sourceFile="GetSpecificAction.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.SynchronizeAction" sourceFile="SynchronizeAction.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.SynchronizeActionGroup" sourceFile="SynchronizeActionGroup.java" interface="false" size="76" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.SynchronizeActionGroup$1" sourceFile="SynchronizeActionGroup.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.UndoPendingChangeAction" sourceFile="UndoPendingChangeAction.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.sync.ViewHistoryAction" sourceFile="ViewHistoryAction.java" interface="false" size="31" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.actions.vc" total_bugs="0" total_types="30" total_size="701">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.AddAction" sourceFile="AddAction.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.AnnotateAction" sourceFile="AnnotateAction.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ApplyLabelAction" sourceFile="ApplyLabelAction.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.BaseReconcileAction" sourceFile="BaseReconcileAction.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.BaseReconcileAction$ResourceOfflineSynchronizerFilter" sourceFile="BaseReconcileAction.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.BaseReconcileAction$ResourceOfflineSynchronizerProvider" sourceFile="BaseReconcileAction.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CheckinAction" sourceFile="CheckinAction.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CheckinShelveUndoAction" sourceFile="CheckinShelveUndoAction.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CheckoutAction" sourceFile="CheckoutAction.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareAction" sourceFile="CompareAction.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithLatestAction" sourceFile="CompareWithLatestAction.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithSpecifiedAction" sourceFile="CompareWithSpecifiedAction.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.CompareWithUnmodifiedAction" sourceFile="CompareWithUnmodifiedAction.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.DisconnectProjectAction" sourceFile="DisconnectProjectAction.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.FindLabelAction" sourceFile="FindLabelAction.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GetAction" sourceFile="GetAction.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GetLatestAction" sourceFile="GetLatestAction.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GetSpecificAction" sourceFile="GetSpecificAction.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.GoOfflineAction" sourceFile="GoOfflineAction.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.LockAction" sourceFile="LockAction.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ManageWorkspacesAction" sourceFile="ManageWorkspacesAction.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ReconcileAction" sourceFile="ReconcileAction.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.RefreshServerItemInformationAction" sourceFile="RefreshServerItemInformationAction.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ReturnOnlineAction" sourceFile="ReturnOnlineAction.java" interface="false" size="54" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ShelveAction" sourceFile="ShelveAction.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.SwitchToBranchAction" sourceFile="SwitchToBranchAction.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.SynchronizeAction" sourceFile="SynchronizeAction.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.UndoPendingChangesAction" sourceFile="UndoPendingChangesAction.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.UnlockAction" sourceFile="UnlockAction.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.vc.ViewHistoryAction" sourceFile="ViewHistoryAction.java" interface="false" size="24" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.actions.workbench" total_bugs="0" total_types="1" total_size="14">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.actions.workbench.SupportMenuAction" sourceFile="SupportMenuAction.java" interface="false" size="14" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.adapters" total_bugs="0" total_types="5" total_size="78">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.adapters.ChangeItemAdapterFactory" sourceFile="ChangeItemAdapterFactory.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.adapters.ChangeItemAdapterFactory$ChangeItemWorkbenchAdapter" sourceFile="ChangeItemAdapterFactory.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.adapters.ChangesetAdapterFactory" sourceFile="ChangesetAdapterFactory.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.adapters.ShelvesetAdapterFactory" sourceFile="ShelvesetAdapterFactory.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.adapters.ShelvesetAdapterFactory$ShelvesetWorkbenchAdapter" sourceFile="ShelvesetAdapterFactory.java" interface="false" size="14" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.commands.sync" total_bugs="0" total_types="1" total_size="23">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.commands.sync.RefreshSubscriberCommand" sourceFile="RefreshSubscriberCommand.java" interface="false" size="23" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.commands.vc" total_bugs="0" total_types="2" total_size="95">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.commands.vc.ImportProjectsCommand" sourceFile="ImportProjectsCommand.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.commands.vc.SwitchToBranchCommand" sourceFile="SwitchToBranchCommand.java" interface="false" size="55" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.controls" total_bugs="0" total_types="1" total_size="40">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.controls.ProjectTable" sourceFile="ProjectTable.java" interface="false" size="40" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.decorators" total_bugs="0" total_types="7" total_size="343">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator" sourceFile="TFSLabelDecorator.java" interface="false" size="213" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator$1" sourceFile="TFSLabelDecorator.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator$LabelDecoratorProjectManagerListener" sourceFile="TFSLabelDecorator.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator$LabelDecoratorPropertyChangeListener" sourceFile="TFSLabelDecorator.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator$LabelDecoratorRepositoryListener" sourceFile="TFSLabelDecorator.java" interface="false" size="84" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator$LabelDecoratorRepositoryManagerListener" sourceFile="TFSLabelDecorator.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.decorators.TFSLabelDecorator$LabelDecoratorResourceDataListener" sourceFile="TFSLabelDecorator.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.dialogs.vc" total_bugs="0" total_types="7" total_size="229">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ChooseItemsToCompareDialog" sourceFile="ChooseItemsToCompareDialog.java" interface="false" size="90" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.FileModificationFailureDialog" sourceFile="FileModificationFailureDialog.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.GoOfflineDialog" sourceFile="GoOfflineDialog.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.ReturnOnlineProjectsDialog" sourceFile="ReturnOnlineProjectsDialog.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.SwitchToBranchDialog" sourceFile="SwitchToBranchDialog.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.SwitchToBranchDialog$1" sourceFile="SwitchToBranchDialog.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.dialogs.vc.SwitchToBranchDialog$2" sourceFile="SwitchToBranchDialog.java" interface="false" size="9" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.filemodification" total_bugs="0" total_types="8" total_size="179">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiOptionsProvider" sourceFile="TFSFileModificationUiOptionsProvider.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiOptionsProvider$1" sourceFile="TFSFileModificationUiOptionsProvider.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiOptionsProvider$CheckoutDialogRunnable" sourceFile="TFSFileModificationUiOptionsProvider.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiProvider" sourceFile="TFSFileModificationUiProvider.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiProvider$1" sourceFile="TFSFileModificationUiProvider.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiStatusReporter" sourceFile="TFSFileModificationUiStatusReporter.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiStatusReporter$1" sourceFile="TFSFileModificationUiStatusReporter.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.filemodification.TFSFileModificationUiStatusReporter$2" sourceFile="TFSFileModificationUiStatusReporter.java" interface="false" size="35" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.license" total_bugs="0" total_types="2" total_size="37">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.license.TFSEclipseClientUiLicenseProvider" sourceFile="TFSEclipseClientUiLicenseProvider.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.license.TFSEclipseClientUiLicenseProvider$1" sourceFile="TFSEclipseClientUiLicenseProvider.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.project" total_bugs="0" total_types="2" total_size="70">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.project.ProjectManagerUiDataProvider" sourceFile="ProjectManagerUiDataProvider.java" interface="false" size="58" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.project.ProjectManagerUiDataProvider$1" sourceFile="ProjectManagerUiDataProvider.java" interface="false" size="12" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.propertypages" total_bugs="0" total_types="11" total_size="457">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.BaseGeneralPropertyPage" sourceFile="BaseGeneralPropertyPage.java" interface="false" size="108" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.BaseGeneralPropertyPage$1" sourceFile="BaseGeneralPropertyPage.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.BaseGeneralPropertyPage$GeneralPropertyRowId" sourceFile="BaseGeneralPropertyPage.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemGeneralPropertyPage" sourceFile="ChangeItemGeneralPropertyPage.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.ChangeItemStatusPropertyPage" sourceFile="ChangeItemStatusPropertyPage.java" interface="false" size="60" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceBranchesPropertyPage" sourceFile="ResourceBranchesPropertyPage.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceBranchesPropertyPage$1" sourceFile="ResourceBranchesPropertyPage.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceGeneralPropertyPage" sourceFile="ResourceGeneralPropertyPage.java" interface="false" size="74" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.ResourceStatusPropertyPage" sourceFile="ResourceStatusPropertyPage.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.StatusItem" sourceFile="StatusItem.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertypages.StatusItemTable" sourceFile="StatusItemTable.java" interface="false" size="25" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.propertysources" total_bugs="0" total_types="6" total_size="164">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertysources.ChangePropertySource" sourceFile="ChangePropertySource.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertysources.ChangesetPropertySource" sourceFile="ChangesetPropertySource.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertysources.PendingChangePropertySource" sourceFile="PendingChangePropertySource.java" interface="false" size="47" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertysources.PropertyHolder" sourceFile="PropertyHolder.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertysources.ReadonlyPropertySource" sourceFile="ReadonlyPropertySource.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.propertysources.ShelvesetPropertySource" sourceFile="ShelvesetPropertySource.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.resourcechange" total_bugs="0" total_types="2" total_size="35">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.resourcechange.TFSResourceChangeUiProvider" sourceFile="TFSResourceChangeUiProvider.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.resourcechange.TFSResourceChangeUiProvider$1" sourceFile="TFSResourceChangeUiProvider.java" interface="false" size="15" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.sync" total_bugs="0" total_types="2" total_size="116">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeLabelDecorator" sourceFile="SynchronizeLabelDecorator.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.sync.SynchronizeParticipant" sourceFile="SynchronizeParticipant.java" interface="false" size="98" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.viewer" total_bugs="0" total_types="1" total_size="51">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.viewer.EclipseFileViewer" sourceFile="EclipseFileViewer.java" interface="false" size="51" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.wizard.connectwizard" total_bugs="0" total_types="3" total_size="112">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.connectwizard.EclipseConnectWizard" sourceFile="EclipseConnectWizard.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.connectwizard.WizardConnectionBusyPage" sourceFile="WizardConnectionBusyPage.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.connectwizard.WizardConnectionOfflinePage" sourceFile="WizardConnectionOfflinePage.java" interface="false" size="37" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard" total_bugs="0" total_types="13" total_size="466">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizard" sourceFile="ImportWizard.java" interface="false" size="81" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardConfirmationPage" sourceFile="ImportWizardConfirmationPage.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardConfirmationPage$ImportWizardConfirmationTable" sourceFile="ImportWizardConfirmationPage.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardNewProjectAction" sourceFile="ImportWizardNewProjectAction.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardNewProjectAction$1" sourceFile="ImportWizardNewProjectAction.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardTreePage" sourceFile="ImportWizardTreePage.java" interface="false" size="226" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardTreePage$1" sourceFile="ImportWizardTreePage.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardTreePage$2" sourceFile="ImportWizardTreePage.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardTreePage$3" sourceFile="ImportWizardTreePage.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardTreePage$4" sourceFile="ImportWizardTreePage.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardTreePage$ImportWizardSelectionListener" sourceFile="ImportWizardTreePage.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardTreePage$ImportWizardTreeLabelProvider" sourceFile="ImportWizardTreePage.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardWorkspacePage" sourceFile="ImportWizardWorkspacePage.java" interface="false" size="16" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support" total_bugs="0" total_types="12" total_size="651">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolder" sourceFile="ImportFolder.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderCollection" sourceFile="ImportFolderCollection.java" interface="false" size="146" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderCollection$1" sourceFile="ImportFolderCollection.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderValidation" sourceFile="ImportFolderValidation.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderValidation$ImportFolderValidationFlag" sourceFile="ImportFolderValidation.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderValidation$ImportFolderValidationStatus" sourceFile="ImportFolderValidation.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderValidator" sourceFile="ImportFolderValidator.java" interface="false" size="152" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportNewProjectAction" sourceFile="ImportNewProjectAction.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportOptions" sourceFile="ImportOptions.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTask" sourceFile="ImportTask.java" interface="false" size="117" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskFactory" sourceFile="ImportTaskFactory.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportTaskWorkspaceRunnable" sourceFile="ImportTaskWorkspaceRunnable.java" interface="false" size="33" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies" total_bugs="0" total_types="20" total_size="272">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportGetStrategy" sourceFile="ImportGetStrategy.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportGetStrategy$ForceFullRecursive" sourceFile="ImportGetStrategy.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportGetStrategy$FullRecursive" sourceFile="ImportGetStrategy.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportGetStrategy$GetStrategyStatus" sourceFile="ImportGetStrategy.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportGetStrategy$Null" sourceFile="ImportGetStrategy.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportGetStrategy$ProjectMetadataFile" sourceFile="ImportGetStrategy.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy" sourceFile="ImportLocalPathStrategy.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$1" sourceFile="ImportLocalPathStrategy.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$ExistingMapping" sourceFile="ImportLocalPathStrategy.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$ExistingProjectMetadataFile" sourceFile="ImportLocalPathStrategy.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$FromServerPath" sourceFile="ImportLocalPathStrategy.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$NewProjectWizard" sourceFile="ImportLocalPathStrategy.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportLocalPathStrategy$ResourceChangeListener" sourceFile="ImportLocalPathStrategy.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportMapStrategy" sourceFile="ImportMapStrategy.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportMapStrategy$Default" sourceFile="ImportMapStrategy.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportMapStrategy$ExistingMapping" sourceFile="ImportMapStrategy.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportOpenProjectStrategy" sourceFile="ImportOpenProjectStrategy.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportOpenProjectStrategy$AlreadyOpen" sourceFile="ImportOpenProjectStrategy.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportOpenProjectStrategy$ExistingProjectMetadataFile" sourceFile="ImportOpenProjectStrategy.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.strategies.ImportOpenProjectStrategy$NewSimpleProject" sourceFile="ImportOpenProjectStrategy.java" interface="false" size="16" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard" total_bugs="0" total_types="11" total_size="565">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizard" sourceFile="ShareWizard.java" interface="false" size="154" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardMultipleProjectConfirmationPage" sourceFile="ShareWizardMultipleProjectConfirmationPage.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardMultipleProjectConfirmationPage$ShareWizardConfigurationTable" sourceFile="ShareWizardMultipleProjectConfirmationPage.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardSingleProjectConfirmationPage" sourceFile="ShareWizardSingleProjectConfirmationPage.java" interface="false" size="69" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardTreePage" sourceFile="ShareWizardTreePage.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardTreePage$1" sourceFile="ShareWizardTreePage.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardTreePage$2" sourceFile="ShareWizardTreePage.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardTreePage$ShareWizardTreeControl" sourceFile="ShareWizardTreePage.java" interface="false" size="97" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardWorkingFolderErrorPage" sourceFile="ShareWizardWorkingFolderErrorPage.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardWorkingFolderErrorPage$ShareWizardWorkingFolderErrorTable" sourceFile="ShareWizardWorkingFolderErrorPage.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard.ShareWizardWorkspacePage" sourceFile="ShareWizardWorkspacePage.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.wizard.sync" total_bugs="0" total_types="1" total_size="28">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.sync.SynchronizeWizard" sourceFile="SynchronizeWizard.java" interface="false" size="28" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.eclipse.ui.wizard.teamprojectwizard" total_bugs="0" total_types="2" total_size="66">
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.teamprojectwizard.EclipseTeamProjectWizard" sourceFile="EclipseTeamProjectWizard.java" interface="false" size="61" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.eclipse.ui.wizard.teamprojectwizard.EclipseTeamProjectWizardProvider" sourceFile="EclipseTeamProjectWizardProvider.java" interface="false" size="5" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteSuppressedWarnings" totalMilliseconds="11" invocations="740" avgMicrosecondsPerInvocation="15" maxMicrosecondsPerInvocation="291" standardDeviationMircosecondsPerInvocation="21"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantPoolGenFactory" totalMilliseconds="11" invocations="163" avgMicrosecondsPerInvocation="71" maxMicrosecondsPerInvocation="647" standardDeviationMircosecondsPerInvocation="75"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DoInsideDoPrivileged" totalMilliseconds="11" invocations="164" avgMicrosecondsPerInvocation="71" maxMicrosecondsPerInvocation="369" standardDeviationMircosecondsPerInvocation="55"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteUnconditionalParamDerefs" totalMilliseconds="12" invocations="164" avgMicrosecondsPerInvocation="73" maxMicrosecondsPerInvocation="572" standardDeviationMircosecondsPerInvocation="66"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodFactory" totalMilliseconds="13" invocations="829" avgMicrosecondsPerInvocation="16" maxMicrosecondsPerInvocation="1013" standardDeviationMircosecondsPerInvocation="45"/>
+      <ClassProfile name="edu.umd.cs.findbugs.NonReportingDetectorToDetector2Adapter" totalMilliseconds="14" invocations="9960" avgMicrosecondsPerInvocation="1" maxMicrosecondsPerInvocation="138" standardDeviationMircosecondsPerInvocation="1"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethodInvocations" totalMilliseconds="16" invocations="163" avgMicrosecondsPerInvocation="102" maxMicrosecondsPerInvocation="684" standardDeviationMircosecondsPerInvocation="94"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSqlInjection" totalMilliseconds="18" invocations="164" avgMicrosecondsPerInvocation="114" maxMicrosecondsPerInvocation="807" standardDeviationMircosecondsPerInvocation="116"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonnullReturnValues" totalMilliseconds="19" invocations="164" avgMicrosecondsPerInvocation="116" maxMicrosecondsPerInvocation="737" standardDeviationMircosecondsPerInvocation="98"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindReturnRef" totalMilliseconds="20" invocations="164" avgMicrosecondsPerInvocation="126" maxMicrosecondsPerInvocation="823" standardDeviationMircosecondsPerInvocation="136"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="22" invocations="164" avgMicrosecondsPerInvocation="139" maxMicrosecondsPerInvocation="821" standardDeviationMircosecondsPerInvocation="120"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.DepthFirstSearchFactory" totalMilliseconds="24" invocations="910" avgMicrosecondsPerInvocation="27" maxMicrosecondsPerInvocation="15288" standardDeviationMircosecondsPerInvocation="506"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.Methods" totalMilliseconds="28" invocations="812" avgMicrosecondsPerInvocation="34" maxMicrosecondsPerInvocation="13743" standardDeviationMircosecondsPerInvocation="483"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="37" invocations="10652" avgMicrosecondsPerInvocation="3" maxMicrosecondsPerInvocation="230" standardDeviationMircosecondsPerInvocation="7"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer" totalMilliseconds="37" invocations="164" avgMicrosecondsPerInvocation="229" maxMicrosecondsPerInvocation="14452" standardDeviationMircosecondsPerInvocation="1123"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="43" invocations="164" avgMicrosecondsPerInvocation="267" maxMicrosecondsPerInvocation="1715" standardDeviationMircosecondsPerInvocation="264"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="47" invocations="164" avgMicrosecondsPerInvocation="291" maxMicrosecondsPerInvocation="12398" standardDeviationMircosecondsPerInvocation="980"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="49" invocations="164" avgMicrosecondsPerInvocation="299" maxMicrosecondsPerInvocation="2239" standardDeviationMircosecondsPerInvocation="341"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="50" invocations="164" avgMicrosecondsPerInvocation="307" maxMicrosecondsPerInvocation="2446" standardDeviationMircosecondsPerInvocation="326"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="99" invocations="709" avgMicrosecondsPerInvocation="140" maxMicrosecondsPerInvocation="12906" standardDeviationMircosecondsPerInvocation="694"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="104" invocations="75" avgMicrosecondsPerInvocation="1388" maxMicrosecondsPerInvocation="32207" standardDeviationMircosecondsPerInvocation="4906"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="109" invocations="812" avgMicrosecondsPerInvocation="134" maxMicrosecondsPerInvocation="13785" standardDeviationMircosecondsPerInvocation="608"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="113" invocations="937" avgMicrosecondsPerInvocation="121" maxMicrosecondsPerInvocation="3471" standardDeviationMircosecondsPerInvocation="197"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="117" invocations="728" avgMicrosecondsPerInvocation="161" maxMicrosecondsPerInvocation="16464" standardDeviationMircosecondsPerInvocation="628"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="139" invocations="812" avgMicrosecondsPerInvocation="171" maxMicrosecondsPerInvocation="15404" standardDeviationMircosecondsPerInvocation="916"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="151" invocations="811" avgMicrosecondsPerInvocation="186" maxMicrosecondsPerInvocation="14588" standardDeviationMircosecondsPerInvocation="757"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="154" invocations="812" avgMicrosecondsPerInvocation="190" maxMicrosecondsPerInvocation="14253" standardDeviationMircosecondsPerInvocation="796"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="165" invocations="709" avgMicrosecondsPerInvocation="233" maxMicrosecondsPerInvocation="13620" standardDeviationMircosecondsPerInvocation="605"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="165" invocations="760" avgMicrosecondsPerInvocation="217" maxMicrosecondsPerInvocation="20487" standardDeviationMircosecondsPerInvocation="885"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="229" invocations="709" avgMicrosecondsPerInvocation="323" maxMicrosecondsPerInvocation="14940" standardDeviationMircosecondsPerInvocation="1173"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="363" invocations="2905" avgMicrosecondsPerInvocation="125" maxMicrosecondsPerInvocation="13874" standardDeviationMircosecondsPerInvocation="408"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="380" invocations="782" avgMicrosecondsPerInvocation="486" maxMicrosecondsPerInvocation="7190" standardDeviationMircosecondsPerInvocation="749"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="594" invocations="709" avgMicrosecondsPerInvocation="838" maxMicrosecondsPerInvocation="28375" standardDeviationMircosecondsPerInvocation="2050"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="594" invocations="709" avgMicrosecondsPerInvocation="838" maxMicrosecondsPerInvocation="18584" standardDeviationMircosecondsPerInvocation="1767"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="617" invocations="812" avgMicrosecondsPerInvocation="759" maxMicrosecondsPerInvocation="32254" standardDeviationMircosecondsPerInvocation="2471"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="640" invocations="949" avgMicrosecondsPerInvocation="675" maxMicrosecondsPerInvocation="25368" standardDeviationMircosecondsPerInvocation="1864"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="697" invocations="709" avgMicrosecondsPerInvocation="983" maxMicrosecondsPerInvocation="19299" standardDeviationMircosecondsPerInvocation="2103"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="735" invocations="9998" avgMicrosecondsPerInvocation="73" maxMicrosecondsPerInvocation="17439" standardDeviationMircosecondsPerInvocation="432"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="1622" invocations="2905" avgMicrosecondsPerInvocation="558" maxMicrosecondsPerInvocation="23307" standardDeviationMircosecondsPerInvocation="1134"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="1699" invocations="2" avgMicrosecondsPerInvocation="849652" maxMicrosecondsPerInvocation="1632246" standardDeviationMircosecondsPerInvocation="782594"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265809988131" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

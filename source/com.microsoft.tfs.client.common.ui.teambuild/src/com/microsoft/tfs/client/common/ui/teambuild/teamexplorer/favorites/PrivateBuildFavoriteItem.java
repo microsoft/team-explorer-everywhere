@@ -1,0 +1,17 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See License.txt in the repository root.
+
+package com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.favorites;
+
+import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
+import com.microsoft.tfs.core.clients.build.IBuildServer;
+import com.microsoft.tfs.core.clients.favorites.FavoriteItem;
+
+public class PrivateBuildFavoriteItem extends BuildFavoriteItem {
+    public PrivateBuildFavoriteItem(
+        final IBuildServer server,
+        final FavoriteItem favoriteItem,
+        final DefinitionReference definition) {
+        super(server, favoriteItem, definition);
+    }
+}

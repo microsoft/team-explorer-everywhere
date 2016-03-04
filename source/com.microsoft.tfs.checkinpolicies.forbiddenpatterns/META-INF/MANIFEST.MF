@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: com.microsoft.tfs.checkinpolicies.forbiddenpatterns; singleton:=true
+Bundle-Version: 14.0.2.qualifier
+Bundle-Vendor: %Bundle-Vendor
+Bundle-Localization: plugin
+Export-Package: com.microsoft.tfs.checkinpolicies.forbiddenpatterns,
+ com.microsoft.tfs.checkinpolicies.forbiddenpatterns.ui
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ com.microsoft.tfs.checkinpolicies,
+ com.microsoft.tfs.client.common.ui
+Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.checkinpolicies.forbiddenpatterns.jar

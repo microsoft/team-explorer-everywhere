@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   
+   <extension
+         point="com.microsoft.tfs.client.common.ui.teamExplorerNavigationItem">
+      <teamExplorerNavigationItem
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleNavigationItem"
+            displayPriority="1001"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleNavigationItem"
+            targetPageID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage"
+            title="Sample Page">
+      </teamExplorerNavigationItem>
+      <teamExplorerNavigationItem
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleNavigationItem"
+            displayPriority="2001"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleNavigationItem2"
+            targetPageID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage2"
+            viewID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleView"
+            title="Sample Dockable Page">
+      </teamExplorerNavigationItem>
+   </extension>
+   
+   <extension
+         point="com.microsoft.tfs.client.common.ui.teamExplorerPage">
+      <teamExplorerPage
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage"
+            displayPriority="1001"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage"
+            title="Sample Page">
+      </teamExplorerPage>
+      
+      <teamExplorerPage
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage"
+            displayPriority="2001"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage2"
+            title="Sample Dockable Page">
+      </teamExplorerPage>
+   </extension>
+   
+   <!-- View Contributions -->
+   <extension
+      	 point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            category="com.microsoft.tfs.client.common.ui.views"
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleView"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleView"
+            name="Sample Dockable Page"
+            title="Sample Dockable Page"
+            restorable="false"/>
+   </extension>
+   
+   <extension
+         point="com.microsoft.tfs.client.common.ui.teamExplorerPageSection">
+      <teamExplorerPageSection
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection1"
+            displayPriority="100"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection1"
+            pageID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage"
+            title="Sample Section 1">
+      </teamExplorerPageSection>
+      <teamExplorerPageSection
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection2"
+            displayPriority="200"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection2"
+            pageID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage"
+            title="Sample Section 2">
+      </teamExplorerPageSection>
+      <teamExplorerPageSection
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection3"
+            displayPriority="300"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection3"
+            pageID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage"
+            title="Sample Section 3">
+      </teamExplorerPageSection>
+      
+      <teamExplorerPageSection
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection1"
+            displayPriority="100"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection2_1"
+            pageID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage2"
+            title="Sample Section 1">
+      </teamExplorerPageSection>
+      <teamExplorerPageSection
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection2"
+            displayPriority="200"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleSection2_2"
+            pageID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSamplePage2"
+            title="Sample Section 2">
+      </teamExplorerPageSection>
+   </extension>
+   
+   <extension
+         point="com.microsoft.tfs.client.common.ui.teamExplorerNavigationLink">
+      <teamExplorerNavigationLink
+            class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleNavigationLink"
+            displayPriority="100"
+            id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleNavigationLink"
+            parentID="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleNavigationItem"
+            title="Sample Link">
+      </teamExplorerNavigationLink>
+   </extension>
+
+</plugin>

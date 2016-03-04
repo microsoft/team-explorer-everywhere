@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.microsoft.tfs.client.common.ui.teambuild" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="com.microsoft.tfs.client.common.ui.teambuild" id="createBuildConfigurationWizards" name="Create Build Configuration Wizards"/>
+      </appInfo>
+      <documentation>
+         A plug-in may register a wizard for inclusion in the list of Create Build Configuration Wizards that a user is presented with when creating a new build configuration.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <choice minOccurs="0" maxOccurs="unbounded">
+            <element ref="wizard"/>
+         </choice>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="wizard">
+      <annotation>
+         <appInfo>
+            <meta.element labelAttribute="name" icon="icon"/>
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="description" minOccurs="0" maxOccurs="1"/>
+         </sequence>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a unique name that can be used to identify this wizard
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a translatable name of the wizard that will be used in the dialog box
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="icon" type="string">
+            <annotation>
+               <documentation>
+                  a relative path of an icon that will be used together with the name to represent the wizard 
+as one of the choices in the creation dialog box.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="resource"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="category" type="string">
+            <annotation>
+               <documentation>
+                  a slash-delimited path (&apos;/&apos;) of category IDs. Each token in the
+path must represent a valid category ID previously defined
+by this or some other plug-in. If omitted, the wizard will be
+added to the &quot;Other&quot; category.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a fully qualified name of the Java class implementing &lt;samp&gt;com.microsoft.tfs.client.common.ui.teambuild.wizards.ICreateBuildConfigurationWizard&lt;/samp&gt;.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.jface.wizard.Wizard:com.microsoft.tfs.client.common.ui.teambuild.wizards.ICreateBuildConfigurationWizard"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="helpHref" type="string">
+            <annotation>
+               <documentation>
+                  a help url that can describe this wizard in detail.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="descriptionImage" type="string">
+            <annotation>
+               <documentation>
+                  a larger image that can help describe this wizard.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="resource"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="canFinishEarly" type="boolean">
+            <annotation>
+               <documentation>
+                  whether the wizard is capable of finishing without ever showing pages to the user.  The default action is to assume that the wizard cannot finish early.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="hasPages" type="boolean">
+            <annotation>
+               <documentation>
+                  whether the wizard provides any pages.  The default is to assume that the wizard does contain pages.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="fromTFSVersion" type="string">
+            <annotation>
+               <documentation>
+                  The version of TFS from which this creation wizard is suitable.  If not provided it is assumed that this is suitable for all versions of TFS including TFS 2005 (V1)
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="toTFSVersion" type="string">
+            <annotation>
+               <documentation>
+                  The version of TFS up to which this creation wizard is suitable.  If not provided it is assumed that this is suitable for all versions of TFS - including ones not yet developed.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="description" type="string">
+      <annotation>
+         <appInfo>
+            <meta.element translatable="true"/>
+         </appInfo>
+         <documentation>
+            an optional subelement whose body contains a short text describing what the wizard will do when started
+         </documentation>
+      </annotation>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         Team Explorer Everywhere 10.1
+      </documentation>
+   </annotation>
+
+
+
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         This extension point is intended for public use.
+      </documentation>
+   </annotation>
+
+</schema>

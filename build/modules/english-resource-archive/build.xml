@@ -1,0 +1,98 @@
+<project name="english-resource-archive" basedir=".">
+
+	<!-- Enable custom localization tasks -->
+	<taskdef resource="com/microsoft/tfs/tools/loc/loctasks.properties">
+	    <classpath>
+	    	<pathelement path="${dir.global.buildtooling}/tasks/com.microsoft.tfs.tools.loc-1.2.jar" />
+	    </classpath>
+	</taskdef>
+
+	<!--
+		Archives the resources found in the specified plug-in/project directory, according to its loc.properties.
+	-->
+	<macrodef name="macro.archive-resources">
+		<attribute name="projectPath" /> <!-- Directory containing loc.properties -->
+		<attribute name="projectName" /> <!-- The name of this plug-in/project (usually the last directory component) -->
+		<sequential>
+			<archiveresources
+				sourcelanguage="en"
+				sourcecountry="US"
+				sourcedir="@{projectPath}"
+				project="@{projectName}"
+				targetdir="${path.temp-directory.english-resource-archive}" />
+		</sequential>
+	</macrodef>
+		
+	<!--
+		Archives resources from a proper plug-in.
+	-->
+	<macrodef name="macro.archive-resources.plugin">
+	    <attribute name="id.plugin" /> <!-- ID of the plugin to translate -->
+		<sequential>
+			<macro.archive-resources projectPath="${dir.global.build.output.plugins}/@{id.plugin}" projectName="@{id.plugin}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="macro.archive-resources.feature">
+	    <attribute name="id.feature" /> <!-- ID of the feature to translate -->
+		<sequential>
+			<macro.archive-resources projectPath="${dir.global.build.output.features}/@{id.feature}" projectName="@{id.feature}" />
+		</sequential>
+	</macrodef>
+
+	<target name="clean.english-resource-archive">
+		<delete dir="${path.temp-directory.english-resource-archive}" includeemptydirs="true" />
+		<delete dir="${path.dist-directory.english-resource-archive}" includeemptydirs="true" />
+	</target>
+	
+	<target name="english-resource-archive-tempdir">
+		
+	  	<echo message="[TFSBuildStep] Extracting English resources" />
+
+	  	<mkdir dir="${path.temp-directory.english-resource-archive}" />
+		
+		<!-- List all directories/plugins which need resources archived for translation. Order doesn't matter.-->
+			
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.checkinpolicies" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.checkinpolicies.build" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.checkinpolicies.checkforcomments" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.checkinpolicies.forbiddenpatterns" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.checkinpolicies.workitempolicy" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.checkinpolicies.workitemquerypolicy" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.clc" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.common" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.common.pid" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.common.ui" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.common.ui.teambuild" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.common.ui.teambuild.egit" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.common.ui.vcexplorer" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.eclipse" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.eclipse.help" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.eclipse.ui" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.client.eclipse.ui.egit" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.console" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.core" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.core.httpclient" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.core.ws" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.core.ws.runtime" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.jni" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.logging" />
+		<macro.archive-resources.plugin id.plugin="com.microsoft.tfs.util" />
+		<macro.archive-resources.feature id.feature="com.microsoft.tfs.client.clc.feature" />
+		<macro.archive-resources.feature id.feature="com.microsoft.tfs.client.eclipse.feature" />
+		
+	</target>
+	
+	<target name="english-resource-archive" depends="english-resource-archive-tempdir">
+
+		<echo message="[TFSBuildStep] Creating English resource archive" />
+		
+		<mkdir dir="${path.dist-directory.english-resource-archive}" />
+		<zip destfile="${path.dist-directory.english-resource-archive}/${name.filename-prefix.english-resource-archive}">
+			<fileset dir="${path.temp-directory.english-resource-archive}" />
+		</zip>
+		
+	</target>
+
+</project>
+	

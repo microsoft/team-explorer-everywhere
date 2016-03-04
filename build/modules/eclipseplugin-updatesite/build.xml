@@ -1,0 +1,25 @@
+<project name="eclipseplugin-updatesite" basedir=".">
+
+	<target name="clean.eclipseplugin-updatesite">
+	</target>
+
+	<target name="eclipseplugin-updatesite" depends="eclipseplugin">
+		<echo message="[TFSBuildStep] Mirroring Eclipse Plug-in to update site repository" />
+
+		<!-- name.p2.repo appears in Eclipse's Available Software Sites dialog. -->
+		<macro.mirror-updatesite name.p2.repo="Team Explorer Everywhere"
+		                         name.dist-directory="eclipseplugin-update"
+		                         name.dist-archive-prefix="TFSEclipsePlugin-UpdateSiteArchive-${string.version.1-2-3}">
+			<p2-mirror-elements>
+				<!-- 
+					Since we used a category.xml when building the feature, we can simply
+					refer to the category IU to pull in all the right things.
+				-->
+				<iu id="com.microsoft.tfs.client.eclipse.category" />
+
+				<slicingOptions followStrict="true" />
+			</p2-mirror-elements>
+		</macro.mirror-updatesite>
+	</target>
+
+</project>

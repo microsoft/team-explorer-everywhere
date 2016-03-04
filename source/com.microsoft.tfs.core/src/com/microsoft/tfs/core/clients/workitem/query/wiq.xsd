@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+elementFormDefault="qualified">
+
+<!-- if DisplayFields are included, there must be at least one -->
+
+<xs:element name="WorkItemQuery">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="Wiql" type="xs:string" minOccurs="1" maxOccurs="1" />
+        <xs:element name="TeamFoundationServer" type="ServerNameType" minOccurs="0" maxOccurs="1" />
+        <xs:element name="TeamProject" type="ProjectNameType" minOccurs="0" maxOccurs="1" />
+        <xs:element name="TeamName" type="TeamNameType" minOccurs="0" maxOccurs="1" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:integer" use="required" />
+  </xs:complexType>
+</xs:element>
+
+<xs:simpleType name="ServerNameType">
+	<xs:restriction  base="xs:string">
+		<xs:maxLength value="255"/>
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="ProjectNameType">
+	<xs:restriction  base="xs:string">
+		<xs:maxLength value="255"/>
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="TeamNameType">
+	<xs:restriction  base="xs:string">
+		<xs:maxLength value="255"/>
+	</xs:restriction>
+</xs:simpleType>
+
+</xs:schema>

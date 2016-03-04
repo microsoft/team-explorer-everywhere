@@ -1,0 +1,352 @@
+#LyX 1.6.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+\usepackage{hyperref}
+\tolerance=10000
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize letterpaper
+\use_geometry false
+\use_amsmath 1
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 2
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author ""
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Team Explorer Everywhere Core Event Policy
+\end_layout
+
+\begin_layout Author
+Shaw Terwilliger
+\end_layout
+
+\begin_layout Abstract
+Describes the design, implementation, and intended patterns of use of events
+ in com.microsoft.tfs.core (core).
+ This document was written at Teamprise, not Microsoft.
+ It is probably a little out of date with respect to proper names, but the
+ philosophy is still sound.
+\end_layout
+
+\begin_layout Section
+Overview
+\end_layout
+
+\begin_layout Standard
+Users of core (plug-in, CLC, SDK applications, etc.) want to be notified
+ of some things that happen as side effects of high-level operations they
+ intiated.
+ Core uses an eventing design to deliver these notifications to interested
+ parties, which are generally end-user applications, but may be other core
+ components.
+\end_layout
+
+\begin_layout Standard
+Eventing implementations vary considerably in different software systems.
+ This document describes how to safely (from a thread-safety and completeness
+ point of view) use the events offered by core, and also how to write core
+ code that fires these events.
+\end_layout
+
+\begin_layout Section
+EventEngine
+\end_layout
+
+\begin_layout Standard
+The EventEngine class is the heart of event registration and dispatch.
+ Each
+\emph on
+SourceCodeControlClient
+\emph default
+ instance has a publically accessible
+\emph on
+EventEngine
+\emph default
+ instance through which events fired by its methods (or by objects created
+ that depend on it) are routed.
+
+\emph on
+WorkItemClient
+\emph default
+ does not currently use an
+\emph on
+EventEngine
+\emph default
+ (it fires no events), but may in the future.
+\end_layout
+
+\begin_layout Standard
+To register for events from a
+\emph on
+SourceCodeControlClient
+\emph default
+, get a reference to its
+\emph on
+EventEngine
+\emph default
+ (
+\emph on
+getEventEngine()
+\emph default
+) and call one of the
+\begin_inset Quotes eld
+\end_inset
+
+add listener
+\begin_inset Quotes erd
+\end_inset
+
+ methods.
+ If you wish to stop receiving events, call the corresponding
+\begin_inset Quotes eld
+\end_inset
+
+remove listener
+\begin_inset Quotes erd
+\end_inset
+
+ method.
+\end_layout
+
+\begin_layout Subsection
+Events are Synchronous
+\end_layout
+
+\begin_layout Standard
+Core fires events by calling one of the
+\begin_inset Quotes eld
+\end_inset
+
+fire
+\begin_inset Quotes erd
+\end_inset
+
+ methods in
+\emph on
+EventEngine
+\emph default
+, which iterates over the registered listeners and invokes a method on each
+ synchronously.
+ The
+\begin_inset Quotes eld
+\end_inset
+
+fire
+\begin_inset Quotes erd
+\end_inset
+
+ method only returns control to core once each handler has returned.
+\end_layout
+
+\begin_layout Subsection
+Avoid Thread Deadlock
+\end_layout
+
+\begin_layout Standard
+Events are synchronous.
+ If your event handler does a thing that requires some other thread to make
+ progress before it can complete, and that other thread is waiting for some
+ event fired only after your handler completes, you will have thread deadlock.
+
+\emph on
+EventEngine
+\emph default
+ is hard to deadlock on itself.
+ All
+\emph on
+EventEngine
+\emph default
+ events are dispatched without holding any locks on the engine or its data,
+ but other locks on core objects (AWorkspace, etc.) when events are fired
+ may prevent event handlers from calling back into certain regions of core.
+\end_layout
+
+\begin_layout Subsection
+Events can be Fired from any Thread
+\end_layout
+
+\begin_layout Standard
+All event handlers are run on the thread which fired the event, and this
+ thread may
+\emph on
+not
+\emph default
+ be the user's thread that initiated the core work.
+ For instance,
+\emph on
+AWorkspace
+\emph default
+.
+\emph on
+getItems()
+\emph default
+ may start multiple threads to accelerate the file transfer process.
+ If one of these worker threads encounters a warning, it fires an event
+ through GetEngine, and event listeners will have their handlers invoked
+ in the context of the worker thread.
+\end_layout
+
+\begin_layout Standard
+It is the responsibility of the event listener to do the correct marshalling
+ of event data info the context where it should process the event.
+ To aid the listener in identifying exactly what thread/command/action/method
+ caused the event, every core event includes an
+\emph on
+EventSource
+\emph default
+ instance in its data.
+ See section
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Event-Sources"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Event Sources
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Event-Sources"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The
+\emph on
+EventSource
+\emph default
+ class contains information about the context (where and when) the event
+ was fired.
+ Currently only the thread that reached the
+\emph on
+origination point
+\emph default
+ is included in the source data, but other information may be added later.
+ Listeners can filter events they receive to take interest only in the ones
+ that were caused by one of their worker threads.
+\end_layout
+
+\begin_layout Subsection
+Event Origination Points
+\end_layout
+
+\begin_layout Standard
+A
+\emph on
+core event origination
+\emph default
+
+\emph on
+point
+\emph default
+ is a specially-documented method in core code where once execution flow
+ enters, all events fired before execution returns from that method will
+ have an
+\emph on
+EventSource
+\emph default
+ that describes the execution context where and when the method was invoked.
+ All methods that exhibit this behavior have Javadoc text describing them
+ as
+\begin_inset Quotes eld
+\end_inset
+
+core event origination points.
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+All core code that fires events via
+\emph on
+EventEngine
+\emph default
+ must document their event origination points.
+ Only public methods are required to carry this information.
+\end_layout
+
+\begin_layout Subsection
+Multiple Origination Points
+\end_layout
+
+\begin_layout Standard
+If an execution path through core code enters more than one origination
+ point, it is the context of the
+\emph on
+first
+\emph default
+ execution point reached that is sent with the events.
+
+\end_layout
+
+\begin_layout Standard
+This behavior comes
+\begin_inset Quotes eld
+\end_inset
+
+for free
+\begin_inset Quotes erd
+\end_inset
+
+ in most core code.
+ Most public methods on core classes simply call some private methods, create
+ some local objects, and do all their event firing in the same thread that
+ invoked them.
+ However, in the case where a core method creates new threads that might
+ fire events, or for another reason fires events in an execution context
+ that is no longer matches the first origination point, the first event
+ source information must be used for all events.
+ See
+\emph on
+GetEngineDownloadWorker
+\emph default
+ for an example of how a new thread is passed the original context information.
+\end_layout
+
+\end_body
+\end_document

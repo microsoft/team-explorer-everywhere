@@ -1,0 +1,154 @@
+<!--
+	TEE Build - Second Stage (Initialization Execution)
+	
+	Output directory is cleaned, version properties files are generated for use
+	at run-time.  Pre-compile targets like code generation for license 
+	enforcement would go here.
+-->
+<project name="build-2-init" basedir="." default="build_2_init">
+
+	<!-- 
+		Generates a properties file with the major, minor, service, and build numbers defined
+		that can be compiled into the product.  These version files are not read by the 
+		build system, they exist so products can package them and read them at run-time.
+		-->
+	<macrodef name="macro.version.generate-properties-file">
+		<attribute name="file" />
+
+		<sequential>
+			<!-- Remove any dev comments/properties that might already exist in this file. -->
+			<delete file="@{file}" />
+			<propertyfile file="@{file}" comment="Automatically generated at build time">
+				<entry key="number.version.major" value="${number.version.major}" />
+				<entry key="number.version.minor" value="${number.version.minor}" />
+				<entry key="number.version.service" value="${number.version.service}" />
+				<entry key="number.version.build" value="${number.version.build}" />
+			</propertyfile>
+		</sequential>
+	</macrodef>
+
+	<target name="clean_output_directory">
+		<echo message="[TFSBuildStep] Cleaning build output directory [${dir.global.build.output}" />
+		<delete dir="${dir.global.build.output}" />
+	</target>
+
+	<target name="copy_source_files">
+		<echo message="[TFSBuildStep] Cleaning build output directory [${dir.global.build.output}" />
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.checkinpolicies" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.build">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.checkinpolicies.build" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.checkforcomments">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.checkinpolicies.checkforcomments" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.forbiddenpatterns">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.checkinpolicies.forbiddenpatterns" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.workitempolicy">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.checkinpolicies.workitempolicy" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.workitemquerypolicy">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.checkinpolicies.workitemquerypolicy" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.clc" />
+		</copy>
+		<copy todir="${dir.global.build.output.features}/com.microsoft.tfs.client.clc.feature">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.clc.feature" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.common" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common.pid">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.common.pid" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common.ui">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.common.ui" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common.ui.teambuild">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.common.ui.teambuild" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common.ui.teambuild.egit">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.common.ui.teambuild.egit" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common.ui.vcexplorer">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.common.ui.vcexplorer" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.eclipse">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.eclipse" />
+		</copy>
+		<copy todir="${dir.global.build.output.features}/com.microsoft.tfs.client.eclipse.feature">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.eclipse.feature" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.eclipse.help">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.eclipse.help" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.eclipse.ui">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.eclipse.ui" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.eclipse.ui.egit">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.client.eclipse.ui.egit" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.console">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.console" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.core">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.httpclient" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.ws" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws.runtime">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.ws.runtime" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.jni" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.logging" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.sdk" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk.samples.checkinpolicy">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.sdk.samples.checkinpolicy" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk.samples.console">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.sdk.samples.console" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk.samples.snippets">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.sdk.samples.snippets" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk.samples.teamexplorer">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.sdk.samples.teamexplorer" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk.samples.witcontrols">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.sdk.samples.witcontrols" />
+		</copy>
+		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.util">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.util" />
+		</copy>
+	</target>
+
+	<target name="generate_version_files">
+		<echo message="[TFSBuildStep] Generating run-time version ID file" />
+		<!-- Some plug-ins need to discover the build version at run-time. -->
+		<macro.version.generate-properties-file file="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src/com.microsoft.tfs.core-version.properties" />
+	</target>
+
+	<target name="remove_telemetry_files" if="${release.build}">
+		<echo message="[TFSBuildStep] Remove dev telemetry instrumentation property file for release build" />
+		<!-- Remove any dev properties that might already exist in this file to force default settings. -->
+		<delete file="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src/com.microsoft.tfs.core-telemetry.properties" />
+	</target>
+
+	<target name="build_2_init" depends="clean_output_directory,copy_source_files,generate_version_files,remove_telemetry_files">
+		<echo message="[TFSBuildStep] Initialization stage complete" />
+	</target>
+
+</project>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contexts>
+	<!-- Context sensitive help ids
+
+	<context id="DISCONNECT_ACTION">
+		<description>For information on disconnecting your local copy of the project from the Team Foundation Server see:</description>
+		<topic label="Disconnecting Project from Team Foundation Server (TFS)" href="plugindoc/ts_disconnect.html"/>
+	</context>
+
+	<context id="SHARE_PROJECT_WIZARD">
+		<description>For information on sharing your project with Microsoft Team Foundation Server using Team Explorer Everywhere see:</description>
+        <topic label="Sharing a Project" href="plugindoc/gs_share.html"/>
+		<topic label="Adding a Project to Source Control" href="plugindoc/gs_share.html#add"/>
+	    <topic label="Getting Started" href="plugindoc/gs_getstart.html"/>
+		<topic label="Importing a Team Project" href="plugindoc/gs_import.html"/>
+        <topic label="Checking in Files" href="plugindoc/ba_checkin.html"/>
+	</context>
+
+	<context id="IMPORT_PROJECT_WIZARD">
+		<description>For information on importing your project into Eclipse from your Microsoft Team Foundation Server using Team Explorer Everywhere see:</description>
+		<topic label="Importing a Team Project" href="plugindoc/gs_import.html"/>
+	    <topic label="Getting Started" href="plugindoc/gs_getstart.html"/>
+	    <topic label="Managing Workspaces" href="plugindoc/gs_workspace_manage.html"/>
+	    <topic label="Concepts and Terminology" href="plugindoc/cpts_term.html"/>
+        <topic label="Sharing a Project" href="plugindoc/gs_share.html"/>
+	</context>
+
+	<context id="LOGIN">
+		<description>For information on logging into Microsoft Team Foundation Server using Team Explorer Everywhere see:</description>
+        <topic label="Sharing a Project" href="plugindoc/gs_share.html"/>
+		<topic label="Importing a Team Project" href="plugindoc/gs_import.html"/>
+		<topic label="Troubleshooting: Connecting to TFS" href="plugindoc/ts_connect.html"/>
+	</context>
+
+	<context id="CHOOSE_WORKSPACE">
+		<description>For information on managing your TFS Workspaces using Team Explorer Everywhere see:</description>
+	    <topic label="Managing Workspaces" href="plugindoc/gs_workspace_manage.html"/>
+		<topic label="Adding a TFS Workspace" href="plugindoc/gs_workspace_create.html"/>
+	    <topic label="Naming your TFS Workspace" href="plugindoc/map.html"/>
+		<topic label="Viewing your TFS working folder mappings " href="plugindoc/gs_workspace_view.html"/>
+	</context>
+
+	<context id="CONNECTION_DIAGNOSTICS">
+		<description>For help troubleshooting your connection to Microsoft Team Foundation Server (TFS) see:</description>
+		<topic label="Troubleshooting: Connecting to TFS" href="plugindoc/ts_connect.html"/>
+		<topic label="Contacting Support" href="plugindoc/ts_contacts.html"/>
+	</context>
+
+	<context id="WORKITEM_VIEW">
+		<description>For information about viewing work items see:</description>
+		<topic label="Managing Work Items in Pending Changes view" href="plugindoc/index_workitems.html"/>
+		<topic label="Managing Work Items in Team Explorer view" href="plugindoc/tfsx_workitems.html"/>
+	</context>
+
+	<context id="WORKITEM_SELECT_QUERY">
+		<description>For information about choosing a work item query see:</description>
+		<topic label="Querying the TFS work item repository" href="plugindoc/adv_workitems_query.html"/>
+		<topic label="Work Item context menus" href="plugindoc/tfsx_wi_context_menus.html"/>
+	</context>
+
+	<context id="PENDING_CHANGES">
+		<description>For information about pending changes see:</description>
+		<topic label="View Pending Changes" href="plugindoc/ba_vupend.html"/>
+		<topic label="Associating Work Items with Check-ins" href="plugindoc/adv_workitems_associate.html"/>
+		<topic label="Checking in Files" href="plugindoc/ba_checkin.html"/>
+		<topic label="Checking out Files" href="plugindoc/ba_checkout.html"/>
+	</context>
+
+	<context id="CREATE_BRANCH">
+		<description>For information about Creating and Merging Branches:</description>
+		<topic label="Creating Branches" href="plugindoc/tfsx_branch.html"/>
+		<topic label="Merging Branches" href="plugindoc/tfsx_merge.html"/>
+	</context>
+
+	<context id="VERSION_SELECTION">
+		<description>For information about selecting a version type:</description>
+		<topic label="Selecting a Version Type" href="plugindoc/ver_dialogs.html"/>
+	</context>
+
+-->
+
+</contexts>

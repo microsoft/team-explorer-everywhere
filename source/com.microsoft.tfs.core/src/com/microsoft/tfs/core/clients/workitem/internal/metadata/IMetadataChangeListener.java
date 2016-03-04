@@ -1,0 +1,10 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See License.txt in the repository root.
+
+package com.microsoft.tfs.core.clients.workitem.internal.metadata;
+
+import java.util.Set;
+
+public interface IMetadataChangeListener {
+    public void metadataChanged(Set<String> tableNames);
+}

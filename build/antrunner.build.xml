@@ -1,0 +1,22 @@
+<!--
+	A script for Eclipse's Ant Runner to run, which runs all our modules with
+	PDE and P2 tasks in scope.
+	
+	See build-4-antrunner.xml for how this file gets launched.
+-->
+<project name="antrunner-build" basedir="." default="build">
+
+	<property file="antrunner.build.properties" />
+	
+	<!-- Import build tooling macros. -->
+	<import file="${basedir}/macros/pdemacros.xml" />
+
+	<!-- Import generated files to get module targets and properties, and the main "tasks" target. -->
+	<import file="${file.import.buildfiles}" />
+	<import file="${file.import.buildproperties}" />
+	<import file="${file.import.moduledefaultproperties}" />
+	<import file="${file.import.buildtarget}" />
+
+	<target name="build" depends="tasks" />
+
+</project>

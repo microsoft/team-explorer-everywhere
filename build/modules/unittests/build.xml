@@ -1,0 +1,96 @@
+<project name="unittests" basedir=".">
+
+	<target name="clean.unittests">
+		<delete dir="${dir.unittests.output-folder}" />
+	</target>
+
+	<target name="unittests" depends="eclipseplugin,clc">
+		
+		<echo message="[TFSBuildStep] Copying JUnit dependencies for unit tests" />
+		<copy todir="${dir.global.build.output.plugins}">
+			<fileset dir="${dir.global.buildtooling}/testautomation/junit" />
+		</copy>
+
+		<!-- Create output folders for compiled unit tests and reports -->
+		<mkdir dir="${dir.unittests.output-folder}" />
+		<mkdir dir="${dir.unittests.result-folder}" />
+
+		<echo message="[TFSBuildStep] Building Unit Tests" />
+
+		<!-- Compile the plugin unit tests (skip SDK tests because they must be built with the SDK files) -->
+		<javac srcdir="${dir.global.build.output.plugins}"
+		       destdir="${dir.unittests.output-folder}"
+		       includes="*/tests/**"
+		       debug="true"
+		       deprecation="false"
+		       optimize="false"
+		       encoding="UTF-8">
+			<classpath>
+				<fileset dir="${dir.global.build.output.plugins}">
+					<include name="**/*.jar" />
+				</fileset>
+				<fileset dir="${dir.global.buildtooling}/testautomation/junit">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+
+		<!-- Compile the CLC unit tests -->
+		<javac srcdir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc"
+		       destdir="${dir.unittests.output-folder}"
+		       includes="tests/**"
+		       debug="true"
+		       deprecation="false"
+		       optimize="false"
+		       encoding="UTF-8">
+			<classpath>
+				<fileset dir="${dir.global.build.output.plugins}">
+					<include name="**/*.jar" />
+				</fileset>
+				<pathelement path="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc/bin" />
+				<fileset dir="${dir.global.buildtooling}/testautomation/junit">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+
+		<echo message="[TFSBuildStep] Running the Unit Tests" />
+		<junit printsummary="yes" haltonfailure="false" haltonerror="false" failureproperty="unittests.failure">
+
+			<sysproperty key="com.microsoft.tfs.util.MessagesTestCase.SourcesRoot" value="${dir.global.build.output}" />
+			<sysproperty key="com.microsoft.tfs.jni.native.base-directory"
+			             value="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/os" />
+
+			<classpath>
+				<fileset dir="${dir.global.build.output.plugins}">
+					<include name="**/*.jar" />
+				</fileset>
+				<pathelement path="${dir.unittests.output-folder}" />
+				<pathelement path="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc/bin" />
+				<fileset dir="${dir.global.buildtooling}/testautomation/junit">
+					<include name="**/*.jar" />
+				</fileset>
+				<!-- Put all the src/test directories on the classpath so test resources 
+					can be found -->
+				<dirset dir="${dir.global.build.output.plugins}">
+					<include name="*/*" />
+				</dirset>
+			</classpath>
+
+			<batchtest todir="${dir.unittests.result-folder}">
+				<formatter type="xml" />
+				<fileset dir="${dir.unittests.output-folder}">
+					<include name="**/*Test*.class" />
+					<exclude name="**/*$*.class" />
+					<exclude name="**/MessagesTestCase.class" />
+					<exclude name="com/microsoft/tfs/jni/internal/**" />
+					<exclude name="com/microsoft/tfs/jni/AllNativeTests.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+
+		<!-- For now, don't explictly fail the build. Let TFS fail the build after collecting test results and seeing failures. -->
+		<!-- <fail if="unittests.failure" message="One or more unit tests failed." /> -->
+	</target>
+
+</project>

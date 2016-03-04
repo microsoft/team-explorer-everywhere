@@ -1,0 +1,1265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <!-- Extension Points -->
+   <extension-point id="teamExplorer" name="%extension-point.teamExplorer.name" schema="schema/teamExplorer.exsd" />
+   <extension-point id="diagnosticProviders" name="%extension-point.diagnosticProviders.name" schema="schema/diagnosticProviders.exsd"/>
+   <extension-point id="diagnosticDataCategories" name="%extension-point.diagnosticDataCategories.name" schema="schema/diagnosticDataCategories.exsd"/>
+   <extension-point id="diagnosticDataProviders" name="%extension-point.diagnosticDataProviders.name" schema="schema/diagnosticDataProviders.exsd"/>
+   <extension-point id="diagnosticDataProviderActions" name="%extension-point.diagnosticDataProviderActions.name" schema="schema/diagnosticDataProviderActions.exsd"/>
+   <extension-point id="diagnosticExportHandlers" name="%extension-point.diagnosticExportHandlers.name" schema="schema/diagnosticExportHandlers.exsd"/>
+   <extension-point id="workItemControls" name="%extension-point.workItemControls.name" schema="schema/workItemControls.exsd"/>
+   <extension-point id="queueGatedCheckinBuild" name="%extension-point.queueGatedCheckinBuild.name" schema="schema/queueGatedCheckinBuild.exsd"/>
+   <extension-point id="productPluginProvider" name="%extension-point.productPluginProvider.name" schema="schema/productPluginProvider.exsd"/>
+   <extension-point id="workItemEditors" name="%extension-point.workItemEditors.name" schema="schema/workItemEditors.exsd"/>
+   <extension-point id="serverItemBrowser" name="%extension-point.serverItemBrowser.name" schema="schema/serverItemBrowser.exsd"/>
+   <extension-point id="teamExplorerPage" name="%extension-point.teamExplorerPage.name" schema="schema/teamExplorerPage.exsd"/>
+   <extension-point id="teamExplorerPageSection" name="%extension-point.teamExplorerPageSection.name" schema="schema/teamExplorerPageSection.exsd"/>
+   <extension-point id="teamExplorerNavigationItem" name="%extension-point.teamExplorerNavigationItem.name" schema="schema/teamExplorerNavigationItem.exsd"/>
+   <extension-point id="teamExplorerNavigationLink" name="%extension-point.teamExplorerNavigationLink.name" schema="schema/teamExplorerNavigationLink.exsd"/>
+
+
+   <!-- View Contributions -->
+   <extension
+      	 point="org.eclipse.ui.views">
+      <category
+            	name="%view.category.tfs.name"
+            	id="com.microsoft.tfs.client.common.ui.views">
+      </category>
+      <category
+            	name="Team Foundation Server (Deprecated)"
+            	id="com.microsoft.tfs.client.common.ui.views.deprecated">
+      </category>
+      <view
+            allowMultiple="false"
+            category="com.microsoft.tfs.client.common.ui.views"
+            class="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+            icon="images/common/team_explorer.gif"
+            id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+            name="%view.teamExplorer.name"/>
+      <view
+            allowMultiple="false"
+            category="com.microsoft.tfs.client.common.ui.views"
+            class="com.microsoft.tfs.client.common.ui.views.TeamExplorerPendingChangesView"
+            icon="images/teamexplorer/PendingChange16x16.png"
+            id="com.microsoft.tfs.client.common.ui.views.PendingChangesView"
+            name="%view.pendingChanges.name"
+            restorable="true"/>
+   </extension>
+
+   <extension 
+            point="org.eclipse.ui.activities">
+            
+            <activity
+                name="TFS Deprecated"
+                description="Supress old views that are no longer used for TFS."
+                id="com.microsoft.tfs.hidden">
+            </activity>
+            <activity
+ 			 	name="Git Hidden View Activity"
+ 			 	description="Views hidden in case of Git Team projects"
+  		     	id="com.microsoft.tfs.git.hidden">
+			</activity>
+            <activityPatternBinding
+                            activityId="com.microsoft.tfs.hidden"
+                            pattern="com.microsoft.tfs.client.common.ui/com.microsoft.tfs.client.common.ui.views.deprecated"
+                            isEqualityPattern="true">
+            </activityPatternBinding>
+            <activityPatternBinding
+                            activityId="com.microsoft.tfs.git.hidden"
+                            pattern="com.microsoft.tfs.client.common.ui/com.microsoft.tfs.client.common.ui.views.PendingChangesView"
+                            isEqualityPattern="true">
+            </activityPatternBinding>
+    </extension>
+
+   <!-- Editors -->
+   <extension
+	       point="org.eclipse.ui.editors">
+	    <editor
+           class="com.microsoft.tfs.client.common.ui.editors.HistoryEditor"
+           contributorClass="com.microsoft.tfs.client.common.ui.editors.HistoryEditorActionContributor"
+           default="false"
+           icon="images/vc/history.gif"
+           id="com.microsoft.tfs.client.common.ui.editors.HistoryEditor"
+           name="%editor.history.name">
+        </editor>
+	    <editor
+           class="com.microsoft.tfs.client.common.ui.editors.ConflictResolutionEditor"
+           default="false"
+           icon="images/vc/conflict.gif"
+           id="com.microsoft.tfs.client.common.ui.editors.ConflictResolutionEditor"
+           name="%editor.conflictresolution.name">
+        </editor>
+   </extension>
+
+   <!-- Team Explorer Context Menu -->
+   <extension
+         point="org.eclipse.ui.popupMenus">
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryFolder"
+       objectClass="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryFolder">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.NewQueryFolderAction"
+          enablesFor="1"
+          icon="images/wit/folder_new.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.NewQueryFolderAction"
+          label="%action.teamExplorerWitQueryFolderNode.newQueryFolder.label"
+          menubarPath="group3">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition"
+       objectClass="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.SaveWIQLAction"
+          enablesFor="1"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.SaveWIQLAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.saveWiql.label"
+          menubarPath="group6">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.EditQueryInWebAccessAction"
+          enablesFor="1"
+          icon="images/wit/query_edit_tswa.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.EditQueryInWebAccessAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.editQueryInWebAccess.label"
+          menubarPath="group7">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RunQueryInWebAccessAction"
+          enablesFor="1"
+          icon="images/wit/query_open_tswa.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RunQueryInWebAccessAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.runQueryInWebAccess.label"
+          menubarPath="group7">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.EditQueryAction"
+          enablesFor="1"
+          icon="images/wit/query_edit.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.EditQueryAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.editQuery.label"
+          menubarPath="group1">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RunQueryAction"
+          enablesFor="1"
+          icon="images/common/query_open.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RunQueryAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.runQuery.label"
+          menubarPath="group1">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition.teamfavorites"
+       objectClass="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.AddQueryToTeamFavoritesAction"
+          enablesFor="+"
+          icon="images/teamexplorer/Favorites.png"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.AddQueryToTeamFavoritesAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.addToTeamFavorites.label"
+          menubarPath="group9">
+    </action>
+    <visibility>
+       <objectState
+             name="SupportsTeamFavorites"
+             value="true">
+       </objectState>
+    </visibility>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition.myfavorites"
+       objectClass="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.AddQueryToMyFavoritesAction"
+          enablesFor="+"
+          icon="images/teamexplorer/Favorites.png"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.AddQueryToMyFavoritesAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.addToMyFavorites.label"
+          menubarPath="group9">
+    </action>
+    <visibility>
+       <objectState
+             name="SupportsMyFavorites"
+             value="true">
+       </objectState>
+    </visibility>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryItem"
+       objectClass="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryItem">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.SearchWorkItemsAction"
+          enablesFor="*"
+          icon="images/wit/search.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.SearchWorkItemsAction"
+          label="%action.teamExplorerWitNode.searchWorkItems.label"
+          menubarPath="group4">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.GotoWorkItemAction"
+          enablesFor="*"
+          icon="images/wit/goto.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.GotoWorkItemAction"
+          label="%action.teamExplorerWitNode.goToWorkItem.label"
+          menubarPath="group2">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.NewQueryAction"
+          enablesFor="*"
+          icon="images/wit/query_new.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.NewQueryAction"
+          label="%action.teamExplorerWitNode.newQuery.label"
+          menubarPath="group3">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RenameQueryItemAction"
+          enablesFor="1"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RenameQueryItemAction"
+          label="%action.teamExplorerWitEditableQueryItemNode.renameQueryItem.label"
+          menubarPath="group8">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.DeleteQueryItemAction"
+          enablesFor="+"
+          icon="images/common/delete.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.DeleteQueryItemAction"
+          label="%action.teamExplorerWitEditableQueryItemNode.deleteQueryItem.label"
+          menubarPath="group8">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.MoveQueryItemAction"
+          enablesFor="+"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.MoveQueryItemAction"
+          label="%action.teamExplorerWitEditableQueryItemNode.moveQueryItem.label"
+          menubarPath="group8">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.reporting.ReportNode"
+       objectClass="com.microsoft.tfs.core.clients.reporting.ReportNode">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.report.OpenReportAction"
+          enablesFor="1"
+          icon="images/common/query_open.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.report.OpenReportAction"
+          label="%action.teamExplorerReportNode.openReport.label"
+          menubarPath="group4">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.sharepoint.WSSNode"
+       objectClass="com.microsoft.tfs.core.clients.sharepoint.WSSNode">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wss.OpenWSSAction"
+          enablesFor="1"
+          icon="images/common/query_open.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wss.OpenWSSAction"
+          label="%action.teamExplorerDocumentHierarchyNode.openWssItem.label"
+          menubarPath="group4">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.sharepoint.WSSDocumentLibrary"
+       objectClass="com.microsoft.tfs.core.clients.sharepoint.WSSDocumentLibrary">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wss.OpenWSSDocumentLibraryAction"
+          enablesFor="1"
+          icon="images/common/query_open.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wss.OpenWSSDocumentLibraryAction"
+          label="%action.teamExplorerDocumentHierarchyNode.openWssItem.label"
+          menubarPath="group4">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.PendingChangesTreeNode"
+       objectClass="com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.PendingChangesTreeNode">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.OpenAction"
+          enablesFor="1"
+          icon="images/common/query_open.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.OpenAction"
+          label="%action.teamExplorerPendingChangeNode.open.label"
+          menubarPath="group2">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.ViewHistoryAction"
+          enablesFor="1"
+          icon="images/vc/history.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.ViewHistoryAction"
+          label="%action.teamExplorerPendingChangeNode.viewhistory.label"
+          menubarPath="group3">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.CompareWithWorkspaceVersionAction"
+          enablesFor="1"
+          icon="images/vc/compare.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.CompareWithWorkspaceVersionAction"
+          label="%action.teamExplorerPendingChangeNode.compareworkspace.label"
+          menubarPath="group3">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.CompareWithLatestVersionAction"
+          enablesFor="1"
+          icon="images/vc/compare.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.CompareWithLatestVersionAction"
+          label="%action.teamExplorerPendingChangeNode.comparelatest.label"
+          menubarPath="group3">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.AnnotateAction"
+          enablesFor="1"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.AnnotateAction"
+          label="%action.teamExplorerPendingChangeNode.annotate.label"
+          menubarPath="group3">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.UndoAction"
+          enablesFor="+"
+          icon="images/vc/undo.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.UndoAction"
+          label="%action.teamExplorerPendingChangeNode.undo.label"
+          menubarPath="group6">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.PendingChangesIncludedTreeNode"
+       objectClass="com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.PendingChangesIncludedTreeNode">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.ExcludeAction"
+          enablesFor="+"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.ExcludeAction"
+          label="%action.teamExplorerPendingChangeNode.exclude.label"
+          menubarPath="group5">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.PendingChangesExcludedTreeNode"
+       objectClass="com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.PendingChangesExcludedTreeNode">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.IncludeAction"
+          enablesFor="+"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.IncludeAction"
+          label="%action.teamExplorerPendingChangeNode.include.label"
+          menubarPath="group5">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.core.clients.versioncontrol.soapextensions.WorkItemCheckinInfo"
+       objectClass="com.microsoft.tfs.core.clients.versioncontrol.soapextensions.WorkItemCheckinInfo">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.OpenWorkItemAction"
+          enablesFor="1"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.OpenWorkItemAction"
+          label="%action.teamExplorerWorkItemCheckinInfo.open.label"
+          menubarPath="group1">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.RemoveWorkItemAction"
+          enablesFor="+"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.RemoveWorkItemAction"
+          label="%action.teamExplorerWorkItemCheckinInfo.remove.label"
+          menubarPath="group2">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.client.common.ui.controls.vc.checkinpolicies.PolicyFailureData"
+       objectClass="com.microsoft.tfs.client.common.ui.controls.vc.checkinpolicies.PolicyFailureData">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.ActivatePolicyAction"
+          enablesFor="1"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.EvaluatePolicyAction"
+          label="%action.teamExplorerPolicyFailureData.activate.label"
+          menubarPath="group1">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.ViewPolicyHelpAction"
+          enablesFor="1"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.pendingchange.ViewPolicyHelpAction"
+          label="%action.teamExplorerPolicyFailureData.help.label"
+          menubarPath="group1">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.client.common.ui.teamexplorer.favorites.QueryFavoriteItem"
+       objectClass="com.microsoft.tfs.client.common.ui.teamexplorer.favorites.QueryFavoriteItem">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.EditQueryAction"
+          enablesFor="1"
+          icon="images/wit/query_edit.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.EditQueryAction"
+          label="%action.teamExplorerWitQueryDefinitionNode.editQuery.label"
+          menubarPath="group1">
+    </action>
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RunQueryAction"
+          enablesFor="1"
+          icon="images/common/query_open.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RunQueryAction"
+          label="%action.teamExplorerQueryFavoriteItem.view.label"
+          menubarPath="group1">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.client.common.ui.teamexplorer.favorites.PrivateQueryFavoriteItem"
+       objectClass="com.microsoft.tfs.client.common.ui.teamexplorer.favorites.PrivateQueryFavoriteItem">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RemoveQueryFromMyFavoritesAction"
+          enablesFor="+"
+          icon="images/common/delete.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RemoveQueryFromMyFavoritesAction"
+          label="%action.teamExplorerQueryFavoriteItem.remove.label"
+          menubarPath="group3">
+    </action>
+ </objectContribution>
+ <objectContribution
+       adaptable="false"
+       id="com.microsoft.tfs.client.common.ui.teamexplorer.favorites.TeamQueryFavoriteItem"
+       objectClass="com.microsoft.tfs.client.common.ui.teamexplorer.favorites.TeamQueryFavoriteItem">
+    <action
+          class="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RemoveQueryFromTeamFavoritesAction"
+          enablesFor="+"
+          icon="images/common/delete.gif"
+          id="com.microsoft.tfs.client.common.ui.teamexplorer.actions.wit.RemoveQueryFromTeamFavoritesAction"
+          label="%action.teamExplorerQueryFavoriteItem.remove.label"
+          menubarPath="group3">
+    </action>
+ </objectContribution>
+
+   </extension>
+
+   <!-- Editors -->
+   <extension
+	       point="org.eclipse.ui.editors">
+	    <editor
+           class="com.microsoft.tfs.client.common.ui.wit.results.QueryResultsEditor"
+           contributorClass="com.microsoft.tfs.client.common.ui.wit.results.QueryResultsEditorActionContributor"
+           default="false"
+           icon="images/wit/query.gif"
+           id="com.microsoft.tfs.client.common.ui.wit.results.queryresultseditor"
+           name="%editor.queryResults.name">
+        </editor>
+	    <editor
+	          class="com.microsoft.tfs.client.common.ui.wit.qe.QueryEditor"
+	          contributorClass="com.microsoft.tfs.client.common.ui.wit.qe.QueryEditorActionContributor"
+	          default="false"
+	          icon="images/wit/query.gif"
+	          id="com.microsoft.tfs.client.common.ui.wit.qe.queryeditor"
+	          name="%editor.queryEditor.name">
+            <contentTypeBinding contentTypeId="com.microsoft.tfs.client.common.ui.tfsWiq"/>
+        </editor>
+     <editor
+           class="com.microsoft.tfs.client.common.ui.wit.form.WorkItemEditor"
+           contributorClass="com.microsoft.tfs.client.common.ui.wit.form.WorkItemEditorActionContributor"
+           default="false"
+           icon="images/wit/workitem.gif"
+           id="com.microsoft.tfs.client.common.ui.wit.form.workitemeditor"
+           name="%editor.workItemEditor.name"/>
+     <editor
+           class="com.microsoft.tfs.client.common.ui.browser.BrowserEditor"
+           contributorClass="com.microsoft.tfs.client.common.ui.browser.BrowserEditorActionContributor"
+           default="false"
+           icon="images/common/internal_browser.gif"
+           id="com.microsoft.tfs.client.common.ui.browser.browsereditor"
+           name="%editor.browserEditorActionContributor.name"/>
+     <editor
+           class="com.microsoft.tfs.client.common.ui.webaccessintegration.editors.WebAccessBuildReportEditor"
+           default="false"
+           icon="images/common/internal_browser.gif"
+           id="com.microsoft.tfs.client.common.ui.webaccessintegration.editors.WebAccessBuildReportEditor"
+           name="Build Report">
+     </editor>
+     <editor
+           class="com.microsoft.tfs.client.common.ui.webaccessintegration.editors.WebAccessWorkItemEditor"
+           default="false"
+           icon="images/wit/workitem.gif"
+           id="com.microsoft.tfs.client.common.ui.webaccessintegration.editors.WebAccessWorkItemEditor"
+           name="%editor.webAccessWorkItemEditor.name">
+     </editor>
+   </extension>
+
+   <extension
+           point="org.eclipse.team.core.fileTypes">
+       <fileTypes
+               extension="wiq"
+               type="text"/>
+   </extension>
+
+   <extension
+           point="org.eclipse.core.runtime.contentTypes">
+       <content-type
+               base-type="org.eclipse.core.runtime.xml"
+               file-extensions="wiq"
+               id="tfsWiq"
+               name="%content-type.wiq.name"
+               priority="normal"/>
+   </extension>
+   
+   <extension
+           point="org.eclipse.ui.commands">
+       <command
+              id="com.microsoft.tfs.client.common.ui.NewWorkItem"
+              name="%command.newWorkItem.name">
+       </command>
+   </extension>
+
+   <extension
+           point="org.eclipse.ui.bindings">
+       <key
+              commandId="com.microsoft.tfs.client.common.ui.NewWorkItem"
+              contextId="com.microsoft.tfs.client.common.ui.context"
+              schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+              sequence="M1+M3+N">
+       </key>
+   </extension>
+	
+   <extension
+           point="org.eclipse.ui.contexts">
+       <context
+              id="com.microsoft.tfs.client.common.ui.context"
+              name="%context.teamExplorer.name"
+              parentId="org.eclipse.ui.contexts.window">
+       </context>
+   </extension>
+
+   <!-- Support Diagnostics -->
+
+   <!-- Diagnostic Dialog Branding -->
+   <extension
+         point="com.microsoft.tfs.client.common.ui.diagnosticProviders">
+        <provider
+              dialogTitle="%diagnosticProvider.dialogTitle"
+              exportFilenamePrefix="%diagnosticProvider.exportFilenamePrefixNOLOC"
+              id="com.microsoft.tfs.client.common.ui.TEESupport"
+              name="%diagnosticProvider.label">
+
+           <dialogText>%diagnosticProvider.dialogText</dialogText>
+           <supportContactCategory
+                 id="com.microsoft.tfs.client.common.ui.framework.diagnostics.feedback"
+                 label="%diagnosticProvider.supportContactCategory.feedback.label"/>
+           <supportContactCategory
+                 id="com.microsoft.tfs.client.common.ui.framework.diagnostics.moreInfo"
+                 label="%diagnosticProvider.supportContactCategory.moreInfo.label"/>
+           <supportContact
+                 categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.moreInfo"
+                 id="com.microsoft.tfs.client.common.ui.framework.diagnostics.moreInfo.forum"
+                 label="%diagnosticProvider.supportContact.moreInfo.forum.label"
+                 launchable="true"
+                 value="%diagnosticProvider.supportContact.moreInfo.forum.valueNOLOC" />
+        </provider>
+     </extension>
+
+   <!-- Diagnostic Data Categories -->
+   <extension
+         point="com.microsoft.tfs.client.common.ui.diagnosticDataCategories">
+      <category
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            label="%diagnosticDataCategory.platform.label"
+            labelNOLOC="Platform" />
+      <category
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.logfiles"
+            label="%diagnosticDataCategory.logfiles.label"
+            labelNOLOC="Log Files" />
+      <category
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.environment"
+            label="%diagnosticDataCategory.environment.label"
+            labelNOLOC="Environment" />
+      <category
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            label="%diagnosticDataCategory.java.label"
+            labelNOLOC="Java" />
+      <category
+            id="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+            label="%diagnosticDataCategory.teamExplorer.label"
+            labelNOLOC="Team Explorer" />
+      <category
+            id="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.tfs"
+            label="%diagnosticDataCategory.tfs.label"
+            labelNOLOC="Team Foundation Server" />
+   </extension>
+
+   <!-- Diagnostic Data Providers (Framework) -->
+   <extension
+         point="com.microsoft.tfs.client.common.ui.diagnosticDataProviders">
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.ConfigurationLocationProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.ConfigurationLocationProvider"
+            label="%diagnosticDataProvider.configurationLocation.label"
+            labelNOLOC="Configuration Location" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.InstallLocationProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.InstallLocationProvider"
+            label="%diagnosticDataProvider.installLocation.label"
+            labelNOLOC="Install Location" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.InstanceLocationProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.InstanceLocationProvider"
+            label="%diagnosticDataProvider.instanceLocation.label"
+            labelNOLOC="Instance Location" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.logfiles"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.logfiles.PlatformLogProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.logfiles.PlatformLogProvider"
+            label="%diagnosticDataProvider.platformLog.label"
+            labelNOLOC="Platform Log"
+            ownTab="true">
+         <action
+               default="true"
+               id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFileAction"/>
+         <action id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFolderOfFileAction"/>
+         <exportHandler
+               configData="platform log"
+               id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.FileExportHandler"/>
+      </provider>
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.environment"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.environment.DateTimeProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.environment.DateTimeProvider"
+            label="%diagnosticDataProvider.dateTime.label"
+            labelNOLOC="Current Date / Time" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformConfigurationProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformConfigurationProvider"
+            label="%diagnosticDataProvider.platformConfiguration.label"
+            labelNOLOC="Platform Configuration" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformProductProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformProductProvider"
+            label="%diagnosticDataProvider.platformProduct.label"
+            labelNOLOC="Product" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformVersionProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformVersionProvider"
+            label="%diagnosticDataProvider.platformVersion.label"
+            labelNOLOC="Platform Version" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformStartTimeProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformStartTimeProvider"
+            label="%diagnosticDataProvider.platformStartTime.label"
+            labelNOLOC="Start Time" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.JNIDataProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.JNIDataProvider"
+            label="%diagnosticDataProvider.jniData.label"
+            labelNOLOC="JNI" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.JVMVersionProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.JVMVersionProvider"
+            label="%diagnosticDataProvider.jvmVersion.label"
+            labelNOLOC="Java Version" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultLocaleProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultLocaleProvider"
+            label="%diagnosticDataProvider.defaultLocale.label"
+            labelNOLOC="Default Locale" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.MemoryUsageProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.MemoryUsageProvider"
+            label="%diagnosticDataProvider.memoryUsage.label"
+            labelNOLOC="Memory Usage" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.environment"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.environment.OSDataProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.environment.OSDataProvider"
+            label="%diagnosticDataProvider.osData.label"
+            labelNOLOC="Operating System" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PluginRegistryProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PluginRegistryProvider"
+            label="%diagnosticDataProvider.pluginRegistry.label"
+            labelNOLOC="Plugin Registry" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.SWTVersionProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.SWTVersionProvider"
+            label="%diagnosticDataProvider.swtVersion.label"
+            labelNOLOC="SWT Version" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.SystemPropertiesProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.SystemPropertiesProvider"
+            label="%diagnosticDataProvider.systemProperties.label"
+            labelNOLOC="System Properties" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.VMDetailsProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.VMDetailsProvider"
+            label="%diagnosticDataProvider.vmDetails.label"
+            labelNOLOC="VM Details" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformModesProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformModesProvider"
+            label="%diagnosticDataProvider.platformModes.label"
+            labelNOLOC="Platform Modes" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.platform"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformArgumentsProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.platform.PlatformArgumentsProvider"
+            label="%diagnosticDataProvider.platformArguments.label"
+            labelNOLOC="Platform Arguments" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultCharacterEncodingProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultCharacterEncodingProvider"
+            label="%diagnosticDataProvider.defaultCharacterEncoding.label"
+            labelNOLOC="Default Character Encoding" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.environment"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.environment.EnvironmentVariablesProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.environment.EnvironmentVariablesProvider"
+            label="%diagnosticDataProvider.environmentVariables.label"
+            labelNOLOC="Environment Variables" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultDateTimeFormatProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultDateTimeFormatProvider"
+            label="%diagnosticDataProvider.defaultDateTimeFormats.label"
+            labelNOLOC="Default DateTime Formats" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultNumberFormatProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultNumberFormatProvider"
+            label="%diagnosticDataProvider.defaultNumberFormats.label"
+            labelNOLOC="Default Number Formats" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.JavaHomeProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.JavaHomeProvider"
+            label="%diagnosticDataProvider.javaHome.label"
+            labelNOLOC="Java Home Directory" />
+      <provider
+            categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.java"
+            class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultTimeZoneProvider"
+            id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.java.DefaultTimeZoneProvider"
+            label="%diagnosticDataProvider.defaultTimeZone.label"
+            labelNOLOC="Default Time Zone" />
+   </extension>
+
+     <!-- Diagnostic Data Providers (TFS) -->
+     <extension
+           point="com.microsoft.tfs.client.common.ui.diagnosticDataProviders">
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.framework.diagnostics.datacategory.logfiles"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.TEELogDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.TEELogDataProvider"
+              label="%diagnosticDataProvider.teeLog.label"
+              labelNOLOC="Team Explorer Logs"
+              ownTab="true">
+           <action
+                 default="true"
+                 id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFileAction"/>
+           <action id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFolderOfFileAction"/>
+           <exportHandler id="com.microsoft.tfs.client.common.ui.diagnostics.TEELogsExportHandler"/>
+        </provider>
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.TEECacheLocationDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.TEECacheLocationDataProvider"
+              label="%diagnosticDataProvider.teeCacheLocation.label"
+              labelNOLOC="Cache Directory" />
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.TEEConfigurationLocationDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.TEEConfigurationLocationDataProvider"
+              label="%diagnosticDataProvider.teeConfigurationLocation.label"
+              labelNOLOC="Configuration Directory">
+        </provider>
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.ApplicationDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.ApplicationDataProvider"
+              label="%diagnosticDataProvider.application.label"
+              labelNOLOC="Application" />
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.tfs"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.ConnectionDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.ConnectionDataProvider"
+              label="%diagnosticDataProvider.connection.label"
+              labelNOLOC="Connection" />
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.DialogStatisticsDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.DialogStatisticsDataProvider"
+              label="%diagnosticDataProvider.dialogStatistics.label"
+              labelNOLOC="Dialog Statistics" />
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.WITDatabaseDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.WITDatabaseDataProvider"
+              label="%diagnosticDataProvider.witDatabase.label"
+              labelNOLOC="WIT Database Properties" />
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.TEEProductKeyDataProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.TEEProductKeyDataProvider"
+              label="%diagnosticDataProvider.productKey.label"
+              labelNOLOC="Product ID" />
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.TEEPluginsVersionProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.TEEPluginsVersionProvider"
+              label="%diagnosticDataProvider.pluginsVersion.label"
+              labelNOLOC="Team Explorer Everywhere Plugin Versions" />
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.WITDatabaseFileProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.WITDatabaseFileProvider"
+              exportType="optional"
+              label="%diagnosticDataProvider.witDatabaseFile.label"
+              labelNOLOC="Work Item Tracking Metadata Cache">
+           <action id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFolderOfFileAction"/>
+           <exportHandler
+                 configData="wit database"
+                 id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.FileExportHandler"/>
+        </provider>
+        <provider
+              categoryId="com.microsoft.tfs.client.common.ui.diagnostics.datacategory.teamexplorer"
+              class="com.microsoft.tfs.client.common.ui.diagnostics.TFSCheckinPoliciesProvider"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.TFSCheckinPoliciesProvider"
+              label="%diagnosticDataProvider.tfsCheckinPolicies.label"
+              labelNOLOC="Available Check-in Policies">
+        </provider>
+     </extension>
+
+     <!-- Diagnostic Data Actions -->
+     <extension
+     		point="com.microsoft.tfs.client.common.ui.diagnosticDataProviderActions">
+     	<action
+     			class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFileAction"
+     			id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFileAction"
+     			label="%action.diagnosticDataProvider.openFile.label" />
+     	<action
+     			class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFolderOfFileAction"
+     			id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.OpenFolderOfFileAction"
+     			label="%action.diagnosticDataProvider.openFolder.label" />
+     </extension>
+
+     <!-- Diagnostic Data Exporter -->
+     <extension
+           point="com.microsoft.tfs.client.common.ui.diagnosticExportHandlers">
+        <exportHandler
+              class="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.FileExportHandler"
+              id="com.microsoft.tfs.client.common.ui.framework.diagnostics.builtin.FileExportHandler"/>
+        <exportHandler
+              class="com.microsoft.tfs.client.common.ui.diagnostics.TEELogsExportHandler"
+              id="com.microsoft.tfs.client.common.ui.diagnostics.TEELogsExportHandler"/>
+     </extension>
+
+     <!-- Annotate -->
+     <extension
+           point="org.eclipse.ui.workbench.texteditor.quickDiffReferenceProvider">
+        <referenceprovider
+              class="com.microsoft.tfs.client.common.ui.commands.annotate.TFSItemReferenceProvider"
+              default="false"
+              id="com.microsoft.tfs.client.common.ui.commands.annotate.TfsItemReferenceProvider"
+              label="%referenceprovider.annotate.label">
+        </referenceprovider>
+     </extension>
+     
+     <!-- Preference Initializer -->
+     <extension
+           point="org.eclipse.core.runtime.preferences">
+        <initializer
+              class="com.microsoft.tfs.client.common.ui.prefs.UIPreferenceInitializer">
+        </initializer>
+     </extension>
+     
+     <extension
+           point="org.eclipse.ui.console.consolePageParticipants">
+        <consolePageParticipant
+              class="com.microsoft.tfs.client.common.ui.framework.console.TFSMessageConsolePageParticipant"
+              id="com.microsoft.tfs.client.common.ui.framework.console.TFSMessageConsolePageParticipant">
+            <enablement>
+                <instanceof value="com.microsoft.tfs.client.common.ui.framework.console.TFSMessageConsole"/>
+            </enablement>
+        </consolePageParticipant>
+     </extension>
+
+     <extension
+           point="com.microsoft.tfs.client.common.ui.workItemEditors">
+        <workItemEditor
+              displayName="%extension.workItemEditor.teamWebAccess"
+              id="com.microsoft.tfs.client.common.ui.teamwebaccess">
+        </workItemEditor>
+        <workItemEditor
+              displayName="%extension.workItemEditor.embeddedWebAccess"
+              id="com.microsoft.tfs.client.common.ui.webaccessintegration.editors.WebAccessWorkItemEditor">
+        </workItemEditor>
+     </extension>
+     <extension
+           point="com.microsoft.tfs.client.common.ui.teamExplorerPage">
+        <teamExplorerPage
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerHomePage"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerHomePage"
+              title="%extension.teamExplorer.page.home.name">
+        </teamExplorerPage>
+        <teamExplorerPage
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              title="%extension.teamExplorer.page.pendingchanges.name">
+        </teamExplorerPage>
+        <teamExplorerPage
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerWorkItemPage"
+              displayPriority="200"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerWorkItemPage"
+              title="%extension.teamExplorer.page.workitems.name">
+        </teamExplorerPage>
+        <teamExplorerPage
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerReportsPage"
+              displayPriority="300"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerReportsPage"
+              title="%extension.teamExplorer.page.reports.name">
+        </teamExplorerPage>
+        <teamExplorerPage
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerDocumentsPage"
+              displayPriority="400"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerDocumentsPage"
+              title="%extension.teamExplorer.page.documents.name">
+        </teamExplorerPage>
+        <teamExplorerPage
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerSettingsPage"
+              displayPriority="99999"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerSettingsPage"
+              title="%extension.teamExplorer.page.settings.name">
+        </teamExplorerPage>
+     </extension>
+     <extension
+           point="com.microsoft.tfs.client.common.ui.teamExplorerPageSection">
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerSettingsProjectSection"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerSettingsProjectSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerSettingsPage"
+              title="%extension.teamExplorer.section.teamproject">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerSettingsCollectionSection"
+              displayPriority="200"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerSettingsCollectionSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerSettingsPage"
+              title="%extension.teamExplorer.section.projectcollection">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerCheckinPolicySection"
+              displayPriority="50"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerCheckinPolicySection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              title="%extension.teamExplorer.section.pendingchange.policy">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesCommentSection"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesCommentSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              title="%extension.teamExplorer.section.pendingchange.comment">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesIncludedSection"
+              displayPriority="200"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesIncludedSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              title="%extension.teamExplorer.section.pendingchange.included">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesExcludedSection"
+              displayPriority="300"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesExcludedSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              title="%extension.teamExplorer.section.pendingchange.excluded">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesWorkItemsSection"
+              displayPriority="400"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesWorkItemsSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              title="%extension.teamExplorer.section.pendingchange.workitem">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesNotesSection"
+              displayPriority="500"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerPendingChangesNotesSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              title="%extension.teamExplorer.section.pendingchange.notes">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerWorkItemsQueriesSection"
+              displayPriority="300"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerWorkItemsQueriesSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerWorkItemPage"
+              title="%extension.teamExplorer.section.workitems.queries">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerReportsSection"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerReportsSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerReportsPage"
+              title="%extension.teamExplorer.section.reports.reports">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerDocumentsSection"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerDocumentsSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerDocumentsPage"
+              title="%extension.teamExplorer.section.documents.documents">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerWorkItemsMyFavoritesSection"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerWorkItemsMyFavoritesSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerWorkItemPage"
+              title="%extension.teamExplorer.section.workitems.myfavorites">
+        </teamExplorerPageSection>
+        <teamExplorerPageSection
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerWorkItemsTeamFavoritesSection"
+              displayPriority="200"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerWorkItemsTeamFavoritesSection"
+              pageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerWorkItemPage"
+              title="%extension.teamExplorer.section.workitems.teamfavorites">
+        </teamExplorerPageSection>
+     </extension>
+     <extension
+           point="com.microsoft.tfs.client.common.ui.teamExplorerNavigationItem">
+        <teamExplorerNavigationItem
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerHomeNavigationItem"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerHomeNavigationItem"
+              targetPageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerHomePage"
+              title="%extension.teamExplorer.page.home.name">
+        </teamExplorerNavigationItem>
+        <teamExplorerNavigationItem
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerPendingChangesNavigationItem"
+              displayPriority="100"
+              icon="images/teamexplorer/PendingChanges.png"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerPendingChangesNavigationItem"
+              targetPageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerPendingChangesPage"
+              viewID="com.microsoft.tfs.client.common.ui.views.PendingChangesView"
+              title="%extension.teamExplorer.page.pendingchanges.name">
+        </teamExplorerNavigationItem>
+        <teamExplorerNavigationItem
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerWorkItemNavigationItem"
+              displayPriority="200"
+              icon="images/teamexplorer/WorkItems.png"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerWorkItemsNavigationItem"
+              targetPageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerWorkItemPage"
+              title="%extension.teamExplorer.page.workitems.name">
+        </teamExplorerNavigationItem>
+        <teamExplorerNavigationItem
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerReportsNavigationItem"
+              displayPriority="300"
+              icon="images/teamexplorer/Reports.png"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerReportsNavigationItem"
+              targetPageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerReportsPage"
+              title="%extension.teamExplorer.page.reports.name">
+        </teamExplorerNavigationItem>
+        <teamExplorerNavigationItem
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerDocumentsNavigationItem"
+              displayPriority="400"
+              icon="images/teamexplorer/Documents.png"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerDocumentsNavigationItem"
+              targetPageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerDocumentsPage"
+              title="%extension.teamExplorer.page.documents.name">
+        </teamExplorerNavigationItem>
+        <teamExplorerNavigationItem
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerSettingsNavigationItem"
+              displayPriority="99999"
+              icon="images/teamexplorer/Settings.png"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerSettingsNavigationItem"
+              targetPageID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerSettingsPage"
+              title="%extension.teamExplorer.page.settings.name">
+        </teamExplorerNavigationItem>
+     </extension>
+     <extension
+           point="com.microsoft.tfs.client.common.ui.teamExplorerNavigationLink">
+        <teamExplorerNavigationLink
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.link.TeamExplorerDetectChangesNavigationLink"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.link.TeamExplorerDetectChangesNavigationLink"
+              parentID="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerPendingChangesNavigationItem"
+              title="%extension.teamExplorer.link.detectchanges.name">
+        </teamExplorerNavigationLink>   
+        <teamExplorerNavigationLink
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.link.TeamExplorerFindShelvesetNavigationLink"
+              displayPriority="200"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.link.TeamExplorerFindShelvesetNavigationLink"
+              parentID="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerPendingChangesNavigationItem"
+              title="%extension.teamExplorer.link.findshelveset.name">
+        </teamExplorerNavigationLink>  
+        <teamExplorerNavigationLink
+              class="com.microsoft.tfs.client.common.ui.teamexplorer.link.TeamExplorerNewQueryNavigationLink"
+              displayPriority="100"
+              id="com.microsoft.tfs.client.common.ui.teamexplorer.link.TeamExplorerNewQueryNavigationLink"
+              parentID="com.microsoft.tfs.client.common.ui.teamexplorer.items.TeamExplorerWorkItemsNavigationItem"
+              title="%extension.teamExplorer.link.newquery.name">
+        </teamExplorerNavigationLink>
+     </extension>
+     <extension
+           point="org.eclipse.ui.perspectiveExtensions">
+        <perspectiveExtension
+              targetID="org.eclipse.ui.resourcePerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 ratio=".25"
+                 relationship="right"
+                 relative="org.eclipse.ui.editorss"
+                 visible="false">
+           </view>
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>                      
+        </perspectiveExtension>
+        <perspectiveExtension
+              targetID="org.eclipse.team.ui.TeamSynchronizingPerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 ratio=".25"
+                 relationship="right"
+                 relative="org.eclipse.ui.editorss"
+                 visible="false">
+           </view>
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>                      
+        </perspectiveExtension>       
+        <perspectiveExtension
+              targetID="org.eclipse.pde.ui.PDEPerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>
+        <perspectiveExtension
+              targetID="org.eclipse.jdt.ui.JavaPerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>
+        <perspectiveExtension
+              targetID="org.eclipse.jst.j2ee.J2EEPerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>
+        <perspectiveExtension
+              targetID="org.eclipse.wst.jsdt.ui.JavaPerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>
+        <perspectiveExtension
+             targetID="org.eclipse.cdt.ui.CPerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>
+        <perspectiveExtension
+             targetID="org.eclipse.wst.web.ui.webDevPerspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>
+        <perspectiveExtension
+             targetID="org.eclipse.wst.xml.ui.perspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>
+        <perspectiveExtension
+             targetID="org.eclipse.php.perspective">
+           <view
+                 id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"
+                 minimized="false"
+                 relationship="stack"
+                 relative="org.eclipse.ui.views.ContentOutline"
+                 visible="false">
+           </view>                      
+           <viewShortcut id="com.microsoft.tfs.client.common.ui.views.TeamExplorerView"/>           
+        </perspectiveExtension>        
+     </extension>
+     <extension
+           point="com.microsoft.tfs.client.common.asyncObjectWaiter">
+        <waiter
+              class="com.microsoft.tfs.client.common.ui.framework.command.UIAsyncObjectWaiter">
+        </waiter>
+     </extension>
+     <extension
+           point="org.eclipse.core.runtime.adapters">
+        <factory
+              adaptableType="com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition"
+              class="com.microsoft.tfs.client.common.ui.adapters.AdapterFactory">
+           <adapter
+                 type="org.eclipse.ui.IActionFilter">
+           </adapter>
+        </factory>
+     </extension>
+     <extension
+           point="com.microsoft.tfs.client.eclipse.consoleProvider">
+      <provider
+            class="com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin"
+            id="com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin">
+      </provider>
+     </extension>
+</plugin>

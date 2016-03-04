@@ -1,0 +1,9 @@
+# Eclipse workspace folders (for those using the repository root as their eclipse worksace)
+.metadata
+.recommenders
+
+# Eclipse output folders for all projects under source/
+bin
+
+# Maven builds
+target

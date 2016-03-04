@@ -1,0 +1,160 @@
+<project name="pdemacros">
+
+	<!--
+		Runs Eclipse's Ant Runner to build the specified file.  Additional system
+		properties may be specified.
+	-->
+	<macrodef name="macro.eclipse-ant-runner">
+
+		<attribute name="file.build" />
+		<element name="application-args" optional="true" />
+
+		<sequential>
+			<!-- Find the Equinox launcher JAR. -->
+			<path id="path.find-startup-jar">
+				<fileset dir="${dir.machine.build-runtime}" includes="plugins/org.eclipse.equinox.launcher_1*.jar" />
+			</path>
+
+			<pathconvert property="string.findstartupjar" refid="path.find-startup-jar" setonempty="false" />
+
+			<available file="${string.findstartupjar}"
+			           property="file.equinox-launcher.jar"
+			           value="${string.findstartupjar}" />
+
+			<fail unless="file.equinox-launcher.jar"
+			      message="Expected to find the Equinox launcher JAR in the build runtime location: [${dir.machine.build-runtime}] (check value of property dir.machine.build-runtime)" />
+
+			<condition property="string.antrunner-exec.verbose" value="-verbose">
+				<isset property="config.eclipse-ant-runner.verbose" />
+			</condition>
+			<property name="string.antrunner-exec.verbose" value="-Dignore-this-verbose-placeholder-value=true" />
+
+			<!-- 
+				This directory (modules/updatesite) contains the build-time configuration files
+				that PDE needs to build the feature.  
+			-->
+			<java classname="org.eclipse.core.launcher.Main"
+			      fork="true"
+			      maxmemory="${value.eclipse-ant-runner.maxmemory}"
+			      failonerror="true">
+				<classpath>
+					<pathelement location="${file.equinox-launcher.jar}" />
+				</classpath>
+				<arg value="-application" />
+				<arg value="org.eclipse.ant.core.antRunner" />
+				<arg value="-buildfile" />
+				<arg value="@{file.build}" />
+				<arg value="${string.antrunner-exec.verbose}" />
+				<application-args />
+			</java>
+		</sequential>
+	</macrodef>
+
+	<!--
+		Builds a feature into the build system's INTERNAL P2 repository.  Further
+		steps are required to package/archive the feature to the build's binaries 
+		directory.
+		
+		The "noclean" property is set when the feature is built.
+	-->
+	<macrodef name="macro.build-feature">
+
+		<!-- The feature to build. -->
+		<attribute name="id.feature" />
+		<!-- PDE's "builder" property: the directory that contains PDE build files like allElements.xml, build.properties, customAssembly.xml, customTargets.xml. -->
+		<attribute name="dir.builder" />
+		<!-- PDE's "buildDirectory" property: the temp directory where the work happens. -->
+		<attribute name="dir.buildDirectory" />
+
+		<!-- Any "property" elements to pass to PDE build (for example, a URL for p2.category.definition). -->
+		<element name="extra-build-properties" optional="true" />
+
+		<sequential>
+			<!-- Find the PDE Build plug-in that holds the build scripts we call into. -->
+			<path id="path.find-pde-build-plugin">
+				<dirset dir="${dir.machine.build-runtime}" includes="plugins/org.eclipse.pde.build_*" />
+			</path>
+
+			<pathconvert property="string.findpdebuildplugin" refid="path.find-pde-build-plugin" setonempty="false" />
+
+			<available file="${string.findpdebuildplugin}"
+			           property="dir.pde-build.plugin"
+			           value="${string.findpdebuildplugin}" />
+
+			<fail unless="dir.pde-build.plugin"
+			      message="Expected to find unpacked org.eclipse.pde.build plug-in in the build runtime location: [${dir.machine.build-runtime}] (check value of property dir.machine.build-runtime)" />
+
+
+			<!--
+				Run the PDE build script and set some properties that @{dir.builder}/build.properties 
+				can't know before hand.
+			-->
+			<ant antfile="${dir.pde-build.plugin}/scripts/build.xml">
+				<property name="builder" value="@{dir.builder}" />
+				<property name="topLevelElementType" value="feature" />
+				<property name="topLevelElementId" value="@{id.feature}" />
+				<property name="base" value="${dir.machine.build-runtime}" />
+				<property name="baseLocation" value="${dir.machine.build-runtime}" />
+				<property name="buildDirectory" value="@{dir.buildDirectory}" />
+				<property name="buildId" value="${string.version.1-2-3-4}" />
+				<property name="buildLabel" value="buildLabel" />
+				<property name="skipMaps" value="true" />
+				<property name="skipFetch" value="true" />
+				<property name="skipMirroring" value="true" />
+				<property name="skipDirector" value="true" />
+				<property name="p2.gathering" value="true" />
+				<property name="p2.build.repo" value="${url.global.p2BuildRepo}" />
+				<property name="p2.category.definition" value="${url.global.p2CategoryDefinition}" />
+				<property name="noclean" value="true" />
+				<extra-build-properties />
+			</ant>
+
+		</sequential>
+	</macrodef>
+
+	<!--
+		Mirrors the specified P2 Installable Units (IUs) from the default build repo
+		into the binaries directory (under a specified subdirectory).  Also creates
+		an archive with the specified prefix.
+	-->
+	<macrodef name="macro.mirror-updatesite">
+		<!-- A name for the repository (appears in Available Software Sites in Eclipse) -->
+		<attribute name="name.p2.repo" />
+		<attribute name="name.dist-directory" />
+		<attribute name="name.dist-archive-prefix" />
+
+		<!-- 
+			The <iu> or other child elements to the <p2.mirror> task.  If you omit these, all 
+			IUs are mirrored (probably not what end-users want to see).
+		-->
+		<element name="p2-mirror-elements" />
+
+		<sequential>
+			<!-- P2 likes URLs, and the directory must exist. -->
+			<property name="dir.binaries.mirror-updatesite.@{name.dist-directory}"
+			          value="${dir.binaries}/@{name.dist-directory}" />
+			<mkdir dir="${dir.binaries.mirror-updatesite.@{name.dist-directory}}" />
+			<makeurl property="url.binaries.mirror-updatesite.@{name.dist-directory}"
+			         file="${dir.binaries.mirror-updatesite.@{name.dist-directory}}" />
+
+			<!-- Mirror the buid repo to a new repo in the binaries directory. -->
+			<p2.mirror validate="true" source="${url.global.p2BuildRepo}">
+				<destination kind="metadata"
+				             location="${url.binaries.mirror-updatesite.@{name.dist-directory}}"
+				             name="@{name.p2.repo}" />
+				<destination kind="artifact"
+				             location="${url.binaries.mirror-updatesite.@{name.dist-directory}}"
+				             name="@{name.p2.repo}" />
+				<p2-mirror-elements />
+			</p2.mirror>
+
+			<!-- Create an archive of the new repo. -->
+			<mkdir dir="${dir.binaries}/@{name.dist-directory}-archive" />
+			<zip destfile="${dir.binaries}/@{name.dist-directory}-archive/@{name.dist-archive-prefix}.zip">
+				<fileset dir="${dir.binaries.mirror-updatesite.@{name.dist-directory}}" />
+			</zip>
+
+		</sequential>
+	</macrodef>
+
+</project>

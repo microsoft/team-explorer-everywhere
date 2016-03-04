@@ -1,0 +1,422 @@
+/*This file is auto generated from base css file in ..\account.css*/
+/* GLOBAL STYLE ELEMENTS */
+@font-face { font-family: Segoe UI; font-weight:normal; src: url("%%%INCLUDE(format="base64", file="segoeui.ttf")%%%") format("truetype"); } 
+@font-face { font-family: Segoe UI; font-weight:bold; src: url("%%%INCLUDE(format="base64", file="segoeuib.ttf")%%%") format("truetype"); }
+
+body  
+{
+    font: 12px/18px "Segoe UI", tahoma, Verdana, sans-serif; 
+    color: #333; 
+}
+
+.bold-input-text 
+{
+    font-weight:bold;
+    font-family: Segoe UI Light, Tahoma, Arial, Verdana;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.smallTopSpacing 
+{
+    margin-top:5px;
+}
+
+.smallLeftSpacing
+{
+    margin-left:5px;
+}
+
+span.tfs-domain 
+{
+    font-size: 18px;
+}
+
+
+/* SIGN UP PAGE */
+div.signup-main-content
+{
+    width:740px; 
+    height:630px; 
+    margin-top:12px;
+}
+
+div.divider-medium-spacing 
+{
+    padding:0px 0px 25px 0px;
+} 
+
+#table_SignUpControl td 
+{
+}
+
+/* Identiy Provders Control */
+.loading-area 
+{ 
+    line-height:80px; 
+    text-align:center; 
+    overflow:auto; 
+    position:relative; 
+    width:100%; 
+}
+
+.identity-providers  
+{
+    overflow:auto; 
+    position:relative; 
+    width:100%; 
+}
+
+.identity-providers-list 
+{
+    margin:10px 0 0 0;
+}
+
+.identity-providers-list li 
+{ 
+    margin-right:10px; 
+    float:left; 
+    color: #808080;
+}
+
+.identity-provider-element
+{
+    opacity:0.4; 
+}
+
+.identity-provider-margin
+{
+    margin: 1px;
+}
+
+.selected-identity-provider
+{
+    opacity: 1; 
+}
+
+.selected-identity-provider .identity-provider-margin
+{
+    border-top: 1px solid #cccccc; 
+    border-left: 1px solid #cccccc; 
+    border-bottom: 1px solid #808080; 
+    border-right: 1px solid #808080; 
+    margin: 0px;
+}
+
+.selected-identity-provider .identity-provider-content
+{
+    border:1px solid #cccccc; 
+}
+
+.selected-identity-provider p 
+{ 
+    color:#2470e3;  
+    border-color:#2470e3; 
+}
+
+.fullOpacity
+{ 
+    opacity:1; 
+}
+
+.fullOpacity p 
+{ 
+    color: #2470e3; 
+    text-decoration: underline; 
+}
+
+.identity-provider-content 
+{ 
+    border:1px solid #cccccc; 
+    cursor:pointer; 
+    padding:10px; 
+}
+
+.identity-provider-content p 
+{ 
+    display: table-cell;
+    height:35px;
+    text-align:center;
+    vertical-align:middle;
+    width:90px;
+}
+
+.vertical-align-middle
+{
+    vertical-align: middle;
+}
+
+p.terms-of-service 
+{
+    width:570px; 
+    height:100px; 
+    border:1px solid #e6e6e6; 
+    overflow:auto; 
+    padding:10px;
+}
+
+#div_AccountUrlError 
+{
+    height:24px; 
+    width:180px; 
+    padding:0 10px; 
+    line-height:24px; 
+    display:inline; 
+    color: #FF0000 ;
+}
+
+input.requiredInfo
+{
+    width:200px; 
+    height:24px;
+    font-family: Segoe UI, Tahoma, Arial, Verdana;
+    font-size: 18px;    
+    -moz-border-radius:3px;
+	  -webkit-border-radius:3px;
+	  border:1px solid #ddd;
+    transition:border linear .4s,box-shadow linear .4s;
+    -moz-transition:border linear .4s,-moz-box-shadow linear .4s;
+    -webkit-transition:border linear .4s,-webkit-box-shadow linear .4s;
+}
+
+input.requiredInfo:focus
+{
+    outline:none;
+    border-color:#EC008C;
+}
+
+#input_SubmitButton
+{
+    width:225px;
+    margin:20px 0 0 0;
+    font-family: Segoe UI, Tahoma, Arial, Verdana;
+    font-size: 18px;    
+    border:1px solid #e6e6e6; 
+    padding:3px;  
+    text-align:center;
+    background-color:white;
+    color: #2470e3;
+    -moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	cursor:pointer;
+}
+
+/* PROGRESS BAR CONTROL */
+.progress-container 
+{
+    border:1px solid #e6e6e6; 
+    width:500px; 
+    height:25px;
+}
+
+.progress-container div.completed
+{
+    height:25px;     
+    float:left;
+    background-color:#2470e3;   
+}
+
+.progress-container div.remaining
+{
+    height:25px;    
+    float:left;   
+}
+
+/* PROPERTIES CONTROL */
+div.properties-section 
+{
+    overflow:auto; 
+    margin-top:20px;
+}
+
+ul.properties-list 
+{
+    overflow:auto;
+}
+
+ul.properties-list li 
+{
+    display:block; 
+    line-height:24px; 
+    height:24px; 
+    overflow:auto;
+}
+
+p.property-key 
+{ 
+    width:150px; 
+    float:left;  
+    margin-right:8px; 
+    color:#4d6082;
+}
+
+p.property-value 
+{ 
+    float: left; 
+    margin-left:8px;
+}
+
+/* Signup.aspx */
+#div_pageContent 
+{
+    padding:0px; 
+    width:960px;
+    margin:0px auto; 
+}
+
+#div_pageContent div.signin-main-content 
+{
+    height:400px;
+}
+
+.signin-main-content 
+{
+    margin-top:12px;
+}
+
+.signin-main-content div.left 
+{
+    float:left; 
+    width:230px; 
+    text-align:center;
+}
+
+.signin-main-content div.left img 
+{
+    margin-top:25px;
+}
+
+.signin-main-content div.right 
+{
+    float:left; 
+    margin:25px 0 0 0; 
+    padding:20px 0 0 25px; 
+    border-left:1px solid #ddd; 
+    height:300px;
+}
+
+/*Home Page*/
+div#mainPageContent 
+{
+    position: relative; 
+    margin:0px auto; 
+    width:980px;
+}
+
+div#heroBanner 
+{
+    background-color:Black;
+    height: 410px;
+    margin-top: 10px;
+    margin-bottom:60px;
+}
+
+div#heroContent  
+{
+    margin-left:40px;
+}
+
+#heroTitle 
+{
+    color:white;    
+    font-family: Segoe UI, Tahoma, Arial, Verdana;
+    font-size: 24px;
+    font-weight: bold;    
+}
+
+#heroExplanation 
+{
+    color:white; 
+    max-width:270px; 
+    padding-top:10px;
+}
+
+a#heroStartTrial 
+{    
+    font-weight:bold;
+    font-family: Segoe UI, Tahoma, Arial, Verdana;
+    font-size: 18px;    
+    color:Orange; 
+    text-transform:uppercase;
+}
+
+#heroImage 
+{
+    margin:0px 0px 0px 0px;
+}
+
+ul#offermenu li 
+{
+    display:block; 
+    padding:3px;
+}
+
+#tableOffers td 
+{
+    max-width:200px; 
+    vertical-align:top;
+}
+
+#imgOffer1 
+{
+    margin:-10px 15px 0px 25px;
+}
+
+a.linkSimple 
+{
+    text-decoration:none; 
+    cursor:pointer; 
+    color:#000000;
+}
+
+a.linkSimple:hover 
+{
+    color: #2470e3;
+}
+
+.heroHeading 
+{
+    color:#a5b6ed;
+    font-weight:bold;
+    font-family: Segoe UI, Tahoma, Arial, Verdana;
+    font-size: 18px;       
+    padding: 0;
+}
+
+.offerHeadings 
+{
+    font-weight:bold;
+    font-family: Segoe UI, Tahoma, Arial, Verdana;
+    font-size: 14px;    
+    color:#333;
+}
+
+.offerExplanation 
+{
+    font-size:11px; 
+    color:#555;
+}
+    
+div#productheader 
+{
+    margin:20px 0 0 0; 
+    height:70px; 
+}
+
+div#productheader img 
+{
+    float:left; 
+    margin: 0;
+} 
+
+ul#headersections  
+{
+    float:right; 
+    margin-top:18px; 
+}
+
+ul#headersections li 
+{
+    float:left; 
+    margin:0 20px 0 20px;
+}

@@ -1,0 +1,20 @@
+<project 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xsl:version="1.0"
+	basedir=".">
+
+	<xsl:for-each select="/modules/module">
+
+		<xsl:element name="property">
+			<xsl:attribute name="name">name.filename-prefix.<xsl:value-of select="@name" /></xsl:attribute>
+			<xsl:attribute name="value"><xsl:value-of select="@name" />-${string.version.1-2-3-4}</xsl:attribute>
+		</xsl:element>
+
+		<xsl:element name="property">
+			<xsl:attribute name="name">name.dist-directory.<xsl:value-of select="@name" /></xsl:attribute>
+			<xsl:attribute name="value"><xsl:value-of select="@name" /></xsl:attribute>
+		</xsl:element>
+
+	</xsl:for-each>
+
+</project>

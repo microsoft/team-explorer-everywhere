@@ -1,0 +1,19 @@
+<!--
+	TEE Build - Entry Point
+	
+	Runs the other stages of the build in order.
+-->
+<project name="tee" basedir="." default="build">
+
+	<import file="${basedir}/build-1-config.xml" />
+	<import file="${basedir}/build-2-init.xml" />
+	<import file="${basedir}/build-3-modules-refresh.xml" />
+	<import file="${basedir}/build-4-antrunner.xml" />
+	
+
+	<target name="build"
+	        depends="build_1_config,build_2_init,build_3_modules_refresh,build_4_antrunner">
+		<echo message="[TFSBuildStep] All build stages complete" />
+	</target>
+
+</project>

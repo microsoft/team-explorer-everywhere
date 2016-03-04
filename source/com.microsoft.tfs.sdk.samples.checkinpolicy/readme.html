@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Sample Check-in Policy Plug-in for Eclipse</title>
+</head>
+<body>
+
+<h1>Introduction</h1>
+<p><em>com.microsoft.tfs.sdk.samples.checkinpolicy</em> is an
+Eclipse Java project that demonstrates the basics of check-in policy
+development for Team Explorer Everywhere. It
+should be imported into an Eclipse instance where Team Explorer
+Everywhere is installed.</p>
+<p>The sample project source code in this project demonstrates the
+following:</p>
+<ul>
+	<li>Policy type declaration, integration via extension point</li>
+	<li>Graphical configuration of the policy via SWT</li>
+	<li>Persistence of policy settings</li>
+	<li>Policy evaluation (where failures are generated)</li>
+	<li>Cancellation and progress reporting during evaluation</li>
+	<li>Help and "failure activation" to provide detailed information
+	to the user</li>
+</ul>
+
+<h1>Sample Walkthrough</h1>
+
+<p>This section will help you configure Eclipse, import, build,
+debug, and deploy the sample plug-in project. Developing your own custom
+check-in policy plug-in follows similar steps. If you have developed
+Eclipse plug-ins before and are familiar with the general process, you
+can import the sample project and include it a debug/run configuration
+with the Team Explorer Everywhere plug-ins to test it. First-time
+plug-in developers are encouraged to follow the steps below.</p>
+
+<blockquote>
+<p>Note:</p>
+<p>Your Eclipse installation must include Eclipse plug-in
+development features to work with this sample. The Eclipse products that
+can develop plug-ins are known as <em>Eclipse for RCP/Plug-in
+Developers</em>. Plug-in development capabilities of other Eclipse-based IDEs
+including Rational and Adobe products vary.</p>
+<p>If your IDE does not support plug-in development features, you
+can use a supported version of the basic Eclipse IDE to develop your
+check-in policy, then deploy to a different IDE. Plug-in development
+features are not required for deployment.</p>
+</blockquote>
+
+<h3>1. Configure Eclipse</h3>
+<p>Ensure your configured Target Platform includes the correct
+version of Team Explorer Everywhere. You can
+configure your Target Platform in the <em>Plug-in Development &gt;
+Target Platform</em> area of the Eclipse preferences. Make sure all of the <em>com.microsoft.tfs.*</em>
+plug-ins and its dependencies are checked</p>
+
+<h3>2. Import the Sample Project</h3>
+<p>Use Eclipse's <em>File &gt; Import...</em> menu item to import
+this sample project into your Eclipse workspace.</p>
+
+<h3>3. Build</h3>
+<p>The sample project may build automatically after it is imported,
+depending on your Eclipse settings. If the sample project does not build
+without errors, check Eclipse's <em>Problems</em> view. Also, make sure
+your target platform includes the Team Explorer Everywhere plug-ins.</p>
+
+<h3>4. Test</h3>
+<h4>Create a debug configuration that includes the sample plug-in</h4>
+<ol>
+	<li>Create a new <em>Eclipse Application</em> debug configuration
+	(<em>Run &gt; Debug Configurations...</em>).</li>
+	<li>With your new configuration selected, select the <em>Plug-ins</em>
+	tab of the configuration dialog and make sure the <em>com.microsoft.tfs.sdk.samples.checkinpolicy</em>
+	plug-in is listed and checked. In newer versions of Eclipse you may
+	have to change the <em>Launch with</em> option to <em>with
+	selected plug-ins only</em> in order to see the sample plug-in.</li>
+	<li>Click <em>Debug</em> to launch another Eclipse instance.</li>
+	<li>When Eclipse starts, verify the sample check-in policy is
+	available: choose <em>Help &gt; Team Explorer Support...</em>, select
+	the <em>Diagnostic Data</em> tab, then select the <em>Team
+	Explorer &gt; Available Check-in Policies</em> area.</li>
+</ol>
+<h4>Configure a team project to use the sample check-in policy
+(requires AdminProjectRights to the team project)</h4>
+<ol>
+	<li>In the Eclipse instance that is being debugged, open the Team
+	Explorer view (<em>Window &gt; Show View &gt; Other... &gt; Team
+	Foundation Server &gt; Team Explorer</em>).</li>
+	<li>In the Team Explorer view, click on Settings page and
+	choose <em>Check-in Policies</em></li>
+	<li>In the <em>Check-in Policies</em> dialog, click <em>Add...</em>,
+	select the sample policy, then click OK. Configure the policy if the
+	configuration dialog appears and click OK.</li>
+	<li>Click OK to close the check-in policies dialog, saving the
+	configuration to the team project.</li>
+</ol>
+<h4>Trigger policy evaluation</h4>
+<p>In the Eclipse instance that is being debugged, open the Pending
+Changes page (<em>Window &gt; Show View &gt; Other... &gt; Team
+Foundation Server, click on Pending Changes page</em>). Create some pending changes
+by checking out one or more files. Expand <em>Actions</em> dropdown list and choose <em>Evaluate Check-in Policies</em>.</p>
+<p>The Policy Warnings section on the top of the Pending
+Changes page shows the current warnings ("failures" returned by
+policies). If a pending change contains the substring you configured the
+sample policy to reject, you should see an item in the warnings list.</p>
+<p>You can set breakpoints in the sample code and trigger them while
+the debugged Eclipse runs by manually evaluating policies. Exit the
+debugged Eclipse when you are finished testing.</p>
+
+<h3>5. Deploy to Eclipse</h3>
+<p>Since check-in policies for Team Explorer Everywhere
+are simply Eclipse plug-ins, they can be deployed to a target
+IDE using any method it supports. Refer to Eclipse documentation on
+building and deploying plug-ins for more information.</p>
+<p>A simple method of deployment is to export the plug-in project to
+a <em>deployable plug-in</em>, the output of which can be copied into
+the <em>dropins</em> directory (or <em>plugins</em> directory for older
+Eclipse versions) of the target IDE.</p>
+<ol>
+	<li>In <em>Package Explorer</em>, right-click on the sample
+	plug-in project and choose <em>Export...</em>.</li>
+	<li>In the dialog that appears, select <em>Plug-in
+	Development &gt; Deployable plug-ins and fragments</em> as the destination
+	and click <em>Next</em>.</li>
+	<li>Choose your preferred output format and name, then complete
+	the wizard.</li>
+</ol>
+<p>The process for installing your exported plug-in into a target
+IDE is specific to the target IDE, but most support a <em>dropins</em>
+directory. If you exported to a directory, copy all the plug-ins that
+were written to the <em>plugins</em> subdirectory of the output
+directory to the <em>dropins</em> directory in the target IDE, then
+restart the target IDE. If the target IDE does not have a <em>dropins</em>
+directory, copy the files to the <em>plugins</em> directory instead. See
+the target IDE's documentation on installing additional plug-ins for
+more information.</p>
+
+<h1>Creating a New Policy Plug-in</h1>
+<p>Creating a check-in policy plug-in from scratch is easy. You can
+use the plug-in development wizards provided with Eclispe to get
+started, and you can always reference the sample policy project and
+source code for the basics. Instructions in this section may refer to
+features and labels specific to Eclipse 3.6, but similar functionality
+is available in all version of Eclipse 3.2 and newer. We'll create a
+policy that checks "code quality" in this example. Simply change the
+names for your policy.</p>
+
+<h2>Create a New Project</h2>
+<ol>
+	<li>Make sure Team Explorer Everywhere is installed and its
+	plug-ins are included in your target platform (see the Sample
+	Walkthrough section for instructions on configuring the target
+	platform).</li>
+	<li>Create a new plug-in project. Click <em>File &gt; New
+	&gt; Other...</em>. In the dialog that appears choose <em>Plug-in
+	Project</em> and click <em>Next</em>.</li>
+	<li>On the <em>Plug-in Project</em> wizard page:
+	<ul>
+		<li>Give your project a name. A Java name with package like <em>com.mycompany.policies.codequality</em>
+		is recommended.</li>
+		<li>Choose the correct Target Platform for your application (the
+		default is usually OK).</li>
+	</ul>
+	</li>
+	<li>Click <em>Next</em>, then fill in the plug-in properties:
+	<ul>
+		<li>Activator generation and UI contributions are optional for
+		all policy plug-ins.</li>
+		<li>Select <em>No</em> for <em>Would you like to create a
+		rich client application?</em></li>
+	</ul>
+	</li>
+	<li>Click <em>Finish</em> to complete the wizard.</li>
+</ol>
+
+<h2>Define Dependencies</h2>
+<p>Open the new project's <em>plugin.xml</em> file if it did not
+open automatically. Choose the <em class="UILabel">Dependencies</em> tab
+in the plug-in editor.</p>
+
+
+<h2>Extension Points</h2>
+<p>The check-in policy framework loads policy implementations (like
+the sample) through the <em>com.microsoft.tfs.checkinpolicies.checkinPolicy</em>
+extension point. All check-in policy plug-ins must contribute an
+extension at this point, and this is done in the <em>plugin.xml</em>
+file in the plug-in's project. You can view the sample project's <em>plugin.xml</em>
+source code to see how it contributes to this extension point by
+declaring a policy type ID and a class that implements the ID.</p>
+
+<blockquote>
+<p>Note: For details on check-in policy types, including suggestions
+for choosing a policy type ID, see the Javadoc on the <em>com.microsoft.tfs.core.checkinpolicies.PolicyType</em>
+class.</p>
+</blockquote>
+</body>
+</html>

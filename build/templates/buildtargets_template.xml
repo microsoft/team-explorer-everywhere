@@ -1,0 +1,5 @@
+<project>
+	<target name="clean_tasks" depends="@CLEAN_TASKS@" />
+	<target name="run_tasks" depends="@RUN_TASKS@" />
+	<target name="tasks" depends="clean_tasks,run_tasks" />
+</project>

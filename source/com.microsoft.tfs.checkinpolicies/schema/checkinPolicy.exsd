@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="com.microsoft.tfs.checkinpolicies" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="com.microsoft.tfs.checkinpolicies" id="checkinPolicy" name="TFS Check-in Policy"/>
+      </appInfo>
+      <documentation>
+         Check-in policies for Team Explorer Everywhere are implemented as Eclipse plug-ins that extend this extension point.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="policy"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="policy">
+      <annotation>
+         <appInfo>
+            <meta.element labelAttribute="typeID"/>
+         </appInfo>
+         <documentation>
+            Each policy element represents a contribution of a client-side executable check-in policy which can be configured to run before check-in.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="typeID" type="string" use="required">
+            <annotation>
+               <documentation>
+                  &lt;p&gt;
+A string that uniquely identifes the type of check-in policy implemented by this plug-in among all check-in policies globally.  Applications are free to use any format, but Java package naming is suggested, and the policy framework may disregard leading and trailing whitespace.  This string is not normally shown to users, but it may be included in error logs and installation instructions.
+&lt;/p&gt;
+&lt;p&gt;
+If your check-in policy implementation changes in a way that makes it incompatible with configuration data saved by previous versions, you should change the ID of the new implementation to prevent run-time errors.  You can include versioning information in the ID to accomplish this (for example, by adding a suffix like &quot;-1.0&quot;).
+&lt;/p&gt;
+&lt;p&gt;
+Some valid typeID strings (the first style is recommended):
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;tt&gt;com.mycompany.EnsureWorkItemsChecked-1.0&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt&gt;EnsureWorkItemsChecked&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt&gt;My Company&apos;s Check-in Policy&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The Java class that implements PolicyInstance, the required interface used by all Team Explorer Everywhere check-in policy implementations.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":com.microsoft.tfs.core.checkinpolicies.PolicyInstance"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         Team Explorer Everywhere 10.0
+      </documentation>
+   </annotation>
+
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         This extension point is intended for public use.
+      </documentation>
+   </annotation>
+
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) Microsoft Corporation. All rights reserved.
+      </documentation>
+   </annotation>
+
+</schema>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265819304547" analysisTimestamp="1265819299945" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="getAccessDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="75" end="75" startBytecode="0" endBytecode="46" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="accessDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="75" end="75" startBytecode="4" endBytecode="4" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="getBackupDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="65" end="65" startBytecode="0" endBytecode="46" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="backupDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="65" end="65" startBytecode="4" endBytecode="4" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="getCreationDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="45" end="45" startBytecode="0" endBytecode="46" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="creationDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="45" end="45" startBytecode="4" endBytecode="4" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="getModificationDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="55" end="55" startBytecode="0" endBytecode="46" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="modificationDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="55" end="55" startBytecode="4" endBytecode="4" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="setAccessDate" signature="(Ljava/util/Date;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="80" end="81" startBytecode="0" endBytecode="61" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="accessDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <LocalVariable name="accessDate" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="80" end="80" startBytecode="2" endBytecode="2" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="setBackupDate" signature="(Ljava/util/Date;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="70" end="71" startBytecode="0" endBytecode="61" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="backupDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <LocalVariable name="backupDate" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="70" end="70" startBytecode="2" endBytecode="2" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="setCreationDate" signature="(Ljava/util/Date;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="50" end="51" startBytecode="0" endBytecode="61" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="creationDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <LocalVariable name="creationDate" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="50" end="50" startBytecode="2" endBytecode="2" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="setModificationDate" signature="(Ljava/util/Date;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="60" end="61" startBytecode="0" endBytecode="61" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" name="modificationDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+    </Field>
+    <LocalVariable name="modificationDate" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" start="60" end="60" startBytecode="2" endBytecode="2" sourcefile="AppleForkedDateEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedDateEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" name="getFinderInfo" signature="()[B" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" start="22" end="22" startBytecode="0" endBytecode="46" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" name="finderInfo" signature="[B" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" start="22" end="22" startBytecode="4" endBytecode="4" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" name="setFinderInfo" signature="([B)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" start="27" end="28" startBytecode="0" endBytecode="61" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" name="finderInfo" signature="[B" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+    </Field>
+    <LocalVariable name="finderInfo" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" start="27" end="27" startBytecode="2" endBytecode="2" sourcefile="AppleForkedFinderInfoEntry.java" sourcepath="com/microsoft/tfs/jni/appleforked/fileformat/entry/AppleForkedFinderInfoEntry.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream" sourcefile="AppleSingleEncoderStream.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/AppleSingleEncoderStream.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream" name="setDate" signature="(Ljava/util/Date;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream" start="80" end="81" startBytecode="0" endBytecode="61" sourcefile="AppleSingleEncoderStream.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/AppleSingleEncoderStream.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream" name="date" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream" sourcefile="AppleSingleEncoderStream.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/AppleSingleEncoderStream.java"/>
+    </Field>
+    <LocalVariable name="date" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream" start="80" end="80" startBytecode="2" endBytecode="2" sourcefile="AppleSingleEncoderStream.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/AppleSingleEncoderStream.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder" sourcefile="AppleForkedEntryDescriptorArrayEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/AppleForkedEntryDescriptorArrayEncoder.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder" name="&lt;init&gt;" signature="([Lcom/microsoft/tfs/jni/appleforked/fileformat/AppleForkedEntryDescriptor;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder" start="23" end="31" startBytecode="0" endBytecode="119" sourcefile="AppleForkedEntryDescriptorArrayEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/AppleForkedEntryDescriptorArrayEncoder.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder" name="descriptors" signature="[Lcom/microsoft/tfs/jni/appleforked/fileformat/AppleForkedEntryDescriptor;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder" sourcefile="AppleForkedEntryDescriptorArrayEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/AppleForkedEntryDescriptorArrayEncoder.java"/>
+    </Field>
+    <LocalVariable name="descriptors" register="1" pc="30" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder" start="30" end="30" startBytecode="30" endBytecode="30" sourcefile="AppleForkedEntryDescriptorArrayEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/AppleForkedEntryDescriptorArrayEncoder.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder" sourcefile="AppleForkedDateEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/entry/AppleForkedDateEncoder.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder" name="&lt;init&gt;" signature="(Ljava/util/Date;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder" start="35" end="38" startBytecode="0" endBytecode="69" sourcefile="AppleForkedDateEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/entry/AppleForkedDateEncoder.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder" name="date" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder" sourcefile="AppleForkedDateEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/entry/AppleForkedDateEncoder.java"/>
+    </Field>
+    <LocalVariable name="date" register="1" pc="6" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder" start="37" end="37" startBytecode="6" endBytecode="6" sourcefile="AppleForkedDateEncoder.java" sourcepath="com/microsoft/tfs/jni/appleforked/stream/encoder/entry/AppleForkedDateEncoder.java"/>
+  </BugInstance>
+  <BugInstance type="DM_NEXTINT_VIA_NEXTDOUBLE" priority="2" abbrev="Dm" category="PERFORMANCE" first="1">
+    <Class classname="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM">
+      <SourceLine classname="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM" sourcefile="JavaNTLM.java" sourcepath="com/microsoft/tfs/jni/internal/ntlm/JavaNTLM.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM" name="createClientNonce" signature="()[B" isStatic="true">
+      <SourceLine classname="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM" start="709" end="716" startBytecode="0" endBytecode="100" sourcefile="JavaNTLM.java" sourcepath="com/microsoft/tfs/jni/internal/ntlm/JavaNTLM.java"/>
+    </Method>
+    <SourceLine classname="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM" start="713" end="713" startBytecode="19" endBytecode="19" sourcefile="JavaNTLM.java" sourcepath="com/microsoft/tfs/jni/internal/ntlm/JavaNTLM.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 16:28:19 +0000" total_classes="108" referenced_classes="250" total_bugs="0" total_size="4061" num_packages="18" vm_version="14.3-b01" cpu_seconds="9.44" clock_seconds="39.78" peak_mbytes="355.26" alloc_mbytes="254.06" gc_seconds="1.05">
+    <PackageStats package="com.microsoft.tfs.jni" total_bugs="0" total_types="18" total_size="334">
+      <ClassStats class="com.microsoft.tfs.jni.AuthenticationEngine" sourceFile="AuthenticationEngine.java" interface="true" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.AuthenticationEngine$AuthenticationClient" sourceFile="AuthenticationEngine.java" interface="true" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.AuthenticationEngine$AuthenticationException" sourceFile="AuthenticationEngine.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.Console" sourceFile="Console.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.ConsoleUtils" sourceFile="ConsoleUtils.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.FileSystem" sourceFile="FileSystem.java" interface="true" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.FileSystemUtils" sourceFile="FileSystemUtils.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.NTLM" sourceFile="NTLM.java" interface="true" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.NTLM$NTLMState" sourceFile="NTLM.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.NTLMEngine" sourceFile="NTLMEngine.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.NTLMEngine$NTLMClient" sourceFile="NTLMEngine.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.Negotiate" sourceFile="Negotiate.java" interface="true" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.Negotiate$NegotiateState" sourceFile="Negotiate.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.NegotiateEngine" sourceFile="NegotiateEngine.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.NegotiateEngine$NegotiateClient" sourceFile="NegotiateEngine.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.PlatformMisc" sourceFile="PlatformMisc.java" interface="true" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.PlatformMiscUtils" sourceFile="PlatformMiscUtils.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.ProxyBuilder" sourceFile="ProxyBuilder.java" interface="false" size="44" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked" total_bugs="0" total_types="3" total_size="78">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.AppleForkedUtils" sourceFile="AppleForkedUtils.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.ResourceForkInputStream" sourceFile="ResourceForkInputStream.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.ResourceForkOutputStream" sourceFile="ResourceForkOutputStream.java" interface="false" size="27" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked.fileformat" total_bugs="0" total_types="3" total_size="180">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.fileformat.AppleForkedConstants" sourceFile="AppleForkedConstants.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.fileformat.AppleForkedEntryDescriptor" sourceFile="AppleForkedEntryDescriptor.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.fileformat.AppleForkedHeader" sourceFile="AppleForkedHeader.java" interface="false" size="88" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked.fileformat.entry" total_bugs="0" total_types="4" total_size="164">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedDateEntry" sourceFile="AppleForkedDateEntry.java" interface="false" size="78" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFilenameEntry" sourceFile="AppleForkedFilenameEntry.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedFinderInfoEntry" sourceFile="AppleForkedFinderInfoEntry.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.fileformat.entry.AppleForkedMacFileInfoEntry" sourceFile="AppleForkedMacFileInfoEntry.java" interface="false" size="36" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked.stream" total_bugs="0" total_types="5" total_size="268">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.AppleDoubleDecoderStream" sourceFile="AppleDoubleDecoderStream.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.AppleForkedDecoderStream" sourceFile="AppleForkedDecoderStream.java" interface="false" size="99" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.AppleForkedEncoderStream" sourceFile="AppleForkedEncoderStream.java" interface="false" size="110" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.AppleSingleDecoderStream" sourceFile="AppleSingleDecoderStream.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream" sourceFile="AppleSingleEncoderStream.java" interface="false" size="37" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked.stream.decoder" total_bugs="0" total_types="3" total_size="41">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.AppleForkedEntryDescriptorArrayDecoder" sourceFile="AppleForkedEntryDescriptorArrayDecoder.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.AppleForkedEntryDescriptorDecoder" sourceFile="AppleForkedEntryDescriptorDecoder.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.AppleForkedHeaderDecoder" sourceFile="AppleForkedHeaderDecoder.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked.stream.decoder.entry" total_bugs="0" total_types="8" total_size="118">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedCommentDecoder" sourceFile="AppleForkedCommentDecoder.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedDataForkDecoder" sourceFile="AppleForkedDataForkDecoder.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedDateDecoder" sourceFile="AppleForkedDateDecoder.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedEntryDecoder" sourceFile="AppleForkedEntryDecoder.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedEntryDecoderFactory" sourceFile="AppleForkedEntryDecoderFactory.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedFinderInfoDecoder" sourceFile="AppleForkedFinderInfoDecoder.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedNullEntryDecoder" sourceFile="AppleForkedNullEntryDecoder.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.decoder.entry.AppleForkedResourceForkDecoder" sourceFile="AppleForkedResourceForkDecoder.java" interface="false" size="17" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked.stream.encoder" total_bugs="0" total_types="3" total_size="31">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorArrayEncoder" sourceFile="AppleForkedEntryDescriptorArrayEncoder.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedEntryDescriptorEncoder" sourceFile="AppleForkedEntryDescriptorEncoder.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.AppleForkedHeaderEncoder" sourceFile="AppleForkedHeaderEncoder.java" interface="false" size="9" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.appleforked.stream.encoder.entry" total_bugs="0" total_types="8" total_size="157">
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedCommentEncoder" sourceFile="AppleForkedCommentEncoder.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDataForkEncoder" sourceFile="AppleForkedDataForkEncoder.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedDateEncoder" sourceFile="AppleForkedDateEncoder.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedEntryEncoder" sourceFile="AppleForkedEntryEncoder.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedFilenameEncoder" sourceFile="AppleForkedFilenameEncoder.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedFinderInfoEncoder" sourceFile="AppleForkedFinderInfoEncoder.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedMacFileInfoEncoder" sourceFile="AppleForkedMacFileInfoEncoder.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.appleforked.stream.encoder.entry.AppleForkedResourceForkEncoder" sourceFile="AppleForkedResourceForkEncoder.java" interface="false" size="24" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.helpers" total_bugs="0" total_types="1" total_size="65">
+      <ClassStats class="com.microsoft.tfs.jni.helpers.FileCopyHelper" sourceFile="FileCopyHelper.java" interface="false" size="65" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.internal" total_bugs="0" total_types="2" total_size="25">
+      <ClassStats class="com.microsoft.tfs.jni.internal.ExecHelpers" sourceFile="ExecHelpers.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.Proxyable" sourceFile="Proxyable.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.internal.console" total_bugs="0" total_types="8" total_size="159">
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.AbstractConsole" sourceFile="AbstractConsole.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.ExecConsole" sourceFile="ExecConsole.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.NativeConsole" sourceFile="NativeConsole.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.ProxiedConsole" sourceFile="ProxiedConsole.java" interface="true" size="1" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.UnixExecConsole" sourceFile="UnixExecConsole.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.UnixExecConsoleTest" sourceFile="UnixExecConsoleTest.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.WindowsExecConsole" sourceFile="WindowsExecConsole.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.console.WindowsExecConsoleTest" sourceFile="WindowsExecConsoleTest.java" interface="false" size="22" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.internal.filesystem" total_bugs="0" total_types="8" total_size="454">
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.AbstractFileSystem" sourceFile="AbstractFileSystem.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.ExecFileSystem" sourceFile="ExecFileSystem.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.NativeFileSystem" sourceFile="NativeFileSystem.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.ProxiedFileSystem" sourceFile="ProxiedFileSystem.java" interface="true" size="1" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.UnixExecFileSystem" sourceFile="UnixExecFileSystem.java" interface="false" size="173" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.UnixExecFileSystemTest" sourceFile="UnixExecFileSystemTest.java" interface="false" size="113" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.WindowsExecFileSystem" sourceFile="WindowsExecFileSystem.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.filesystem.WindowsExecFileSystemTest" sourceFile="WindowsExecFileSystemTest.java" interface="false" size="40" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.internal.negotiate" total_bugs="0" total_types="5" total_size="119">
+      <ClassStats class="com.microsoft.tfs.jni.internal.negotiate.AbstractNegotiate" sourceFile="AbstractNegotiate.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.negotiate.NativeNegotiate" sourceFile="NativeNegotiate.java" interface="false" size="76" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.negotiate.NativeNegotiate$NativeNegotiateState" sourceFile="NativeNegotiate.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.negotiate.NegotiateException" sourceFile="NegotiateException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.negotiate.ProxiedNegotiate" sourceFile="ProxiedNegotiate.java" interface="true" size="1" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.internal.ntlm" total_bugs="0" total_types="10" total_size="766">
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.AbstractNTLM" sourceFile="AbstractNTLM.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM" sourceFile="JavaNTLM.java" interface="false" size="421" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM$JavaNTLMState" sourceFile="JavaNTLM.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.JavaNTLM$NTLMType2Message" sourceFile="JavaNTLM.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.MD4" sourceFile="MD4.java" interface="false" size="160" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.MD4Provider" sourceFile="MD4.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.NTLMException" sourceFile="NTLMException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.NativeNTLM" sourceFile="NativeNTLM.java" interface="false" size="73" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.NativeNTLM$NativeNTLMState" sourceFile="NativeNTLM.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.ntlm.ProxiedNTLM" sourceFile="ProxiedNTLM.java" interface="true" size="1" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.internal.platformmisc" total_bugs="0" total_types="8" total_size="254">
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.AbstractPlatformMisc" sourceFile="AbstractPlatformMisc.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.ExecPlatformMisc" sourceFile="ExecPlatformMisc.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.NativePlatformMisc" sourceFile="NativePlatformMisc.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.ProxiedPlatformMisc" sourceFile="ProxiedPlatformMisc.java" interface="true" size="1" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.UnixExecPlatformMisc" sourceFile="UnixExecPlatformMisc.java" interface="false" size="72" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.UnixExecPlatformMiscTest" sourceFile="UnixExecPlatformMiscTest.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.WindowsExecPlatformMisc" sourceFile="WindowsExecPlatformMisc.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.WindowsExecPlatformMiscTest" sourceFile="WindowsExecPlatformMiscTest.java" interface="false" size="38" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.internal.proxy" total_bugs="0" total_types="3" total_size="111">
+      <ClassStats class="com.microsoft.tfs.jni.internal.proxy.MethodImplementationFailedException" sourceFile="MethodImplementationFailedException.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.proxy.NoImplementationsAvailableException" sourceFile="NoImplementationsAvailableException.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.internal.proxy.PlatformUtilsProxy" sourceFile="PlatformUtilsProxy.java" interface="false" size="83" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.jni.natives" total_bugs="0" total_types="8" total_size="737">
+      <ClassStats class="com.microsoft.tfs.jni.natives.AbstractNativeMethods" sourceFile="AbstractNativeMethods.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.natives.LibraryVersions" sourceFile="LibraryVersions.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.natives.NativeAuthMethods" sourceFile="NativeAuthMethods.java" interface="false" size="77" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.natives.NativeConsoleMethods" sourceFile="NativeConsoleMethods.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.natives.NativeFileSystemMethods" sourceFile="NativeFileSystemMethods.java" interface="false" size="71" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.natives.NativeLoader" sourceFile="NativeLoader.java" interface="false" size="234" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.natives.NativeMethodsTest" sourceFile="NativeMethodsTest.java" interface="false" size="266" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.natives.NativePlatformMiscMethods" sourceFile="NativePlatformMiscMethods.java" interface="false" size="39" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethodInvocations" totalMilliseconds="11" invocations="105" avgMicrosecondsPerInvocation="112" maxMicrosecondsPerInvocation="957" standardDeviationMircosecondsPerInvocation="133"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonnullReturnValues" totalMilliseconds="12" invocations="108" avgMicrosecondsPerInvocation="116" maxMicrosecondsPerInvocation="1757" standardDeviationMircosecondsPerInvocation="182"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSqlInjection" totalMilliseconds="12" invocations="106" avgMicrosecondsPerInvocation="121" maxMicrosecondsPerInvocation="1174" standardDeviationMircosecondsPerInvocation="167"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer" totalMilliseconds="14" invocations="105" avgMicrosecondsPerInvocation="135" maxMicrosecondsPerInvocation="1215" standardDeviationMircosecondsPerInvocation="183"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantPoolGenFactory" totalMilliseconds="15" invocations="93" avgMicrosecondsPerInvocation="166" maxMicrosecondsPerInvocation="11126" standardDeviationMircosecondsPerInvocation="1143"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindReturnRef" totalMilliseconds="17" invocations="108" avgMicrosecondsPerInvocation="159" maxMicrosecondsPerInvocation="1479" standardDeviationMircosecondsPerInvocation="205"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="18" invocations="108" avgMicrosecondsPerInvocation="168" maxMicrosecondsPerInvocation="1115" standardDeviationMircosecondsPerInvocation="174"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="18" invocations="108" avgMicrosecondsPerInvocation="174" maxMicrosecondsPerInvocation="4396" standardDeviationMircosecondsPerInvocation="723"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="19" invocations="5546" avgMicrosecondsPerInvocation="3" maxMicrosecondsPerInvocation="177" standardDeviationMircosecondsPerInvocation="6"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="21" invocations="250" avgMicrosecondsPerInvocation="86" maxMicrosecondsPerInvocation="661" standardDeviationMircosecondsPerInvocation="107"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="22" invocations="108" avgMicrosecondsPerInvocation="212" maxMicrosecondsPerInvocation="2277" standardDeviationMircosecondsPerInvocation="321"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="24" invocations="283" avgMicrosecondsPerInvocation="85" maxMicrosecondsPerInvocation="497" standardDeviationMircosecondsPerInvocation="88"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="30" invocations="250" avgMicrosecondsPerInvocation="122" maxMicrosecondsPerInvocation="1364" standardDeviationMircosecondsPerInvocation="204"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="31" invocations="108" avgMicrosecondsPerInvocation="292" maxMicrosecondsPerInvocation="3394" standardDeviationMircosecondsPerInvocation="459"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="32" invocations="108" avgMicrosecondsPerInvocation="301" maxMicrosecondsPerInvocation="2668" standardDeviationMircosecondsPerInvocation="401"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="34" invocations="17" avgMicrosecondsPerInvocation="2033" maxMicrosecondsPerInvocation="31692" standardDeviationMircosecondsPerInvocation="7414"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="36" invocations="32" avgMicrosecondsPerInvocation="1154" maxMicrosecondsPerInvocation="3755" standardDeviationMircosecondsPerInvocation="1232"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="37" invocations="250" avgMicrosecondsPerInvocation="151" maxMicrosecondsPerInvocation="15530" standardDeviationMircosecondsPerInvocation="987"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="41" invocations="108" avgMicrosecondsPerInvocation="382" maxMicrosecondsPerInvocation="14725" standardDeviationMircosecondsPerInvocation="1426"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="47" invocations="250" avgMicrosecondsPerInvocation="190" maxMicrosecondsPerInvocation="12283" standardDeviationMircosecondsPerInvocation="795"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="49" invocations="640" avgMicrosecondsPerInvocation="77" maxMicrosecondsPerInvocation="1156" standardDeviationMircosecondsPerInvocation="130"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="77" invocations="780" avgMicrosecondsPerInvocation="99" maxMicrosecondsPerInvocation="1259" standardDeviationMircosecondsPerInvocation="152"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="91" invocations="249" avgMicrosecondsPerInvocation="366" maxMicrosecondsPerInvocation="14356" standardDeviationMircosecondsPerInvocation="1256"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="96" invocations="736" avgMicrosecondsPerInvocation="130" maxMicrosecondsPerInvocation="17750" standardDeviationMircosecondsPerInvocation="676"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="127" invocations="640" avgMicrosecondsPerInvocation="198" maxMicrosecondsPerInvocation="14558" standardDeviationMircosecondsPerInvocation="665"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="142" invocations="3728" avgMicrosecondsPerInvocation="38" maxMicrosecondsPerInvocation="1078" standardDeviationMircosecondsPerInvocation="61"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="146" invocations="250" avgMicrosecondsPerInvocation="587" maxMicrosecondsPerInvocation="14327" standardDeviationMircosecondsPerInvocation="1458"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="149" invocations="640" avgMicrosecondsPerInvocation="233" maxMicrosecondsPerInvocation="16666" standardDeviationMircosecondsPerInvocation="959"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="227" invocations="780" avgMicrosecondsPerInvocation="292" maxMicrosecondsPerInvocation="15016" standardDeviationMircosecondsPerInvocation="1188"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="328" invocations="680" avgMicrosecondsPerInvocation="482" maxMicrosecondsPerInvocation="24183" standardDeviationMircosecondsPerInvocation="1520"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="405" invocations="927" avgMicrosecondsPerInvocation="437" maxMicrosecondsPerInvocation="17465" standardDeviationMircosecondsPerInvocation="1052"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="418" invocations="640" avgMicrosecondsPerInvocation="654" maxMicrosecondsPerInvocation="23257" standardDeviationMircosecondsPerInvocation="1860"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="429" invocations="640" avgMicrosecondsPerInvocation="671" maxMicrosecondsPerInvocation="20538" standardDeviationMircosecondsPerInvocation="1760"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="512" invocations="640" avgMicrosecondsPerInvocation="800" maxMicrosecondsPerInvocation="20718" standardDeviationMircosecondsPerInvocation="2112"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="810" invocations="2" avgMicrosecondsPerInvocation="405133" maxMicrosecondsPerInvocation="784625" standardDeviationMircosecondsPerInvocation="379492"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265819304547" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

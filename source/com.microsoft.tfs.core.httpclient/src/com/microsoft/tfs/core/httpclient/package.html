@@ -1,0 +1,124 @@
+<!-- $Id: package.html 155418 2005-02-26 13:01:52Z dirkv $ -->
+<html>
+   <head>
+      <title>Package Documentation for org.apache.commons.httpclient</title>
+      <meta name="author" content="Jeff Dever">
+   </head>
+   <body>
+      <h3>Classes and interfaces supporting the client side of the HTTP protocol.</h3>
+      <p>
+         The <em>HttpClient</em> component supports the client-side of
+         <a href="http://www.w3.org/Protocols/rfc1945/rfc1945.txt">RFC 1945 (HTTP/1.0)</a> and
+         <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.txt">RFC 2616 (HTTP/1.1)</a>,
+         several related specifications
+         (<a href="http://www.w3.org/Protocols/rfc2109/rfc2109.txt">RFC 2109 (Cookies)</a>,
+         <a href="http://www.ietf.org/rfc/rfc2617.txt">RFC 2617 (HTTP Authentication)</a>,
+         etc.), and provides a framework by which new request types (methods) or HTTP
+         extensions can can be easily created or supported.
+      </p>
+      <p>
+         The basis for the abstraction is provided by three types:
+      </p>
+      <ul><dl>
+         <dt>{@link org.apache.commons.httpclient.HttpConnection}</dt>
+         <dd>
+            represents a network connection to some HTTP host.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.HttpMethod}</dt>
+         <dd>
+            represents a request to be made over some
+            {@link org.apache.commons.httpclient.HttpConnection}
+            and contains the server's response.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.HttpState}</dt>
+         <dd>
+            contains the HTTP attributes that may persist from
+            request to request, such as cookies and authentication
+            credentials.
+         </dd>
+      </dl></ul>
+      <p>
+         and several simple bean-style classes:
+      </p>
+      <ul><dl>
+         <dt>{@link org.apache.commons.httpclient.Cookie}</dt>
+         <dd>
+            represents HTTP cookie.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.Credentials}</dt>
+         <dd>
+            an interface representing a set of authentication credentials.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.Header}</dt>
+         <dd>
+            represents an HTTP request or response header.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.HeaderElement}</dt>
+         <dd>
+            represents a single element of a multi-part header.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.UsernamePasswordCredentials}</dt>
+         <dd>
+            a username and password pair.
+         </dd>
+      </dl></ul>
+      <p>
+         {@link org.apache.commons.httpclient.HttpClient} provides a
+         simple "user-agent" implementation that will suffice for many
+         applications, but whose use is not required.
+      </p>
+      <p>
+         <em>HttpClient</em> also provides several utilities that may be
+         useful when extending the framework:
+      </p>
+      <ul><dl>
+         <dt>{@link org.apache.commons.httpclient.HttpMethodBase}</dt>
+         <dd>
+            an abstract base implementation of <tt>HttpMethod</tt>,
+            which may be extended to create new method types or
+            to support additional protocol HTTP features.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.HttpStatus}</dt>
+         <dd>
+            an enumeration of HttpStatus codes.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.ChunkedOutputStream}</dt>
+         <dd>
+            an {@link java.io.OutputStream} wrapper supporting the "chunked"
+            transfer encoding.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.ChunkedInputStream}</dt>
+         <dd>
+            an {@link java.io.InputStream} wrapper supporting the "chunked"
+            transfer encoding.
+         </dd>
+         <dt>{@link org.apache.commons.httpclient.util.URIUtil}</dt>
+         <dd>
+            provides utilities for encoding and decoding URI's in the
+            <tt>%HH</tt> format.
+         </dd>
+      </dl></ul>
+
+      <h4>HttpClient Configuration with Java Properties</h4>
+         Java properties can be set at run time with the <code>-Dname=value<code>
+         command line arguments to the application that uses <i>HttpClient</i>.
+         These properties can also be set programaticly by calling
+         <code>System.getProperties().setProperty(name, value)</code>.
+         This is the list of properties that <i>HttpClient</i> recognizes:
+         <table border=1>
+         <tr><th>Name</th>
+             <th>Type</th>
+             <th>Effect</th>
+         </tr>
+	 <tr><th>httpclient.useragent</th>
+             <td>String</td>
+             <td>Sets the User-Agent string to be sent on every HTTP request.</td>
+         </tr>
+	 <tr><th>httpclient.authentication.preemptive</th>
+             <td>boolean</td>
+             <td>Sends authorization credentials without requiring explicit requests
+                 from the web server</td>
+         </tr>
+         </table>
+   </body>
+</html>

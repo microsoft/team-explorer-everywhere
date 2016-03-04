@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension-point id="projectManagerDataProvider" name="%extension-point.projectManagerDataProvider.name" schema="schema/projectManagerDataProvider.exsd"/>
+   <extension-point id="fileModificationAdvisor" name="%extension-point.fileModificationAdvisor.name" schema="schema/fileModificationAdvisor.exsd"/>
+   <extension-point id="resourceChangeStatusReporters" name="%extension-point.resourceChangeStatusReporters.name" schema="schema/resourceChangeStatusReporters.exsd"/>
+   <extension-point id="licenseChecker" name="%extension-point.licenseChecker.name" schema="schema/licenseChecker.exsd"/>
+   <extension-point id="consoleProvider" name="%extension-point.consoleProvider.name" schema="schema/consoleProvider.exsd"/>
+
+   <extension
+         point="org.eclipse.team.core.repository">
+      <repository
+            class="com.microsoft.tfs.client.eclipse.TFSRepositoryProvider"
+            id="com.microsoft.tfs.client.eclipse.TFSRepositoryProvider"
+            typeClass="com.microsoft.tfs.client.eclipse.TFSRepositoryProviderType" />
+   </extension>
+</plugin>

@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: com.microsoft.tfs.checkinpolicies.build; singleton:=true
+Bundle-Version: 14.0.2.qualifier
+Bundle-Activator: com.microsoft.tfs.checkinpolicies.build.TFSBuildCheckinPolicyPlugin
+Bundle-Vendor: %Bundle-Vendor
+Bundle-Localization: plugin
+Export-Package: com.microsoft.tfs.checkinpolicies.build,
+ com.microsoft.tfs.checkinpolicies.build.settings,
+ com.microsoft.tfs.checkinpolicies.build.ui
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jface,
+ org.eclipse.ui,
+ com.microsoft.tfs.client.common,
+ com.microsoft.tfs.client.common.ui,
+ com.microsoft.tfs.checkinpolicies,
+ org.eclipse.ui.ide
+Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.checkinpolicies.build.jar

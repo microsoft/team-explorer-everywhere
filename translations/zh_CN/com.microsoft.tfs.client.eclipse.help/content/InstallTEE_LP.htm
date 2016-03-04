@@ -1,0 +1,541 @@
+<html DIR="LTR" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:tool="http://www.microsoft.com/tooltip"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=utf-8"></META><META NAME="save" CONTENT="history"></META><title>正在安装 Team Explorer Everywhere 插件和命令行客户端语言包</title><STYLE TYPE="text/css">
+    body
+    {
+        background:    #FFFFFF;
+        color: #000000;
+        font-family: "Segoe UI", Verdana, sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: normal;
+        margin-top:    0;
+        margin-bottom:    0;
+        margin-left:    0;
+        margin-right:    0;
+    }
+    
+    a
+    {
+        color:    #0000FF;
+    }
+    
+    a:visited
+    {
+        color:    #0000FF;
+    }
+    
+    a:link
+    {
+        color:    #0000FF;
+    }
+    
+    a:hover
+    {
+        color:    #FF0000;
+        cursor: hand;
+    }
+    
+    a:active
+    {
+        color:    #FF0000;
+        cursor: hand;
+    }
+    
+    div#mainSection
+    {
+        width: 100%;
+    }
+    
+    div#mainBody
+    {
+        margin: 10px;
+        padding-bottom: 20;
+    }
+    
+    div#header
+    {
+        background-color: #D4DFFF;
+        padding-top:    0;
+        padding-bottom:    0;
+        padding-left:    0;
+        padding-right:    0;
+        width:    100%;
+    }
+    
+    div#header table
+    {
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        width:    100%;
+    }
+    
+    span#runningHeaderText
+    {
+        color: #003399;
+    }
+    
+    span#nsrTitle
+    {
+        color: #003399;
+        font-weight: 600;
+        font-size: 125%;
+    }
+    
+    div#header table td
+    {
+        color: #0000FF;
+        margin-top:    0;
+        margin-bottom:    0;
+        padding-right: 20;
+    }
+    
+    div#header table tr#headerTableRow3 td
+    {
+        padding-bottom: 2;
+        padding-top: 5;
+    }
+    
+    div#header table#bottomTable
+    {
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        text-align: left;
+    }
+    
+    div#footer
+    {
+        margin-top:    0;
+        margin-bottom:    0;
+        margin-left:    0;
+        margin-right:    0;
+        padding-top:    2;
+        padding-bottom:    2;
+        padding-left:    2;
+        padding-right:    2;
+        width:    100%;
+    }
+    
+    hr#footerHR
+    {
+        border-bottom-color: #EEEEFF;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        border-top-color: C8CDDE;
+        border-top-style: solid;
+        border-top-width: 1;
+        height: 3;
+        color: #D4DFFF;
+    }
+    
+    div.section
+    {
+        padding-top:    2;
+        padding-bottom:    2;
+        padding-left:    16;
+        padding-right:    15;
+        width:    100%;
+    }
+    
+    .heading
+    {
+        font-weight:    bold;
+        margin-top:        18;
+        margin-bottom:    8;
+    }
+    
+    h1.heading
+    {
+        color: #003399;
+    }
+    
+    .subHeading
+    {
+        font-weight:    bold;
+        margin-bottom:    4;
+    }
+    
+    h3.subHeading
+    {
+        color:  #003399;
+        font-weight: bold;
+    }
+    
+    h4.subHeading
+    {
+        color: #003399;
+    }
+    
+    h5.subHeading
+    {
+        color: #003399;
+    }
+    
+    img.toggle
+    {
+    	border: 0;
+	margin-right: 5;
+    }
+
+    img.copyCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.downloadCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.viewCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.note
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img#languageFilterImage
+    {
+	border: 0;
+	margin-left: 10;
+	vertical-align: middle;
+    }
+
+    img#membersOptionsFilterImage
+    {
+	border: 0;
+	margin-left: 10;
+	vertical-align: middle;
+    }
+
+    img#toggleAllImage
+    {
+	margin-left: 4;
+	vertical-align: middle;
+    }
+    
+    div#mainSection table
+    {
+        border: 0;
+        width:    100%;
+    }
+    
+    div#mainSection table th
+    {
+        background:    #EFEFF7;
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        color: #000066;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div#mainSection table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div#mainSection table td.imageCell
+    {
+        white-space: nowrap;
+    }
+    
+    div.code table
+    {
+        border: 0;
+        margin-bottom: 5;
+        width: 100%
+    }
+    
+    div.code table th
+    {    
+        background:    #EFEFF7;
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        color: #000066;
+        font-weight: bold;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div.code table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+        padding-top: 5;
+    }
+    
+    div.alert table
+    {
+        border: 0;
+        width:    100%;
+    }
+    
+    div.alert table th
+    {
+        background:    #EFEFF7;
+        border-bottom-width: 0;
+        color: #000066;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div.alert table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    .copyCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    .downloadCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    .viewCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    div.code pre
+    {
+        font-family:    Monospace, Courier New, Courier;
+        color:    #000066;
+        word-wrap:    break-word;
+    }
+    
+    code
+    {
+        font-family:    Monospace, Courier New, Courier;
+        color:    #000066;
+    }
+    
+    dl
+    {
+        margin-top:    0;
+        padding-left:    1;
+    }
+    
+    dt
+    {
+        font-style:    italic;
+    }
+    
+    dd
+    {
+        margin-bottom:    0;
+        margin-left:    0;
+    }
+    
+    ul
+    {
+        margin-left: 17;
+        list-style-type: disc;
+    }
+    
+    ul ul
+    {
+        margin-bottom: 4;
+        margin-left: 17;
+        margin-top: 3;
+        list-style-type: disc;
+    }
+    
+    ol
+    {
+        margin-left: 24;
+        list-style-type: decimal;
+    }
+    
+    ol ol
+    {
+        margin-bottom: 4;
+        margin-left: 24;
+        margin-top: 3;
+        list-style-type: lower-alpha;
+    }
+    
+    li
+    {
+        margin-bottom: 3;
+    }
+    
+    p
+    {
+        margin-top: 0;
+        margin-bottom: 15;
+    }
+    
+    .tip
+    {
+        color:    #0000FF;
+        font-style: italic;
+        cursor:hand;
+        text-decoration:underline;
+    }
+    
+    .languageFilter
+    {
+        color:    #0000FF;
+        cursor:hand;
+        text-decoration:underline;
+        padding-bottom:4;
+    }
+    
+    .math
+    {
+        font-family: Times New Roman;
+    }
+    
+    .sourceCodeList
+    {
+
+    }
+    
+    pre.viewCode
+    {
+        width: 100%;
+        overflow: auto;
+    }
+    
+    MSHelp\:link
+    {
+        text-decoration: underline;
+        color: #0000ff; 
+        hoverColor: #3366ff;
+        filterString: ;
+    }
+</STYLE>
+</head>
+<body><input type="hidden" id="userDataCache" class="userDataStyle"></input><input type="hidden" id="hiddenScrollOffset"></input><img id="dropDownImage" style="display:none; height:0; width:0;" src="drpdown.gif"><img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="drpdown_orange.gif"><img id="collapseImage" style="display:none; height:0; width:0;" src="collapse.gif"><img id="expandImage" style="display:none; height:0; width:0;" src="exp.gif"><img id="copyImage" style="display:none; height:0; width:0;" src="copycode.gif"><img id="copyHoverImage" style="display:none; height:0; width:0;" src="copycodeHighlight.gif"><div id="header"><table width="100%" id="topTable"><tr id="headerTableRow1"><td align="left"><span id="runningHeaderText"></span></td></tr><tr id="headerTableRow2"><td align="left"><span id="nsrTitle">正在安装 Team Explorer Everywhere 插件和命令行客户端语言包</span></td></tr><tr id="headerTableRow3"></tr></table></div><div id="mainSection"><div id="mainBody"><div id="allHistory" class="saveHistory"></div>
+
+<p>你可以使用 Team Explorer Everywhere 语言包在 Team Explorer Everywhere 插件和命令行客户端中添加对以下语言的支持。</p>
+<ul>
+  <li>葡萄牙语（巴西）</li>
+  <li>中文(简体)</li>  
+  <li>中文(繁体)</li>  
+  <li>法语</li>
+  <li>德语</li> 
+  <li>日语</li>
+</ul>        
+        
+<a name="Prerequisites"></a><a name="InstallTEE_LP#Prerequisites"></a><h1 class="heading">系统必备</h1>
+<div id="sectionSection0" class="section">
+  <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    <p xmlns="">您必须已安装 Team Explorer Everywhere 和所需语言版本的 Team Foundation Server 才能使用此语言包。</p>
+  </content>
+</div>
+			
+  <a name="InstallPlugin"></a><a name="InstallTEE_LP#InstallPlugin"></a><h1 class="heading">正在向 Team Explorer Everywhere 添加其他语言</h1><div id="sectionSection1" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <p xmlns="">您可以安装语言包插件来使用选定的 Eclipse 语言显示消息和窗口（如果受语言包的支持）。  如果无法用选定的语言显示特定消息，则将显示默认的英语版本。</p>
+
+      <div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">注意 </th></tr><tr><td>
+        您应为您的语言安装 Eclipse 产品语言包，并将 Eclipse 配置为使用该语言包。 有关如何下载和配置 Eclipse 产品语言包的更多信息，请参见 <a href="http://www.eclipse.org/babel/">http://www.eclipse.org/babel/</a> 。<p></p>
+      </td></tr></table><p></p></div>
+      <h4 class="subHeading" xmlns=""><b>将 Team Explorer Everywhere 附加语言安装到 Eclipse 中</b></h4><div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"><ol class="ordered" xmlns=""><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              打开 Eclipse。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              在“帮助”<b></b>菜单上，单击“安装新软件”<b></b>。“  安装”<b></b>对话框随即出现。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              单击“添加”<b></b>。“ 添加网站”<b></b>对话框随即出现。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              在“名称”<b></b>中，键入“本地 TFS 语言包存档”<b></b>。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              单击“存档”<b></b>。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              指定该存档文件的位置，然后单击“打开”<b></b>。<br/>
+              选择下载的存档文件 TFSEclipsePlugin-NL1-UpdateSiteArchive-14.0.2.zip。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              单击“确定”<b></b>。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              在“<b>安装</b>”对话框的功能列表中，选择与 Team Explorer Everywhere 语言包对应的复选框。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              单击“下一步”<b></b>两次。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              接受 Microsoft 软件许可条款，然后单击“完成”<b></b>。
+            </content>
+          </li><li>
+            <content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+              在系统提示时重新启动 Eclipse。
+            </content>
+          </li></ol>
+          </ddue:steps></div>
+    </content>
+</div>
+				
+				<a name="InstallCLC"></a><a name="InstallTEE_LP#InstallCLC"></a><h1 class="heading">向 Team Foundation Server 的跨平台命令行客户端添加其他语言</h1><div id="sectionSection2" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+					<p xmlns="">可以安装此语言包以向 Team Foundation Server 的跨平台命令行客户端提供其他语言支持。 必须为所需语言和字符编码配置区域设置特定的环境变量，并且必须将终端程序配置为显示此编码中的字符。 有关更多信息，请参见终端程序的区域设置 (1) 手册页和文档。</p>
+					<h4 class="subHeading" xmlns=""><b>安装跨平台命令行客户端附加语言</b></h4><div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"><ol class="ordered" xmlns=""><li>
+								<content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+									将包含语言的存档文件(TEE-CLC-NL1-14.0.2.zip)解压缩到跨平台命令行客户端所在的相同位置。
+								</content>
+							</li></ol></ddue:steps>							
+							</div>
+				</content></div>
+				
+				<br/>
+				
+				<div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">注意 </th></tr><tr><td>
+					此存档文件包含一个被提取到命令行客户端安装中的 /lib 目录的 com.microsoft.tfs.client.clc.nl1.jar 文件。 确认此文件位于安装 /lib 目录中以确定安装成功。 <p></p>
+				</td></tr></table><p></p></div>				
+				
+			<!--[if gte IE 5]>
+			<tool:tip element="languageFilterToolTip" avoidmouse="false"/>
+		<![endif]--></div>	<div id="footer"><hr /><p />
+		<div class="FooterLinks">
+			<span class="FooterCopyright" title="© 2015 
+			Microsoft。保留所有权利。">&copy; 2015 Microsoft。 保留所有权利。</span>
+			<a href="http://go.microsoft.com/fwlink/?LinkID=258799" title="使用条款">使用条款</a> 
+			<span class="Pipe">&nbsp;|&nbsp;</span>
+			<a href="http://go.microsoft.com/fwlink/?LinkId=258800" title="商标">商标</a>
+		</div> 
+	</div>
+</div></body></html>

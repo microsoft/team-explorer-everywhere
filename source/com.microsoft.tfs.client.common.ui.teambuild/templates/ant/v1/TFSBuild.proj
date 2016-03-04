@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="DesktopBuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- TO EDIT BUILD TYPE DEFINITION
+
+  To edit the build type, you will need to edit this file which was generated
+  by the Create New Build Type wizard.  This file is under source control and
+  needs to be checked out before making any changes.
+
+  The file is available at -
+      $/{TeamProjectName}/TeamBuildTypes/{BuildTypeName}
+  where you will need to replace TeamProjectName and BuildTypeName with your
+  Team Project and Build Type name that you created
+
+  Checkout the file
+    1. Open TFVC Source Control Explorer by selecting View -> Other Windows -> TFVC Source Control Explorer
+    2. Ensure that your current workspace has a mapping for the $/{TeamProjectName}/TeamBuildTypes folder and
+       that you have done a "Get Latest Version" on that folder
+    3. Browse through the folders to {TeamProjectName}->TeamBuildTypes->{BuildTypeName} folder
+    4. From the list of files available in this folder, right click on TfsBuild.Proj. Select 'Check Out For Edit...'
+
+
+  Make the required changes to the file and save
+
+  Checkin the file
+    1. Right click on the TfsBuild.Proj file selected in Step 3 above and select 'Checkin Pending Changes'
+    2. Use the pending checkin dialog to save your changes to the source control
+
+  Once the file is checked in with the modifications, all future builds using
+  this build type will use the modified settings
+  -->
+  <!-- Do not edit the following line -->
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\TeamBuild\Microsoft.TeamFoundation.Build.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v8.0\BuildExtensions\Microsoft.TeamFoundation.Build.Extensions.targets" />
+
+  <ProjectExtensions>
+
+    <!-- Team Foundation Build Version - DO NOT CHANGE -->
+    <ProjectFileVersion>#VERSION#</ProjectFileVersion>
+
+    <!--  DESCRIPTION
+     The description is associated with a build type. Edit the value for making changes.
+    -->
+    <Description>#DESCRIPTION#</Description>
+
+    <!--  BUILD MACHINE
+     Name of the machine which will be used to build the solutions selected.
+    -->
+    <BuildMachine>#BUILDMACHINE#</BuildMachine>
+
+  </ProjectExtensions>
+
+  <PropertyGroup>
+
+    <!--  TEAM PROJECT
+     The team project which will be built using this build type.
+    -->
+    <TeamProject>#TEAMPROJECT#</TeamProject>
+
+    <!--  BUILD DIRECTORY
+     The directory on the build machine that will be used to build the
+     selected solutions. The directory must be a local path on the build
+     machine (e.g. c:\build).
+    -->
+    <BuildDirectoryPath>#BUILDDIRECTORY#</BuildDirectoryPath>
+
+    <!--  DROP LOCATION
+      The location to drop (copy) the built binaries and the log files after
+     the build is complete. This location has to be a valid UNC path of the
+     form \\Server\Share. The build machine service account and application
+     tier account need to have read write permission on this share.
+    -->
+    <DropLocation>#DROPLOCATION#</DropLocation>
+
+    <!--  VISUAL STUDIO TEAM SYSTEM TESTING
+     Set this flag to enable/disable running Visual Studio Team System tests as a post build step.
+       This is only valid when performing a Team System build as well as an Ant based build.
+    -->
+    <RunTest>false</RunTest>
+    <!--  VISUAL STUDIO TEAM SYSTEM CODE ANALYSIS
+     To change CodeAnalysis behavior edit this value. Valid values for this
+     can be Default,Always or Never.
+
+       Default - To perform code analysis as per the individual project settings
+       Always  - To always perform code analysis irrespective of project settings
+       Never   - To never perform code analysis irrespective of project settings
+
+     This is only valid when performing a Team System build as well as an Ant based build.
+     -->
+    <RunCodeAnalysis>Never</RunCodeAnalysis>
+
+
+    <!-- Work Item Properties.
+
+         By default, Team Build will automatically create a work item on build failure.  The following
+         properties control that behaviour. -->
+
+    <!-- Set this property to true to skip creation of work items on build failure -->
+    <SkipWorkItemCreation>false</SkipWorkItemCreation>
+
+    <!--  WorkItemType
+     The type of the work item created on a build failure.
+     -->
+    <WorkItemType>Bug</WorkItemType>
+
+    <!--  WorkItemFieldValues
+     Fields and values of the work item created on a build failure.
+
+     Note: Use reference names for fields if you want the build to be resistant to field name
+     changes. Reference names are language independent while friendly names are changed depending
+     on the installed language. For example, "System.Reason" is the reference name for the "Reason"
+     field.
+     -->
+    <WorkItemFieldValues>System.Reason=Build Failure;System.Description=Start the build using Team Build</WorkItemFieldValues>
+
+    <!--  WorkItemTitle
+     Title of the work item created on build failure.
+     -->
+    <WorkItemTitle>Build failure in build:</WorkItemTitle>
+
+    <!--  DescriptionText
+     History comment of the work item created on a build failure.
+     -->
+    <DescriptionText>This work item was created by Team Build on a build failure.</DescriptionText>
+
+    <!--  BuildLogText
+     Additional comment text for the work item created on a build failure.
+     -->
+    <BuildlogText>The build log file is at:</BuildlogText>
+
+    <!--  ErrorWarningLogText
+     Additional comment text for the work item created on a build failure.
+     This text will only be added if there were errors or warnings.
+     -->
+    <ErrorWarningLogText>The errors/warnings log file is at:</ErrorWarningLogText>
+
+    <!--  UpdateAssociatedWorkItems
+     Set this flag to enable/disable updating associated workitems on a successful build.
+     -->
+    <UpdateAssociatedWorkItems>true</UpdateAssociatedWorkItems>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--  Ant Call Configuration.
+      The build file called should be included in the workspace of the build definition.
+    -->
+    <AntBuildFile Include="#COMPILEFILE#">
+      <Targets></Targets>
+      <Properties>BinariesRoot=$(BinariesRoot);BuildDefinitionName=$(BuildDefinitionName);BuildDefinitionUri=$(BuildDefinitionUri);BuildDirectory=$(BuildDirectory);BuildNumber=$(BuildNumber);DropLocation=$(DropLocation);LogLocation=$(LogLocation);SourceGetVersion=$(SourceGetVersion);TestResultsRoot=$(TestResultsRoot);TeamProject=$(TeamProject);WorkspaceName=$(WorkspaceName);WorkspaceOwner=$(WorkspaceOwner)</Properties>
+      <Lib></Lib>
+    </AntBuildFile>
+
+    <!-- JUnit XML Results files should be created using the XML formatter
+         and be located in the following path
+    -->
+    <JUnitLogFiles Include="$(BinariesRoot)\**\TEST-*.xml" />
+  </ItemGroup>
+
+</Project>
+
+
+
+

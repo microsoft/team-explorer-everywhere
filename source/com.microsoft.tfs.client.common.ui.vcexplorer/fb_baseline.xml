@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265809734391" analysisTimestamp="1265809728509" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog">
+      <SourceLine classname="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog" sourcefile="CustomizeBranchDialog.java" sourcepath="com/microsoft/tfs/client/common/ui/vcexplorer/branch/CustomizeBranchDialog.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog" name="&lt;init&gt;" signature="(Lorg/eclipse/swt/widgets/Shell;Lcom/microsoft/tfs/client/common/ui/vcexplorer/branch/BranchNodeInput;[Ljava/lang/Object;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog" start="39" end="42" startBytecode="0" endBytecode="99" sourcefile="CustomizeBranchDialog.java" sourcepath="com/microsoft/tfs/client/common/ui/vcexplorer/branch/CustomizeBranchDialog.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog" name="nodeElements" signature="[Ljava/lang/Object;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog" sourcefile="CustomizeBranchDialog.java" sourcepath="com/microsoft/tfs/client/common/ui/vcexplorer/branch/CustomizeBranchDialog.java"/>
+    </Field>
+    <LocalVariable name="nodeElements" register="3" pc="12" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog" start="41" end="41" startBytecode="12" endBytecode="12" sourcefile="CustomizeBranchDialog.java" sourcepath="com/microsoft/tfs/client/common/ui/vcexplorer/branch/CustomizeBranchDialog.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 13:48:48 +0000" total_classes="90" referenced_classes="442" total_bugs="0" total_size="2089" num_packages="7" vm_version="14.3-b01" cpu_seconds="14.66" clock_seconds="47.71" peak_mbytes="352.49" alloc_mbytes="254.06" gc_seconds="1.62">
+    <PackageStats package="com.microsoft.tfs.client.common.ui.vcexplorer" total_bugs="0" total_types="3" total_size="58">
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.BranchHierarchyEditorInput" sourceFile="BranchHierarchyEditorInput.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.TFSPerspective" sourceFile="TFSPerspective.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.TFSVersionControlExplorerPlugin" sourceFile="TFSVersionControlExplorerPlugin.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.ui.vcexplorer.branch" total_bugs="0" total_types="20" total_size="644">
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.AncestorsDescendantsFilter" sourceFile="BranchHierarchyEditor.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.AncestorsFilter" sourceFile="BranchHierarchyEditor.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchHierarchyEditor" sourceFile="BranchHierarchyEditor.java" interface="false" size="147" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchHierarchyEditor$1" sourceFile="BranchHierarchyEditor.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchHierarchyEditor$2" sourceFile="BranchHierarchyEditor.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchHierarchyEditor$3" sourceFile="BranchHierarchyEditor.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchHierarchyEditor$4" sourceFile="BranchHierarchyEditor.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchHierarchyEditor$5" sourceFile="BranchHierarchyEditor.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchHierarchyFilter" sourceFile="BranchHierarchyEditor.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchNode" sourceFile="BranchNode.java" interface="false" size="118" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchNodeContentProvider" sourceFile="BranchNodeContentProvider.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchNodeInput" sourceFile="BranchNodeInput.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.BranchNodeLabelProvider" sourceFile="BranchNodeLabelProvider.java" interface="false" size="73" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.ChildrenFilter" sourceFile="BranchHierarchyEditor.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomFilter" sourceFile="CustomFilter.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.CustomizeBranchDialog" sourceFile="CustomizeBranchDialog.java" interface="false" size="77" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.FullHierarchyFilter" sourceFile="BranchHierarchyEditor.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.MyLabelProvider" sourceFile="CustomizeBranchDialog.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.MyTreeContentProvider" sourceFile="CustomizeBranchDialog.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.ParentChildrenFilter" sourceFile="BranchHierarchyEditor.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions" total_bugs="0" total_types="11" total_size="163">
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.BaseBranchAction" sourceFile="BaseBranchAction.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.BranchPropertiesAction" sourceFile="BranchPropertiesAction.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.BranchToAction" sourceFile="BranchToAction.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.CompareToBranchAction" sourceFile="CompareToBranchAction.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.CopyBranchHierarchyAction" sourceFile="CopyBranchHierarchyAction.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.CustomizeBranchHierarchyAction" sourceFile="CustomizeBranchHierarchyAction.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.MergeBranchAction" sourceFile="MergeBranchAction.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.OpenSourceControlEditorAction" sourceFile="OpenSourceControlEditorAction.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.RefreshBranchHierarchyAction" sourceFile="RefreshBranchHierarchyAction.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.SaveBranchHierarchyAction" sourceFile="SaveBranchHierarchyAction.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.branch.actions.ViewBranchHierarchyAction" sourceFile="ViewBranchHierarchyAction.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.ui.vcexplorer.teamexplorer" total_bugs="0" total_types="2" total_size="35">
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.teamexplorer.TeamExplorerVesionControlNode" sourceFile="TeamExplorerVesionControlNode.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.teamexplorer.VersionControlContributor" sourceFile="VersionControlContributor.java" interface="false" size="9" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol" total_bugs="0" total_types="14" total_size="367">
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor" sourceFile="VersionControlEditor.java" interface="false" size="188" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$1" sourceFile="VersionControlEditor.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$2" sourceFile="VersionControlEditor.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$3" sourceFile="VersionControlEditor.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$4" sourceFile="VersionControlEditor.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$5" sourceFile="VersionControlEditor.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$6" sourceFile="VersionControlEditor.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$7" sourceFile="VersionControlEditor.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$8" sourceFile="VersionControlEditor.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditor$VersionControlEditorCoreListener" sourceFile="VersionControlEditor.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditorActionContributor" sourceFile="VersionControlEditorActionContributor.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditorInput" sourceFile="VersionControlEditorInput.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditorInput$1" sourceFile="VersionControlEditorInput.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionControlEditorInputFactory" sourceFile="VersionControlEditorInputFactory.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions" total_bugs="0" total_types="29" total_size="703">
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.AddAction" sourceFile="AddAction.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.BranchAction" sourceFile="BranchAction.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.CheckinAction" sourceFile="CheckinAction.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.CheckoutAction" sourceFile="CheckoutAction.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.CompareAction" sourceFile="CompareAction.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.DeleteAction" sourceFile="DeleteAction.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.FindLabelAction" sourceFile="FindLabelAction.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.GetAction" sourceFile="GetAction.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.GetLatestAction" sourceFile="GetLatestAction.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.GetSpecificAction" sourceFile="GetSpecificAction.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.HistoryAction" sourceFile="HistoryAction.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.LabelAction" sourceFile="LabelAction.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.LockAction" sourceFile="LockAction.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.MergeAction" sourceFile="MergeAction.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.MoveAction" sourceFile="MoveAction.java" interface="false" size="50" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.NewFolderAction" sourceFile="NewFolderAction.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.PropertiesAction" sourceFile="PropertiesAction.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.RefreshAction" sourceFile="RefreshAction.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.RenameAction" sourceFile="RenameAction.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.ReturnOnlineAction" sourceFile="ReturnOnlineAction.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.SetWorkingFolderAction" sourceFile="SetWorkingFolderAction.java" interface="false" size="41" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.ShelveAction" sourceFile="ShelveAction.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.ShowBranchesAction" sourceFile="ShowBranchesAction.java" interface="false" size="41" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.TeamViewerAction" sourceFile="TeamViewerAction.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.UndeleteAction" sourceFile="UndeleteAction.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.UndoPendingChangesAction" sourceFile="UndoPendingChangesAction.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.UnlockAction" sourceFile="UnlockAction.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.UnshelveAction" sourceFile="UnshelveAction.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.ViewAction" sourceFile="ViewAction.java" interface="false" size="29" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper" total_bugs="0" total_types="11" total_size="119">
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper" sourceFile="ActionEnablementHelper.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$1" sourceFile="ActionEnablementHelper.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$2" sourceFile="ActionEnablementHelper.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$3" sourceFile="ActionEnablementHelper.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$4" sourceFile="ActionEnablementHelper.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$5" sourceFile="ActionEnablementHelper.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$6" sourceFile="ActionEnablementHelper.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$7" sourceFile="ActionEnablementHelper.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$8" sourceFile="ActionEnablementHelper.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.ActionEnablementHelper$Matcher" sourceFile="ActionEnablementHelper.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper.MappedItemsHelper" sourceFile="MappedItemsHelper.java" interface="false" size="27" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="11" invocations="90" avgMicrosecondsPerInvocation="128" maxMicrosecondsPerInvocation="1228" standardDeviationMircosecondsPerInvocation="181"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="12" invocations="7" avgMicrosecondsPerInvocation="1766" maxMicrosecondsPerInvocation="2204" standardDeviationMircosecondsPerInvocation="248"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="14" invocations="90" avgMicrosecondsPerInvocation="160" maxMicrosecondsPerInvocation="1222" standardDeviationMircosecondsPerInvocation="190"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="18" invocations="90" avgMicrosecondsPerInvocation="203" maxMicrosecondsPerInvocation="1354" standardDeviationMircosecondsPerInvocation="208"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.DepthFirstSearchFactory" totalMilliseconds="18" invocations="471" avgMicrosecondsPerInvocation="39" maxMicrosecondsPerInvocation="14626" standardDeviationMircosecondsPerInvocation="672"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="19" invocations="90" avgMicrosecondsPerInvocation="216" maxMicrosecondsPerInvocation="1672" standardDeviationMircosecondsPerInvocation="250"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="21" invocations="90" avgMicrosecondsPerInvocation="234" maxMicrosecondsPerInvocation="1809" standardDeviationMircosecondsPerInvocation="253"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="34" invocations="3732" avgMicrosecondsPerInvocation="9" maxMicrosecondsPerInvocation="16095" standardDeviationMircosecondsPerInvocation="263"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="41" invocations="362" avgMicrosecondsPerInvocation="114" maxMicrosecondsPerInvocation="13542" standardDeviationMircosecondsPerInvocation="713"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="41" invocations="365" avgMicrosecondsPerInvocation="114" maxMicrosecondsPerInvocation="799" standardDeviationMircosecondsPerInvocation="113"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="61" invocations="70" avgMicrosecondsPerInvocation="885" maxMicrosecondsPerInvocation="41213" standardDeviationMircosecondsPerInvocation="4856"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="66" invocations="442" avgMicrosecondsPerInvocation="151" maxMicrosecondsPerInvocation="5691" standardDeviationMircosecondsPerInvocation="428"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="68" invocations="504" avgMicrosecondsPerInvocation="135" maxMicrosecondsPerInvocation="1692" standardDeviationMircosecondsPerInvocation="198"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="70" invocations="442" avgMicrosecondsPerInvocation="159" maxMicrosecondsPerInvocation="16720" standardDeviationMircosecondsPerInvocation="814"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="75" invocations="362" avgMicrosecondsPerInvocation="207" maxMicrosecondsPerInvocation="15584" standardDeviationMircosecondsPerInvocation="840"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="87" invocations="362" avgMicrosecondsPerInvocation="242" maxMicrosecondsPerInvocation="20388" standardDeviationMircosecondsPerInvocation="1080"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="89" invocations="442" avgMicrosecondsPerInvocation="202" maxMicrosecondsPerInvocation="9247" standardDeviationMircosecondsPerInvocation="613"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="104" invocations="407" avgMicrosecondsPerInvocation="256" maxMicrosecondsPerInvocation="14189" standardDeviationMircosecondsPerInvocation="948"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="113" invocations="442" avgMicrosecondsPerInvocation="256" maxMicrosecondsPerInvocation="15843" standardDeviationMircosecondsPerInvocation="1071"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="156" invocations="396" avgMicrosecondsPerInvocation="395" maxMicrosecondsPerInvocation="16670" standardDeviationMircosecondsPerInvocation="923"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="202" invocations="362" avgMicrosecondsPerInvocation="560" maxMicrosecondsPerInvocation="14573" standardDeviationMircosecondsPerInvocation="1059"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="211" invocations="498" avgMicrosecondsPerInvocation="424" maxMicrosecondsPerInvocation="13142" standardDeviationMircosecondsPerInvocation="1000"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="228" invocations="362" avgMicrosecondsPerInvocation="632" maxMicrosecondsPerInvocation="8870" standardDeviationMircosecondsPerInvocation="931"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="275" invocations="362" avgMicrosecondsPerInvocation="762" maxMicrosecondsPerInvocation="18100" standardDeviationMircosecondsPerInvocation="1925"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="385" invocations="442" avgMicrosecondsPerInvocation="872" maxMicrosecondsPerInvocation="51006" standardDeviationMircosecondsPerInvocation="3059"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="520" invocations="6477" avgMicrosecondsPerInvocation="80" maxMicrosecondsPerInvocation="16045" standardDeviationMircosecondsPerInvocation="423"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="804" invocations="2" avgMicrosecondsPerInvocation="402000" maxMicrosecondsPerInvocation="753087" standardDeviationMircosecondsPerInvocation="351086"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="947" invocations="1969" avgMicrosecondsPerInvocation="481" maxMicrosecondsPerInvocation="607512" standardDeviationMircosecondsPerInvocation="13714"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="1007" invocations="1970" avgMicrosecondsPerInvocation="511" maxMicrosecondsPerInvocation="17180" standardDeviationMircosecondsPerInvocation="966"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265809734391" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

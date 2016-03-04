@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.microsoft.tfs.client.clc.feature"
+      label="%Feature-Name"
+      version="14.0.2.qualifier"
+      provider-name="%Feature-Vendor">
+
+   <description>
+      %Feature-Description
+   </description>
+
+   <copyright>
+      %Feature-Copyright
+   </copyright>
+
+   <license url="%Feature-License-Url">
+      %Feature-License-Text
+   </license>
+
+   <plugin
+         id="com.microsoft.tfs.console"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.build"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.checkforcomments"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.forbiddenpatterns"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.workitempolicy"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.workitemquerypolicy"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.clc"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.core.httpclient"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.core.ws"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.core.ws.runtime"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.jni"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.logging"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.util"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.pid"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.ui.teambuild"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.ui.vcexplorer"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

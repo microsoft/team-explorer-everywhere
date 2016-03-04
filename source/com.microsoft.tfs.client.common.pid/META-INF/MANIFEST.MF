@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: com.microsoft.tfs.client.common.pid
+Bundle-Version: 14.0.2.qualifier
+Bundle-Vendor: %Bundle-Vendor
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.client.common.pid.jar
+Export-Package: com.microsoft.tfs.client.common.pid

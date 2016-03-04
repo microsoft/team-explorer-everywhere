@@ -1,0 +1,187 @@
+				
+				Writing Native Code for Team Explorer Everywhere
+
+Introduction
+------------
+
+Please read this entire document before writing new native code or modifying
+existing native code. 
+
+The com.microsoft.tfs.jni package exists to provide access to platform features 
+that are impossible or hard to do through standard Java libraries.  It also 
+provides standard ways to do things that are possible in newer Java versions, 
+but not in older versions.
+
+The JNI specification (quite readable) is at:
+
+ http://download.oracle.com/javase/1.5.0/docs/guide/jni/spec/jniTOC.html
+
+Style
+-----
+
+To maintain consistent formatting, install the C Development Tools (CDT) into 
+Eclipse and import "Microsoft TFSXP C-C++ Code Style.xml" from the 
+"conventions" directory in our TFS version control server.
+
+Keep it Simple / Simple is Safer
+-------------------------------
+
+Native code (C or C++) is harder to write than Java, harder to debug, and 
+errors are more likely to cause big problems for the user (total VM crash).  JNI 
+defines a simple interface to native methods (just some C types and some functions
+for marshalling data and calls to objects).
+
+Try to keep your native code as simple as possible.  JNI functions should do one
+small thing and return to Java.  Input validation/scrubbing should always
+be done at the Java layer and rechecked at the native layer.
+
+On Unix all our native code is C and gets compiled with GCC with C99 conventions.
+Visual Studio's C compiler doesn't yet support C99, so it's C89 on Windows.  If 
+this becomes too much to bear, considering changing the build script to compile as
+C++.
+
+Things to do in native code:
+
+ - Do lots of error checking.  If a function can signal an error, detect it and
+   return an error value back to Java (or throw).
+   
+ - Use the native logger functions.  They're pretty easy to use and have all
+   the fancy configuration features of our Java logging (Apache Commons + log4j).
+   
+ - Use a parameter list with simple types (jint, jstring, jboolean, etc.) when
+   you can, but pass a class instead when the list gets long or if you'll need to 
+   change the list later.  Accessing fields/methods in a class requires lots more
+   error checking in native code.  Using integral types and strings is easier.
+   See NativeFileSystem for examples of passing/returning a class.
+
+ - If you need to return more than one value, consider returning a new instance
+   of some Java class.  When you write that class, consider writing constructors
+   that take all of the required information so the native code only has to locate
+   and call one method (the constructor).  See NativeFileSystem for an example.  
+ 
+ - Return NULL or some sentinel value to signal an error if there's room in the 
+   return type's domain and no more information about the failure is available.
+   It's easier than throwing exceptions, but exceptions can contain better
+   information.  
+   
+ - Throw exceptions if you need to.  It's not hard to do, but read the JNI 
+   docs on how exceptions work in JNI (they don't behave like Java until they
+   get back into Java space).  Some kinds of platform error conditions really
+   do deserve an Exception that carries full info ("file not found" vs. "permission
+   denied" opening a file, for example).
+   
+ - Read manual pages / SDK documentation.  Lots of Unix methods are thread-safe
+   on one platform (e.g. Solaris) but not on others (e.g. Linux) because the
+   specification (usually Open Group Single UNIX Specification, Version 3,
+   http://www.unix.org/version3/) says it does not have to be.  In these cases
+   you have to synchronize (at the Java layer) around these methods.  Windows
+   documentation is also helpful with regard to thread-safety.
+   
+ - Write JNI functions that are reasonably portable so the JNI function can be
+   implemented with the same inputs and outputs on Unix and Windows.  For instance,
+   don't call the function that makes a file read-only "chmod".  Call it
+   setReadOnly(); Unix uses chmod(), Windows uses SetFileAttributesW().  
+ 
+ - Only use Unicode on Windows.  Call the Unicode Win32 functions 
+   explicitly (e.g. SetFileAttributesW() instead of SetFileAttributes()).
+   If you just use Unicode, you don't have to worry about TCHAR and legacy ASCII
+   functions, code pages, and multibyte conversion for most Win32 things.
+   See the notes on strings below.
+ 
+ - Use UTF-8 on Unix.  Not all Unix platforms support UTF-8, but POSIX almost
+   always works with single-byte encodings that are compatible with ASCII.  Currently
+   none of our supported platforms require calls to multi-byte or wide-char
+   functions.  On platforms that don't support UTF-8, investigate the right
+   way to convert to the platform char type (maybe multi-byte?) and possibly
+   add some conditional code in the string conversion utils.
+   See the notes on strings below.
+
+ - Write testable code and write tests.  com.microsoft.tfs.jni.internal 
+   contains several classes that test the native methods against a non-native 
+   implementation (usually executing external programs).  Add tests to this class 
+   when you write JNI functions.  Even if you don't have an external
+   program to test against, test the basic ins/outs of your methods.  Basic
+   in/out testing can catch varargs and initialization problems.
+
+Things NOT to do:
+
+ - Don't use global state (C static storage) in JNI functions.  This is not thread-safe
+   without locking, and locking in C in JNI is hard (we don't want to require
+   pthreads).  Some times you have to use global state (umask() on Unix), so 
+   locking should be done in Java, around all calls to methods that require 
+   synchronization with this global state.
+
+ - Don't use native synchronization/lock objects to protect things in native code
+   if you could use Java synchronization at the wrapper layer instead.  Platform
+   synchronization may be incompatible with Java (pthreads initialized differently, 
+   etc.).  
+ 
+ - Don't cache references to jobjects (including jclass, jmethod) in native code for 
+   use in a later call to native code.  These references are only valid for one trip
+   through native code unless you increase the reference count (see JNI docs).
+   You probably wouldn't want to do this anyway.
+ 
+ - Don't use POSIX functions on Windows.  Stick to the Windows-native ways to do things
+   (SetCurrentDirectoryW() instead of _wchdir()).  The code reads more consistently
+   and the types you deal with are interchangable with Win32 functions that have
+   no POSIX equivalent.
+
+ - Don't worry too much about performance.  Java to JNI isn't a big performance penalty,
+   and most code isn't called in places where it would matter.
+
+ - Don't write do-nothing methods on platforms that can't do something.  If Unix has
+   no concept of an "active code page", don't implement a JNI "getActiveCodePage()"
+   on Unix that just returns some error.  The Java class that wraps the function
+   should just not call the method on Unix.  If Java tries to call a native method
+   that isn't implemented, the JVM won't crash, it just throws a linkage exception. 
+ 
+Strings
+-------
+
+Java uses UTF-16 strings, Windows uses UTF-16 strings, Unix (usually) uses UTF-8 strings,
+and z/OS uses EBCDIC strings.  Since we have code in the "common" directory that compiles 
+everywhere and uses strings, we need some portable string conversion functions.
+
+util.c's "javaStringToPlatformChars()", "platformCharsToJavaString()", and 
+"releasePlatformChars()" are these functions.  
+
+Read all of this info:
+
+ - util.h typedefs "platform_char" to be "wchar_t" on Windows and a "char" on
+   Unix and z/OS.  Simple.  "platform_char" should be just what you wanted for
+   calling platform APIs.
+
+ - Use these functions on every platform, even on Windows.
+ 
+ - javaStringToPlatformChars() takes a "jstring" and gives you a "platform_char *".
+   Always release the result with releasePlatformChars().
+
+ - Always release a platform_char string with releasePlatformChars() when you're
+   done with it.  Never release it yourself with free().
+ 
+ - platformCharsToJavaString() takes a "platform char *" and builds a new Java
+   String object (jstring) that makes a _copy_ of your string data and will be garbage
+   collected by the JVM.  You can modify or release your "platform_char *" after 
+   calling this function.
+ 
+ - On Windows, do NOT include "tchar.h" or use the _T() macro.  Include "wchar.h"
+   (or "windows.h" which includes it), use WCHAR or wchar_t, and use the "L" 
+   string prefix (like L"fun") for Unicode strings.
+ 
+ - You must use ASCII/UTF-8 strings when throwing exceptions with ThrowNew().
+   This is probably an optimization for Unix so you can call it with the result
+   of strerror_r.  On Windows it's annoying not to use UTF-16 strings, but 
+   you can use FormatMessageA to build "ANSI" (ASCII compatible, mostly) error
+   strings for putting in exceptions.
+   
+ - util.c also has portable "tee_strndup" and "tee_vsprintf".  Use these on all
+   platforms when you can. 
+   
+If it's Safe and Portable, Use It
+---------------------------------
+
+We shouldn't be afraid of using JNI or writing more JNI where it's appropriate.
+Adding a JNI layer to a project that didn't have one before can be scary.
+Once it's there, and it's simple, and it's safe, we should use it when it
+can give us a competitive advantage without adding undue risk (compatibility 
+requirements, bugs, platform dependence, etc.).

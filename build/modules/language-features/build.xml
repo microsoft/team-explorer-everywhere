@@ -1,0 +1,200 @@
+<project name="language-features" basedir=".">
+
+	<dirname file="${ant.file.language-features}" property="basedir.language-features" />
+	<property name="language-features.home" value="${basedir.language-features}" />
+
+	<!-- Enable custom localization tasks -->
+	<taskdef resource="com/microsoft/tfs/tools/loc/loctasks.properties">
+		<classpath>
+			<pathelement path="${language-features.home}/../../tasks/com.microsoft.tfs.tools.loc-1.2.jar" />
+		</classpath>
+	</taskdef>
+
+	<!--
+		Creates a ploc (.nlz) fragment for an existing plug-in, content run through ploc while merged
+	-->
+	<macrodef name="macro.gen-fragment.nlz">
+		<attribute name="id.plugin" />
+		<sequential>
+
+			<!-- Create a fragment for this plugin -->
+			<fraggen fragmentid="@{id.plugin}.nlz"
+			         fragmentname="@{id.plugin}${language-features.nlz.fragment.name-suffix}"
+			         fragmentpath="${dir.global.build.output.plugins}/@{id.plugin}.nlz"
+			         pluginpath="${dir.global.build.output.plugins}/@{id.plugin}"
+			         fragmenttemplate="${language-features.home}/fragment-template" />
+
+			<!-- Merge the English resources resource archive into the fragment, psuedo-localizing on the way -->
+			<fragmerge archiveroot="${path.temp-directory.english-resource-archive}"
+			           archivelanguage="en"
+			           archivecountry="US"
+			           project="@{id.plugin}"
+			           fragmentdir="${dir.global.build.output.plugins}/@{id.plugin}.nlz"
+			           fragmentlanguage="zz"
+			           fragmentcountry="ZZ"
+			           ploc="true" />
+
+		</sequential>
+	</macrodef>
+
+	<!--
+		Creates a .nl1 fragment for an existing plug-in, merging content from the translations archive
+	-->
+	<macrodef name="macro.gen-fragment.nl1.lang">
+		<attribute name="id.plugin" />
+		<attribute name="language" />
+		<attribute name="country" />
+
+		<sequential>
+			<fragmerge archiveroot="${dir.global.build.source}/translations"
+			           archivelanguage="@{language}"
+			           archivecountry="@{country}"
+			           project="@{id.plugin}"
+			           fragmentdir="${dir.global.build.output.plugins}/@{id.plugin}.nl1"
+			           fragmentlanguage="@{language}"
+			           fragmentcountry="@{country}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="macro.gen-fragment.nl1">
+		<attribute name="id.plugin" />
+		<sequential>
+
+			<fraggen fragmentid="@{id.plugin}.nl1"
+			         fragmentname="@{id.plugin}${language-features.nl1.fragment.name-suffix}"
+			         fragmentpath="${dir.global.build.output.plugins}/@{id.plugin}.nl1"
+			         pluginpath="${dir.global.build.output.plugins}/@{id.plugin}"
+			         fragmenttemplate="${language-features.home}/fragment-template" />
+
+			<!-- Run the macro for each language to include from the translations archive. -->
+
+			<macro.gen-fragment.nl1.lang id.plugin="@{id.plugin}" language="de" country="" />
+			<macro.gen-fragment.nl1.lang id.plugin="@{id.plugin}" language="fr" country="" />
+			<macro.gen-fragment.nl1.lang id.plugin="@{id.plugin}" language="ja" country="" />
+			<macro.gen-fragment.nl1.lang id.plugin="@{id.plugin}" language="pt" country="" />
+			<macro.gen-fragment.nl1.lang id.plugin="@{id.plugin}" language="zh" country="TW" />
+			<macro.gen-fragment.nl1.lang id.plugin="@{id.plugin}" language="zh" country="CN" />			
+
+		</sequential>
+	</macrodef>
+
+	<target name="language-features-nlz" depends="english-resource-archive">
+
+		<echo message="[TFSBuildStep] Generating .nlz fragments" />
+
+		<!-- List all directories/plugins which need .nlz fragments. Order doesn't matter.-->
+
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.checkinpolicies.build" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.checkinpolicies.checkforcomments" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.checkinpolicies.forbiddenpatterns" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.checkinpolicies" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.checkinpolicies.workitempolicy" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.checkinpolicies.workitemquerypolicy" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.common" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.common.pid" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.common.ui" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.common.ui.teambuild" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.common.ui.teambuild.egit" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.common.ui.vcexplorer" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.eclipse.help" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.eclipse" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.eclipse.ui" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.client.eclipse.ui.egit" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.console" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.core.httpclient" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.core" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.core.ws" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.core.ws.runtime" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.jni" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.logging" />
+		<macro.gen-fragment.nlz id.plugin="com.microsoft.tfs.util" />
+
+		<!-- The CLC doesn't use fragments, because it's not OSGi-based, so nothing to generate here. -->
+
+		<filter token="FEATURE_ID" value="${language-features.nlz.feature.id}" />
+		<filter token="FEATURE_NAME" value="${language-features.nlz.feature.name}" />
+		<filter token="FEATURE_VERSION" value="${string.version.1-2-3}.qualifier" />
+		<filter token="FEATURE_DESCRIPTION" value="${language-features.nlz.feature.description}" />
+		<filter token="PLUGIN_SUFFIX" value="nlz" />
+
+		<copy todir="${dir.global.build.output.features}/${language-features.nlz.feature.id}"
+		      includeemptydirs="true"
+		      filtering="true">
+			<fileset dir="${language-features.home}/feature-template">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<target name="language-features-nl1" depends="english-resource-archive">
+
+		<echo message="[TFSBuildStep] Generating .nl1 fragments" />
+
+		<!-- List all directories/plugins which need .nl1 fragments. Order doesn't matter.-->
+
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.checkinpolicies.build" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.checkinpolicies.checkforcomments" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.checkinpolicies.forbiddenpatterns" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.checkinpolicies" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.checkinpolicies.workitempolicy" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.checkinpolicies.workitemquerypolicy" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.common" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.common.pid" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.common.ui" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.common.ui.teambuild" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.common.ui.teambuild.egit" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.common.ui.vcexplorer" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.eclipse.help" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.eclipse" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.eclipse.ui" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.client.eclipse.ui.egit" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.console" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.core.httpclient" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.core" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.core.ws" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.core.ws.runtime" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.jni" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.logging" />
+		<macro.gen-fragment.nl1 id.plugin="com.microsoft.tfs.util" />
+    
+		<!-- The CLC doesn't use fragments, because it's not OSGi-based, so nothing to generate here. -->
+
+		<filter token="FEATURE_ID" value="${language-features.nl1.feature.id}" />
+		<filter token="FEATURE_NAME" value="${language-features.nl1.feature.name}" />
+		<filter token="FEATURE_VERSION" value="${string.version.1-2-3}.qualifier" />
+		<filter token="FEATURE_DESCRIPTION" value="${language-features.nl1.feature.description}" />
+		<filter token="PLUGIN_SUFFIX" value="nl1" />
+
+		<copy todir="${dir.global.build.output.features}/${language-features.nl1.feature.id}"
+		      includeemptydirs="true"
+		      filtering="true">
+			<fileset dir="${language-features.home}/feature-template">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<target name="clean.language-features">
+		<echo message="${dir.global.build.output.plugins}" />
+
+		<delete dir="${dir.global.build.output.features}/com.microsoft.tfs.client.eclipse.nlz" includeemptydirs="true" />
+		<delete dir="${dir.global.build.output.features}/com.microsoft.tfs.client.eclipse.nl1" includeemptydirs="true" />
+
+		<delete includeemptydirs="true">
+			<fileset dir="${dir.global.build.output.plugins}" includes="*.nlz/**" />
+			<fileset dir="${dir.global.build.output.plugins}" includes="*.nl1/**" />
+		</delete>
+
+	</target>
+
+	<target name="language-features" depends="language-features-nlz,language-features-nl1">
+		<!-- 
+		The dependent projects will build language packs from fragments and 
+		features for the plug-in clients.  The CLC langauge packs
+		are constructed in a simpler manner in the CLC build script.
+		-->
+	</target>
+
+</project>

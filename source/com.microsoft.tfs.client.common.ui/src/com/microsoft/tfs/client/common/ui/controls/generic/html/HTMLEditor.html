@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Turn off scroll bars (IE wants to show vertical scroller all the time) and let the iframe handle it. -->
+<html style="overflow: hidden;">
+    <head>
+        <title></title>
+    </head>
+    <body style='margin: 0; background-color: #ffffff;'>
+
+		<!-- Firefox requires open/close tag pair for iframe to permit editing. -->
+        <iframe id="lightEditorFrame" style="position: absolute; width: 100%; height: 100%; margin: 0px;" frameBorder="0"></iframe>
+
+        <script type="text/javascript">
+
+            function LightEditor(controlId)
+            {
+                this.controlId = controlId;
+                this.readOnly = false;
+
+                var editor = this;
+                window.onload = function ()
+                {
+                    // Initializing the control after dom is ready in order to perform dom operations
+                    editor.initialize();
+
+                    // Call into Java to signal load completion (if function defined).
+                    if (typeof (HTMLEditorLoadComplete) == 'function')
+                    {
+            			HTMLEditorLoadComplete();
+        			}
+                };
+            }
+
+            LightEditor.prototype =
+            {
+                initialize: function ()
+                {
+                    // Checking whether the browser is IE or not
+                    this.browserIsIE = typeof (document.all) != "undefined";
+                    this.browserIsWebKit = RegExp(" AppleWebKit/").test(navigator.userAgent);
+                    this.browserIsOldWebKit = RegExp(" AppleWebKit/[0-4]\.").test(navigator.userAgent);
+
+                    // Getting the window instance of the iframe
+                    if (this.browserIsIE)
+                    {
+                        this.richEditor = eval(this.controlId);
+                    }
+                    else
+                    {
+                        this.richEditor = document.getElementById(this.controlId).contentWindow;
+                    }
+
+                    // Creating an empty body inside the iframe document.
+                    this.richEditor.document.open();
+                    this.richEditor.document.write("<html><head></head><body style='margin: 3px;'></body></html>");
+                    this.richEditor.document.close();
+
+                    this.updateEditableState();
+
+					/*
+					 * Timer fired to check for content modification.  Can be disabled by setting
+					 * checkModifiedEnabled to false.
+					 */
+					this.checkModifiedEnabled = true;
+					this.lastBodyInnerHTML = this.getDocumentBodyInnerHTML();
+                    setInterval("editor.checkModified()", 200);
+
+                    /*
+                     * Timer fired to check for selection changes (includes cursor).  Can be disabled by setting
+                     * checkSelectionChanged to false.
+                     */
+                    this.checkSelectionChangedEnabled = true;
+                    this.lastTextRange = this.getTextRange();
+                    this.lastNonNullTextRange = this.getTextRange();
+                    setInterval("editor.checkSelectionChanged()", 200);
+
+                    // Initialize event fields
+                    this.mouseOverLinkHREF = null;
+
+                    // Attach inner frame events
+                    if (this.browserIsIE)
+                    {
+                        this.richEditor.window.document.attachEvent("onmousemove", function(event) { editor.onMouseMove(event); });
+                    }
+                    else
+                    {
+                        this.richEditor.document.addEventListener("mousemove", function(event) { editor.onMouseMove(event); }, false);
+                        
+                        // Key events do not automatically bubble up between the editor iframe and
+                        // the containing document on Safari/WebKit.
+                        if (this.browserIsOldWebKit)
+                        {
+                            this.richEditor.document.addEventListener("keydown", function(event) { document.dispatchEvent(event); }, false);
+                            this.richEditor.document.addEventListener("keyup", function(event) { document.dispatchEvent(event); }, false);
+                        }
+                    }
+                },
+
+                /*
+                 * Checks if the editor's contents have been modified interactively since the
+                 * last call to this method, and if so, calls HTMLEditorDocumentBodyInnerHTMLModified().
+                 * setDocumentBodyInnerHTML() resets the modification state and does not fire that
+                 * event.
+                 */
+				checkModified: function ()
+				{
+					if (this.checkModifiedEnabled)
+					{
+						var currentInnerHTML = this.getDocumentBodyInnerHTML();
+						if (currentInnerHTML != this.lastBodyInnerHTML)
+						{
+						    this.lastBodyInnerHTML = currentInnerHTML;
+
+							if (typeof (HTMLEditorDocumentBodyInnerHTMLModified) == 'function')
+							{
+								HTMLEditorDocumentBodyInnerHTMLModified();
+							}
+						}
+					}
+				},
+
+				/*
+                 * Checks if the selection has changed (cursor has moved) since the last call to this method,
+                 * and if so, calls HTMLEditorSelectionChanged().
+                 */
+				checkSelectionChanged: function ()
+				{
+					if (this.checkSelectionChangedEnabled)
+					{
+						var currentTextRange = this.getTextRange();
+						var rangesDiffer = false;
+
+						if (currentTextRange != null)
+						{
+							if (this.browserIsIE)
+	                    	{
+	                    		rangesDiffer = (currentTextRange.isEqual(this.lastTextRange) == false);
+	                    	}
+	                    	else
+	                    	{
+	                    		rangesDiffer = (this.lastTextRange == null
+	                    						|| currentTextRange.startContainer != this.lastTextRange.startContainer
+	                    						|| currentTextRange.startOffset != this.lastTextRange.startOffset
+	                    						|| currentTextRange.endContainer != this.lastTextRange.endContainer
+	                    						|| currentTextRange.endOffset != this.lastTextRange.endOffset);
+	                		}
+	                	}
+
+						if (rangesDiffer)
+						{
+							this.lastTextRange = currentTextRange;
+
+							/*
+							 * Save the last non-null range for restoring before executing formatting
+							 * commands.  Required for Safari because selection goes null when
+							 * users click outside the browser.
+							 */
+							if (currentTextRange != null)
+							{
+							    this.lastNonNullTextRange = currentTextRange;
+							}
+
+							if (typeof (HTMLEditorSelectionChanged) == 'function')
+							{
+								HTMLEditorSelectionChanged();
+							}
+						}
+					}
+				},
+
+				/*
+				 * Gets a W3C Range or Microsoft TextRange object depending on the running browser.
+				 * These object types are completely incompatible, so the caller must branch
+				 * on platform or simply compare for equality.
+				 */
+				getTextRange : function ()
+				{
+					if (this.richEditor.getSelection)
+					{
+						// W3C Standard.
+
+						var selection = this.richEditor.getSelection();
+						if (selection.getRangeAt)
+						{
+							// Most browsers
+							if (selection.rangeCount > 0)
+							{
+								return selection.getRangeAt(0);
+							}
+
+							return null;
+						}
+						else
+						{
+							// Safari
+							var range = this.richEditor.document.createRange();
+							range.setStart(selection.anchorNode, selection.anchorOffset);
+							range.setEnd(selection.focusNode, selection.focusOffset);
+							return range;
+						}
+					}
+					else if (document.selection)
+					{
+						// IE.
+
+						return this.richEditor.document.selection.createRange();
+					}
+				},
+
+				/*
+				 * Handles mouse motion events in the inner IFRAME.
+				 */
+				onMouseMove: function (event)
+				{
+				    // Find the element the cursor is over
+				    var element;
+				    if (this.browserIsIE)
+                    {
+				        element = event.srcElement;
+				    }
+				    else
+				    {
+                        element = event.target;
+				    }
+
+				    // Test whether that element is inside a link
+				    var elementLinkHREF = null;
+				    if (element != null)
+				    {
+				        var anchorNode = editor.getLinkAncestor(element);
+
+				        if (anchorNode != null)
+				        {
+				            elementLinkHREF = anchorNode;
+				        }
+				    }
+
+				    // If the link has changed, fire the event
+				    if (elementLinkHREF != this.mouseOverLinkHREF)
+				    {
+				        this.mouseOverLinkHREF = elementLinkHREF;
+
+				        if (elementLinkHREF != null && typeof (HTMLEditorMouseLinkEnter) == 'function')
+				        {
+				            HTMLEditorMouseLinkEnter();
+				        }
+
+                        if (elementLinkHREF == null && typeof (HTMLEditorMouseLinkExit) == 'function')
+                        {
+                            HTMLEditorMouseLinkExit();
+                        }
+				    }
+				},
+
+				/*
+				 * Gets the link (anchor href) for the current selection if there is a link, otherwise null.
+				 */
+				getLinkUnderSelection: function ()
+				{
+					// Gets an W3C Range or Microsoft TextRange
+					var range = this.getTextRange();
+
+					// Start with the parent of the selection
+					var node;
+					if (this.browserIsIE)
+                   	{
+                   		node = range.parentElement();
+                   	}
+                   	else
+                   	{
+                   		node = range.commonAncestorContainer;
+                 	}
+
+                    return this.getLinkAncestor(node);
+				},
+
+				/*
+                 * Gets the link (anchor href) for the element under the cursor if there is a link, otherwise null.
+                 */
+                getLinkUnderMouseCursor: function ()
+                {
+                    return this.mouseOverLinkHREF;
+                },
+
+				/*
+				 * Gets the anchor ancestor node of the given node, or null if there is none.
+				 */
+				getLinkAncestor: function (node)
+				{
+				    // Walk up the DOM until we find a link.
+                    // Tag names will always be in caps.
+                    while (node != null && node.tagName != "BODY")
+                    {
+                        if (node.tagName == "A")
+                        {
+                            return node.href;
+                        }
+                        node = node.parentNode;
+                    }
+
+                    return null;
+				},
+
+                updateEditableState: function ()
+                {
+                    // Putting iframe in an aditable state for non-IE browsers
+                    if (!this.browserIsIE)
+                    {
+                        this.richEditor.document.designMode = this.readOnly === true ? "Off" : "On";
+                    }
+
+                    this.richEditor.document.contentEditable = !(this.readOnly === true);
+                    if (this.richEditor.document.body)
+                    {
+                        this.richEditor.document.body.contentEditable = !(this.readOnly === true);
+                    }
+                },
+
+                getDocumentBodyInnerHTML: function ()
+                {
+                    var html = this.richEditor.document.body.innerHTML;
+
+                    if (html == "<br>" || html == "<br>\r\n" || html == "<P>&nbsp;</P>")
+                    {
+                        html = "";
+                    }
+
+                    return html;
+                },
+
+                setDocumentBodyInnerHTML: function (value)
+                {
+                    if (this.richEditor.document.body)
+                    {
+                    	/*
+                    	 * Disable the modification check during the update so the method
+                    	 * does not detect it as a change.
+                    	 */
+                    	this.checkModifiedEnabled = false;
+
+                        this.richEditor.document.body.innerHTML = value;
+                        this.lastBodyInnerHTML = this.getDocumentBodyInnerHTML();
+
+                        this.checkModifiedEnabled = true;
+                    }
+                },
+
+                getReadOnly: function ()
+                {
+                    return this.readOnly;
+                },
+
+                setReadOnly: function (value)
+                {
+                    this.readOnly = value === true;
+                    this.updateEditableState();
+                },
+
+                execCommand: function (command, userInterface, value)
+                {
+                    /* 
+                     * Must restore the last non-null selection before executing commands on 
+                     * Safari/WebKit, because the selection was almost certainly lost
+                     * when the user clicked outside the browser to initiate the command
+                     * (tool bar item, etc.).
+                     */
+                    if (this.browserIsWebKit && this.lastNonNullTextRange != null)
+                    {
+                        this.richEditor.getSelection().removeAllRanges();
+                        this.richEditor.getSelection().addRange(this.lastNonNullTextRange);
+                    }
+
+                    this.richEditor.document.execCommand(command, userInterface, value);
+                },
+
+                queryCommandEnabled: function (command)
+                {
+                    return this.richEditor.document.queryCommandEnabled(command);
+                },
+
+                queryCommandState: function (command)
+                {
+                    return this.richEditor.document.queryCommandState(command);
+                },
+
+                queryCommandValue: function (command)
+                {
+                    return this.richEditor.document.queryCommandValue(command);
+                }
+            };
+
+			// Access this "editor" global variable from Java to manipulate this control.
+            editor = new LightEditor("lightEditorFrame");
+
+        </script>
+    </body>
+</html>

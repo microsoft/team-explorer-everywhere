@@ -1,0 +1,105 @@
+// Copyright (c) Microsoft. All rights reserved.
+// Licensed under the MIT license. See License.txt in the repository root.
+
+package com.microsoft.tfs.jni;
+
+/**
+ * Well known SID values from the Windows WELL_KNOWN_SID_TYPE enumeration.
+ */
+public class WellKnownSID {
+    public static final int WinNullSid = 0;
+    public static final int WinWorldSid = 1;
+    public static final int WinLocalSid = 2;
+    public static final int WinCreatorOwnerSid = 3;
+    public static final int WinCreatorGroupSid = 4;
+    public static final int WinCreatorOwnerServerSid = 5;
+    public static final int WinCreatorGroupServerSid = 6;
+    public static final int WinNtAuthoritySid = 7;
+    public static final int WinDialupSid = 8;
+    public static final int WinNetworkSid = 9;
+    public static final int WinBatchSid = 10;
+    public static final int WinInteractiveSid = 11;
+    public static final int WinServiceSid = 12;
+    public static final int WinAnonymousSid = 13;
+    public static final int WinProxySid = 14;
+    public static final int WinEnterpriseControllersSid = 15;
+    public static final int WinSelfSid = 16;
+    public static final int WinAuthenticatedUserSid = 17;
+    public static final int WinRestrictedCodeSid = 18;
+    public static final int WinTerminalServerSid = 19;
+    public static final int WinRemoteLogonIdSid = 20;
+    public static final int WinLogonIdsSid = 21;
+    public static final int WinLocalSystemSid = 22;
+    public static final int WinLocalServiceSid = 23;
+    public static final int WinNetworkServiceSid = 24;
+    public static final int WinBuiltinDomainSid = 25;
+    public static final int WinBuiltinAdministratorsSid = 26;
+    public static final int WinBuiltinUsersSid = 27;
+    public static final int WinBuiltinGuestsSid = 28;
+    public static final int WinBuiltinPowerUsersSid = 29;
+    public static final int WinBuiltinAccountOperatorsSid = 30;
+    public static final int WinBuiltinSystemOperatorsSid = 31;
+    public static final int WinBuiltinPrintOperatorsSid = 32;
+    public static final int WinBuiltinBackupOperatorsSid = 33;
+    public static final int WinBuiltinReplicatorSid = 34;
+    public static final int WinBuiltinPreWindows2000CompatibleAccessSid = 35;
+    public static final int WinBuiltinRemoteDesktopUsersSid = 36;
+    public static final int WinBuiltinNetworkConfigurationOperatorsSid = 37;
+    public static final int WinAccountAdministratorSid = 38;
+    public static final int WinAccountGuestSid = 39;
+    public static final int WinAccountKrbtgtSid = 40;
+    public static final int WinAccountDomainAdminsSid = 41;
+    public static final int WinAccountDomainUsersSid = 42;
+    public static final int WinAccountDomainGuestsSid = 43;
+    public static final int WinAccountComputersSid = 44;
+    public static final int WinAccountControllersSid = 45;
+    public static final int WinAccountCertAdminsSid = 46;
+    public static final int WinAccountSchemaAdminsSid = 47;
+    public static final int WinAccountEnterpriseAdminsSid = 48;
+    public static final int WinAccountPolicyAdminsSid = 49;
+    public static final int WinAccountRasAndIasServersSid = 50;
+    public static final int WinNTLMAuthenticationSid = 51;
+    public static final int WinDigestAuthenticationSid = 52;
+    public static final int WinSChannelAuthenticationSid = 53;
+    public static final int WinThisOrganizationSid = 54;
+    public static final int WinOtherOrganizationSid = 55;
+    public static final int WinBuiltinIncomingForestTrustBuildersSid = 56;
+    public static final int WinBuiltinPerfMonitoringUsersSid = 57;
+    public static final int WinBuiltinPerfLoggingUsersSid = 58;
+    public static final int WinBuiltinAuthorizationAccessSid = 59;
+    public static final int WinBuiltinTerminalServerLicenseServersSid = 60;
+    public static final int WinBuiltinDCOMUsersSid = 61;
+    public static final int WinBuiltinIUsersSid = 62;
+    public static final int WinIUserSid = 63;
+    public static final int WinBuiltinCryptoOperatorsSid = 64;
+    public static final int WinUntrustedLabelSid = 65;
+    public static final int WinLowLabelSid = 66;
+    public static final int WinMediumLabelSid = 67;
+    public static final int WinHighLabelSid = 68;
+    public static final int WinSystemLabelSid = 69;
+    public static final int WinWriteRestrictedCodeSid = 70;
+    public static final int WinCreatorOwnerRightsSid = 71;
+    public static final int WinCacheablePrincipalsGroupSid = 72;
+    public static final int WinNonCacheablePrincipalsGroupSid = 73;
+    public static final int WinEnterpriseReadonlyControllersSid = 74;
+    public static final int WinAccountReadonlyControllersSid = 75;
+    public static final int WinBuiltinEventLogReadersGroup = 76;
+    public static final int WinNewEnterpriseReadonlyControllersSid = 77;
+    public static final int WinBuiltinCertSvcDComAccessGroup = 78;
+    public static final int WinMediumPlusLabelSid = 79;
+    public static final int WinLocalLogonSid = 80;
+    public static final int WinConsoleLogonSid = 81;
+    public static final int WinThisOrganizationCertificateSid = 82;
+    public static final int WinApplicationPackageAuthoritySid = 83;
+    public static final int WinBuiltinAnyPackageSid = 84;
+    public static final int WinCapabilityInternetClientSid = 85;
+    public static final int WinCapabilityInternetClientServerSid = 86;
+    public static final int WinCapabilityPrivateNetworkClientServerSid = 87;
+    public static final int WinCapabilityPicturesLibrarySid = 88;
+    public static final int WinCapabilityVideosLibrarySid = 89;
+    public static final int WinCapabilityMusicLibrarySid = 90;
+    public static final int WinCapabilityDocumentsLibrarySid = 91;
+    public static final int WinCapabilitySharedUserCertificatesSid = 92;
+    public static final int WinCapabilityDefaultWindowsCredentialsSid = 93;
+    public static final int WinCapabilityRemovableStorageSid = 94;
+}

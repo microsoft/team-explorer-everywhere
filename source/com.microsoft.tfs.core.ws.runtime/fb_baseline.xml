@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265819079391" analysisTimestamp="1265819076926" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType">
+      <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" name="getElements" signature="()[Lorg/w3c/dom/Element;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" start="77" end="77" startBytecode="0" endBytecode="46" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" name="elements" signature="[Lorg/w3c/dom/Element;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" start="77" end="77" startBytecode="4" endBytecode="4" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType">
+      <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" name="setElements" signature="([Lorg/w3c/dom/Element;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" start="68" end="70" startBytecode="0" endBytecode="71" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" name="elements" signature="[Lorg/w3c/dom/Element;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+    </Field>
+    <LocalVariable name="elements" register="1" pc="8" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" start="69" end="69" startBytecode="8" endBytecode="8" sourcefile="DOMAnyContentType.java" sourcepath="com/microsoft/tfs/core/ws/runtime/types/DOMAnyContentType.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 16:24:36 +0000" total_classes="48" referenced_classes="192" total_bugs="0" total_size="1974" num_packages="10" vm_version="14.3-b01" cpu_seconds="5.91" clock_seconds="69.20" peak_mbytes="355.25" alloc_mbytes="254.06" gc_seconds="1.29">
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime" total_bugs="0" total_types="1" total_size="8">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.Schemas" sourceFile="Schemas.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.client" total_bugs="0" total_types="12" total_size="568">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.BufferedSOAPRequestEntity" sourceFile="BufferedSOAPRequestEntity.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAP11Service" sourceFile="SOAP11Service.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAP12Service" sourceFile="SOAP12Service.java" interface="false" size="36" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPHeaderProvider" sourceFile="SOAPHeaderProvider.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPMethodRequestWriter" sourceFile="SOAPMethodRequestWriter.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPMethodResponseReader" sourceFile="SOAPMethodResponseReader.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPRequest" sourceFile="SOAPRequest.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPRequestEntity" sourceFile="SOAPRequestEntity.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPRequestEntity11" sourceFile="SOAPRequestEntity11.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPRequestEntity12" sourceFile="SOAPRequestEntity12.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.SOAPService" sourceFile="SOAPService.java" interface="false" size="298" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.client.TraceInputStream" sourceFile="TraceInputStream.java" interface="false" size="55" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.exceptions" total_bugs="0" total_types="10" total_size="188">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.EndpointNotFoundException" sourceFile="EndpointNotFoundException.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.InvalidServerResponseException" sourceFile="InvalidServerResponseException.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.ProxyException" sourceFile="ProxyException.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.ProxyUnauthorizedException" sourceFile="ProxyUnauthorizedException.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.SOAPFault" sourceFile="SOAPFault.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.SOAPFaultSubCode" sourceFile="SOAPFaultSubCode.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.SOAPSerializationException" sourceFile="SOAPSerializationException.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.ServiceErrorException" sourceFile="ServiceErrorException.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.TransportException" sourceFile="TransportException.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.exceptions.UnauthorizedException" sourceFile="UnauthorizedException.java" interface="false" size="39" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.serialization" total_bugs="0" total_types="4" total_size="8">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.serialization.AttributeDeserializable" sourceFile="AttributeDeserializable.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.serialization.AttributeSerializable" sourceFile="AttributeSerializable.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.serialization.ElementDeserializable" sourceFile="ElementDeserializable.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.serialization.ElementSerializable" sourceFile="ElementSerializable.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.stax" total_bugs="0" total_types="2" total_size="95">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.stax.StaxFactoryProvider" sourceFile="StaxFactoryProvider.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.stax.StaxUtils" sourceFile="StaxUtils.java" interface="false" size="74" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.stax.dom" total_bugs="0" total_types="4" total_size="335">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.stax.dom.DOMStreamReader" sourceFile="DOMStreamReader.java" interface="false" size="250" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.stax.dom.DOMStreamReader$1" sourceFile="DOMStreamReader.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.stax.dom.DOMStreamReader$DOMNamespaceContext" sourceFile="DOMStreamReader.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.stax.dom.DOMStreamReader$ElementFrame" sourceFile="DOMStreamReader.java" interface="false" size="24" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.transport" total_bugs="0" total_types="1" total_size="53">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.transport.IdleHttpConnectionCloser" sourceFile="IdleHttpConnectionCloser.java" interface="false" size="53" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.types" total_bugs="0" total_types="10" total_size="319">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.AnyContentType" sourceFile="AnyContentType.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType" sourceFile="DOMAnyContentType.java" interface="false" size="114" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.DOMMixedContentType" sourceFile="DOMMixedContentType.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.Enumeration" sourceFile="Enumeration.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.Flag" sourceFile="Flag.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.FlagSet" sourceFile="FlagSet.java" interface="false" size="50" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.GUID" sourceFile="GUID.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.MixedContentType" sourceFile="MixedContentType.java" interface="true" size="1" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.StaxAnyContentType" sourceFile="StaxAnyContentType.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.types.StaxAnyContentType$XMLStreamReaderIterator" sourceFile="StaxAnyContentType.java" interface="false" size="21" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.util" total_bugs="0" total_types="1" total_size="26">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.util.PrimitiveArrayHelpers" sourceFile="PrimitiveArrayHelpers.java" interface="false" size="26" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.core.ws.runtime.xml" total_bugs="0" total_types="3" total_size="374">
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.xml.XMLConvert" sourceFile="XMLConvert.java" interface="false" size="119" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.xml.XMLStreamReaderHelper" sourceFile="XMLStreamReaderHelper.java" interface="false" size="68" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.core.ws.runtime.xml.XMLStreamWriterHelper" sourceFile="XMLStreamWriterHelper.java" interface="false" size="187" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="11" invocations="48" avgMicrosecondsPerInvocation="230" maxMicrosecondsPerInvocation="2141" standardDeviationMircosecondsPerInvocation="387"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="11" invocations="3543" avgMicrosecondsPerInvocation="3" maxMicrosecondsPerInvocation="75" standardDeviationMircosecondsPerInvocation="6"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="12" invocations="48" avgMicrosecondsPerInvocation="270" maxMicrosecondsPerInvocation="2236" standardDeviationMircosecondsPerInvocation="417"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="14" invocations="48" avgMicrosecondsPerInvocation="306" maxMicrosecondsPerInvocation="2506" standardDeviationMircosecondsPerInvocation="477"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="15" invocations="48" avgMicrosecondsPerInvocation="314" maxMicrosecondsPerInvocation="2747" standardDeviationMircosecondsPerInvocation="528"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="16" invocations="20" avgMicrosecondsPerInvocation="807" maxMicrosecondsPerInvocation="3152" standardDeviationMircosecondsPerInvocation="1017"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MutableStaticFields" totalMilliseconds="16" invocations="48" avgMicrosecondsPerInvocation="345" maxMicrosecondsPerInvocation="14281" standardDeviationMircosecondsPerInvocation="2034"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="21" invocations="291" avgMicrosecondsPerInvocation="73" maxMicrosecondsPerInvocation="1332" standardDeviationMircosecondsPerInvocation="145"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="21" invocations="192" avgMicrosecondsPerInvocation="114" maxMicrosecondsPerInvocation="1437" standardDeviationMircosecondsPerInvocation="215"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="22" invocations="192" avgMicrosecondsPerInvocation="119" maxMicrosecondsPerInvocation="720" standardDeviationMircosecondsPerInvocation="140"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="24" invocations="47" avgMicrosecondsPerInvocation="518" maxMicrosecondsPerInvocation="8714" standardDeviationMircosecondsPerInvocation="1393"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="28" invocations="192" avgMicrosecondsPerInvocation="147" maxMicrosecondsPerInvocation="1956" standardDeviationMircosecondsPerInvocation="280"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="35" invocations="21" avgMicrosecondsPerInvocation="1697" maxMicrosecondsPerInvocation="31589" standardDeviationMircosecondsPerInvocation="6684"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="36" invocations="306" avgMicrosecondsPerInvocation="117" maxMicrosecondsPerInvocation="2075" standardDeviationMircosecondsPerInvocation="215"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="44" invocations="192" avgMicrosecondsPerInvocation="231" maxMicrosecondsPerInvocation="10126" standardDeviationMircosecondsPerInvocation="772"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="52" invocations="291" avgMicrosecondsPerInvocation="180" maxMicrosecondsPerInvocation="3679" standardDeviationMircosecondsPerInvocation="346"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="62" invocations="226" avgMicrosecondsPerInvocation="275" maxMicrosecondsPerInvocation="20552" standardDeviationMircosecondsPerInvocation="1643"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="68" invocations="291" avgMicrosecondsPerInvocation="233" maxMicrosecondsPerInvocation="15123" standardDeviationMircosecondsPerInvocation="986"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="68" invocations="189" avgMicrosecondsPerInvocation="360" maxMicrosecondsPerInvocation="4473" standardDeviationMircosecondsPerInvocation="672"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="101" invocations="727" avgMicrosecondsPerInvocation="139" maxMicrosecondsPerInvocation="10963" standardDeviationMircosecondsPerInvocation="556"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="125" invocations="192" avgMicrosecondsPerInvocation="651" maxMicrosecondsPerInvocation="8743" standardDeviationMircosecondsPerInvocation="1253"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="148" invocations="3249" avgMicrosecondsPerInvocation="45" maxMicrosecondsPerInvocation="12116" standardDeviationMircosecondsPerInvocation="234"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="166" invocations="309" avgMicrosecondsPerInvocation="540" maxMicrosecondsPerInvocation="28971" standardDeviationMircosecondsPerInvocation="2015"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="190" invocations="2" avgMicrosecondsPerInvocation="95414" maxMicrosecondsPerInvocation="170802" standardDeviationMircosecondsPerInvocation="75388"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="202" invocations="727" avgMicrosecondsPerInvocation="278" maxMicrosecondsPerInvocation="12100" standardDeviationMircosecondsPerInvocation="603"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="204" invocations="369" avgMicrosecondsPerInvocation="553" maxMicrosecondsPerInvocation="17081" standardDeviationMircosecondsPerInvocation="1738"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="206" invocations="291" avgMicrosecondsPerInvocation="711" maxMicrosecondsPerInvocation="22806" standardDeviationMircosecondsPerInvocation="2174"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="210" invocations="291" avgMicrosecondsPerInvocation="724" maxMicrosecondsPerInvocation="21565" standardDeviationMircosecondsPerInvocation="2093"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="223" invocations="291" avgMicrosecondsPerInvocation="769" maxMicrosecondsPerInvocation="17532" standardDeviationMircosecondsPerInvocation="2080"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265819079391" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="2" timestamp="1265828622297" analysisTimestamp="1265828620284" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.commands.Command">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.commands.Command" name="getFreeArguments" signature="()[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="433" end="433" startBytecode="0" endBytecode="46" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.commands.Command" name="freeArguments" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="433" end="433" startBytecode="4" endBytecode="4" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.commands.Command">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.commands.Command" name="getOptions" signature="()[Lcom/microsoft/tfs/client/clc/options/Option;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="415" end="415" startBytecode="0" endBytecode="46" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.commands.Command" name="options" signature="[Lcom/microsoft/tfs/client/clc/options/Option;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="415" end="415" startBytecode="4" endBytecode="4" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.commands.Command">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.commands.Command" name="setFreeArguments" signature="([Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="424" end="426" startBytecode="0" endBytecode="72" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.commands.Command" name="freeArguments" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Field>
+    <LocalVariable name="args" register="1" pc="9" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="425" end="425" startBytecode="9" endBytecode="9" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.commands.Command">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.commands.Command" name="setOptions" signature="([Lcom/microsoft/tfs/client/clc/options/Option;[Ljava/lang/Class;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="367" end="408" startBytecode="0" endBytecode="425" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.commands.Command" name="options" signature="[Lcom/microsoft/tfs/client/clc/options/Option;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Field>
+    <LocalVariable name="setOptions" register="1" pc="200" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="407" end="407" startBytecode="200" endBytecode="200" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.commands.Command">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.commands.Command" name="readLine" signature="(Ljava/lang/String;Z)Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="1697" end="1762" startBytecode="0" endBytecode="75" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/Reader;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.Reader"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.client.clc.commands.Command" start="1712" end="1712" startBytecode="41" endBytecode="41" sourcefile="Command.java" sourcepath="com/microsoft/tfs/client/clc/commands/Command.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.options.MultipleIntegerValueOption">
+      <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleIntegerValueOption" sourcefile="MultipleIntegerValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleIntegerValueOption.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.options.MultipleIntegerValueOption" name="getIntegerValues" signature="()[I" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleIntegerValueOption" start="42" end="42" startBytecode="0" endBytecode="46" sourcefile="MultipleIntegerValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleIntegerValueOption.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.options.MultipleIntegerValueOption" name="numbers" signature="[I" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleIntegerValueOption" sourcefile="MultipleIntegerValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleIntegerValueOption.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleIntegerValueOption" start="42" end="42" startBytecode="4" endBytecode="4" sourcefile="MultipleIntegerValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleIntegerValueOption.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.options.MultipleValueOption">
+      <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleValueOption" sourcefile="MultipleValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleValueOption.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.options.MultipleValueOption" name="getValues" signature="()[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleValueOption" start="92" end="92" startBytecode="0" endBytecode="46" sourcefile="MultipleValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleValueOption.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.options.MultipleValueOption" name="_values" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleValueOption" sourcefile="MultipleValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleValueOption.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.options.MultipleValueOption" start="92" end="92" startBytecode="4" endBytecode="4" sourcefile="MultipleValueOption.java" sourcepath="com/microsoft/tfs/client/clc/options/MultipleValueOption.java"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" abbrev="NP" category="CORRECTNESS" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" name="invokeCapture" signature="([Ljava/lang/String;Ljava/io/PrintStream;Ljava/io/PrintStream;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" start="440" end="462" startBytecode="0" endBytecode="345" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java"/>
+    </Method>
+    <LocalVariable name="err" register="3" pc="144" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" start="456" end="456" startBytecode="145" endBytecode="145" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" start="441" end="441" startBytecode="20" endBytecode="20" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.LONG_RANGE_NULL_SOURCE" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" abbrev="NP" category="CORRECTNESS" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" name="invokeCapture" signature="([Ljava/lang/String;Ljava/io/PrintStream;Ljava/io/PrintStream;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" start="440" end="462" startBytecode="0" endBytecode="345" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java"/>
+    </Method>
+    <LocalVariable name="out" register="2" pc="140" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" start="455" end="455" startBytecode="141" endBytecode="141" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.CLCTestHarness" start="440" end="440" startBytecode="8" endBytecode="8" sourcefile="CLCTestHarness.java" sourcepath="com/microsoft/tfs/client/clc/vc/CLCTestHarness.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.LONG_RANGE_NULL_SOURCE" value="true"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.QualifiedItem">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" name="getVersions" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" start="106" end="106" startBytecode="0" endBytecode="46" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" name="_versions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" start="106" end="106" startBytecode="4" endBytecode="4" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.QualifiedItem">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" name="&lt;init&gt;" signature="(Ljava/lang/String;I[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" start="39" end="48" startBytecode="0" endBytecode="133" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" name="_versions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Field>
+    <LocalVariable name="versions" register="3" pc="34" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" start="47" end="47" startBytecode="34" endBytecode="34" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.QualifiedItem">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" name="setVersions" signature="([Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" start="124" end="125" startBytecode="0" endBytecode="61" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" name="_versions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+    </Field>
+    <LocalVariable name="versions" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.QualifiedItem" start="124" end="124" startBytecode="2" endBytecode="2" sourcefile="QualifiedItem.java" sourcepath="com/microsoft/tfs/client/clc/vc/QualifiedItem.java"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_PARAM_DEREF" priority="2" abbrev="NP" category="CORRECTNESS" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.commands.CommandDifference">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandDifference" sourcefile="CommandDifference.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandDifference.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.commands.CommandDifference" name="showDiff" signature="(Lcom/microsoft/tfs/client/clc/vc/diff/DiffItem;Lcom/microsoft/tfs/client/clc/vc/diff/DiffItem;)I" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandDifference" start="797" end="876" startBytecode="0" endBytecode="566" sourcefile="CommandDifference.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandDifference.java"/>
+    </Method>
+    <Method classname="com.microsoft.tfs.client.clc.vc.diff.launch.DiffLauncher" name="launchDiff" signature="(Lcom/microsoft/tfs/client/clc/vc/diff/launch/DiffLaunchItem;Lcom/microsoft/tfs/client/clc/vc/diff/launch/DiffLaunchItem;)V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.diff.launch.DiffLauncher" start="58" end="106" startBytecode="0" endBytecode="496" sourcefile="DiffLauncher.java" sourcepath="com/microsoft/tfs/client/clc/vc/diff/launch/DiffLauncher.java"/>
+    </Method>
+    <Int value="2" role="INT_MAYBE_NULL_ARG"/>
+    <LocalVariable name="targetLaunchItem" register="4" pc="192" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandDifference" start="875" end="875" startBytecode="256" endBytecode="256" sourcefile="CommandDifference.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandDifference.java" role="SOURCE_LINE_INVOKED"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandDifference" start="860" end="860" startBytecode="199" endBytecode="199" sourcefile="CommandDifference.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandDifference.java" role="SOURCE_LINE_KNOWN_NULL"/>
+    <Property name="edu.umd.cs.findbugs.detect.NullDerefProperty.LONG_RANGE_NULL_SOURCE" value="true"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" abbrev="NP" category="CORRECTNESS" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.commands.CommandPrint">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandPrint" sourcefile="CommandPrint.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandPrint.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.commands.CommandPrint" name="run" signature="()I" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandPrint" start="60" end="142" startBytecode="0" endBytecode="711" sourcefile="CommandPrint.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandPrint.java"/>
+    </Method>
+    <LocalVariable name="items" register="10" pc="251" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandPrint" start="129" end="129" startBytecode="253" endBytecode="253" sourcefile="CommandPrint.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandPrint.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandPrint" start="127" end="127" startBytecode="233" endBytecode="233" sourcefile="CommandPrint.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandPrint.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="NP_NULL_ON_SOME_PATH" priority="2" abbrev="NP" category="CORRECTNESS" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.commands.CommandWorkFold">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandWorkFold" sourcefile="CommandWorkFold.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandWorkFold.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.commands.CommandWorkFold" name="handleSingleWorkingFolder" signature="(Ljava/lang/String;Lcom/microsoft/tfs/core/clients/versioncontrol/VersionControlClient;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandWorkFold" start="280" end="311" startBytecode="0" endBytecode="320" sourcefile="CommandWorkFold.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandWorkFold.java"/>
+    </Method>
+    <LocalVariable name="ret" register="4" pc="147" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandWorkFold" start="310" end="310" startBytecode="148" endBytecode="148" sourcefile="CommandWorkFold.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandWorkFold.java" role="SOURCE_LINE_DEREF"/>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.commands.CommandWorkFold" start="308" end="308" startBytecode="119" endBytecode="119" sourcefile="CommandWorkFold.java" sourcepath="com/microsoft/tfs/client/clc/vc/commands/CommandWorkFold.java" role="SOURCE_LINE_KNOWN_NULL"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.vc.options.OptionVersion">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.options.OptionVersion" sourcefile="OptionVersion.java" sourcepath="com/microsoft/tfs/client/clc/vc/options/OptionVersion.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.clc.vc.options.OptionVersion" name="getParsedVersionSpecs" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.options.OptionVersion" start="58" end="58" startBytecode="0" endBytecode="46" sourcefile="OptionVersion.java" sourcepath="com/microsoft/tfs/client/clc/vc/options/OptionVersion.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.clc.vc.options.OptionVersion" name="_versions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.clc.vc.options.OptionVersion" sourcefile="OptionVersion.java" sourcepath="com/microsoft/tfs/client/clc/vc/options/OptionVersion.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.vc.options.OptionVersion" start="58" end="58" startBytecode="4" endBytecode="4" sourcefile="OptionVersion.java" sourcepath="com/microsoft/tfs/client/clc/vc/options/OptionVersion.java"/>
+  </BugInstance>
+  <BugInstance type="MS_MUTABLE_ARRAY" priority="1" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport">
+      <SourceLine classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" sourcefile="WorkItemEditSupport.java" sourcepath="com/microsoft/tfs/client/clc/wit/util/WorkItemEditSupport.java"/>
+    </Class>
+    <Field classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" name="CREATE_OPTIONAL_OPTION_TYPES" signature="[Ljava/lang/Class;" isStatic="true">
+      <SourceLine classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" sourcefile="WorkItemEditSupport.java" sourcepath="com/microsoft/tfs/client/clc/wit/util/WorkItemEditSupport.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" start="59" end="59" startBytecode="469" endBytecode="469" sourcefile="WorkItemEditSupport.java" sourcepath="com/microsoft/tfs/client/clc/wit/util/WorkItemEditSupport.java"/>
+  </BugInstance>
+  <BugInstance type="MS_MUTABLE_ARRAY" priority="1" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport">
+      <SourceLine classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" sourcefile="WorkItemEditSupport.java" sourcepath="com/microsoft/tfs/client/clc/wit/util/WorkItemEditSupport.java"/>
+    </Class>
+    <Field classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" name="EDIT_OPTIONAL_OPTION_TYPES" signature="[Ljava/lang/Class;" isStatic="true">
+      <SourceLine classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" sourcefile="WorkItemEditSupport.java" sourcepath="com/microsoft/tfs/client/clc/wit/util/WorkItemEditSupport.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.clc.wit.util.WorkItemEditSupport" start="47" end="47" startBytecode="287" endBytecode="287" sourcefile="WorkItemEditSupport.java" sourcepath="com/microsoft/tfs/client/clc/wit/util/WorkItemEditSupport.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 19:03:40 +0000" total_classes="1" referenced_classes="130" total_bugs="0" total_size="720" num_packages="6" vm_version="14.3-b01" cpu_seconds="15.07" clock_seconds="44.10" peak_mbytes="359.94" alloc_mbytes="254.06" gc_seconds="0.84">
+    <PackageStats package="com.microsoft.tfs.client.clc.commands" total_bugs="0" total_types="1" total_size="720">
+      <ClassStats class="com.microsoft.tfs.client.clc.commands.Command" sourceFile="Command.java" interface="false" size="720" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.clc.options" total_bugs="0" total_types="0" total_size="0"></PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.clc.vc" total_bugs="0" total_types="0" total_size="0"></PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.clc.vc.commands" total_bugs="0" total_types="0" total_size="0"></PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.clc.vc.options" total_bugs="0" total_types="0" total_size="0"></PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.clc.wit.util" total_bugs="0" total_types="0" total_size="0"></PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="15" invocations="62" avgMicrosecondsPerInvocation="250" maxMicrosecondsPerInvocation="1932" standardDeviationMircosecondsPerInvocation="370"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="16" invocations="1" avgMicrosecondsPerInvocation="16312" maxMicrosecondsPerInvocation="16312" standardDeviationMircosecondsPerInvocation="0"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="20" invocations="130" avgMicrosecondsPerInvocation="154" maxMicrosecondsPerInvocation="3090" standardDeviationMircosecondsPerInvocation="363"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="20" invocations="130" avgMicrosecondsPerInvocation="160" maxMicrosecondsPerInvocation="2769" standardDeviationMircosecondsPerInvocation="353"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="25" invocations="130" avgMicrosecondsPerInvocation="199" maxMicrosecondsPerInvocation="3936" standardDeviationMircosecondsPerInvocation="471"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="28" invocations="59" avgMicrosecondsPerInvocation="489" maxMicrosecondsPerInvocation="6291" standardDeviationMircosecondsPerInvocation="964"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="31" invocations="164" avgMicrosecondsPerInvocation="190" maxMicrosecondsPerInvocation="12263" standardDeviationMircosecondsPerInvocation="966"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="37" invocations="59" avgMicrosecondsPerInvocation="641" maxMicrosecondsPerInvocation="12561" standardDeviationMircosecondsPerInvocation="1684"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="45" invocations="25" avgMicrosecondsPerInvocation="1816" maxMicrosecondsPerInvocation="39881" standardDeviationMircosecondsPerInvocation="7770"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="48" invocations="130" avgMicrosecondsPerInvocation="375" maxMicrosecondsPerInvocation="19469" standardDeviationMircosecondsPerInvocation="1732"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="66" invocations="65" avgMicrosecondsPerInvocation="1019" maxMicrosecondsPerInvocation="8304" standardDeviationMircosecondsPerInvocation="1639"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="88" invocations="130" avgMicrosecondsPerInvocation="678" maxMicrosecondsPerInvocation="22368" standardDeviationMircosecondsPerInvocation="2422"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="95" invocations="59" avgMicrosecondsPerInvocation="1612" maxMicrosecondsPerInvocation="18556" standardDeviationMircosecondsPerInvocation="3003"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="104" invocations="59" avgMicrosecondsPerInvocation="1777" maxMicrosecondsPerInvocation="14038" standardDeviationMircosecondsPerInvocation="3061"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="134" invocations="814" avgMicrosecondsPerInvocation="165" maxMicrosecondsPerInvocation="15503" standardDeviationMircosecondsPerInvocation="663"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="138" invocations="59" avgMicrosecondsPerInvocation="2340" maxMicrosecondsPerInvocation="26957" standardDeviationMircosecondsPerInvocation="4903"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="144" invocations="130" avgMicrosecondsPerInvocation="1110" maxMicrosecondsPerInvocation="25676" standardDeviationMircosecondsPerInvocation="3120"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="157" invocations="69" avgMicrosecondsPerInvocation="2280" maxMicrosecondsPerInvocation="26577" standardDeviationMircosecondsPerInvocation="5311"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="159" invocations="2" avgMicrosecondsPerInvocation="79604" maxMicrosecondsPerInvocation="134012" standardDeviationMircosecondsPerInvocation="54407"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="176" invocations="2184" avgMicrosecondsPerInvocation="80" maxMicrosecondsPerInvocation="46459" standardDeviationMircosecondsPerInvocation="1000"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="352" invocations="814" avgMicrosecondsPerInvocation="432" maxMicrosecondsPerInvocation="22960" standardDeviationMircosecondsPerInvocation="802"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265828594293" release="" codeSize="0" numClasses="0"/>
+    <AppVersion sequence="1" timestamp="1265828594293" release="" codeSize="11494" numClasses="240"/>
+  </History>
+</BugCollection>

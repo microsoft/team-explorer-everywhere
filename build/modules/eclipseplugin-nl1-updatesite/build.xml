@@ -1,0 +1,25 @@
+<project name="eclipseplugin-nl1-updatesite" basedir=".">
+
+	<target name="clean.eclipseplugin-nl1-updatesite">
+	</target>
+
+	<target name="eclipseplugin-nl1-updatesite" depends="eclipseplugin-nl1">
+		<echo message="[TFSBuildStep] Mirroring Eclipse Plug-in NL1 to update site repository" />
+
+		<!-- name.p2.repo appears in Eclipse's Available Software Sites dialog. -->
+		<macro.mirror-updatesite name.p2.repo="Team Explorer Everywhere Language Packs"
+		                         name.dist-directory="eclipseplugin-nl1-update"
+		                         name.dist-archive-prefix="TFSEclipsePlugin-NL1-UpdateSiteArchive-${string.version.1-2-3}">
+			<p2-mirror-elements>
+				<!-- 
+					We don't want all features in the language-packs category
+					(because it contains both Nl1 and NLZ), so pick by feature.
+				-->
+				<iu id="com.microsoft.tfs.client.eclipse.nl1.feature.feature.group" />
+
+				<slicingOptions followStrict="true" />
+			</p2-mirror-elements>
+		</macro.mirror-updatesite>
+	</target>
+
+</project>

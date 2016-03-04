@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="com.microsoft.tfs.checkinpolicies.checkinPolicy">
+      <policy
+            class="com.microsoft.tfs.checkinpolicies.forbiddenpatterns.ui.ForbiddenPatternsPolicyUI"
+            typeID="com.teamprise.checkinpolicies.forbiddenpatterns.ForbiddenPatternsPolicy-1">
+      </policy>
+   </extension>
+
+</plugin>

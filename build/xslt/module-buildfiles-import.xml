@@ -1,0 +1,14 @@
+<project 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xsl:version="1.0"
+	basedir=".">
+
+	<xsl:for-each select="/module-buildfiles/file">
+
+		<xsl:element name="import">
+			<xsl:attribute name="file"><xsl:value-of select="@path" /></xsl:attribute>
+		</xsl:element>
+
+	</xsl:for-each>
+
+</project>

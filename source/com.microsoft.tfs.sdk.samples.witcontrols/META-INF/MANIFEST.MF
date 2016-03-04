@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sample TFS Custom Work item Controls
+Bundle-SymbolicName: com.microsoft.tfs.sdk.samples.witcontrols;singleton:=true
+Bundle-Version: 14.0.2.qualifier
+Bundle-Vendor: Microsoft Corporation
+Export-Package: com.microsoft.tfs.sdk.samples.witcontrols
+Require-Bundle: com.microsoft.tfs.core,
+ com.microsoft.tfs.client.common,
+ com.microsoft.tfs.client.common.ui,
+ org.eclipse.swt,
+ org.eclipse.jface
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: .

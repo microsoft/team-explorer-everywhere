@@ -1,0 +1,24 @@
+<project 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xsl:version="1.0"
+	basedir="." default="movedir">
+	
+	<target name="movedir">
+		<condition property="subdirname" value="plugins">
+			<available file="${{basedir}}/plugin.xml" />
+		</condition>
+		<condition property="subdirname" value="features">
+			<available file="${{basedir}}/feature.xml" />
+		</condition>
+
+		<xsl:element name="property">
+			<xsl:attribute name="name">destdirname</xsl:attribute>
+			<xsl:attribute name="value"><xsl:value-of select="/node()/@id"/></xsl:attribute>	
+		</xsl:element>
+
+		<property name="targetdir" value="${{basedir}}/../${{subdirname}}/${{destdirname}}" />
+		<echo message="moving [${{basedir}}] -> [${{targetdir}}]" />
+		<move file="${{basedir}}" tofile="${{targetdir}}" />
+	</target>
+
+</project>

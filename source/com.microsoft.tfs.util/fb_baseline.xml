@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265805295827" analysisTimestamp="1265805289899" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.util.process.ProcessRunner">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.process.ProcessRunner" name="&lt;init&gt;" signature="([Ljava/lang/String;[Ljava/lang/String;Ljava/io/File;Lcom/microsoft/tfs/util/process/ProcessFinishedHandler;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="275" end="292" startBytecode="0" endBytecode="188" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.util.process.ProcessRunner" name="commands" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Field>
+    <LocalVariable name="commands" register="1" pc="17" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="283" end="283" startBytecode="17" endBytecode="17" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.util.process.ProcessRunner">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.process.ProcessRunner" name="&lt;init&gt;" signature="([Ljava/lang/String;[Ljava/lang/String;Ljava/io/File;Lcom/microsoft/tfs/util/process/ProcessFinishedHandler;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="275" end="292" startBytecode="0" endBytecode="188" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.util.process.ProcessRunner" name="environment" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Field>
+    <LocalVariable name="environment" register="2" pc="22" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="284" end="284" startBytecode="22" endBytecode="22" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.util.process.ProcessRunner">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.process.ProcessRunner" name="&lt;init&gt;" signature="([Ljava/lang/String;[Ljava/lang/String;Ljava/io/File;Lcom/microsoft/tfs/util/process/ProcessFinishedHandler;Ljava/io/OutputStream;Ljava/io/OutputStream;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="341" end="360" startBytecode="0" endBytecode="210" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.util.process.ProcessRunner" name="commands" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Field>
+    <LocalVariable name="commands" register="1" pc="17" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="351" end="351" startBytecode="17" endBytecode="17" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.util.process.ProcessRunner">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.process.ProcessRunner" name="&lt;init&gt;" signature="([Ljava/lang/String;[Ljava/lang/String;Ljava/io/File;Lcom/microsoft/tfs/util/process/ProcessFinishedHandler;Ljava/io/OutputStream;Ljava/io/OutputStream;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="341" end="360" startBytecode="0" endBytecode="210" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.util.process.ProcessRunner" name="environment" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+    </Field>
+    <LocalVariable name="environment" register="2" pc="22" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.util.process.ProcessRunner" start="352" end="352" startBytecode="22" endBytecode="22" sourcefile="ProcessRunner.java" sourcepath="com/microsoft/tfs/util/process/ProcessRunner.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="25" startBytecode="0" endBytecode="0" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="31" end="31" startBytecode="12" endBytecode="12" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="33" end="33" startBytecode="26" endBytecode="26" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="35" end="35" startBytecode="40" endBytecode="40" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="41" end="41" startBytecode="57" endBytecode="57" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="43" end="43" startBytecode="73" endBytecode="73" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="45" end="45" startBytecode="89" endBytecode="89" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="51" end="51" startBytecode="103" endBytecode="103" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="53" end="53" startBytecode="118" endBytecode="118" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="55" end="55" startBytecode="133" endBytecode="133" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testConstructionLimits" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="25" end="59" startBytecode="0" endBytecode="86" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="57" end="57" startBytecode="149" endBytecode="149" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" name="testReader" signature="()V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="117" end="133" startBytecode="0" endBytecode="24" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/OutputStream;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.OutputStream"/>
+    </Type>
+    <SourceLine classname="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" start="117" end="117" startBytecode="0" endBytecode="0" sourcefile="FastTempOutputStreamTest.java" sourcepath="com/microsoft/tfs/util/temp/FastTempOutputStreamTest.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 12:34:49 +0000" total_classes="139" referenced_classes="303" total_bugs="0" total_size="5499" num_packages="15" vm_version="14.3-b01" cpu_seconds="8.24" clock_seconds="31.53" peak_mbytes="176.40" alloc_mbytes="254.06" gc_seconds="1.13">
+    <PackageStats package="com.microsoft.tfs.util" total_bugs="0" total_types="29" total_size="1540">
+      <ClassStats class="com.microsoft.tfs.util.ArrayUtils" sourceFile="ArrayUtils.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.BitField" sourceFile="BitField.java" interface="false" size="138" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.BitField$BitFieldStringData" sourceFile="BitField.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.BitField$IntFlagStringValuePair" sourceFile="BitField.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.ByteArrayUtils" sourceFile="ByteArrayUtils.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.Check" sourceFile="Check.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.Closable" sourceFile="Closable.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.FileHelpers" sourceFile="FileHelpers.java" interface="false" size="163" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.FileHelpersTest" sourceFile="FileHelpersTest.java" interface="false" size="117" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.FileLastModifiedComparator" sourceFile="FileLastModifiedComparator.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.GUIDGen" sourceFile="GUIDGen.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.HashUtils" sourceFile="HashUtils.java" interface="false" size="103" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.HashUtils$UncheckedNoSuchAlgorithmException" sourceFile="HashUtils.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.HashUtils$UncheckedNoSuchProviderException" sourceFile="HashUtils.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.HashUtils$UncheckedUnsupportedEncodingException" sourceFile="HashUtils.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.IOUtils" sourceFile="IOUtils.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.NewlineUtils" sourceFile="NewlineUtils.java" interface="false" size="122" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.Platform" sourceFile="Platform.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.PlatformVersion" sourceFile="PlatformVersion.java" interface="false" size="65" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.PlatformVersionTest" sourceFile="PlatformVersionTest.java" interface="false" size="65" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.PrimitiveArrayHelpers" sourceFile="PrimitiveArrayHelpers.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.StringHelpers" sourceFile="StringHelpers.java" interface="false" size="106" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.StringHelpersTest" sourceFile="StringHelpersTest.java" interface="false" size="96" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.Transformer" sourceFile="Transformer.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.TypesafeEnum" sourceFile="TypesafeEnum.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.URIUtils" sourceFile="URIUtils.java" interface="false" size="59" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.URIUtilsTest" sourceFile="URIUtilsTest.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.URLEncode" sourceFile="URLEncode.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.URLEncodeTest" sourceFile="URLEncodeTest.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.base64" total_bugs="0" total_types="7" total_size="207">
+      <ClassStats class="com.microsoft.tfs.util.base64.Base64" sourceFile="Base64.java" interface="false" size="191" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.base64.BinaryDecoder" sourceFile="BinaryDecoder.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.base64.BinaryEncoder" sourceFile="BinaryEncoder.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.base64.Decoder" sourceFile="Decoder.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.base64.DecoderException" sourceFile="DecoderException.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.base64.Encoder" sourceFile="Encoder.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.base64.EncoderException" sourceFile="EncoderException.java" interface="false" size="4" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.chunkingcodec" total_bugs="0" total_types="9" total_size="280">
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.ByteArray" sourceFile="ByteArray.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.ByteArrayChunkedDecoder" sourceFile="ByteArrayChunkedDecoder.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.ByteArrayChunkedEncoder" sourceFile="ByteArrayChunkedEncoder.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.ChunkedDecoder" sourceFile="ChunkedDecoder.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.ChunkedDecoderArray" sourceFile="ChunkedDecoderArray.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.ChunkedEncoder" sourceFile="ChunkedEncoder.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.ChunkedEncoderArray" sourceFile="ChunkedEncoderArray.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.StreamChunkedDecoder" sourceFile="StreamChunkedDecoder.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.chunkingcodec.StreamChunkedEncoder" sourceFile="StreamChunkedEncoder.java" interface="false" size="55" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.datetime" total_bugs="0" total_types="10" total_size="667">
+      <ClassStats class="com.microsoft.tfs.util.datetime.CalTest" sourceFile="CalTest.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.CalendarUtils" sourceFile="CalendarUtils.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.DotNetDate" sourceFile="DotNetDate.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.LenientDateTimeFormat" sourceFile="LenientDateTimeFormat.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.LenientDateTimeFormatComparator" sourceFile="LenientDateTimeFormatComparator.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.LenientDateTimeParser" sourceFile="LenientDateTimeParser.java" interface="false" size="155" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.LenientDateTimeParserExpander" sourceFile="LenientDateTimeParserExpander.java" interface="false" size="73" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.LenientDateTimeParserTest" sourceFile="LenientDateTimeParserTest.java" interface="false" size="315" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.LenientDateTimePattern" sourceFile="LenientDateTimePattern.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.datetime.LenientDateTimeResult" sourceFile="LenientDateTimeResult.java" interface="false" size="22" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.holders" total_bugs="0" total_types="1" total_size="5">
+      <ClassStats class="com.microsoft.tfs.util.holders.StringHolder" sourceFile="StringHolder.java" interface="false" size="5" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.listeners" total_bugs="0" total_types="20" total_size="440">
+      <ClassStats class="com.microsoft.tfs.util.listeners.Comparators" sourceFile="Comparators.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.Comparators$EqualityComparator" sourceFile="Comparators.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.Comparators$IdentityComparator" sourceFile="Comparators.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.DefaultExceptionHandler" sourceFile="DefaultExceptionHandler.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.ListenerCategory" sourceFile="ListenerCategory.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.ListenerExceptionHandler" sourceFile="ListenerExceptionHandler.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.ListenerList" sourceFile="ListenerList.java" interface="true" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.ListenerRunnable" sourceFile="ListenerRunnable.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.MultiListenerList" sourceFile="MultiListenerList.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.MulticastListenerProxy" sourceFile="MulticastListenerProxy.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.MulticastListenerProxy$1" sourceFile="MulticastListenerProxy.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.MulticastListenerProxy$MulticastListenerProxyInvocationHandler" sourceFile="MulticastListenerProxy.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.MulticastListenerProxy$MulticastListenerProxyInvocationHandler$ExceptionHandlerWrapper" sourceFile="MulticastListenerProxy.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.SingleListenerFacade" sourceFile="SingleListenerFacade.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.StandardListenerList" sourceFile="StandardListenerList.java" interface="false" size="67" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.StandardListenerList$ListenerNode" sourceFile="StandardListenerList.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.StandardListenerList$ListenerNodeHolder" sourceFile="StandardListenerList.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.StandardListenerListTest" sourceFile="StandardListenerListTest.java" interface="false" size="84" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.StandardListenerListTest$1" sourceFile="StandardListenerListTest.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.listeners.StandardListenerListTest$Listener" sourceFile="StandardListenerListTest.java" interface="false" size="9" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.locking" total_bugs="0" total_types="9" total_size="259">
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLock" sourceFile="AdvisoryFileLock.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest" sourceFile="AdvisoryFileLockTest.java" interface="false" size="68" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest$1" sourceFile="AdvisoryFileLockTest.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest$2" sourceFile="AdvisoryFileLockTest.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest$3" sourceFile="AdvisoryFileLockTest.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest$4" sourceFile="AdvisoryFileLockTest.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest$5" sourceFile="AdvisoryFileLockTest.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest$6" sourceFile="AdvisoryFileLockTest.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.locking.AdvisoryFileLockTest$Scoreboard" sourceFile="AdvisoryFileLockTest.java" interface="false" size="20" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.process" total_bugs="0" total_types="7" total_size="442">
+      <ClassStats class="com.microsoft.tfs.util.process.ProcessFinishedHandler" sourceFile="ProcessFinishedHandler.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.process.ProcessOutputReader" sourceFile="ProcessOutputReader.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.process.ProcessRunner" sourceFile="ProcessRunner.java" interface="false" size="195" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.process.ProcessRunner$ProcessRunnerState" sourceFile="ProcessRunner.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.process.ProcessRunner$SystemErrorOutputStream" sourceFile="ProcessRunner.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.process.ProcessRunner$SystemOutputOutputStream" sourceFile="ProcessRunner.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.process.ProcessRunnerTest" sourceFile="ProcessRunnerTest.java" interface="false" size="151" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.proxy" total_bugs="0" total_types="4" total_size="96">
+      <ClassStats class="com.microsoft.tfs.util.proxy.DelayingInvocationHandler" sourceFile="DelayingInvocationHandler.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.proxy.DelegatingInvocationHandler" sourceFile="DelegatingInvocationHandler.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.proxy.LoggingInvocationHandler" sourceFile="LoggingInvocationHandler.java" interface="false" size="59" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.proxy.ProxySupport" sourceFile="ProxySupport.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.shutdown" total_bugs="0" total_types="4" total_size="77">
+      <ClassStats class="com.microsoft.tfs.util.shutdown.ShutdownEventListener" sourceFile="ShutdownEventListener.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.shutdown.ShutdownManager" sourceFile="ShutdownManager.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.shutdown.ShutdownManager$1" sourceFile="ShutdownManager.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.shutdown.ShutdownManager$Priority" sourceFile="ShutdownManager.java" interface="false" size="12" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.tasks" total_bugs="0" total_types="6" total_size="95">
+      <ClassStats class="com.microsoft.tfs.util.tasks.CanceledException" sourceFile="CanceledException.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.tasks.NullTaskMonitor" sourceFile="NullTaskMonitor.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.tasks.TaskMonitor" sourceFile="TaskMonitor.java" interface="true" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.tasks.TaskMonitorService" sourceFile="TaskMonitorService.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.tasks.TaskMonitorService$TaskMonitorStack" sourceFile="TaskMonitorService.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.tasks.TaskMonitorService$TaskMonitorThreadLocal" sourceFile="TaskMonitorService.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.temp" total_bugs="0" total_types="5" total_size="345">
+      <ClassStats class="com.microsoft.tfs.util.temp.FastTempOutputStream" sourceFile="FastTempOutputStream.java" interface="false" size="116" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.temp.FastTempOutputStream$DirectAccessByteArrayOutputStream" sourceFile="FastTempOutputStream.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.temp.FastTempOutputStreamTest" sourceFile="FastTempOutputStreamTest.java" interface="false" size="89" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.temp.TempStorageService" sourceFile="TempStorageService.java" interface="false" size="109" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.temp.TempStorageService$TempItem" sourceFile="TempStorageService.java" interface="false" size="22" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.thread" total_bugs="0" total_types="1" total_size="42">
+      <ClassStats class="com.microsoft.tfs.util.thread.ThreadInterruptTimer" sourceFile="ThreadInterruptTimer.java" interface="false" size="42" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.valid" total_bugs="0" total_types="19" total_size="449">
+      <ClassStats class="com.microsoft.tfs.util.valid.AbstractValidator" sourceFile="AbstractValidator.java" interface="false" size="100" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.AbstractValidatorBinding" sourceFile="AbstractValidatorBinding.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.AbstractValidatorBinding$ValidityChangedListener" sourceFile="AbstractValidatorBinding.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.IValidationMessage" sourceFile="IValidationMessage.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.IValidity" sourceFile="IValidity.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.MultiValidator" sourceFile="MultiValidator.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.MultiValidator$SubValidatorListener" sourceFile="MultiValidator.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.Severity" sourceFile="Severity.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.Validatable" sourceFile="Validatable.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidationMessage" sourceFile="ValidationMessage.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidationUtils" sourceFile="ValidationUtils.java" interface="false" size="72" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.Validator" sourceFile="Validator.java" interface="true" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidatorBinding" sourceFile="ValidatorBinding.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidatorHelper" sourceFile="ValidatorHelper.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidatorWrapper" sourceFile="ValidatorWrapper.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidatorWrapper$1" sourceFile="ValidatorWrapper.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.Validity" sourceFile="Validity.java" interface="false" size="54" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidityChangedEvent" sourceFile="ValidityChangedEvent.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.valid.ValidityChangedListener" sourceFile="ValidityChangedListener.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.util.xml" total_bugs="0" total_types="8" total_size="555">
+      <ClassStats class="com.microsoft.tfs.util.xml.DOMCreateUtils" sourceFile="DOMCreateUtils.java" interface="false" size="107" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.xml.DOMSerializeUtils" sourceFile="DOMSerializeUtils.java" interface="false" size="135" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.xml.DOMUtils" sourceFile="DOMUtils.java" interface="false" size="107" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.xml.DefaultErrorHandler" sourceFile="DefaultErrorHandler.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.xml.DocumentBuilderCache" sourceFile="DocumentBuilderCache.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.xml.JAXPUtils" sourceFile="JAXPUtils.java" interface="false" size="106" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.xml.TransformerCache" sourceFile="TransformerCache.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.util.xml.XMLException" sourceFile="XMLException.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.DepthFirstSearchFactory" totalMilliseconds="12" invocations="1073" avgMicrosecondsPerInvocation="11" maxMicrosecondsPerInvocation="220" standardDeviationMircosecondsPerInvocation="13"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteUnconditionalParamDerefs" totalMilliseconds="13" invocations="139" avgMicrosecondsPerInvocation="96" maxMicrosecondsPerInvocation="559" standardDeviationMircosecondsPerInvocation="115"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSqlInjection" totalMilliseconds="19" invocations="139" avgMicrosecondsPerInvocation="141" maxMicrosecondsPerInvocation="1504" standardDeviationMircosecondsPerInvocation="209"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer" totalMilliseconds="21" invocations="139" avgMicrosecondsPerInvocation="154" maxMicrosecondsPerInvocation="1254" standardDeviationMircosecondsPerInvocation="174"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="26" invocations="8483" avgMicrosecondsPerInvocation="3" maxMicrosecondsPerInvocation="95" standardDeviationMircosecondsPerInvocation="6"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonnullReturnValues" totalMilliseconds="27" invocations="139" avgMicrosecondsPerInvocation="194" maxMicrosecondsPerInvocation="6767" standardDeviationMircosecondsPerInvocation="590"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethodInvocations" totalMilliseconds="28" invocations="139" avgMicrosecondsPerInvocation="202" maxMicrosecondsPerInvocation="6850" standardDeviationMircosecondsPerInvocation="808"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="28" invocations="303" avgMicrosecondsPerInvocation="93" maxMicrosecondsPerInvocation="1198" standardDeviationMircosecondsPerInvocation="178"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="30" invocations="139" avgMicrosecondsPerInvocation="219" maxMicrosecondsPerInvocation="948" standardDeviationMircosecondsPerInvocation="222"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="33" invocations="303" avgMicrosecondsPerInvocation="110" maxMicrosecondsPerInvocation="5501" standardDeviationMircosecondsPerInvocation="330"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindReturnRef" totalMilliseconds="36" invocations="139" avgMicrosecondsPerInvocation="260" maxMicrosecondsPerInvocation="6336" standardDeviationMircosecondsPerInvocation="743"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="37" invocations="139" avgMicrosecondsPerInvocation="273" maxMicrosecondsPerInvocation="7785" standardDeviationMircosecondsPerInvocation="709"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="39" invocations="303" avgMicrosecondsPerInvocation="129" maxMicrosecondsPerInvocation="1617" standardDeviationMircosecondsPerInvocation="238"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="40" invocations="337" avgMicrosecondsPerInvocation="118" maxMicrosecondsPerInvocation="6745" standardDeviationMircosecondsPerInvocation="375"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="40" invocations="139" avgMicrosecondsPerInvocation="293" maxMicrosecondsPerInvocation="7139" standardDeviationMircosecondsPerInvocation="658"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="40" invocations="17" avgMicrosecondsPerInvocation="2401" maxMicrosecondsPerInvocation="37333" standardDeviationMircosecondsPerInvocation="8733"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="42" invocations="303" avgMicrosecondsPerInvocation="141" maxMicrosecondsPerInvocation="1566" standardDeviationMircosecondsPerInvocation="220"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="45" invocations="139" avgMicrosecondsPerInvocation="330" maxMicrosecondsPerInvocation="3015" standardDeviationMircosecondsPerInvocation="395"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="49" invocations="139" avgMicrosecondsPerInvocation="356" maxMicrosecondsPerInvocation="6491" standardDeviationMircosecondsPerInvocation="678"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="53" invocations="139" avgMicrosecondsPerInvocation="382" maxMicrosecondsPerInvocation="11088" standardDeviationMircosecondsPerInvocation="1467"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="68" invocations="106" avgMicrosecondsPerInvocation="646" maxMicrosecondsPerInvocation="2139" standardDeviationMircosecondsPerInvocation="571"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="90" invocations="778" avgMicrosecondsPerInvocation="116" maxMicrosecondsPerInvocation="8789" standardDeviationMircosecondsPerInvocation="506"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="106" invocations="302" avgMicrosecondsPerInvocation="352" maxMicrosecondsPerInvocation="8676" standardDeviationMircosecondsPerInvocation="894"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="113" invocations="836" avgMicrosecondsPerInvocation="136" maxMicrosecondsPerInvocation="5102" standardDeviationMircosecondsPerInvocation="257"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="145" invocations="855" avgMicrosecondsPerInvocation="169" maxMicrosecondsPerInvocation="3832" standardDeviationMircosecondsPerInvocation="150"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="149" invocations="855" avgMicrosecondsPerInvocation="174" maxMicrosecondsPerInvocation="11652" standardDeviationMircosecondsPerInvocation="705"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="171" invocations="303" avgMicrosecondsPerInvocation="566" maxMicrosecondsPerInvocation="8803" standardDeviationMircosecondsPerInvocation="1222"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="187" invocations="778" avgMicrosecondsPerInvocation="240" maxMicrosecondsPerInvocation="11554" standardDeviationMircosecondsPerInvocation="764"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="191" invocations="778" avgMicrosecondsPerInvocation="246" maxMicrosecondsPerInvocation="8867" standardDeviationMircosecondsPerInvocation="616"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="218" invocations="4470" avgMicrosecondsPerInvocation="48" maxMicrosecondsPerInvocation="6854" standardDeviationMircosecondsPerInvocation="225"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="235" invocations="2" avgMicrosecondsPerInvocation="117987" maxMicrosecondsPerInvocation="190061" standardDeviationMircosecondsPerInvocation="72074"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="428" invocations="837" avgMicrosecondsPerInvocation="512" maxMicrosecondsPerInvocation="18476" standardDeviationMircosecondsPerInvocation="1224"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="604" invocations="778" avgMicrosecondsPerInvocation="776" maxMicrosecondsPerInvocation="42372" standardDeviationMircosecondsPerInvocation="2361"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="624" invocations="778" avgMicrosecondsPerInvocation="803" maxMicrosecondsPerInvocation="45690" standardDeviationMircosecondsPerInvocation="2334"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="797" invocations="1099" avgMicrosecondsPerInvocation="725" maxMicrosecondsPerInvocation="85207" standardDeviationMircosecondsPerInvocation="3997"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="1003" invocations="778" avgMicrosecondsPerInvocation="1289" maxMicrosecondsPerInvocation="378316" standardDeviationMircosecondsPerInvocation="13677"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265805295827" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

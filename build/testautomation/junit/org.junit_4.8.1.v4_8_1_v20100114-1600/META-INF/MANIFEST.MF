@@ -1,0 +1,46 @@
+Manifest-Version: 1.0
+Bundle-ClassPath: junit.jar
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.junit
+Require-Bundle: org.hamcrest.core;bundle-version="1.1.0";visibility:=r
+ eexport
+Export-Package: junit.extensions;version="4.8.1",junit.framework;versi
+ on="4.8.1",junit.runner;version="4.8.1",junit.textui;version="4.8.1",
+ org.junit;version="4.8.1",org.junit.experimental;version="4.8.1",org.
+ junit.experimental.categories;version="4.8.1",org.junit.experimental.
+ max;version="4.8.1",org.junit.experimental.results;version="4.8.1",or
+ g.junit.experimental.runners;version="4.8.1",org.junit.experimental.t
+ heories;version="4.8.1",org.junit.experimental.theories.internal;vers
+ ion="4.8.1";x-internal:=true,org.junit.experimental.theories.supplier
+ s;version="4.8.1",org.junit.internal;version="4.8.1";x-internal:=true
+ ,org.junit.internal.builders;version="4.8.1";x-internal:=true,org.jun
+ it.internal.matchers;version="4.8.1";x-internal:=true,org.junit.inter
+ nal.requests;version="4.8.1";x-internal:=true,org.junit.internal.runn
+ ers;version="4.8.1";x-internal:=true,org.junit.internal.runners.model
+ ;version="4.8.1";x-internal:=true,org.junit.internal.runners.statemen
+ ts;version="4.8.1";x-internal:=true,org.junit.matchers;version="4.8.1
+ ",org.junit.rules;version="4.8.1",org.junit.runner;version="4.8.1",or
+ g.junit.runner.manipulation;version="4.8.1",org.junit.runner.notifica
+ tion;version="4.8.1",org.junit.runners;version="4.8.1",org.junit.runn
+ ers.model;version="4.8.1"
+Bundle-Version: 4.8.1.v4_8_1_v20100114-1600
+Bundle-ManifestVersion: 2
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: u+F8j/GAE8tzrDry9+wT3Cvg81Y=
+
+Name: junit.jar
+SHA1-Digest: ar3M705HXlXtwzCTEylSctQal34=
+
+Name: about_files/cpl-v10.html
+SHA1-Digest: REygXYi+T14Sj1v8XnnKycNjpN4=
+
+Name: about.html
+SHA1-Digest: w3lIEWRkSmgtAui4qxGRJmqgDw4=
+
+Name: plugin.properties
+SHA1-Digest: yg4cr1Fc8Pkzv804Pu1BHvrWCC4=
+

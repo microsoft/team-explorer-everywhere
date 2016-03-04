@@ -1,0 +1,5 @@
+docs/**
+samples/**
+redist/**
+license.html
+readme.html

@@ -1,0 +1,1260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265808493926" analysisTimestamp="1265808486173" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand" sourcefile="CreateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/CreateWorkspaceCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/core/clients/versioncontrol/VersionControlClient;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/WorkingFolder;Ljava/lang/String;Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand" start="36" end="49" startBytecode="0" endBytecode="147" sourcefile="CreateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/CreateWorkspaceCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand" name="workingFolders" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/WorkingFolder;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand" sourcefile="CreateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/CreateWorkspaceCommand.java"/>
+    </Field>
+    <LocalVariable name="workingFolders" register="2" pc="23" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand" start="46" end="46" startBytecode="23" endBytecode="23" sourcefile="CreateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/CreateWorkspaceCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand" sourcefile="DeleteWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/DeleteWorkspacesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand" name="&lt;init&gt;" signature="([Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Workspace;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand" start="23" end="26" startBytecode="0" endBytecode="84" sourcefile="DeleteWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/DeleteWorkspacesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand" name="workspaces" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Workspace;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand" sourcefile="DeleteWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/DeleteWorkspacesCommand.java"/>
+    </Field>
+    <LocalVariable name="workspaces" register="1" pc="17" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand" start="25" end="25" startBytecode="17" endBytecode="17" sourcefile="DeleteWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/DeleteWorkspacesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand" sourcefile="EvaluateCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/EvaluateCheckinPoliciesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand" name="getFailures" signature="()[Lcom/microsoft/tfs/core/checkinpolicies/PolicyFailure;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand" start="69" end="69" startBytecode="0" endBytecode="46" sourcefile="EvaluateCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/EvaluateCheckinPoliciesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand" name="failures" signature="[Lcom/microsoft/tfs/core/checkinpolicies/PolicyFailure;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand" sourcefile="EvaluateCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/EvaluateCheckinPoliciesCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand" start="69" end="69" startBytecode="4" endBytecode="4" sourcefile="EvaluateCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/EvaluateCheckinPoliciesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" name="getActiveProjects" signature="()[Lcom/microsoft/tfs/core/clients/commonstructure/ProjectInfo;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" start="41" end="41" startBytecode="0" endBytecode="46" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" name="activeProjects" signature="[Lcom/microsoft/tfs/core/clients/commonstructure/ProjectInfo;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" start="41" end="41" startBytecode="4" endBytecode="4" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/core/TFSTeamProjectCollection;[Lcom/microsoft/tfs/core/clients/commonstructure/ProjectInfo;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" start="20" end="30" startBytecode="0" endBytecode="128" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" name="projects" signature="[Lcom/microsoft/tfs/core/clients/commonstructure/ProjectInfo;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+    </Field>
+    <LocalVariable name="allProjects" register="2" pc="23" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" start="26" end="26" startBytecode="23" endBytecode="23" sourcefile="QueryActiveTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryActiveTeamProjectsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand" sourcefile="QueryTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryTeamProjectsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand" name="getProjects" signature="()[Lcom/microsoft/tfs/core/clients/commonstructure/ProjectInfo;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand" start="56" end="56" startBytecode="0" endBytecode="46" sourcefile="QueryTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryTeamProjectsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand" name="projects" signature="[Lcom/microsoft/tfs/core/clients/commonstructure/ProjectInfo;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand" sourcefile="QueryTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryTeamProjectsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand" start="56" end="56" startBytecode="4" endBytecode="4" sourcefile="QueryTeamProjectsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryTeamProjectsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand" sourcefile="QueryWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryWorkspacesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand" name="getWorkspaces" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Workspace;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand" start="56" end="56" startBytecode="0" endBytecode="46" sourcefile="QueryWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryWorkspacesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand" name="workspaces" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Workspace;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand" sourcefile="QueryWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryWorkspacesCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand" start="56" end="56" startBytecode="4" endBytecode="4" sourcefile="QueryWorkspacesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/QueryWorkspacesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand" sourcefile="ResolveConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/ResolveConflictsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/resolutions/ConflictResolution;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand" start="41" end="59" startBytecode="0" endBytecode="189" sourcefile="ResolveConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/ResolveConflictsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand" name="resolutions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/resolutions/ConflictResolution;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand" sourcefile="ResolveConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/ResolveConflictsCommand.java"/>
+    </Field>
+    <LocalVariable name="resolutions" register="2" pc="43" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand" start="47" end="47" startBytecode="43" endBytecode="43" sourcefile="ResolveConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/ResolveConflictsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand" sourcefile="UpdateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/UpdateWorkspaceCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Workspace;Ljava/lang/String;Ljava/lang/String;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/WorkingFolder;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand" start="23" end="37" startBytecode="0" endBytecode="158" sourcefile="UpdateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/UpdateWorkspaceCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand" name="newWorkingFolders" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/WorkingFolder;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand" sourcefile="UpdateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/UpdateWorkspaceCommand.java"/>
+    </Field>
+    <LocalVariable name="newWorkingFolders" register="4" pc="41" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand" start="36" end="36" startBytecode="41" endBytecode="41" sourcefile="UpdateWorkspaceCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/UpdateWorkspaceCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand" sourcefile="QueryProjectCollectionsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/configuration/QueryProjectCollectionsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand" name="getProjectCollections" signature="()[Lcom/microsoft/tfs/client/common/catalog/TeamProjectCollectionInfo;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand" start="70" end="70" startBytecode="0" endBytecode="46" sourcefile="QueryProjectCollectionsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/configuration/QueryProjectCollectionsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand" name="collections" signature="[Lcom/microsoft/tfs/client/common/catalog/TeamProjectCollectionInfo;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand" sourcefile="QueryProjectCollectionsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/configuration/QueryProjectCollectionsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand" start="70" end="70" startBytecode="4" endBytecode="4" sourcefile="QueryProjectCollectionsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/configuration/QueryProjectCollectionsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.report.GetReportsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.report.GetReportsCommand" sourcefile="GetReportsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/report/GetReportsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.report.GetReportsCommand" name="getReports" signature="()[Lcom/microsoft/tfs/core/clients/reporting/ReportNode;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.report.GetReportsCommand" start="54" end="54" startBytecode="0" endBytecode="46" sourcefile="GetReportsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/report/GetReportsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.report.GetReportsCommand" name="reports" signature="[Lcom/microsoft/tfs/core/clients/reporting/ReportNode;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.report.GetReportsCommand" sourcefile="GetReportsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/report/GetReportsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.report.GetReportsCommand" start="54" end="54" startBytecode="4" endBytecode="4" sourcefile="GetReportsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/report/GetReportsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.AddCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Ljava/lang/String;Z[Lcom/microsoft/tfs/core/util/FileEncoding;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" start="50" end="85" startBytecode="0" endBytecode="381" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" name="fileEncodings" signature="[Lcom/microsoft/tfs/core/util/FileEncoding;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+    </Field>
+    <LocalVariable name="fileEncodings" register="4" pc="55" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" start="68" end="68" startBytecode="55" endBytecode="55" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.AddCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Ljava/lang/String;Z[Lcom/microsoft/tfs/core/util/FileEncoding;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" start="50" end="85" startBytecode="0" endBytecode="381" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" name="localPaths" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+    </Field>
+    <LocalVariable name="localPaths" register="2" pc="44" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.AddCommand" start="66" end="66" startBytecode="44" endBytecode="44" sourcefile="AddCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/AddCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.CheckinCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CheckinCommand" sourcefile="CheckinCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CheckinCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.CheckinCommand" name="getCheckinConflicts" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CheckinCommand" start="192" end="192" startBytecode="0" endBytecode="46" sourcefile="CheckinCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CheckinCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.CheckinCommand" name="conflictDescriptions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CheckinCommand" sourcefile="CheckinCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CheckinCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CheckinCommand" start="192" end="192" startBytecode="4" endBytecode="4" sourcefile="CheckinCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CheckinCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" name="getLabelResults" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LabelResult;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" start="64" end="64" startBytecode="0" endBytecode="46" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" name="labelResults" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LabelResult;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" start="64" end="64" startBytecode="4" endBytecode="4" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/VersionControlLabel;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/LabelItemSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LabelChildOption;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" start="34" end="52" startBytecode="0" endBytecode="222" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" name="items" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/LabelItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+    </Field>
+    <LocalVariable name="items" register="3" pc="41" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" start="47" end="47" startBytecode="41" endBytecode="41" sourcefile="CreateLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/CreateLabelCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.DeleteCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteCommand" sourcefile="DeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.DeleteCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Ljava/lang/String;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/RecursionType;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteCommand" start="39" end="73" startBytecode="0" endBytecode="371" sourcefile="DeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.DeleteCommand" name="paths" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteCommand" sourcefile="DeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteCommand.java"/>
+    </Field>
+    <LocalVariable name="paths" register="2" pc="50" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteCommand" start="55" end="55" startBytecode="50" endBytecode="50" sourcefile="DeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand" sourcefile="DeleteLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteLabelCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand" name="getResults" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LabelResult;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand" start="50" end="50" startBytecode="0" endBytecode="46" sourcefile="DeleteLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteLabelCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand" name="results" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LabelResult;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand" sourcefile="DeleteLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteLabelCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand" start="50" end="50" startBytecode="4" endBytecode="4" sourcefile="DeleteLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteLabelCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand" sourcefile="DeleteShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteShelvesetsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Shelveset;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand" start="39" end="57" startBytecode="0" endBytecode="235" sourcefile="DeleteShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteShelvesetsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand" name="shelvesets" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Shelveset;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand" sourcefile="DeleteShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteShelvesetsCommand.java"/>
+    </Field>
+    <LocalVariable name="shelvesets" register="2" pc="41" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand" start="45" end="45" startBytecode="41" endBytecode="41" sourcefile="DeleteShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/DeleteShelvesetsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.EditCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;[Lcom/microsoft/tfs/core/util/FileEncoding;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" start="55" end="91" startBytecode="0" endBytecode="415" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" name="fileEncodings" signature="[Lcom/microsoft/tfs/core/util/FileEncoding;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Field>
+    <LocalVariable name="fileEncodings" register="4" pc="54" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" start="72" end="72" startBytecode="54" endBytecode="54" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.EditCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;[Lcom/microsoft/tfs/core/util/FileEncoding;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" start="55" end="91" startBytecode="0" endBytecode="415" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="43" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" start="70" end="70" startBytecode="43" endBytecode="43" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.EditCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;[Lcom/microsoft/tfs/core/util/FileEncoding;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" start="55" end="91" startBytecode="0" endBytecode="415" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" name="lockLevels" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+    </Field>
+    <LocalVariable name="lockLevels" register="3" pc="48" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditCommand" start="71" end="71" startBytecode="48" endBytecode="48" sourcefile="EditCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/VersionControlLabel;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/VersionControlLabel;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/LabelItemSpec;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" start="29" end="47" startBytecode="0" endBytecode="204" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" name="adds" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/LabelItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+    </Field>
+    <LocalVariable name="adds" register="5" pc="46" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" start="44" end="44" startBytecode="46" endBytecode="46" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/VersionControlLabel;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/VersionControlLabel;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/LabelItemSpec;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" start="29" end="47" startBytecode="0" endBytecode="204" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" name="removes" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+    </Field>
+    <LocalVariable name="removes" register="4" pc="40" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" start="43" end="43" startBytecode="40" endBytecode="40" sourcefile="EditLabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/EditLabelCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand" sourcefile="GetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCheckinPoliciesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand" name="getPolicyDefinitions" signature="()[Lcom/microsoft/tfs/core/checkinpolicies/PolicyDefinition;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand" start="54" end="54" startBytecode="0" endBytecode="46" sourcefile="GetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCheckinPoliciesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand" name="results" signature="[Lcom/microsoft/tfs/core/checkinpolicies/PolicyDefinition;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand" sourcefile="GetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCheckinPoliciesCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand" start="54" end="54" startBytecode="4" endBytecode="4" sourcefile="GetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCheckinPoliciesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.GetCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" name="getConflictDescriptions" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" start="126" end="126" startBytecode="0" endBytecode="46" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" name="conflictDescriptions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" start="126" end="126" startBytecode="4" endBytecode="4" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.GetCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/GetRequest;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" start="38" end="52" startBytecode="0" endBytecode="181" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" name="getRequests" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/GetRequest;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+    </Field>
+    <LocalVariable name="getRequests" register="2" pc="34" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetCommand" start="45" end="45" startBytecode="34" endBytecode="34" sourcefile="GetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand" sourcefile="GetMergeCandidatesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetMergeCandidatesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand" name="getMergeCandidates" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/MergeCandidate;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand" start="60" end="60" startBytecode="0" endBytecode="46" sourcefile="GetMergeCandidatesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetMergeCandidatesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand" name="mergeCandidates" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/MergeCandidate;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand" sourcefile="GetMergeCandidatesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetMergeCandidatesCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand" start="60" end="60" startBytecode="4" endBytecode="4" sourcefile="GetMergeCandidatesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetMergeCandidatesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" name="getPendingChanges" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" start="59" end="59" startBytecode="0" endBytecode="46" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" name="pendingChanges" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" start="59" end="59" startBytecode="4" endBytecode="4" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Z)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" start="28" end="39" startBytecode="0" endBytecode="147" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="23" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" start="34" end="34" startBytecode="23" endBytecode="23" sourcefile="GetPendingChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/GetPendingChangesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.HistoryCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.HistoryCommand" sourcefile="HistoryCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/HistoryCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.HistoryCommand" name="getChangesets" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Changeset;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.HistoryCommand" start="124" end="124" startBytecode="0" endBytecode="46" sourcefile="HistoryCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/HistoryCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.HistoryCommand" name="changesets" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Changeset;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.HistoryCommand" sourcefile="HistoryCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/HistoryCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.HistoryCommand" start="124" end="124" startBytecode="4" endBytecode="4" sourcefile="HistoryCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/HistoryCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.LockCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.LockCommand" sourcefile="LockCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/LockCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.LockCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/RecursionType;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.LockCommand" start="40" end="76" startBytecode="0" endBytecode="424" sourcefile="LockCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/LockCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.LockCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.LockCommand" sourcefile="LockCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/LockCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="50" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.LockCommand" start="56" end="56" startBytecode="50" endBytecode="50" sourcefile="LockCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/LockCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.MergeCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.MergeCommand" sourcefile="MergeCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/MergeCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.MergeCommand" name="getConflictDescriptions" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.MergeCommand" start="165" end="165" startBytecode="0" endBytecode="46" sourcefile="MergeCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/MergeCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.MergeCommand" name="conflictDescriptions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.MergeCommand" sourcefile="MergeCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/MergeCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.MergeCommand" start="165" end="165" startBytecode="4" endBytecode="4" sourcefile="MergeCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/MergeCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand" sourcefile="OfflineSynchronizerCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/OfflineSynchronizerCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand" name="getChanges" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/offline/OfflineChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand" start="53" end="53" startBytecode="0" endBytecode="46" sourcefile="OfflineSynchronizerCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/OfflineSynchronizerCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand" name="changes" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/offline/OfflineChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand" sourcefile="OfflineSynchronizerCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/OfflineSynchronizerCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand" start="53" end="53" startBytecode="4" endBytecode="4" sourcefile="OfflineSynchronizerCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/OfflineSynchronizerCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" name="getOperations" signature="()[[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/GetOperation;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" start="53" end="53" startBytecode="0" endBytecode="46" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" name="operations" signature="[[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/GetOperation;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" start="53" end="53" startBytecode="4" endBytecode="4" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/GetRequest;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" start="27" end="39" startBytecode="0" endBytecode="156" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" name="getRequests" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/GetRequest;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+    </Field>
+    <LocalVariable name="getRequests" register="2" pc="29" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" start="34" end="34" startBytecode="29" endBytecode="29" sourcefile="PreviewGetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/PreviewGetCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" name="getConflictDescriptions" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" start="61" end="61" startBytecode="0" endBytecode="46" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" name="conflictDescriptions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" start="61" end="61" startBytecode="4" endBytecode="4" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" start="27" end="36" startBytecode="0" endBytecode="118" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="23" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" start="33" end="33" startBytecode="23" endBytecode="23" sourcefile="QueryConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryConflictsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand" sourcefile="QueryExclusiveCheckoutCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryExclusiveCheckoutCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand" start="30" end="46" startBytecode="0" endBytecode="189" sourcefile="QueryExclusiveCheckoutCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryExclusiveCheckoutCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand" sourcefile="QueryExclusiveCheckoutCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryExclusiveCheckoutCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="28" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand" start="36" end="36" startBytecode="28" endBytecode="28" sourcefile="QueryExclusiveCheckoutCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryExclusiveCheckoutCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" name="getItemSets" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/ItemSet;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" start="112" end="112" startBytecode="0" endBytecode="46" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" name="itemSets" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/ItemSet;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" start="112" end="112" startBytecode="4" endBytecode="4" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/core/clients/versioncontrol/VersionControlClient;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/DeletedState;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/ItemType;Lcom/microsoft/tfs/core/clients/versioncontrol/GetItemsOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" start="54" end="79" startBytecode="0" endBytecode="292" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="30" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" start="67" end="67" startBytecode="30" endBytecode="30" sourcefile="QueryItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" name="getItems" signature="()[[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/ExtendedItem;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" start="105" end="105" startBytecode="0" endBytecode="46" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" name="extendedItems" signature="[[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/ExtendedItem;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" start="105" end="105" startBytecode="4" endBytecode="4" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/DeletedState;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/ItemType;Lcom/microsoft/tfs/core/clients/versioncontrol/GetItemsOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" start="65" end="80" startBytecode="0" endBytecode="166" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="22" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" start="76" end="76" startBytecode="22" endBytecode="22" sourcefile="QueryItemsExtendedCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryItemsExtendedCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand" sourcefile="QueryLabelsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryLabelsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand" name="getLabels" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/VersionControlLabel;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand" start="75" end="75" startBytecode="0" endBytecode="46" sourcefile="QueryLabelsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryLabelsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand" name="labels" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/VersionControlLabel;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand" sourcefile="QueryLabelsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryLabelsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand" start="75" end="75" startBytecode="4" endBytecode="4" sourcefile="QueryLabelsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryLabelsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand" sourcefile="QueryShelvedChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvedChangesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;Ljava/lang/String;Ljava/lang/String;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Z)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand" start="40" end="59" startBytecode="0" endBytecode="225" sourcefile="QueryShelvedChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvedChangesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand" name="items" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand" sourcefile="QueryShelvedChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvedChangesCommand.java"/>
+    </Field>
+    <LocalVariable name="items" register="4" pc="40" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand" start="54" end="54" startBytecode="40" endBytecode="40" sourcefile="QueryShelvedChangesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvedChangesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand" sourcefile="QueryShelvesetConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetConflictsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand" name="getConflictDescriptions" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand" start="102" end="102" startBytecode="0" endBytecode="46" sourcefile="QueryShelvesetConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetConflictsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand" name="conflictDescriptions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand" sourcefile="QueryShelvesetConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetConflictsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand" start="102" end="102" startBytecode="4" endBytecode="4" sourcefile="QueryShelvesetConflictsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetConflictsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand" sourcefile="QueryShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand" name="getShelvesets" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Shelveset;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand" start="48" end="48" startBytecode="0" endBytecode="46" sourcefile="QueryShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand" name="shelvesets" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Shelveset;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand" sourcefile="QueryShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand" start="48" end="48" startBytecode="4" endBytecode="4" sourcefile="QueryShelvesetsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/QueryShelvesetsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Ljava/lang/String;[Ljava/lang/String;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;ZLcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" start="62" end="101" startBytecode="0" endBytecode="430" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" name="sourceServerPaths" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+    </Field>
+    <LocalVariable name="sourceServerPaths" register="2" pc="72" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" start="82" end="82" startBytecode="72" endBytecode="72" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Ljava/lang/String;[Ljava/lang/String;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;ZLcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" start="62" end="101" startBytecode="0" endBytecode="430" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" name="targetServerPaths" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+    </Field>
+    <LocalVariable name="targetServerPaths" register="3" pc="77" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" start="83" end="83" startBytecode="77" endBytecode="77" sourcefile="RenameMultipleCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/RenameMultipleCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand" sourcefile="ReturnOnlinePendCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ReturnOnlinePendCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/offline/OfflineChange;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand" start="27" end="36" startBytecode="0" endBytecode="114" sourcefile="ReturnOnlinePendCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ReturnOnlinePendCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand" name="changes" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/offline/OfflineChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand" sourcefile="ReturnOnlinePendCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ReturnOnlinePendCommand.java"/>
+    </Field>
+    <LocalVariable name="changes" register="2" pc="19" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand" start="33" end="33" startBytecode="19" endBytecode="19" sourcefile="ReturnOnlinePendCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ReturnOnlinePendCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand" sourcefile="SetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/SetCheckinPoliciesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/core/clients/versioncontrol/VersionControlClient;Ljava/lang/String;[Lcom/microsoft/tfs/core/checkinpolicies/PolicyDefinition;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand" start="23" end="35" startBytecode="0" endBytecode="137" sourcefile="SetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/SetCheckinPoliciesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand" name="definitions" signature="[Lcom/microsoft/tfs/core/checkinpolicies/PolicyDefinition;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand" sourcefile="SetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/SetCheckinPoliciesCommand.java"/>
+    </Field>
+    <LocalVariable name="definitions" register="3" pc="34" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand" start="34" end="34" startBytecode="34" endBytecode="34" sourcefile="SetCheckinPoliciesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/SetCheckinPoliciesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.ShelveCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ShelveCommand" sourcefile="ShelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ShelveCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.ShelveCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/Shelveset;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;ZZ)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ShelveCommand" start="31" end="52" startBytecode="0" endBytecode="240" sourcefile="ShelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ShelveCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.ShelveCommand" name="pendingChanges" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ShelveCommand" sourcefile="ShelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ShelveCommand.java"/>
+    </Field>
+    <LocalVariable name="pendingChanges" register="3" pc="34" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.ShelveCommand" start="44" end="44" startBytecode="34" endBytecode="34" sourcefile="ShelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/ShelveCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand" sourcefile="UndeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndeleteCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LockLevel;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;Lcom/microsoft/tfs/core/clients/versioncontrol/PendChangesOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand" start="33" end="62" startBytecode="0" endBytecode="330" sourcefile="UndeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndeleteCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand" sourcefile="UndeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndeleteCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="2" pc="43" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand" start="47" end="47" startBytecode="43" endBytecode="43" sourcefile="UndeleteCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndeleteCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" name="getConflictDescriptions" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" start="131" end="131" startBytecode="0" endBytecode="46" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" name="conflictDescriptions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" start="131" end="131" startBytecode="4" endBytecode="4" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/GetOptions;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" start="43" end="64" startBytecode="0" endBytecode="275" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" name="items" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+    </Field>
+    <LocalVariable name="items" register="2" pc="36" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UndoCommand" start="49" end="49" startBytecode="36" endBytecode="36" sourcefile="UndoCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UndoCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" name="getResults" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LabelResult;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" start="71" end="71" startBytecode="0" endBytecode="46" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" name="results" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LabelResult;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" start="71" end="71" startBytecode="4" endBytecode="4" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;Ljava/lang/String;Ljava/lang/String;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Lcom/microsoft/tfs/core/clients/versioncontrol/specs/version/VersionSpec;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" start="41" end="59" startBytecode="0" endBytecode="199" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" name="items" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+    </Field>
+    <LocalVariable name="items" register="4" pc="54" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" start="57" end="57" startBytecode="54" endBytecode="54" sourcefile="UnlabelCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnlabelCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" name="getConflictDescriptions" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" start="192" end="192" startBytecode="0" endBytecode="46" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" name="conflictDescriptions" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/conflicts/ConflictDescription;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" start="192" end="192" startBytecode="4" endBytecode="4" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" name="getPendingChanges" signature="()[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" start="182" end="182" startBytecode="0" endBytecode="46" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" name="pendingChanges" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/PendingChange;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" start="182" end="182" startBytecode="4" endBytecode="4" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;Ljava/lang/String;Ljava/lang/String;[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;Z)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" start="54" end="76" startBytecode="0" endBytecode="298" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" name="itemSpecs" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/specs/ItemSpec;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+    </Field>
+    <LocalVariable name="itemSpecs" register="4" pc="60" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" start="68" end="68" startBytecode="60" endBytecode="60" sourcefile="UnshelveCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UnshelveCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand" sourcefile="UpdateLocalVersionCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UpdateLocalVersionCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/client/common/repository/TFSRepository;[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LocalVersionUpdate;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand" start="18" end="27" startBytecode="0" endBytecode="118" sourcefile="UpdateLocalVersionCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UpdateLocalVersionCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand" name="updates" signature="[Lcom/microsoft/tfs/core/clients/versioncontrol/soapextensions/LocalVersionUpdate;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand" sourcefile="UpdateLocalVersionCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UpdateLocalVersionCommand.java"/>
+    </Field>
+    <LocalVariable name="updates" register="2" pc="23" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand" start="24" end="24" startBytecode="23" endBytecode="23" sourcefile="UpdateLocalVersionCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/vc/UpdateLocalVersionCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" name="getWorkItems" signature="()[Lcom/microsoft/tfs/core/clients/workitem/WorkItem;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" start="99" end="99" startBytecode="0" endBytecode="46" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" name="workItems" signature="[Lcom/microsoft/tfs/core/clients/workitem/WorkItem;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" start="99" end="99" startBytecode="4" endBytecode="4" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" name="setExtraFieldNames" signature="([Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" start="57" end="58" startBytecode="0" endBytecode="61" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" name="extraFieldNames" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+    </Field>
+    <LocalVariable name="extraFieldNames" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" start="57" end="57" startBytecode="2" endBytecode="2" sourcefile="GetWorkItemsForChangesetCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/GetWorkItemsForChangesetCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand" sourcefile="QueryWorkItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/QueryWorkItemsCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand" name="getWorkItems" signature="()[Lcom/microsoft/tfs/core/clients/workitem/WorkItem;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand" start="137" end="137" startBytecode="0" endBytecode="46" sourcefile="QueryWorkItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/QueryWorkItemsCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand" name="workItems" signature="[Lcom/microsoft/tfs/core/clients/workitem/WorkItem;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand" sourcefile="QueryWorkItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/QueryWorkItemsCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand" start="137" end="137" startBytecode="4" endBytecode="4" sourcefile="QueryWorkItemsCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wit/QueryWorkItemsCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand" sourcefile="GetWssDocumentLibrariesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wss/GetWssDocumentLibrariesCommand.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand" name="getDocumentLibraries" signature="()[Lcom/microsoft/tfs/core/clients/sharepoint/WssDocumentLibrary;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand" start="46" end="46" startBytecode="0" endBytecode="46" sourcefile="GetWssDocumentLibrariesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wss/GetWssDocumentLibrariesCommand.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand" name="libraries" signature="[Lcom/microsoft/tfs/core/clients/sharepoint/WssDocumentLibrary;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand" sourcefile="GetWssDocumentLibrariesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wss/GetWssDocumentLibrariesCommand.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand" start="46" end="46" startBytecode="4" endBytecode="4" sourcefile="GetWssDocumentLibrariesCommand.java" sourcepath="com/microsoft/tfs/client/common/commands/wss/GetWssDocumentLibrariesCommand.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.framework.command.CommandList">
+      <SourceLine classname="com.microsoft.tfs.client.common.framework.command.CommandList" sourcefile="CommandList.java" sourcepath="com/microsoft/tfs/client/common/framework/command/CommandList.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.framework.command.CommandList" name="&lt;init&gt;" signature="(Ljava/lang/String;[I)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.framework.command.CommandList" start="90" end="95" startBytecode="0" endBytecode="112" sourcefile="CommandList.java" sourcepath="com/microsoft/tfs/client/common/framework/command/CommandList.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.framework.command.CommandList" name="continuableSeverities" signature="[I" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.framework.command.CommandList" sourcefile="CommandList.java" sourcepath="com/microsoft/tfs/client/common/framework/command/CommandList.java"/>
+    </Field>
+    <LocalVariable name="continuableSeverities" register="2" pc="27" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.framework.command.CommandList" start="94" end="94" startBytecode="27" endBytecode="27" sourcefile="CommandList.java" sourcepath="com/microsoft/tfs/client/common/framework/command/CommandList.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler">
+      <SourceLine classname="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler" sourcefile="MultiCommandExceptionHandler.java" sourcepath="com/microsoft/tfs/client/common/framework/command/exception/MultiCommandExceptionHandler.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler" name="&lt;init&gt;" signature="([Lcom/microsoft/tfs/client/common/framework/command/exception/ICommandExceptionHandler;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler" start="16" end="21" startBytecode="0" endBytecode="79" sourcefile="MultiCommandExceptionHandler.java" sourcepath="com/microsoft/tfs/client/common/framework/command/exception/MultiCommandExceptionHandler.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler" name="exceptionHandlers" signature="[Lcom/microsoft/tfs/client/common/framework/command/exception/ICommandExceptionHandler;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler" sourcefile="MultiCommandExceptionHandler.java" sourcepath="com/microsoft/tfs/client/common/framework/command/exception/MultiCommandExceptionHandler.java"/>
+    </Field>
+    <LocalVariable name="exceptionHandlers" register="1" pc="12" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler" start="20" end="20" startBytecode="12" endBytecode="12" sourcefile="MultiCommandExceptionHandler.java" sourcepath="com/microsoft/tfs/client/common/framework/command/exception/MultiCommandExceptionHandler.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.license.ProductExpiration">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="getExpirationDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="52" end="52" startBytecode="0" endBytecode="46" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="expirationDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="52" end="52" startBytecode="4" endBytecode="4" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.license.ProductExpiration">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="getGracePeriodExpirationDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="62" end="62" startBytecode="0" endBytecode="46" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="gracePeriodExpirationDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="62" end="62" startBytecode="4" endBytecode="4" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.license.ProductExpiration">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="getStartDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="47" end="47" startBytecode="0" endBytecode="46" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="startDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="47" end="47" startBytecode="4" endBytecode="4" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.license.ProductExpiration">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="&lt;init&gt;" signature="(Ljava/util/Date;II)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="26" end="43" startBytecode="0" endBytecode="212" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.license.ProductExpiration" name="startDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+    </Field>
+    <LocalVariable name="startDate" register="1" pc="40" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.client.common.license.ProductExpiration" start="32" end="32" startBytecode="40" endBytecode="40" sourcefile="ProductExpiration.java" sourcepath="com/microsoft/tfs/client/common/license/ProductExpiration.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.client.common.logging.TELogFileName">
+      <SourceLine classname="com.microsoft.tfs.client.common.logging.TELogFileName" sourcefile="TELogFileName.java" sourcepath="com/microsoft/tfs/client/common/logging/TELogFileName.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.client.common.logging.TELogFileName" name="getDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.logging.TELogFileName" start="145" end="145" startBytecode="0" endBytecode="46" sourcefile="TELogFileName.java" sourcepath="com/microsoft/tfs/client/common/logging/TELogFileName.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.client.common.logging.TELogFileName" name="date" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.client.common.logging.TELogFileName" sourcefile="TELogFileName.java" sourcepath="com/microsoft/tfs/client/common/logging/TELogFileName.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.client.common.logging.TELogFileName" start="145" end="145" startBytecode="4" endBytecode="4" sourcefile="TELogFileName.java" sourcepath="com/microsoft/tfs/client/common/logging/TELogFileName.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 13:28:06 +0000" total_classes="237" referenced_classes="585" total_bugs="0" total_size="7304" num_packages="33" vm_version="14.3-b01" cpu_seconds="10.28" clock_seconds="35.74" peak_mbytes="306.04" alloc_mbytes="254.06" gc_seconds="0.96">
+    <PackageStats package="com.microsoft.tfs.client.common" total_bugs="0" total_types="2" total_size="42">
+      <ClassStats class="com.microsoft.tfs.client.common.ClientConstants" sourceFile="ClientConstants.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.TFSCommonClientPlugin" sourceFile="TFSCommonClientPlugin.java" interface="false" size="30" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.catalog" total_bugs="0" total_types="1" total_size="19">
+      <ClassStats class="com.microsoft.tfs.client.common.catalog.TeamProjectCollectionInfo" sourceFile="TeamProjectCollectionInfo.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands" total_bugs="0" total_types="16" total_size="340">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.CreateWorkspaceCommand" sourceFile="CreateWorkspaceCommand.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.DeleteWorkspaceCommand" sourceFile="DeleteWorkspaceCommand.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.DeleteWorkspacesCommand" sourceFile="DeleteWorkspacesCommand.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.EvaluateCheckinPoliciesCommand" sourceFile="EvaluateCheckinPoliciesCommand.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.EvaluatePendingCheckinCommand" sourceFile="EvaluatePendingCheckinCommand.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.QueryActiveTeamProjectsCommand" sourceFile="QueryActiveTeamProjectsCommand.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.QueryRegistrationServiceInterfacesCommand" sourceFile="QueryRegistrationServiceInterfacesCommand.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.QueryTeamProjectsCommand" sourceFile="QueryTeamProjectsCommand.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.QueryWorkspacesCommand" sourceFile="QueryWorkspacesCommand.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand" sourceFile="ResolveConflictsCommand.java" interface="false" size="63" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.ResolveConflictsCommand$ResolveConflictsCompletedListener" sourceFile="ResolveConflictsCommand.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.ResourceChangingCommand" sourceFile="ResourceChangingCommand.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.ResourceChangingCommandListener" sourceFile="ResourceChangingCommandListener.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.TFSCommand" sourceFile="TFSCommand.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.TFSCommand$TFSCommandExceptionHandler" sourceFile="TFSCommand.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.UpdateWorkspaceCommand" sourceFile="UpdateWorkspaceCommand.java" interface="false" size="23" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands.configuration" total_bugs="0" total_types="1" total_size="33">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.configuration.QueryProjectCollectionsCommand" sourceFile="QueryProjectCollectionsCommand.java" interface="false" size="33" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands.css" total_bugs="0" total_types="8" total_size="164">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.CssNodeCommand" sourceFile="CssNodeCommand.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.CssNodeCommand$CssNodeCommandExceptionHandler" sourceFile="CssNodeCommand.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.DeleteCssNodeCommand" sourceFile="DeleteCssNodeCommand.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.GetClassificationNodesCommand" sourceFile="GetClassificationNodesCommand.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.NewCssNodeCommand" sourceFile="NewCssNodeCommand.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.ReParentCssNodeCommand" sourceFile="ReParentCssNodeCommand.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.RenameCssNodeCommand" sourceFile="RenameCssNodeCommand.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.css.ReorderCssNodeCommand" sourceFile="ReorderCssNodeCommand.java" interface="false" size="21" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands.helpers" total_bugs="0" total_types="7" total_size="191">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.helpers.ItemSpecHelper" sourceFile="ItemSpecHelper.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.helpers.NonFatalCommandHelper" sourceFile="NonFatalCommandHelper.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.helpers.NonFatalCommandHelper$NonFatalCommandListener" sourceFile="NonFatalCommandHelper.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.helpers.NonFatalErrorHelper" sourceFile="NonFatalErrorHelper.java" interface="false" size="47" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.helpers.NonFatalErrorHelper$NonFatalErrorHelperListener" sourceFile="NonFatalErrorHelper.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.helpers.PendingChangeCommandHelper" sourceFile="PendingChangeCommandHelper.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.helpers.PendingChangeCommandHelper$PendingChangeCommandListener" sourceFile="PendingChangeCommandHelper.java" interface="false" size="22" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands.report" total_bugs="0" total_types="1" total_size="24">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.report.GetReportsCommand" sourceFile="GetReportsCommand.java" interface="false" size="24" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands.vc" total_bugs="0" total_types="51" total_size="2054">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.AbstractLaunchExternalToolCommand" sourceFile="AbstractLaunchExternalToolCommand.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.AddCommand" sourceFile="AddCommand.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.BranchCommand" sourceFile="BranchCommand.java" interface="false" size="51" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.CalculateDefaultBranchPathCommand" sourceFile="CalculateDefaultBranchPathCommand.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.CheckinCommand" sourceFile="CheckinCommand.java" interface="false" size="93" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.CheckinCommand$CheckinConflictListener" sourceFile="CheckinCommand.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.CreateLabelCommand" sourceFile="CreateLabelCommand.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.DeleteCommand" sourceFile="DeleteCommand.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.DeleteLabelCommand" sourceFile="DeleteLabelCommand.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.DeleteShelvesetsCommand" sourceFile="DeleteShelvesetsCommand.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.DeleteWorkingFolderCommand" sourceFile="DeleteWorkingFolderCommand.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.EditCommand" sourceFile="EditCommand.java" interface="false" size="66" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.EditLabelCommand" sourceFile="EditLabelCommand.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.GetChangesetCommand" sourceFile="GetChangesetCommand.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.GetCheckinPoliciesCommand" sourceFile="GetCheckinPoliciesCommand.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.GetCommand" sourceFile="GetCommand.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.GetMergeCandidatesCommand" sourceFile="GetMergeCandidatesCommand.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.GetPendingChangesCommand" sourceFile="GetPendingChangesCommand.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.GetToTempLocationCommand" sourceFile="GetToTempLocationCommand.java" interface="false" size="65" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.HistoryCommand" sourceFile="HistoryCommand.java" interface="false" size="72" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.LaunchExternalCompareToolCommand" sourceFile="LaunchExternalCompareToolCommand.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.LaunchExternalViewToolCommand" sourceFile="LaunchExternalViewToolCommand.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.LockCommand" sourceFile="LockCommand.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.MergeCommand" sourceFile="MergeCommand.java" interface="false" size="86" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.OfflineSynchronizerCommand" sourceFile="OfflineSynchronizerCommand.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.PreviewGetCommand" sourceFile="PreviewGetCommand.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryConflictsCommand" sourceFile="QueryConflictsCommand.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryExclusiveCheckoutCommand" sourceFile="QueryExclusiveCheckoutCommand.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand" sourceFile="QueryItemsCommand.java" interface="false" size="43" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryItemsCommand$QueryItemsExceptionHandler" sourceFile="QueryItemsCommand.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryItemsExtendedCommand" sourceFile="QueryItemsExtendedCommand.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand" sourceFile="QueryLabelsCommand.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryLabelsCommand$QueryLabelsExceptionHandler" sourceFile="QueryLabelsCommand.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryShelvedChangesCommand" sourceFile="QueryShelvedChangesCommand.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetConflictsCommand" sourceFile="QueryShelvesetConflictsCommand.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryShelvesetsCommand" sourceFile="QueryShelvesetsCommand.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.QueryWorkspaceCommand" sourceFile="QueryWorkspaceCommand.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.RenameCommand" sourceFile="RenameCommand.java" interface="false" size="118" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.RenameMultipleCommand" sourceFile="RenameMultipleCommand.java" interface="false" size="121" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.ReturnOnlinePendCommand" sourceFile="ReturnOnlinePendCommand.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.SetCheckinPoliciesCommand" sourceFile="SetCheckinPoliciesCommand.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.SetWorkingFolderCommand" sourceFile="SetWorkingFolderCommand.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.ShelveCommand" sourceFile="ShelveCommand.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UndeleteCommand" sourceFile="UndeleteCommand.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UndoCommand" sourceFile="UndoCommand.java" interface="false" size="58" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UndoCommand$UndoConflictListener" sourceFile="UndoCommand.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UnlabelCommand" sourceFile="UnlabelCommand.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UnshelveCommand" sourceFile="UnshelveCommand.java" interface="false" size="100" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UpdateBranchPropertiesCommand" sourceFile="UpdateBranchPropertiesCommand.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UpdateChangesetCommand" sourceFile="UpdateChangesetCommand.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.vc.UpdateLocalVersionCommand" sourceFile="UpdateLocalVersionCommand.java" interface="false" size="21" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands.wit" total_bugs="0" total_types="6" total_size="154">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.wit.DestroyWorkItemCommand" sourceFile="DestroyWorkItemCommand.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.wit.DownloadFileAttachmentCommand" sourceFile="DownloadFileAttachmentCommand.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.wit.GetWorkItemByIdCommand" sourceFile="GetWorkItemByIdCommand.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.wit.GetWorkItemsForChangesetCommand" sourceFile="GetWorkItemsForChangesetCommand.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.wit.QueryWorkItemsCommand" sourceFile="QueryWorkItemsCommand.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.commands.wit.RefreshStoredQueriesCommand" sourceFile="RefreshStoredQueriesCommand.java" interface="false" size="18" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.commands.wss" total_bugs="0" total_types="1" total_size="19">
+      <ClassStats class="com.microsoft.tfs.client.common.commands.wss.GetWssDocumentLibrariesCommand" sourceFile="GetWssDocumentLibrariesCommand.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.config" total_bugs="0" total_types="1" total_size="9">
+      <ClassStats class="com.microsoft.tfs.client.common.config.TFSConnectionAdvisor" sourceFile="TFSConnectionAdvisor.java" interface="false" size="9" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.framework.command" total_bugs="0" total_types="29" total_size="703">
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.AbstractFutureStatus" sourceFile="AbstractFutureStatus.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.CancellableCommand" sourceFile="CancellableCommand.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.Command" sourceFile="Command.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.CommandExecutor" sourceFile="CommandExecutor.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.CommandFactory" sourceFile="CommandFactory.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.CommandFinishedCallbackFactory" sourceFile="CommandFinishedCallbackFactory.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.CommandFinishedCallbackHelpers" sourceFile="CommandFinishedCallbackHelpers.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.CommandList" sourceFile="CommandList.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ExtendedStatus" sourceFile="ExtendedStatus.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.FutureStatus" sourceFile="FutureStatus.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ICommand" sourceFile="ICommand.java" interface="true" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ICommandExecutor" sourceFile="ICommandExecutor.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ICommandFinishedCallback" sourceFile="ICommandFinishedCallback.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ICommandJobFactory" sourceFile="ICommandJobFactory.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.JobCommandAdapter" sourceFile="JobCommandAdapter.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.JobCommandExecutor" sourceFile="JobCommandExecutor.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.JobCommandExecutor$JobFutureStatus" sourceFile="JobCommandExecutor.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.JobOptions" sourceFile="JobOptions.java" interface="false" size="91" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.JobOptions$DefaultCommandJobFactory" sourceFile="JobOptions.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.MultiCommandFinishedCallback" sourceFile="MultiCommandFinishedCallback.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.MultiCommandHelper" sourceFile="MultiCommandHelper.java" interface="false" size="109" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.Outcome" sourceFile="Outcome.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.PlatformLogCommandFinishedCallback" sourceFile="PlatformLogCommandFinishedCallback.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.RunnableCommandAdapter" sourceFile="RunnableCommandAdapter.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.TeamExplorerLogCommandFinishedCallback" sourceFile="TeamExplorerLogCommandFinishedCallback.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ThreadCommandExecutor" sourceFile="ThreadCommandExecutor.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ThreadCommandExecutor$ThreadFutureStatus" sourceFile="ThreadCommandExecutor.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.ThreadedCancellableCommand" sourceFile="ThreadedCancellableCommand.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.UndoableCommand" sourceFile="UndoableCommand.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.framework.command.exception" total_bugs="0" total_types="10" total_size="95">
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.CommandExceptionHandlerFactory" sourceFile="CommandExceptionHandlerFactory.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.CommandExceptionHandlerUtils" sourceFile="CommandExceptionHandlerUtils.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.CoreExceptionHandler" sourceFile="CoreExceptionHandler.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.DefaultExceptionHandler" sourceFile="DefaultExceptionHandler.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.ICommandExceptionHandler" sourceFile="ICommandExceptionHandler.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.MultiCommandExceptionHandler" sourceFile="MultiCommandExceptionHandler.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.NullCommandExceptionHandler" sourceFile="NullCommandExceptionHandler.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.PreviewExpiredExceptionHandler" sourceFile="PreviewExpiredExceptionHandler.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.StandardCancellationExceptionHandler" sourceFile="StandardCancellationExceptionHandler.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.command.exception.UncaughtCommandExceptionStatus" sourceFile="UncaughtCommandExceptionStatus.java" interface="false" size="4" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.framework.resources" total_bugs="0" total_types="8" total_size="241">
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.LocationInfo" sourceFile="LocationInfo.java" interface="false" size="54" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.LocationUnavailablePolicy" sourceFile="LocationUnavailablePolicy.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.ResourceFilterResultTest" sourceFile="ResourceFilterResultTest.java" interface="false" size="59" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.ResourceType" sourceFile="ResourceType.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.ResourceType$AnyResourceType" sourceFile="ResourceType.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.ResourceType$ContainerResourceType" sourceFile="ResourceType.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.ResourceType$FileResourceType" sourceFile="ResourceType.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.Resources" sourceFile="Resources.java" interface="false" size="66" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.framework.resources.command" total_bugs="0" total_types="2" total_size="51">
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.command.WorkspaceCommand" sourceFile="WorkspaceCommand.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.command.WorkspaceRunnableCommandAdapter" sourceFile="WorkspaceRunnableCommandAdapter.java" interface="false" size="23" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.framework.resources.compatibility" total_bugs="0" total_types="1" total_size="31">
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.compatibility.LinkedResources" sourceFile="LinkedResources.java" interface="false" size="31" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.framework.resources.filter" total_bugs="0" total_types="13" total_size="245">
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.CompositeResourceFilter" sourceFile="CompositeResourceFilter.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.CompositeResourceFilter$Builder" sourceFile="CompositeResourceFilter.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.FilteredResourceCollector" sourceFile="FilteredResourceCollector.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.FilteredResourceVisitor" sourceFile="FilteredResourceVisitor.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilter" sourceFile="ResourceFilter.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilterResult" sourceFile="ResourceFilterResult.java" interface="false" size="71" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilters" sourceFile="ResourceFilters.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilters$1" sourceFile="ResourceFilters.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilters$DerivedResourcesFilter" sourceFile="ResourceFilters.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilters$LinkedResourcesFilter" sourceFile="ResourceFilters.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilters$NonAccessibleResourcesFilter" sourceFile="ResourceFilters.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilters$TeamPrivateResourcesFilter" sourceFile="ResourceFilters.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.framework.resources.filter.ResourceTypeFilter" sourceFile="ResourceTypeFilter.java" interface="false" size="19" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.item" total_bugs="0" total_types="3" total_size="222">
+      <ClassStats class="com.microsoft.tfs.client.common.item.LocalItemPath" sourceFile="LocalItemPath.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.item.ServerItemPath" sourceFile="ServerItemPath.java" interface="false" size="63" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.item.ServerItemPathTest" sourceFile="ServerItemPathTest.java" interface="false" size="139" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.license" total_bugs="0" total_types="3" total_size="188">
+      <ClassStats class="com.microsoft.tfs.client.common.license.LicenseListener" sourceFile="LicenseListener.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.LicenseManager" sourceFile="LicenseManager.java" interface="false" size="152" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.ProductExpiration" sourceFile="ProductExpiration.java" interface="false" size="33" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.license.productid" total_bugs="0" total_types="9" total_size="201">
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductId" sourceFile="ProductId.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdConstants" sourceFile="ProductIdConstants.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdData" sourceFile="ProductIdData.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdFactory" sourceFile="ProductIdFactory.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdFactory$ProductIdDefinition" sourceFile="ProductIdFactory.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdFactory$ProductIdDefinitionMap" sourceFile="ProductIdFactory.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdFlag" sourceFile="ProductIdFlag.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdHelper" sourceFile="ProductIdHelper.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.license.productid.ProductIdType" sourceFile="ProductIdType.java" interface="false" size="20" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.logging" total_bugs="0" total_types="7" total_size="217">
+      <ClassStats class="com.microsoft.tfs.client.common.logging.ApplicationIdentifier" sourceFile="ApplicationIdentifier.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.logging.TEAppender" sourceFile="TEAppender.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.logging.TELogFileName" sourceFile="TELogFileName.java" interface="false" size="62" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.logging.TELogFileName$1" sourceFile="TELogFileName.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.logging.TELogFileName$2" sourceFile="TELogFileName.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.logging.TELogUtils" sourceFile="TELogUtils.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.logging.TELoggingConfiguration" sourceFile="TELoggingConfiguration.java" interface="false" size="31" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.prefs" total_bugs="0" total_types="2" total_size="28">
+      <ClassStats class="com.microsoft.tfs.client.common.prefs.PreferenceConstants" sourceFile="PreferenceConstants.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.prefs.PreferenceKeyProvider" sourceFile="PreferenceKeyProvider.java" interface="true" size="5" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.product" total_bugs="0" total_types="4" total_size="123">
+      <ClassStats class="com.microsoft.tfs.client.common.product.ProductInformation" sourceFile="ProductInformation.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.product.ProductName" sourceFile="ProductName.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.product.ProductVersion" sourceFile="ProductVersion.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.product.ProductVersionTest" sourceFile="ProductVersionTest.java" interface="false" size="27" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.repository" total_bugs="0" total_types="14" total_size="390">
+      <ClassStats class="com.microsoft.tfs.client.common.repository.PendingChangeRepositoryMap" sourceFile="PendingChangeRepositoryMap.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryConflictException" sourceFile="RepositoryConflictException.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManager" sourceFile="RepositoryManager.java" interface="false" size="155" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManager$ExistingRepositoryReplaceResults" sourceFile="RepositoryManager.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManager$RepositoryReplaceResults" sourceFile="RepositoryManager.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManager$RepositoryStatus" sourceFile="RepositoryManager.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManager$RepositoryStatusContainer" sourceFile="RepositoryManager.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManagerAdapter" sourceFile="RepositoryManagerAdapter.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManagerEvent" sourceFile="RepositoryManagerEvent.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManagerListener" sourceFile="RepositoryManagerListener.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryManagerProvider" sourceFile="RepositoryManagerProvider.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.RepositoryMap" sourceFile="RepositoryMap.java" interface="false" size="75" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.TFSRepository" sourceFile="TFSRepository.java" interface="false" size="64" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.TFSRepository$1" sourceFile="TFSRepository.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.repository.cache.annotation" total_bugs="0" total_types="2" total_size="66">
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.annotation.AnnotationCache" sourceFile="AnnotationCache.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.annotation.AnnotationCache$AnnotationsKey" sourceFile="AnnotationCache.java" interface="false" size="24" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.repository.cache.conflict" total_bugs="0" total_types="4" total_size="193">
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.conflict.ConflictCache" sourceFile="ConflictCache.java" interface="false" size="141" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.conflict.ConflictCache$ConflictInstance" sourceFile="ConflictCache.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.conflict.ConflictCacheEvent" sourceFile="ConflictCacheEvent.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.conflict.ConflictCacheListener" sourceFile="ConflictCacheListener.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.repository.cache.pendingchange" total_bugs="0" total_types="6" total_size="380">
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.pendingchange.PendingChangeCache" sourceFile="PendingChangeCache.java" interface="false" size="200" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.pendingchange.PendingChangeCache$CoreEventListener" sourceFile="PendingChangeCache.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.pendingchange.PendingChangeCacheAdapter" sourceFile="PendingChangeCacheAdapter.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.pendingchange.PendingChangeCacheEvent" sourceFile="PendingChangeCacheEvent.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.pendingchange.PendingChangeCacheListener" sourceFile="PendingChangeCacheListener.java" interface="true" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.repository.cache.pendingchange.PendingChangeCollection" sourceFile="PendingChangeCollection.java" interface="false" size="115" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.server" total_bugs="0" total_types="9" total_size="249">
+      <ClassStats class="com.microsoft.tfs.client.common.server.ServerManager" sourceFile="ServerManager.java" interface="false" size="131" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.ServerManager$ExistingServerReplaceResults" sourceFile="ServerManager.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.ServerManager$ServerReplaceResults" sourceFile="ServerManager.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.ServerManagerAdapter" sourceFile="ServerManagerAdapter.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.ServerManagerEvent" sourceFile="ServerManagerEvent.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.ServerManagerListener" sourceFile="ServerManagerListener.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.ServerManagerProvider" sourceFile="ServerManagerProvider.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.TFSServer" sourceFile="TFSServer.java" interface="false" size="62" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.server.TFSServer$1" sourceFile="TFSServer.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.server.cache.project" total_bugs="0" total_types="1" total_size="39">
+      <ClassStats class="com.microsoft.tfs.client.common.server.cache.project.ServerProjectCache" sourceFile="ServerProjectCache.java" interface="false" size="39" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.server.cache.serverinfo" total_bugs="0" total_types="1" total_size="42">
+      <ClassStats class="com.microsoft.tfs.client.common.server.cache.serverinfo.RegistrationPropertiesCache" sourceFile="RegistrationPropertiesCache.java" interface="false" size="42" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.util" total_bugs="0" total_types="11" total_size="401">
+      <ClassStats class="com.microsoft.tfs.client.common.util.ActiveProjectCache" sourceFile="ActiveProjectCache.java" interface="false" size="74" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.Adapters" sourceFile="Adapters.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.CoreAffectedFileCollector" sourceFile="CoreAffectedFileCollector.java" interface="false" size="67" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.CoreAffectedFileCollector$CoreAffectedEventListener" sourceFile="CoreAffectedFileCollector.java" interface="false" size="66" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.CoreAffectedResourceCollector" sourceFile="CoreAffectedResourceCollector.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.DateHelper" sourceFile="DateHelper.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.EulaText" sourceFile="EulaText.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.HttpTempDownloader" sourceFile="HttpTempDownloader.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.LicenseTextTest" sourceFile="LicenseTextTest.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.ProgressMonitorTaskMonitorAdapter" sourceFile="ProgressMonitorTaskMonitorAdapter.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.util.StatusHelper" sourceFile="StatusHelper.java" interface="false" size="16" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.vc" total_bugs="0" total_types="1" total_size="13">
+      <ClassStats class="com.microsoft.tfs.client.common.vc.TypedItemSpec" sourceFile="TypedItemSpec.java" interface="false" size="13" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.client.common.wit" total_bugs="0" total_types="2" total_size="137">
+      <ClassStats class="com.microsoft.tfs.client.common.wit.QueryDocumentService" sourceFile="QueryDocumentService.java" interface="false" size="129" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.client.common.wit.QueryDocumentService$QueryDocumentWrapper" sourceFile="QueryDocumentService.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteSuppressedWarnings" totalMilliseconds="11" invocations="585" avgMicrosecondsPerInvocation="18" maxMicrosecondsPerInvocation="306" standardDeviationMircosecondsPerInvocation="22"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LoadedFieldSetFactory" totalMilliseconds="11" invocations="1105" avgMicrosecondsPerInvocation="10" maxMicrosecondsPerInvocation="230" standardDeviationMircosecondsPerInvocation="11"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantPoolGenFactory" totalMilliseconds="12" invocations="219" avgMicrosecondsPerInvocation="56" maxMicrosecondsPerInvocation="543" standardDeviationMircosecondsPerInvocation="49"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFinalizeInvocations" totalMilliseconds="12" invocations="237" avgMicrosecondsPerInvocation="52" maxMicrosecondsPerInvocation="1158" standardDeviationMircosecondsPerInvocation="86"/>
+      <ClassProfile name="edu.umd.cs.findbugs.NonReportingDetectorToDetector2Adapter" totalMilliseconds="12" invocations="7475" avgMicrosecondsPerInvocation="1" maxMicrosecondsPerInvocation="257" standardDeviationMircosecondsPerInvocation="3"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MutableStaticFields" totalMilliseconds="12" invocations="237" avgMicrosecondsPerInvocation="53" maxMicrosecondsPerInvocation="283" standardDeviationMircosecondsPerInvocation="49"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DoInsideDoPrivileged" totalMilliseconds="14" invocations="237" avgMicrosecondsPerInvocation="61" maxMicrosecondsPerInvocation="270" standardDeviationMircosecondsPerInvocation="47"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteUnconditionalParamDerefs" totalMilliseconds="17" invocations="237" avgMicrosecondsPerInvocation="74" maxMicrosecondsPerInvocation="692" standardDeviationMircosecondsPerInvocation="77"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethodInvocations" totalMilliseconds="22" invocations="231" avgMicrosecondsPerInvocation="96" maxMicrosecondsPerInvocation="573" standardDeviationMircosecondsPerInvocation="88"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSqlInjection" totalMilliseconds="24" invocations="237" avgMicrosecondsPerInvocation="105" maxMicrosecondsPerInvocation="615" standardDeviationMircosecondsPerInvocation="102"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonnullReturnValues" totalMilliseconds="35" invocations="237" avgMicrosecondsPerInvocation="149" maxMicrosecondsPerInvocation="953" standardDeviationMircosecondsPerInvocation="130"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.DepthFirstSearchFactory" totalMilliseconds="35" invocations="1375" avgMicrosecondsPerInvocation="26" maxMicrosecondsPerInvocation="12228" standardDeviationMircosecondsPerInvocation="454"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindReturnRef" totalMilliseconds="38" invocations="237" avgMicrosecondsPerInvocation="161" maxMicrosecondsPerInvocation="967" standardDeviationMircosecondsPerInvocation="170"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer" totalMilliseconds="39" invocations="231" avgMicrosecondsPerInvocation="172" maxMicrosecondsPerInvocation="9971" standardDeviationMircosecondsPerInvocation="658"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="42" invocations="42" avgMicrosecondsPerInvocation="1021" maxMicrosecondsPerInvocation="32861" standardDeviationMircosecondsPerInvocation="4973"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="43" invocations="237" avgMicrosecondsPerInvocation="183" maxMicrosecondsPerInvocation="1163" standardDeviationMircosecondsPerInvocation="200"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="45" invocations="237" avgMicrosecondsPerInvocation="190" maxMicrosecondsPerInvocation="11195" standardDeviationMircosecondsPerInvocation="729"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="49" invocations="585" avgMicrosecondsPerInvocation="85" maxMicrosecondsPerInvocation="2712" standardDeviationMircosecondsPerInvocation="188"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="52" invocations="14282" avgMicrosecondsPerInvocation="3" maxMicrosecondsPerInvocation="245" standardDeviationMircosecondsPerInvocation="7"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="55" invocations="237" avgMicrosecondsPerInvocation="234" maxMicrosecondsPerInvocation="1803" standardDeviationMircosecondsPerInvocation="245"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="59" invocations="237" avgMicrosecondsPerInvocation="250" maxMicrosecondsPerInvocation="1512" standardDeviationMircosecondsPerInvocation="274"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="69" invocations="585" avgMicrosecondsPerInvocation="118" maxMicrosecondsPerInvocation="9560" standardDeviationMircosecondsPerInvocation="429"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="77" invocations="585" avgMicrosecondsPerInvocation="132" maxMicrosecondsPerInvocation="9670" standardDeviationMircosecondsPerInvocation="462"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="81" invocations="675" avgMicrosecondsPerInvocation="121" maxMicrosecondsPerInvocation="10115" standardDeviationMircosecondsPerInvocation="404"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="83" invocations="237" avgMicrosecondsPerInvocation="354" maxMicrosecondsPerInvocation="13993" standardDeviationMircosecondsPerInvocation="927"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="88" invocations="585" avgMicrosecondsPerInvocation="150" maxMicrosecondsPerInvocation="10373" standardDeviationMircosecondsPerInvocation="481"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="128" invocations="1105" avgMicrosecondsPerInvocation="116" maxMicrosecondsPerInvocation="13703" standardDeviationMircosecondsPerInvocation="565"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="154" invocations="582" avgMicrosecondsPerInvocation="266" maxMicrosecondsPerInvocation="10839" standardDeviationMircosecondsPerInvocation="740"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="164" invocations="1150" avgMicrosecondsPerInvocation="142" maxMicrosecondsPerInvocation="12745" standardDeviationMircosecondsPerInvocation="540"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="207" invocations="1105" avgMicrosecondsPerInvocation="188" maxMicrosecondsPerInvocation="11596" standardDeviationMircosecondsPerInvocation="428"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="254" invocations="1105" avgMicrosecondsPerInvocation="230" maxMicrosecondsPerInvocation="14552" standardDeviationMircosecondsPerInvocation="792"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="277" invocations="1866" avgMicrosecondsPerInvocation="148" maxMicrosecondsPerInvocation="11722" standardDeviationMircosecondsPerInvocation="637"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="303" invocations="585" avgMicrosecondsPerInvocation="518" maxMicrosecondsPerInvocation="23684" standardDeviationMircosecondsPerInvocation="1516"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="317" invocations="2" avgMicrosecondsPerInvocation="158650" maxMicrosecondsPerInvocation="255381" standardDeviationMircosecondsPerInvocation="96730"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="375" invocations="7036" avgMicrosecondsPerInvocation="53" maxMicrosecondsPerInvocation="10977" standardDeviationMircosecondsPerInvocation="261"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="469" invocations="1157" avgMicrosecondsPerInvocation="406" maxMicrosecondsPerInvocation="14299" standardDeviationMircosecondsPerInvocation="790"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="711" invocations="1866" avgMicrosecondsPerInvocation="381" maxMicrosecondsPerInvocation="12387" standardDeviationMircosecondsPerInvocation="377"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="719" invocations="1398" avgMicrosecondsPerInvocation="514" maxMicrosecondsPerInvocation="17213" standardDeviationMircosecondsPerInvocation="1355"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="784" invocations="1105" avgMicrosecondsPerInvocation="710" maxMicrosecondsPerInvocation="23291" standardDeviationMircosecondsPerInvocation="1625"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="803" invocations="1105" avgMicrosecondsPerInvocation="727" maxMicrosecondsPerInvocation="17584" standardDeviationMircosecondsPerInvocation="1743"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="889" invocations="1105" avgMicrosecondsPerInvocation="804" maxMicrosecondsPerInvocation="15528" standardDeviationMircosecondsPerInvocation="1604"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265808493926" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

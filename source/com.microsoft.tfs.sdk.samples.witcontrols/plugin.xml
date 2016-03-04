@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.microsoft.tfs.client.common.ui.workItemControls">
+      <workItemControl
+            class="com.microsoft.tfs.sdk.samples.witcontrols.SimpleButtonControl"
+            controlType="SimpleButtonControl"
+            id="com.microsoft.tfs.sdk.samples.witcontrols.SimpleButtonControl">
+      </workItemControl>
+   </extension>
+   <extension
+         point="com.microsoft.tfs.client.common.ui.workItemControls">
+      <workItemControl
+            class="com.microsoft.tfs.sdk.samples.witcontrols.FileSourceDropdown"
+            controlType="FileSourceDropdown"
+            id="com.microsoft.tfs.sdk.samples.witcontrols.FileSourceDropdown">
+      </workItemControl>
+   </extension>
+   <extension
+         point="com.microsoft.tfs.client.common.ui.workItemControls">
+      <workItemControl
+            class="com.microsoft.tfs.sdk.samples.witcontrols.RadioButtonsControl"
+            controlType="RadioButtonsControl"
+            id="com.microsoft.tfs.sdk.samples.witcontrols.RadioButtonsControl">
+      </workItemControl>
+   </extension>
+
+</plugin>

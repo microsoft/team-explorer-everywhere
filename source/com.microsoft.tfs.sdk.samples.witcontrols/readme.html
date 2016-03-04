@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Custom Work Item Controls for Plug-in for Eclipse</title>
+</head>
+<body>
+
+<h1>Introduction</h1>
+<p><em>com.microsoft.tfs.sdk.samples.witcontrols</em> is an Eclipse
+Java project that demonstrates the basics of TFS work item tracking
+custom control development for Team Explorer
+Everywhere. It should be imported into an Eclipse instance where Team
+Explorer Everywhere is installed. you can avoid the need to create a Java based custom work item control by setting the editor to be the embedded one which will use a web based custom work item control. However, if you want to enable custom work item controls for the SWT based editor then this sample shows you how. 
+</p>
+<p>Source code for for the following custom controls is included:</p>
+<ul>
+	<li>SimpleButtonControl: demonstrates the most basic control which
+	implements IWorkItemControl</li>
+	<li>RadioButtonsControl: radio button control which stores its
+	value in a work item field</li>
+	<li>ExternalSourceDropdown: (Abstract) autocomplete combo box
+	which gets its list of allowed/suggested values from an external
+	source.</li>
+	<li>FileSourceDropdown: Implementation of ExternalSourceDropdown
+	which reads its list of values from a file</li>
+</ul>
+
+<h1>Sample Walkthrough</h1>
+
+<p>This section will help you configure Eclipse, import, build,
+debug, and deploy the sample plug-in project. Developing your own custom
+work item control plug-in follows similar steps. If you have developed
+Eclipse plug-ins before and are familiar with the general process, you
+can import the sample project and include it a debug/run configuration
+with the Team Explorer Everywhere plug-ins to test it. First-time
+plug-in developers are encouraged to follow the steps below.</p>
+
+<blockquote>
+<p>Note:</p>
+<p>Your Eclipse installation must include Eclipse plug-in
+development features to work with this sample. The Eclipse products that
+can develop plug-ins are known as <em>Eclipse for RCP/Plug-in
+Developers</em>. Plug-in development capabilities of other Eclipse-based IDEs
+including Rational and Adobe products vary.</p>
+<p>If your IDE does not support plug-in development features, you
+can use a supported version of the basic Eclipse IDE to develop your
+check-in policy, then deploy to a different IDE. Plug-in development
+features are not required for deployment.</p>
+</blockquote>
+
+<h3>1. Configure Eclipse</h3>
+<p>Ensure your configured Target Platform includes the correct
+version of Team Explorer Everywhere. You can
+configure your Target Platform in the <em>Plug-in Development &gt;
+Target Platform</em> area of the Eclipse preferences. Make sure all of the <em>com.microsoft.tfs.*</em>
+plug-ins and its dependencies are checked</p>
+
+<h3>2. Import the Sample Project</h3>
+<p>Use Eclipse's <em>File &gt; Import...</em> menu item to import
+this sample project into your Eclipse workspace.</p>
+
+<h3>3. Build</h3>
+<p>The sample project may build automatically after it is imported,
+depending on your Eclipse settings. If the sample project does not build
+without errors, check Eclipse's <em>Problems</em> view. Also, make sure
+your target platform includes the Team Explorer Everywhere plug-ins.</p>
+
+<h3>4. Test</h3>
+
+<h4>Prepare the work item type definition for uploading</h4>
+<ol>
+	<li>Open the <em>TEECustomControlsBug.xml</em> in this sample
+	project in a text editor. This file is a work item type definition file
+	for a <em>TEECustomControlsBug</em> work item, which is a standard MSF
+	Agile <em>Bug</em> with modifications that demonstrate the controls
+	included in this sample.</li>
+	<li>Find the occurrences of the string <em>C:\temp\choices.txt</em>
+	in this file. The FileSourceDropdown sample control reads choices from
+	this file on each client where it is deployed. You can change this path
+	to something else you prefer. For deployment to non-Windows clients,
+	the sample control code will need to be modified to use a different
+	path convention or some other configuration.</li>
+	<li>Save any changes you made to <em>TEECustomControlsBug.xml</em>
+	and close it.</li>
+</ol>
+
+<h4>Upload a work item type definition to TFS that uses the custom
+controls</h4>
+<p>Uploading the new type definition requires running the <em>witadmin.exe</em>
+program on a Windows computer where the Visual Studio 2012 (or newer) client
+software is installed (see <em>\Program Files (x86)\Microsoft
+Visual Studio 2012\Common7\IDE\witadmin.exe</em>).</p>
+<ol>
+	<li>Run <em>witadmin.exe</em>, supplying your TFS server,
+	collection, team project, and path as necessary:
+	<blockquote>
+	<pre>witadmin.exe importwitd /collection:http://server:8080/tfs/DefaultCollection /p:TeamProjectName /f:Path\To\TEECustomControlsBug.xml</pre>
+	</blockquote>
+	</li>
+</ol>
+<p>The definition needs to be sent to the server ("imported") each
+time it changes. Refer to TFS documentation on work item customization
+for details.</p>
+
+<h4>Create a debug configuration that includes the sample plug-in</h4>
+<ol>
+	<li>Create a new <em>Eclipse Application</em> debug configuration
+	(<em>Run &gt; Debug Configurations...</em>).</li>
+	<li>With your new configuration selected, select the <em>Plug-ins</em>
+	tab of the configuration dialog and make sure the <em>com.microsoft.tfs.sdk.samples.witcontrols</em>
+	plug-in is listed and checked. In newer versions of Eclipse you may
+	have to change the <em>Launch with</em> option to <em>with
+	selected plug-ins only</em> in order to see the sample plug-in.</li>
+	<li>Click <em>Debug</em> to launch another Eclipse instance.</li>
+</ol>
+
+<h4>View and use the custom work item controls</h4>
+<p>In the Eclipse instance that is being debugged, open the Team
+Explorer view (<em>Window &gt; Show View &gt; Other... &gt; Team
+Foundation Server &gt; Team Explorer</em>). Click on the <em>Work
+Items</em> page in the team project you uploaded the work item type
+definition to and choose <em>New Work Item &gt; TEECustomControlsBug</em>. A new
+work item appears that contains the custom controls in this sample.</p>
+<p>You can set breakpoints in the sample code and trigger them while
+the debugged Eclipse runs by manipulating the work item form. Exit the
+debugged Eclipse when you are finished testing.</p>
+
+<h3>5. Deploy to Eclipse</h3>
+<p>Since custom work item controls for Team Explorer Everywhere
+Plug-in for Eclipse are simply Eclipse plug-ins, they can be deployed to
+a target IDE using any method it supports. Refer to Eclipse
+documentation on building and deploying plug-ins for more information.</p>
+<p>A simple method of deployment is to export the plug-in project to
+a <em>deployable plug-in</em>, the output of which can be copied into
+the <em>dropins</em> directory (or <em>plugins</em> directory for older
+Eclipse versions) of the target IDE.</p>
+<ol>
+	<li>In <em>Package Explorer</em>, right-click on the sample
+	plug-in project and choose <em>Export...</em>.</li>
+	<li>In the dialog that appears, select <em>Plug-in
+	Development &gt; Deployable plug-ins and fragments</em> as the destination
+	and click <em>Next</em>.</li>
+	<li>Choose your preferred output format and name, then complete
+	the wizard.</li>
+</ol>
+<p>The process for installing your exported plug-in into a target
+IDE is specific to the target IDE, but most support a <em>dropins</em>
+directory. If you exported to a directory, copy all the plug-ins that
+were written to the <em>plugins</em> subdirectory of the output
+directory to the <em>dropins</em> directory in the target IDE, then
+restart the target IDE. If the target IDE does not have a <em>dropins</em>
+directory, copy the files to the <em>plugins</em> directory instead. See
+the target IDE's documentation on installing additional plug-ins for
+more information.</p>
+
+</body>
+</html>

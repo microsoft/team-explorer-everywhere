@@ -1,0 +1,59 @@
+<!--
+	TEE Build - Fourth Stage (Eclipse Ant Runner)
+	
+	Builds all active modules with Eclipse's Ant Runner (so PDE and P2 tasks
+	are available).  This is done in a separate process because that's
+	the Eclipse convention and lets us pass exactly the properties we want.
+-->
+<project name="build-4-antrunner" basedir="." default="build_4_antrunner">
+
+	<import file="${basedir}/macros/pdemacros.xml" />
+
+	<!--
+		Creates a properties file to pass along to Eclipse's Ant Runner.
+	-->
+	<target name="write_antrunner_properties">
+
+		<property name="file.antrunner.config.properties"
+		          value="${dir.global.build.output}/antrunner.config.properties" />
+
+		<echoproperties destfile="${file.antrunner.config.properties}">
+			<!-- we don't want to include any of these properties, all others will be included -->
+			<propertyset negate="true">
+				<propertyref prefix="ant." />
+				<propertyref prefix="java." />
+				<propertyref prefix="sun." />
+				<propertyref prefix="os." />
+				<propertyref prefix="user." />
+				<propertyref prefix="awt." />
+
+				<propertyref name="DSTAMP" />
+				<propertyref name="TSTAMP" />
+				<propertyref name="TODAY" />
+
+				<propertyref name="basedir" />
+
+				<propertyref name="file.encoding" />
+				<propertyref name="path.separator" />
+				<propertyref name="file.separator" />
+				<propertyref name="line.separator" />
+				<propertyref name="file.encoding.pkg" />
+			</propertyset>
+		</echoproperties>
+	</target>
+
+	<target name="build_4_antrunner" depends="write_antrunner_properties">
+
+		<macro.eclipse-ant-runner file.build="antrunner.build.xml">
+			<application-args>
+				<arg value="-data" />
+				<arg value="${dir.global.build.output}" />
+				<arg value="-propertyfile" />
+				<arg value="${file.antrunner.config.properties}" />
+			</application-args>
+		</macro.eclipse-ant-runner>
+
+		<echo message="[TFSBuildStep] Eclipse Ant Runner host stage complete" />
+	</target>
+
+</project>

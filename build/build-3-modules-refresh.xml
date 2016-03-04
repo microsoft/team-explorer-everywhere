@@ -1,0 +1,89 @@
+<!--
+	TEE Build - Third Stage (Module Refresh)
+	
+	Individual modules are merged into XML files that can be run by the Eclipse
+	Ant Runner.
+	
+	"config.build.targets" is parsed to determine which modules to activate.
+-->
+<project name="build-3-modules-refresh" basedir="." default="build_3_modules_refresh">
+
+	<path id="refid.import.buildfiles">
+		<fileset dir="${basedir}/modules">
+			<include name="**/build.xml" />
+		</fileset>
+	</path>
+
+	<path id="refid.import.buildproperties">
+		<fileset dir="${basedir}/modules">
+			<include name="**/build.properties" />
+		</fileset>
+	</path>
+
+	<path id="refid.moduledirs">
+		<dirset dir="${basedir}" includes="modules/*" />
+	</path>
+
+	<macrodef name="write-xml-file">
+		<attribute name="refid" />
+		<attribute name="name.root" />
+		<attribute name="name.item-element" />
+		<attribute name="name.item-attribute" />
+		<attribute name="file.output" />
+		<element name="pathconvert.mapper" optional="yes" />
+
+		<sequential>
+			<pathconvert pathsep="&quot; /&gt;${line.separator}   &lt;@{name.item-element} @{name.item-attribute}=&quot;" property="string.xml.@{name.root}" refid="@{refid}">
+				<pathconvert.mapper />
+			</pathconvert>
+
+			<echo message="&lt;@{name.root}&gt;${line.separator}   &lt;@{name.item-element} @{name.item-attribute}=&quot;${string.xml.@{name.root}}&quot; /&gt;${line.separator}&lt;/@{name.root}&gt;" file="@{file.output}" />
+		</sequential>
+	</macrodef>
+
+	<target name="build_3_modules_refresh">
+		<property name="file.xml.buildfiles" value="${dir.global.build.output}/generated_xml_module_buildfiles.xml" />
+		<property name="file.xml.buildproperties" value="${dir.global.build.output}/generated_xml_module_properties.xml" />
+		<property name="file.xml.modules" value="${dir.global.build.output}/generated_xml_modules.xml" />
+
+		<property name="file.import.buildfiles" value="${dir.global.build.output}/generated_import_module_buildfiles.xml" />
+		<property name="file.import.buildproperties" value="${dir.global.build.output}/generated_import_module_buildproperties.xml" />
+		<property name="file.import.moduledefaultproperties" value="${dir.global.build.output}/generated_import_module_defaultproperties.xml" />
+		<property name="file.import.buildtarget" value="${dir.global.build.output}/generated_import_module_buildtarget.xml" />
+
+		<write-xml-file refid="refid.import.buildfiles" name.root="module-buildfiles" name.item-element="file" name.item-attribute="path" file.output="${file.xml.buildfiles}" />
+		<write-xml-file refid="refid.import.buildproperties" name.root="module-buildproperties" name.item-element="file" name.item-attribute="path" file.output="${file.xml.buildproperties}" />
+		<write-xml-file refid="refid.moduledirs" name.root="modules" name.item-element="module" name.item-attribute="name" file.output="${file.xml.modules}">
+			<pathconvert.mapper>
+				<mapper type="flatten" />
+			</pathconvert.mapper>
+		</write-xml-file>
+
+		<xslt in="${file.xml.buildfiles}" out="${file.import.buildfiles}" style="${basedir}/xslt/module-buildfiles-import.xml" />
+		<xslt in="${file.xml.buildproperties}" out="${file.import.buildproperties}" style="${basedir}/xslt/module-buildproperties-import.xml" />
+		<xslt in="${file.xml.modules}" out="${file.import.moduledefaultproperties}" style="${basedir}/xslt/module-defaultproperties-import.xml" />
+
+		<condition property="string.import.buildtarget" value="${config.build.targets}">
+			<not>
+				<equals arg1="*" arg2="${config.build.targets}" trim="true" />
+			</not>
+		</condition>
+
+		<pathconvert pathsep="," property="string.import.buildtarget" refid="refid.moduledirs">
+			<mapper type="flatten" />
+		</pathconvert>
+
+		<pathconvert pathsep=",clean." property="string.import.buildtarget-clean" refid="refid.moduledirs">
+			<mapper type="flatten" />
+		</pathconvert>
+
+		<copy file="${basedir}/templates/buildtargets_template.xml" tofile="${file.import.buildtarget}" overwrite="true">
+			<filterset>
+				<filter token="RUN_TASKS" value="${string.import.buildtarget}" />
+				<filter token="CLEAN_TASKS" value="clean.${string.import.buildtarget-clean}" />
+			</filterset>
+		</copy>
+
+		<echo message="[TFSBuildStep] Modules refresh stage complete" />
+	</target>
+</project>

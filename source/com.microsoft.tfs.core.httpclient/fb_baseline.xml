@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265818171185" analysisTimestamp="1265818152106" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.Cookie">
+      <SourceLine classname="org.apache.commons.httpclient.Cookie" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.Cookie" name="getExpiryDate" signature="()Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.Cookie" start="182" end="182" startBytecode="0" endBytecode="46" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.Cookie" name="cookieExpiryDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.Cookie" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.Cookie" start="182" end="182" startBytecode="4" endBytecode="4" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.Cookie">
+      <SourceLine classname="org.apache.commons.httpclient.Cookie" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.Cookie" name="setExpiryDate" signature="(Ljava/util/Date;)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.Cookie" start="197" end="198" startBytecode="0" endBytecode="61" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.Cookie" name="cookieExpiryDate" signature="Ljava/util/Date;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.Cookie" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+    </Field>
+    <LocalVariable name="expiryDate" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.Cookie" start="197" end="197" startBytecode="2" endBytecode="2" sourcefile="Cookie.java" sourcepath="org/apache/commons/httpclient/Cookie.java"/>
+  </BugInstance>
+  <BugInstance type="DE_MIGHT_IGNORE" priority="2" abbrev="DE" category="BAD_PRACTICE" first="1">
+    <Class classname="org.apache.commons.httpclient.DefaultHttpMethodRetryHandler">
+      <SourceLine classname="org.apache.commons.httpclient.DefaultHttpMethodRetryHandler" sourcefile="DefaultHttpMethodRetryHandler.java" sourcepath="org/apache/commons/httpclient/DefaultHttpMethodRetryHandler.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.DefaultHttpMethodRetryHandler" name="&lt;clinit&gt;" signature="()V" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.DefaultHttpMethodRetryHandler" start="47" end="44" startBytecode="0" endBytecode="68" sourcefile="DefaultHttpMethodRetryHandler.java" sourcepath="org/apache/commons/httpclient/DefaultHttpMethodRetryHandler.java"/>
+    </Method>
+    <Class classname="java.lang.ClassNotFoundException" role="CLASS_EXCEPTION">
+      <SourceLine classname="java.lang.ClassNotFoundException"/>
+    </Class>
+    <SourceLine classname="org.apache.commons.httpclient.DefaultHttpMethodRetryHandler" start="52" end="52" startBytecode="15" endBytecode="15" sourcefile="DefaultHttpMethodRetryHandler.java" sourcepath="org/apache/commons/httpclient/DefaultHttpMethodRetryHandler.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HeaderElement">
+      <SourceLine classname="org.apache.commons.httpclient.HeaderElement" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.HeaderElement" name="getParameters" signature="()[Lorg/apache/commons/httpclient/NameValuePair;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HeaderElement" start="177" end="177" startBytecode="0" endBytecode="46" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.HeaderElement" name="parameters" signature="[Lorg/apache/commons/httpclient/NameValuePair;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HeaderElement" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HeaderElement" start="177" end="177" startBytecode="4" endBytecode="4" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HeaderElement">
+      <SourceLine classname="org.apache.commons.httpclient.HeaderElement" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.HeaderElement" name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;[Lorg/apache/commons/httpclient/NameValuePair;)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HeaderElement" start="116" end="118" startBytecode="0" endBytecode="100" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.HeaderElement" name="parameters" signature="[Lorg/apache/commons/httpclient/NameValuePair;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HeaderElement" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+    </Field>
+    <LocalVariable name="parameters" register="3" pc="13" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.HeaderElement" start="117" end="117" startBytecode="13" endBytecode="13" sourcefile="HeaderElement.java" sourcepath="org/apache/commons/httpclient/HeaderElement.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpMethodBase">
+      <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.HttpMethodBase" name="getResponseBody" signature="()[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" start="673" end="698" startBytecode="0" endBytecode="383" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.HttpMethodBase" name="responseBody" signature="[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" start="698" end="698" startBytecode="191" endBytecode="191" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpMethodBase">
+      <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.HttpMethodBase" name="getResponseBody" signature="(I)[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" start="722" end="757" startBytecode="0" endBytecode="462" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.HttpMethodBase" name="responseBody" signature="[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpMethodBase" start="757" end="757" startBytecode="230" endBytecode="230" sourcefile="HttpMethodBase.java" sourcepath="org/apache/commons/httpclient/HttpMethodBase.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpURL">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.HttpURL" name="getRawScheme" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" start="443" end="443" startBytecode="0" endBytecode="56" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.HttpURL" name="DEFAULT_SCHEME" signature="[C" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpURL" start="443" end="443" startBytecode="14" endBytecode="14" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpURL">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.HttpURL" name="getRawUser" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" start="595" end="605" startBytecode="0" endBytecode="144" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.HttpURL" name="_userinfo" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpURL" start="601" end="601" startBytecode="37" endBytecode="37" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpURL">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.HttpURL" name="DEFAULT_SCHEME" signature="[C" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpURL" start="409" end="409" startBytecode="23" endBytecode="23" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpURL">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.HttpURL" name="_default_scheme" signature="[C" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.HttpURL" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpURL" start="416" end="416" startBytecode="29" endBytecode="29" sourcefile="HttpURL.java" sourcepath="org/apache/commons/httpclient/HttpURL.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpsURL">
+      <SourceLine classname="org.apache.commons.httpclient.HttpsURL" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.HttpsURL" name="getRawScheme" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.HttpsURL" start="435" end="435" startBytecode="0" endBytecode="56" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.HttpsURL" name="DEFAULT_SCHEME" signature="[C" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.HttpsURL" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpsURL" start="435" end="435" startBytecode="14" endBytecode="14" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpsURL">
+      <SourceLine classname="org.apache.commons.httpclient.HttpsURL" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.HttpsURL" name="DEFAULT_SCHEME" signature="[C" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.HttpsURL" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpsURL" start="399" end="399" startBytecode="28" endBytecode="28" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.HttpsURL">
+      <SourceLine classname="org.apache.commons.httpclient.HttpsURL" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.HttpsURL" name="_default_scheme" signature="[C" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.HttpsURL" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.HttpsURL" start="406" end="406" startBytecode="34" endBytecode="34" sourcefile="HttpsURL.java" sourcepath="org/apache/commons/httpclient/HttpsURL.java"/>
+  </BugInstance>
+  <BugInstance type="DE_MIGHT_IGNORE" priority="2" abbrev="DE" category="BAD_PRACTICE" first="1">
+    <Class classname="org.apache.commons.httpclient.TestHttpConnectionManager">
+      <SourceLine classname="org.apache.commons.httpclient.TestHttpConnectionManager" sourcefile="TestHttpConnectionManager.java" sourcepath="org/apache/commons/httpclient/TestHttpConnectionManager.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.TestHttpConnectionManager" name="testMaxConnectionsPerServer" signature="()V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.TestHttpConnectionManager" start="605" end="635" startBytecode="0" endBytecode="376" sourcefile="TestHttpConnectionManager.java" sourcepath="org/apache/commons/httpclient/TestHttpConnectionManager.java"/>
+    </Method>
+    <Class classname="org.apache.commons.httpclient.ConnectTimeoutException" role="CLASS_EXCEPTION">
+      <SourceLine classname="org.apache.commons.httpclient.ConnectTimeoutException" sourcefile="ConnectTimeoutException.java" sourcepath="org/apache/commons/httpclient/ConnectTimeoutException.java"/>
+    </Class>
+    <SourceLine classname="org.apache.commons.httpclient.TestHttpConnectionManager" start="628" end="628" startBytecode="120" endBytecode="120" sourcefile="TestHttpConnectionManager.java" sourcepath="org/apache/commons/httpclient/TestHttpConnectionManager.java"/>
+  </BugInstance>
+  <BugInstance type="DE_MIGHT_IGNORE" priority="2" abbrev="DE" category="BAD_PRACTICE" first="1">
+    <Class classname="org.apache.commons.httpclient.TestHttpConnectionManager">
+      <SourceLine classname="org.apache.commons.httpclient.TestHttpConnectionManager" sourcefile="TestHttpConnectionManager.java" sourcepath="org/apache/commons/httpclient/TestHttpConnectionManager.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.TestHttpConnectionManager" name="testReleaseConnection" signature="()V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.TestHttpConnectionManager" start="257" end="300" startBytecode="0" endBytecode="490" sourcefile="TestHttpConnectionManager.java" sourcepath="org/apache/commons/httpclient/TestHttpConnectionManager.java"/>
+    </Method>
+    <Class classname="org.apache.commons.httpclient.ConnectTimeoutException" role="CLASS_EXCEPTION">
+      <SourceLine classname="org.apache.commons.httpclient.ConnectTimeoutException" sourcefile="ConnectTimeoutException.java" sourcepath="org/apache/commons/httpclient/ConnectTimeoutException.java"/>
+    </Class>
+    <SourceLine classname="org.apache.commons.httpclient.TestHttpConnectionManager" start="278" end="278" startBytecode="110" endBytecode="110" sourcefile="TestHttpConnectionManager.java" sourcepath="org/apache/commons/httpclient/TestHttpConnectionManager.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="org.apache.commons.httpclient.TestHttpMethodFundamentals">
+      <SourceLine classname="org.apache.commons.httpclient.TestHttpMethodFundamentals" sourcefile="TestHttpMethodFundamentals.java" sourcepath="org/apache/commons/httpclient/TestHttpMethodFundamentals.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.TestHttpMethodFundamentals" name="testConnectionAutoClose" signature="()V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.TestHttpMethodFundamentals" start="188" end="207" startBytecode="0" endBytecode="62" sourcefile="TestHttpMethodFundamentals.java" sourcepath="org/apache/commons/httpclient/TestHttpMethodFundamentals.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/Reader;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.Reader"/>
+    </Type>
+    <SourceLine classname="org.apache.commons.httpclient.TestHttpMethodFundamentals" start="194" end="194" startBytecode="44" endBytecode="44" sourcefile="TestHttpMethodFundamentals.java" sourcepath="org/apache/commons/httpclient/TestHttpMethodFundamentals.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.TestMultipartPost$TestPartSource">
+      <SourceLine classname="org.apache.commons.httpclient.TestMultipartPost$TestPartSource" sourcefile="TestMultipartPost.java" sourcepath="org/apache/commons/httpclient/TestMultipartPost.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.TestMultipartPost$TestPartSource" name="&lt;init&gt;" signature="(Lorg/apache/commons/httpclient/TestMultipartPost;Ljava/lang/String;[B)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.TestMultipartPost$TestPartSource" start="137" end="136" startBytecode="0" endBytecode="93" sourcefile="TestMultipartPost.java" sourcepath="org/apache/commons/httpclient/TestMultipartPost.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.TestMultipartPost$TestPartSource" name="data" signature="[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.TestMultipartPost$TestPartSource" sourcefile="TestMultipartPost.java" sourcepath="org/apache/commons/httpclient/TestMultipartPost.java"/>
+    </Field>
+    <LocalVariable name="data" register="3" pc="16" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.TestMultipartPost$TestPartSource" start="136" end="136" startBytecode="16" endBytecode="16" sourcefile="TestMultipartPost.java" sourcepath="org/apache/commons/httpclient/TestMultipartPost.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawAuthority" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3249" end="3249" startBytecode="0" endBytecode="46" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_authority" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3249" end="3249" startBytecode="4" endBytecode="4" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawFragment" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="4065" end="4065" startBytecode="0" endBytecode="46" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_fragment" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="4065" end="4065" startBytecode="4" endBytecode="4" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawHost" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3332" end="3332" startBytecode="0" endBytecode="46" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_host" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3332" end="3332" startBytecode="4" endBytecode="4" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawPath" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3708" end="3708" startBytecode="0" endBytecode="60" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_path" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3708" end="3708" startBytecode="18" endBytecode="18" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawQuery" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3952" end="3952" startBytecode="0" endBytecode="46" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_query" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3952" end="3952" startBytecode="4" endBytecode="4" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawScheme" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3180" end="3180" startBytecode="0" endBytecode="46" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_scheme" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3180" end="3180" startBytecode="4" endBytecode="4" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawURI" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="4488" end="4488" startBytecode="0" endBytecode="46" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_uri" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="4488" end="4488" startBytecode="4" endBytecode="4" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawURIReference" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="4524" end="4534" startBytecode="0" endBytecode="145" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_fragment" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="4530" end="4530" startBytecode="23" endBytecode="23" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawURIReference" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="4524" end="4534" startBytecode="0" endBytecode="145" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_uri" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="4526" end="4526" startBytecode="11" endBytecode="11" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="getRawUserinfo" signature="()[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3285" end="3285" startBytecode="0" endBytecode="46" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_userinfo" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3285" end="3285" startBytecode="4" endBytecode="4" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="setRawFragment" signature="([C)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3993" end="4005" startBytecode="0" endBytecode="137" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_fragment" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <LocalVariable name="escapedFragment" register="1" pc="11" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3995" end="3995" startBytecode="11" endBytecode="11" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="setRawFragment" signature="([C)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3993" end="4005" startBytecode="0" endBytecode="137" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_fragment" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <LocalVariable name="escapedFragment" register="1" pc="45" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="4003" end="4003" startBytecode="45" endBytecode="45" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="setRawPath" signature="([C)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3395" end="3446" startBytecode="0" endBytecode="437" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_opaque" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <LocalVariable name="escapedPath" register="1" pc="13" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3397" end="3397" startBytecode="13" endBytecode="13" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="setRawPath" signature="([C)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3395" end="3446" startBytecode="0" endBytecode="437" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_path" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <LocalVariable name="escapedPath" register="1" pc="16" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3397" end="3397" startBytecode="16" endBytecode="16" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.URI" name="setRawQuery" signature="([C)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" start="3878" end="3892" startBytecode="0" endBytecode="145" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.URI" name="_query" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <LocalVariable name="escapedQuery" register="1" pc="11" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="3880" end="3880" startBytecode="11" endBytecode="11" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.URI" name="defaultDocumentCharset" signature="Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="794" end="794" startBytecode="6" endBytecode="6" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.URI" name="defaultProtocolCharset" signature="Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="788" end="788" startBytecode="2" endBytecode="2" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.URI" name="rootPath" signature="[C" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="871" end="871" startBytecode="70" endBytecode="70" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="MS_SHOULD_BE_FINAL" priority="1" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.URI" name="defaultDocumentCharsetByLocale" signature="Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="795" end="795" startBytecode="10" endBytecode="10" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="MS_SHOULD_BE_FINAL" priority="1" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.URI">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.URI" name="defaultDocumentCharsetByPlatform" signature="Ljava/lang/String;" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.URI" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.URI" start="796" end="796" startBytecode="14" endBytecode="14" sourcefile="URI.java" sourcepath="org/apache/commons/httpclient/URI.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.cookie.Cookie2">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.cookie.Cookie2" name="getPorts" signature="()[I" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" start="155" end="155" startBytecode="0" endBytecode="46" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.cookie.Cookie2" name="cookiePorts" signature="[I" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" start="155" end="155" startBytecode="4" endBytecode="4" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.cookie.Cookie2">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.cookie.Cookie2" name="setPorts" signature="([I)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" start="167" end="168" startBytecode="0" endBytecode="61" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.cookie.Cookie2" name="cookiePorts" signature="[I" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+    </Field>
+    <LocalVariable name="ports" register="1" pc="2" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.cookie.Cookie2" start="167" end="167" startBytecode="2" endBytecode="2" sourcefile="Cookie2.java" sourcepath="org/apache/commons/httpclient/cookie/Cookie2.java"/>
+  </BugInstance>
+  <BugInstance type="DE_MIGHT_IGNORE" priority="2" abbrev="DE" category="BAD_PRACTICE" first="1">
+    <Class classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" name="testValidateDomainIllegal" signature="()V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" start="551" end="557" startBytecode="0" endBytecode="134" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+    </Method>
+    <Class classname="org.apache.commons.httpclient.cookie.MalformedCookieException" role="CLASS_EXCEPTION">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.MalformedCookieException" sourcefile="MalformedCookieException.java" sourcepath="org/apache/commons/httpclient/cookie/MalformedCookieException.java"/>
+    </Class>
+    <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" start="556" end="556" startBytecode="43" endBytecode="43" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+  </BugInstance>
+  <BugInstance type="DE_MIGHT_IGNORE" priority="2" abbrev="DE" category="BAD_PRACTICE" first="1">
+    <Class classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" name="testValidateDomainLocal" signature="()V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" start="506" end="522" startBytecode="0" endBytecode="235" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+    </Method>
+    <Class classname="org.apache.commons.httpclient.cookie.MalformedCookieException" role="CLASS_EXCEPTION">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.MalformedCookieException" sourcefile="MalformedCookieException.java" sourcepath="org/apache/commons/httpclient/cookie/MalformedCookieException.java"/>
+    </Class>
+    <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" start="521" end="521" startBytecode="99" endBytecode="99" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+  </BugInstance>
+  <BugInstance type="DE_MIGHT_IGNORE" priority="2" abbrev="DE" category="BAD_PRACTICE" first="1">
+    <Class classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" name="testValidateVersion" signature="()V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" start="643" end="650" startBytecode="0" endBytecode="134" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+    </Method>
+    <Class classname="org.apache.commons.httpclient.cookie.MalformedCookieException" role="CLASS_EXCEPTION">
+      <SourceLine classname="org.apache.commons.httpclient.cookie.MalformedCookieException" sourcefile="MalformedCookieException.java" sourcepath="org/apache/commons/httpclient/cookie/MalformedCookieException.java"/>
+    </Class>
+    <SourceLine classname="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" start="649" end="649" startBytecode="43" endBytecode="43" sourcefile="TestCookieRFC2965Spec.java" sourcepath="org/apache/commons/httpclient/cookie/TestCookieRFC2965Spec.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity">
+      <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" name="getContent" signature="()[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" start="104" end="104" startBytecode="0" endBytecode="46" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" name="content" signature="[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" start="104" end="104" startBytecode="4" endBytecode="4" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity">
+      <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" name="&lt;init&gt;" signature="([BLjava/lang/String;)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" start="64" end="70" startBytecode="0" endBytecode="110" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" name="content" signature="[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+    </Field>
+    <LocalVariable name="content" register="1" pc="20" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" start="68" end="68" startBytecode="20" endBytecode="20" sourcefile="ByteArrayRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/ByteArrayRequestEntity.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource" sourcefile="ByteArrayPartSource.java" sourcepath="org/apache/commons/httpclient/methods/multipart/ByteArrayPartSource.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource" name="&lt;init&gt;" signature="(Ljava/lang/String;[B)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource" start="59" end="64" startBytecode="0" endBytecode="88" sourcefile="ByteArrayPartSource.java" sourcepath="org/apache/commons/httpclient/methods/multipart/ByteArrayPartSource.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource" name="bytes" signature="[B" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource" sourcefile="ByteArrayPartSource.java" sourcepath="org/apache/commons/httpclient/methods/multipart/ByteArrayPartSource.java"/>
+    </Field>
+    <LocalVariable name="bytes" register="2" pc="11" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource" start="62" end="62" startBytecode="11" endBytecode="11" sourcefile="ByteArrayPartSource.java" sourcepath="org/apache/commons/httpclient/methods/multipart/ByteArrayPartSource.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity" sourcefile="MultipartRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/multipart/MultipartRequestEntity.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity" name="&lt;init&gt;" signature="([Lorg/apache/commons/httpclient/methods/multipart/Part;Lorg/apache/commons/httpclient/params/HttpMethodParams;)V" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity" start="115" end="124" startBytecode="0" endBytecode="132" sourcefile="MultipartRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/multipart/MultipartRequestEntity.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity" name="parts" signature="[Lorg/apache/commons/httpclient/methods/multipart/Part;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity" sourcefile="MultipartRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/multipart/MultipartRequestEntity.java"/>
+    </Field>
+    <LocalVariable name="parts" register="1" pc="34" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity" start="122" end="122" startBytecode="34" endBytecode="34" sourcefile="MultipartRequestEntity.java" sourcepath="org/apache/commons/httpclient/methods/multipart/MultipartRequestEntity.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="BOUNDARY_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="67" end="67" startBytecode="43" endBytecode="43" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="CHARSET_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="113" end="113" startBytecode="97" endBytecode="97" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="CONTENT_DISPOSITION_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="99" end="99" startBytecode="81" endBytecode="81" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="CONTENT_TRANSFER_ENCODING_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="120" end="120" startBytecode="105" endBytecode="105" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="CONTENT_TYPE_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="106" end="106" startBytecode="89" endBytecode="89" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="CRLF_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="79" end="79" startBytecode="57" endBytecode="57" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="EXTRA_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="92" end="92" startBytecode="73" endBytecode="73" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="MS_PKGPROTECT" priority="2" abbrev="MS" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.methods.multipart.Part">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Class>
+    <Field classname="org.apache.commons.httpclient.methods.multipart.Part" name="QUOTE_BYTES" signature="[B" isStatic="true">
+      <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+    </Field>
+    <SourceLine classname="org.apache.commons.httpclient.methods.multipart.Part" start="85" end="85" startBytecode="65" endBytecode="65" sourcefile="Part.java" sourcepath="org/apache/commons/httpclient/methods/multipart/Part.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="org.apache.commons.httpclient.util.ParameterParser">
+      <SourceLine classname="org.apache.commons.httpclient.util.ParameterParser" sourcefile="ParameterParser.java" sourcepath="org/apache/commons/httpclient/util/ParameterParser.java"/>
+    </Class>
+    <Method classname="org.apache.commons.httpclient.util.ParameterParser" name="parse" signature="([CIIC)Ljava/util/List;" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.util.ParameterParser" start="209" end="233" startBytecode="0" endBytecode="373" sourcefile="ParameterParser.java" sourcepath="org/apache/commons/httpclient/util/ParameterParser.java"/>
+    </Method>
+    <Field classname="org.apache.commons.httpclient.util.ParameterParser" name="chars" signature="[C" isStatic="false">
+      <SourceLine classname="org.apache.commons.httpclient.util.ParameterParser" sourcefile="ParameterParser.java" sourcepath="org/apache/commons/httpclient/util/ParameterParser.java"/>
+    </Field>
+    <LocalVariable name="chars" register="1" pc="23" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.apache.commons.httpclient.util.ParameterParser" start="213" end="213" startBytecode="23" endBytecode="23" sourcefile="ParameterParser.java" sourcepath="org/apache/commons/httpclient/util/ParameterParser.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 16:09:12 +0000" total_classes="339" referenced_classes="541" total_bugs="0" total_size="21391" num_packages="11" vm_version="14.3-b01" cpu_seconds="23.81" clock_seconds="96.55" peak_mbytes="353.73" alloc_mbytes="254.06" gc_seconds="4.68">
+    <PackageStats package="com.sun.net.ssl" total_bugs="0" total_types="5" total_size="39">
+      <ClassStats class="com.sun.net.ssl.KeyManager" sourceFile="KeyManager.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.sun.net.ssl.KeyManagerFactory" sourceFile="KeyManagerFactory.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.sun.net.ssl.SSLContext" sourceFile="SSLContext.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.sun.net.ssl.TrustManager" sourceFile="TrustManager.java" interface="false" size="3" bugs="0"/>
+      <ClassStats class="com.sun.net.ssl.TrustManagerFactory" sourceFile="TrustManagerFactory.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient" total_bugs="0" total_types="178" total_size="12192">
+      <ClassStats class="org.apache.commons.httpclient.AccessibleHttpConnectionManager" sourceFile="AccessibleHttpConnectionManager.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.AutoCloseInputStream" sourceFile="AutoCloseInputStream.java" interface="false" size="54" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ChunkedInputStream" sourceFile="ChunkedInputStream.java" interface="false" size="133" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ChunkedOutputStream" sourceFile="ChunkedOutputStream.java" interface="false" size="74" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.CircularRedirectException" sourceFile="CircularRedirectException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ConnectMethod" sourceFile="ConnectMethod.java" interface="false" size="85" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ConnectTimeoutException" sourceFile="ConnectTimeoutException.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ConnectionPoolTimeoutException" sourceFile="ConnectionPoolTimeoutException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ContentLengthInputStream" sourceFile="ContentLengthInputStream.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.Cookie" sourceFile="Cookie.java" interface="false" size="136" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.Credentials" sourceFile="Credentials.java" interface="true" size="1" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.DefaultHttpMethodRetryHandler" sourceFile="DefaultHttpMethodRetryHandler.java" interface="false" size="44" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.DefaultMethodRetryHandler" sourceFile="DefaultMethodRetryHandler.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.DefaultNTCredentials" sourceFile="DefaultNTCredentials.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.EchoService" sourceFile="EchoService.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ExecuteMethodThread" sourceFile="ExecuteMethodThread.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.FakeHttpMethod" sourceFile="FakeHttpMethod.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.FeedbackService" sourceFile="FeedbackService.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.Header" sourceFile="Header.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HeaderElement" sourceFile="HeaderElement.java" interface="false" size="84" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HeaderGroup" sourceFile="HeaderGroup.java" interface="false" size="60" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HostConfiguration" sourceFile="HostConfiguration.java" interface="false" size="179" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpClient" sourceFile="HttpClient.java" interface="false" size="128" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpClientError" sourceFile="HttpClientError.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpClientTestBase" sourceFile="HttpClientTestBase.java" interface="false" size="59" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpConnection" sourceFile="HttpConnection.java" interface="false" size="434" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpConnectionManager" sourceFile="HttpConnectionManager.java" interface="true" size="8" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpConstants" sourceFile="HttpConstants.java" interface="false" size="79" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpContentTooLargeException" sourceFile="HttpContentTooLargeException.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpException" sourceFile="HttpException.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpHost" sourceFile="HttpHost.java" interface="false" size="79" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpMethod" sourceFile="HttpMethod.java" interface="true" size="48" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpMethodBase" sourceFile="HttpMethodBase.java" interface="false" size="815" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpMethodBase$1" sourceFile="HttpMethodBase.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpMethodDirector" sourceFile="HttpMethodDirector.java" interface="false" size="447" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpMethodRetryHandler" sourceFile="HttpMethodRetryHandler.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpParser" sourceFile="HttpParser.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpRecoverableException" sourceFile="HttpRecoverableException.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpState" sourceFile="HttpState.java" interface="false" size="171" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpStatus" sourceFile="HttpStatus.java" interface="false" size="130" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpURL" sourceFile="HttpURL.java" interface="false" size="289" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpVersion" sourceFile="HttpVersion.java" interface="false" size="74" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.HttpsURL" sourceFile="HttpsURL.java" interface="false" size="114" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.InvalidRedirectLocationException" sourceFile="InvalidRedirectLocationException.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MethodRetryHandler" sourceFile="MethodRetryHandler.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="226" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$ConnectionPool" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="155" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$ConnectionSource" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$HostConnectionPool" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$HttpConnectionAdapter" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="245" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$HttpConnectionWithReference" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$ReferenceQueueThread" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager$WaitingThread" sourceFile="MultiThreadedHttpConnectionManager.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.NTCredentials" sourceFile="NTCredentials.java" interface="false" size="50" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.NameValuePair" sourceFile="NameValuePair.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.NoHostHttpConnectionManager" sourceFile="NoHostHttpConnectionManager.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.NoHttpResponseException" sourceFile="NoHttpResponseException.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.NoncompliantHeadMethod" sourceFile="NoncompliantHeadMethod.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.NoncompliantPostMethod" sourceFile="NoncompliantPostMethod.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ProtocolException" sourceFile="ProtocolException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ProxyClient" sourceFile="ProxyClient.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ProxyClient$ConnectResponse" sourceFile="ProxyClient.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ProxyClient$DummyConnectionManager" sourceFile="ProxyClient.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ProxyHost" sourceFile="ProxyHost.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ProxyTestDecorator" sourceFile="ProxyTestDecorator.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.RedirectException" sourceFile="RedirectException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ResponseConsumedWatcher" sourceFile="ResponseConsumedWatcher.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.SimpleHttpConnectionManager" sourceFile="SimpleHttpConnectionManager.java" interface="false" size="84" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.StatusLine" sourceFile="StatusLine.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestAll" sourceFile="TestAll.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestBadContentLength" sourceFile="TestBadContentLength.java" interface="false" size="56" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestBadContentLength$MyHttpRequestHandler" sourceFile="TestBadContentLength.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestConnectionPersistence" sourceFile="TestConnectionPersistence.java" interface="false" size="130" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestConnectionPersistence$1" sourceFile="TestConnectionPersistence.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestCredentials" sourceFile="TestCredentials.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestEffectiveHttpVersion" sourceFile="TestEffectiveHttpVersion.java" interface="false" size="72" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestEntityEnclosingMethod" sourceFile="TestEntityEnclosingMethod.java" interface="false" size="216" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestEntityEnclosingMethod$RequestBodyStatsService" sourceFile="TestEntityEnclosingMethod.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestEquals" sourceFile="TestEquals.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestEquals$1" sourceFile="TestEquals.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestExceptions" sourceFile="TestExceptions.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHeader" sourceFile="TestHeader.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHeaderElement" sourceFile="TestHeaderElement.java" interface="false" size="54" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHeaderOps" sourceFile="TestHeaderOps.java" interface="false" size="88" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHeaderOps$HeaderDumpService" sourceFile="TestHeaderOps.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHostConfiguration" sourceFile="TestHostConfiguration.java" interface="false" size="111" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHostConfiguration$ExpectedError" sourceFile="TestHostConfiguration.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHostConfiguration$SpecialHostConfiguration" sourceFile="TestHostConfiguration.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnection" sourceFile="TestHttpConnection.java" interface="false" size="75" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnection$1" sourceFile="TestHttpConnection.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnection$DelayedProtocolSocketFactory" sourceFile="TestHttpConnection.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnectionManager" sourceFile="TestHttpConnectionManager.java" interface="false" size="393" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnectionManager$1" sourceFile="TestHttpConnectionManager.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnectionManager$FakeSecureProtocolSocketFactory" sourceFile="TestHttpConnectionManager.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnectionManager$GetConnectionThread" sourceFile="TestHttpConnectionManager.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpConnectionManager$RejectConnectService" sourceFile="TestHttpConnectionManager.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpMethodFundamentals" sourceFile="TestHttpMethodFundamentals.java" interface="false" size="179" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpMethodFundamentals$EmptyResponseService" sourceFile="TestHttpMethodFundamentals.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpMethodFundamentals$ManyAService" sourceFile="TestHttpMethodFundamentals.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpMethodFundamentals$SimpleChunkedService" sourceFile="TestHttpMethodFundamentals.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpParser" sourceFile="TestHttpParser.java" interface="false" size="66" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpState" sourceFile="TestHttpState.java" interface="false" size="170" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpStatus" sourceFile="TestHttpStatus.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttpVersion" sourceFile="TestHttpVersion.java" interface="false" size="81" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestHttps" sourceFile="TestHttps.java" interface="false" size="65" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestIdleConnectionTimeout" sourceFile="TestIdleConnectionTimeout.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestIdleConnectionTimeout$TimeoutHttpConnection" sourceFile="TestIdleConnectionTimeout.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestIdleConnectionTimeout$TimeoutHttpConnectionManager" sourceFile="TestIdleConnectionTimeout.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestMethodAbort" sourceFile="TestMethodAbort.java" interface="false" size="40" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestMethodAbort$1" sourceFile="TestMethodAbort.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestMethodAbort$ProduceGarbageHandler" sourceFile="TestMethodAbort.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestMethodCharEncoding" sourceFile="TestMethodCharEncoding.java" interface="false" size="165" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestMultipartPost" sourceFile="TestMultipartPost.java" interface="false" size="71" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestMultipartPost$TestPartSource" sourceFile="TestMultipartPost.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNVP" sourceFile="TestNVP.java" interface="false" size="47" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoHost" sourceFile="TestNoHost.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoncompliant" sourceFile="TestNoncompliant.java" interface="false" size="66" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoncompliant$1" sourceFile="TestNoncompliant.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoncompliant$2" sourceFile="TestNoncompliant.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoncompliant$3" sourceFile="TestNoncompliant.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoncompliant$4" sourceFile="TestNoncompliant.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoncompliant$5" sourceFile="TestNoncompliant.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestNoncompliant$6" sourceFile="TestNoncompliant.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestParameterFormatter" sourceFile="TestParameterFormatter.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestParameterParser" sourceFile="TestParameterParser.java" interface="false" size="79" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestPartsNoHost" sourceFile="TestPartsNoHost.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestPostMethod" sourceFile="TestPostMethod.java" interface="false" size="103" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestPostParameterEncoding" sourceFile="TestPostParameterEncoding.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestProxy" sourceFile="TestProxy.java" interface="false" size="441" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestProxy$GetItWrongThenGetItRight" sourceFile="TestProxy.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestProxy$SSLDecorator" sourceFile="TestProxy.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestProxyWithRedirect" sourceFile="TestProxyWithRedirect.java" interface="false" size="50" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestProxyWithRedirect$BasicRedirectService" sourceFile="TestProxyWithRedirect.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestQueryParameters" sourceFile="TestQueryParameters.java" interface="false" size="121" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestQueryParameters$QueryInfoService" sourceFile="TestQueryParameters.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestRedirects" sourceFile="TestRedirects.java" interface="false" size="283" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestRedirects$BasicRedirectService" sourceFile="TestRedirects.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestRedirects$BogusRedirectService" sourceFile="TestRedirects.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestRedirects$CircularRedirectService" sourceFile="TestRedirects.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestRedirects$RelativeRedirectService" sourceFile="TestRedirects.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestRequestHeaders" sourceFile="TestRequestHeaders.java" interface="false" size="59" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestRequestLine" sourceFile="TestRequestLine.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders" sourceFile="TestResponseHeaders.java" interface="false" size="131" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$1" sourceFile="TestResponseHeaders.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$10" sourceFile="TestResponseHeaders.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$11" sourceFile="TestResponseHeaders.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$12" sourceFile="TestResponseHeaders.java" interface="false" size="19" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$13" sourceFile="TestResponseHeaders.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$14" sourceFile="TestResponseHeaders.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$15" sourceFile="TestResponseHeaders.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$16" sourceFile="TestResponseHeaders.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$2" sourceFile="TestResponseHeaders.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$3" sourceFile="TestResponseHeaders.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$4" sourceFile="TestResponseHeaders.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$5" sourceFile="TestResponseHeaders.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$6" sourceFile="TestResponseHeaders.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$7" sourceFile="TestResponseHeaders.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$8" sourceFile="TestResponseHeaders.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestResponseHeaders$9" sourceFile="TestResponseHeaders.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestStatusLine" sourceFile="TestStatusLine.java" interface="false" size="67" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestStreams" sourceFile="TestStreams.java" interface="false" size="198" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestStreams$1" sourceFile="TestStreams.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestURI" sourceFile="TestURI.java" interface="false" size="249" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestURIUtil" sourceFile="TestURIUtil.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestURIUtil$URITestCase" sourceFile="TestURIUtil.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestURIUtil2" sourceFile="TestURIUtil2.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestVirtualHost" sourceFile="TestVirtualHost.java" interface="false" size="57" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestVirtualHost$VirtualHostService" sourceFile="TestVirtualHost.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestVirtualHost$VirtualService" sourceFile="TestVirtualHost.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.TestVirtualHost$VirtualSocketFactory" sourceFile="TestVirtualHost.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.URI" sourceFile="URI.java" interface="false" size="1210" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.URI$DefaultCharsetChanged" sourceFile="URI.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.URI$LocaleToCharsetMap" sourceFile="URI.java" interface="false" size="51" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.URIException" sourceFile="URIException.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.UsernamePasswordCredentials" sourceFile="UsernamePasswordCredentials.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.Wire" sourceFile="Wire.java" interface="false" size="82" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.WireLogInputStream" sourceFile="WireLogInputStream.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.WireLogOutputStream" sourceFile="WireLogOutputStream.java" interface="false" size="20" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.auth" total_bugs="0" total_types="28" total_size="1811">
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthChallengeException" sourceFile="AuthChallengeException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthChallengeParser" sourceFile="AuthChallengeParser.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthChallengeProcessor" sourceFile="AuthChallengeProcessor.java" interface="false" size="63" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthPolicy" sourceFile="AuthPolicy.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthScheme" sourceFile="AuthScheme.java" interface="true" size="9" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthSchemeBase" sourceFile="AuthSchemeBase.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthScope" sourceFile="AuthScope.java" interface="false" size="112" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthState" sourceFile="AuthState.java" interface="false" size="68" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.AuthenticationException" sourceFile="AuthenticationException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.BasicScheme" sourceFile="BasicScheme.java" interface="false" size="61" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.CredentialsNotAvailableException" sourceFile="CredentialsNotAvailableException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.CredentialsProvider" sourceFile="CredentialsProvider.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.DigestScheme" sourceFile="DigestScheme.java" interface="false" size="235" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.HttpAuthRealm" sourceFile="HttpAuthRealm.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.InvalidCredentialsException" sourceFile="InvalidCredentialsException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.MalformedChallengeException" sourceFile="MalformedChallengeException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.NTLMScheme" sourceFile="NTLMScheme.java" interface="false" size="103" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.NTLMSecurityProvider" sourceFile="NTLMSecurityProvider.java" interface="false" size="5" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.NegotiateScheme" sourceFile="NegotiateScheme.java" interface="false" size="103" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.RFC2617Scheme" sourceFile="RFC2617Scheme.java" interface="false" size="29" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestAuthAll" sourceFile="TestAuthAll.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestBasicAuth" sourceFile="TestBasicAuth.java" interface="false" size="426" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestChallengeParser" sourceFile="TestChallengeParser.java" interface="false" size="27" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestChallengeProcessor" sourceFile="TestChallengeProcessor.java" interface="false" size="83" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestDigestAuth" sourceFile="TestDigestAuth.java" interface="false" size="205" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestDigestAuth$StaleNonceService" sourceFile="TestDigestAuth.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestNTLMAuth" sourceFile="TestNTLMAuth.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.auth.TestNTLMAuth$PreemptiveNTLMAuthService" sourceFile="TestNTLMAuth.java" interface="false" size="26" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.cookie" total_bugs="0" total_types="41" total_size="3338">
+      <ClassStats class="org.apache.commons.httpclient.cookie.Cookie2" sourceFile="Cookie2.java" interface="false" size="67" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.CookieAttributeHandler" sourceFile="CookieAttributeHandler.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.CookieOrigin" sourceFile="CookieOrigin.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.CookiePathComparator" sourceFile="CookiePathComparator.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.CookiePolicy" sourceFile="CookiePolicy.java" interface="false" size="82" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.CookieSpec" sourceFile="CookieSpec.java" interface="true" size="20" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.CookieSpecBase" sourceFile="CookieSpecBase.java" interface="false" size="252" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.CookieVersionSupport" sourceFile="CookieVersionSupport.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.IgnoreCookiesSpec" sourceFile="IgnoreCookiesSpec.java" interface="false" size="32" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.MalformedCookieException" sourceFile="MalformedCookieException.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.NetscapeDraftSpec" sourceFile="NetscapeDraftSpec.java" interface="false" size="87" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2109Spec" sourceFile="RFC2109Spec.java" interface="false" size="116" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec" sourceFile="RFC2965Spec.java" interface="false" size="249" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$Cookie2DomainAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="71" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$Cookie2MaxageAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$Cookie2PathAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$Cookie2PortAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="45" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$Cookie2VersionAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$CookieCommentAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$CookieCommentUrlAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$CookieDiscardAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.RFC2965Spec$CookieSecureAttributeHandler" sourceFile="RFC2965Spec.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookie" sourceFile="TestCookie.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookie2" sourceFile="TestCookie2.java" interface="false" size="55" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieAll" sourceFile="TestCookieAll.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieBase" sourceFile="TestCookieBase.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieCompatibilitySpec" sourceFile="TestCookieCompatibilitySpec.java" interface="false" size="759" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieIgnoreSpec" sourceFile="TestCookieIgnoreSpec.java" interface="false" size="34" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieIgnoreSpec$BasicAuthService" sourceFile="TestCookieIgnoreSpec.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieNetscapeDraft" sourceFile="TestCookieNetscapeDraft.java" interface="false" size="155" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookiePathComparator" sourceFile="TestCookiePathComparator.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookiePolicy" sourceFile="TestCookiePolicy.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieRFC2109Spec" sourceFile="TestCookieRFC2109Spec.java" interface="false" size="223" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieRFC2965Spec" sourceFile="TestCookieRFC2965Spec.java" interface="false" size="518" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieVersionSupport" sourceFile="TestCookieVersionSupport.java" interface="false" size="76" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieVersionSupport$CookieVer0Service" sourceFile="TestCookieVersionSupport.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieVersionSupport$CookieVer1Service" sourceFile="TestCookieVersionSupport.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieVersionSupport$CookieVer2Service" sourceFile="TestCookieVersionSupport.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieVersionSupport$SetCookieVersionMixService" sourceFile="TestCookieVersionSupport.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestCookieVersionSupport$TestHttpState" sourceFile="TestCookieVersionSupport.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.cookie.TestDateParser" sourceFile="TestDateParser.java" interface="false" size="30" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.methods" total_bugs="0" total_types="15" total_size="695">
+      <ClassStats class="org.apache.commons.httpclient.methods.ByteArrayRequestEntity" sourceFile="ByteArrayRequestEntity.java" interface="false" size="24" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.DeleteMethod" sourceFile="DeleteMethod.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.EntityEnclosingMethod" sourceFile="EntityEnclosingMethod.java" interface="false" size="165" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.ExpectContinueMethod" sourceFile="ExpectContinueMethod.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.FileRequestEntity" sourceFile="FileRequestEntity.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.GetMethod" sourceFile="GetMethod.java" interface="false" size="22" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.HeadMethod" sourceFile="HeadMethod.java" interface="false" size="48" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.InputStreamRequestEntity" sourceFile="InputStreamRequestEntity.java" interface="false" size="69" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.MultipartPostMethod" sourceFile="MultipartPostMethod.java" interface="false" size="75" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.OptionsMethod" sourceFile="OptionsMethod.java" interface="false" size="36" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.PostMethod" sourceFile="PostMethod.java" interface="false" size="114" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.PutMethod" sourceFile="PutMethod.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.RequestEntity" sourceFile="RequestEntity.java" interface="true" size="5" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.StringRequestEntity" sourceFile="StringRequestEntity.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.TraceMethod" sourceFile="TraceMethod.java" interface="false" size="11" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.methods.multipart" total_bugs="0" total_types="8" total_size="403">
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.ByteArrayPartSource" sourceFile="ByteArrayPartSource.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.FilePart" sourceFile="FilePart.java" interface="false" size="68" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.FilePartSource" sourceFile="FilePartSource.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity" sourceFile="MultipartRequestEntity.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.Part" sourceFile="Part.java" interface="false" size="157" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.PartBase" sourceFile="PartBase.java" interface="false" size="36" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.PartSource" sourceFile="PartSource.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.methods.multipart.StringPart" sourceFile="StringPart.java" interface="false" size="41" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.params" total_bugs="0" total_types="14" total_size="615">
+      <ClassStats class="org.apache.commons.httpclient.params.DefaultHttpParams" sourceFile="DefaultHttpParams.java" interface="false" size="100" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.DefaultHttpParamsFactory" sourceFile="DefaultHttpParamsFactory.java" interface="false" size="63" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.HostParams" sourceFile="HostParams.java" interface="false" size="13" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.HttpClientParams" sourceFile="HttpClientParams.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.HttpConnectionManagerParams" sourceFile="HttpConnectionManagerParams.java" interface="false" size="41" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.HttpConnectionParams" sourceFile="HttpConnectionParams.java" interface="false" size="46" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.HttpMethodParams" sourceFile="HttpMethodParams.java" interface="false" size="109" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.HttpParams" sourceFile="HttpParams.java" interface="true" size="17" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.HttpParamsFactory" sourceFile="HttpParamsFactory.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.TestHttpParams" sourceFile="TestHttpParams.java" interface="false" size="58" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.TestHttpParams$SimpleService" sourceFile="TestHttpParams.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.TestParamsAll" sourceFile="TestParamsAll.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.TestSSLTunnelParams" sourceFile="TestSSLTunnelParams.java" interface="false" size="77" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.params.TestSSLTunnelParams$HttpVersionHandler" sourceFile="TestSSLTunnelParams.java" interface="false" size="15" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.protocol" total_bugs="0" total_types="9" total_size="280">
+      <ClassStats class="org.apache.commons.httpclient.protocol.ControllerThreadSocketFactory" sourceFile="ControllerThreadSocketFactory.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.ControllerThreadSocketFactory$1" sourceFile="ControllerThreadSocketFactory.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.ControllerThreadSocketFactory$SocketTask" sourceFile="ControllerThreadSocketFactory.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.DefaultProtocolSocketFactory" sourceFile="DefaultProtocolSocketFactory.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.Protocol" sourceFile="Protocol.java" interface="false" size="84" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.ProtocolSocketFactory" sourceFile="ProtocolSocketFactory.java" interface="true" size="4" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.ReflectionSocketFactory" sourceFile="ReflectionSocketFactory.java" interface="false" size="63" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.SSLProtocolSocketFactory" sourceFile="SSLProtocolSocketFactory.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory" sourceFile="SecureProtocolSocketFactory.java" interface="true" size="2" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.server" total_bugs="0" total_types="23" total_size="1174">
+      <ClassStats class="org.apache.commons.httpclient.server.AuthRequestHandler" sourceFile="AuthRequestHandler.java" interface="false" size="51" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.ErrorResponse" sourceFile="ErrorResponse.java" interface="false" size="23" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.HttpRequestHandler" sourceFile="HttpRequestHandler.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.HttpRequestHandlerChain" sourceFile="HttpRequestHandlerChain.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.HttpService" sourceFile="HttpService.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.HttpServiceHandler" sourceFile="HttpServiceHandler.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.ProxyAuthRequestHandler" sourceFile="ProxyAuthRequestHandler.java" interface="false" size="51" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.ProxyRequestHandler" sourceFile="ProxyRequestHandler.java" interface="false" size="82" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.RequestLine" sourceFile="RequestLine.java" interface="false" size="47" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.ResponseWriter" sourceFile="ResponseWriter.java" interface="false" size="61" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleConnList" sourceFile="SimpleConnList.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleConnManager" sourceFile="SimpleConnManager.java" interface="false" size="39" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleConnSet" sourceFile="SimpleConnSet.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleConnectionThread" sourceFile="SimpleConnectionThread.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleHost" sourceFile="SimpleHost.java" interface="false" size="49" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleHttpServer" sourceFile="SimpleHttpServer.java" interface="false" size="106" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleHttpServerConnection" sourceFile="SimpleHttpServerConnection.java" interface="false" size="129" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimplePlainSocketFactory" sourceFile="SimplePlainSocketFactory.java" interface="false" size="6" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleProxy" sourceFile="SimpleProxy.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleRequest" sourceFile="SimpleRequest.java" interface="false" size="110" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleResponse" sourceFile="SimpleResponse.java" interface="false" size="144" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.SimpleSocketFactory" sourceFile="SimpleSocketFactory.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.server.TransparentProxyRequestHandler" sourceFile="TransparentProxyRequestHandler.java" interface="false" size="60" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.ssl" total_bugs="0" total_types="2" total_size="98">
+      <ClassStats class="org.apache.commons.httpclient.ssl.SimpleSSLSocketFactory" sourceFile="SimpleSSLSocketFactory.java" interface="false" size="38" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.ssl.SimpleSSLTestProtocolSocketFactory" sourceFile="SimpleSSLTestProtocolSocketFactory.java" interface="false" size="60" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="org.apache.commons.httpclient.util" total_bugs="0" total_types="16" total_size="746">
+      <ClassStats class="org.apache.commons.httpclient.util.DateParseException" sourceFile="DateParseException.java" interface="false" size="7" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.DateParser" sourceFile="DateParser.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.DateUtil" sourceFile="DateUtil.java" interface="false" size="52" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.EncodingUtil" sourceFile="EncodingUtil.java" interface="false" size="66" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.EncodingUtilTest" sourceFile="EncodingUtilTest.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.ExceptionUtil" sourceFile="ExceptionUtil.java" interface="false" size="31" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.HttpURLConnection" sourceFile="HttpURLConnection.java" interface="false" size="129" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.IdleConnectionHandler" sourceFile="IdleConnectionHandler.java" interface="false" size="37" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.IdleConnectionTimeoutThread" sourceFile="IdleConnectionTimeoutThread.java" interface="false" size="50" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.LangUtils" sourceFile="LangUtils.java" interface="false" size="14" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.ParameterFormatter" sourceFile="ParameterFormatter.java" interface="false" size="72" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.ParameterParser" sourceFile="ParameterParser.java" interface="false" size="91" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.TimeoutController" sourceFile="TimeoutController.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.TimeoutController$TimeoutException" sourceFile="TimeoutController.java" interface="false" size="4" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.URIUtil" sourceFile="URIUtil.java" interface="false" size="103" bugs="0"/>
+      <ClassStats class="org.apache.commons.httpclient.util.URIUtil$Coder" sourceFile="URIUtil.java" interface="false" size="32" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.DetectorToDetector2Adapter" totalMilliseconds="11" invocations="5280" avgMicrosecondsPerInvocation="2" maxMicrosecondsPerInvocation="215" standardDeviationMircosecondsPerInvocation="2"/>
+      <ClassProfile name="edu.umd.cs.findbugs.NonReportingDetectorToDetector2Adapter" totalMilliseconds="12" invocations="7142" avgMicrosecondsPerInvocation="1" maxMicrosecondsPerInvocation="252" standardDeviationMircosecondsPerInvocation="3"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.AssertionMethodsFactory" totalMilliseconds="12" invocations="320" avgMicrosecondsPerInvocation="39" maxMicrosecondsPerInvocation="348" standardDeviationMircosecondsPerInvocation="36"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="14" invocations="340" avgMicrosecondsPerInvocation="41" maxMicrosecondsPerInvocation="2186" standardDeviationMircosecondsPerInvocation="121"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteCheckReturnValueAnnotations" totalMilliseconds="15" invocations="537" avgMicrosecondsPerInvocation="29" maxMicrosecondsPerInvocation="9454" standardDeviationMircosecondsPerInvocation="407"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantPoolGenFactory" totalMilliseconds="20" invocations="320" avgMicrosecondsPerInvocation="64" maxMicrosecondsPerInvocation="596" standardDeviationMircosecondsPerInvocation="61"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.LoadedFieldSetFactory" totalMilliseconds="23" invocations="2752" avgMicrosecondsPerInvocation="8" maxMicrosecondsPerInvocation="253" standardDeviationMircosecondsPerInvocation="10"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.asm.ClassReaderAnalysisEngine" totalMilliseconds="23" invocations="1035" avgMicrosecondsPerInvocation="22" maxMicrosecondsPerInvocation="20858" standardDeviationMircosecondsPerInvocation="647"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DoInsideDoPrivileged" totalMilliseconds="26" invocations="339" avgMicrosecondsPerInvocation="77" maxMicrosecondsPerInvocation="1726" standardDeviationMircosecondsPerInvocation="130"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ReverseDepthFirstSearchFactory" totalMilliseconds="29" invocations="2752" avgMicrosecondsPerInvocation="10" maxMicrosecondsPerInvocation="392" standardDeviationMircosecondsPerInvocation="13"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.MutableStaticFields" totalMilliseconds="32" invocations="339" avgMicrosecondsPerInvocation="95" maxMicrosecondsPerInvocation="1714" standardDeviationMircosecondsPerInvocation="164"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteUnconditionalParamDerefs" totalMilliseconds="32" invocations="339" avgMicrosecondsPerInvocation="96" maxMicrosecondsPerInvocation="1326" standardDeviationMircosecondsPerInvocation="146"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.DepthFirstSearchFactory" totalMilliseconds="44" invocations="3884" avgMicrosecondsPerInvocation="11" maxMicrosecondsPerInvocation="422" standardDeviationMircosecondsPerInvocation="15"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="46" invocations="18" avgMicrosecondsPerInvocation="2559" maxMicrosecondsPerInvocation="43017" standardDeviationMircosecondsPerInvocation="9812"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindFinalizeInvocations" totalMilliseconds="48" invocations="339" avgMicrosecondsPerInvocation="142" maxMicrosecondsPerInvocation="16400" standardDeviationMircosecondsPerInvocation="900"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="53" invocations="541" avgMicrosecondsPerInvocation="98" maxMicrosecondsPerInvocation="1452" standardDeviationMircosecondsPerInvocation="165"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="57" invocations="541" avgMicrosecondsPerInvocation="105" maxMicrosecondsPerInvocation="10958" standardDeviationMircosecondsPerInvocation="478"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindSqlInjection" totalMilliseconds="69" invocations="339" avgMicrosecondsPerInvocation="204" maxMicrosecondsPerInvocation="3291" standardDeviationMircosecondsPerInvocation="341"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindUnrelatedTypesInGenericContainer" totalMilliseconds="77" invocations="333" avgMicrosecondsPerInvocation="231" maxMicrosecondsPerInvocation="3678" standardDeviationMircosecondsPerInvocation="386"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="77" invocations="541" avgMicrosecondsPerInvocation="142" maxMicrosecondsPerInvocation="2573" standardDeviationMircosecondsPerInvocation="233"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteNonnullReturnValues" totalMilliseconds="79" invocations="339" avgMicrosecondsPerInvocation="233" maxMicrosecondsPerInvocation="22899" standardDeviationMircosecondsPerInvocation="1252"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="80" invocations="568" avgMicrosecondsPerInvocation="141" maxMicrosecondsPerInvocation="10088" standardDeviationMircosecondsPerInvocation="583"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="81" invocations="541" avgMicrosecondsPerInvocation="151" maxMicrosecondsPerInvocation="2588" standardDeviationMircosecondsPerInvocation="273"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.TypeQualifierNullnessAnnotationDatabase" totalMilliseconds="82" invocations="29308" avgMicrosecondsPerInvocation="2" maxMicrosecondsPerInvocation="340" standardDeviationMircosecondsPerInvocation="5"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref" totalMilliseconds="88" invocations="339" avgMicrosecondsPerInvocation="260" maxMicrosecondsPerInvocation="3784" standardDeviationMircosecondsPerInvocation="414"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethodInvocations" totalMilliseconds="91" invocations="336" avgMicrosecondsPerInvocation="272" maxMicrosecondsPerInvocation="17633" standardDeviationMircosecondsPerInvocation="1315"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.StreamResourceTracker" totalMilliseconds="93" invocations="202" avgMicrosecondsPerInvocation="461" maxMicrosecondsPerInvocation="1514" standardDeviationMircosecondsPerInvocation="335"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindReturnRef" totalMilliseconds="101" invocations="339" avgMicrosecondsPerInvocation="298" maxMicrosecondsPerInvocation="4648" standardDeviationMircosecondsPerInvocation="546"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CrossSiteScripting" totalMilliseconds="121" invocations="339" avgMicrosecondsPerInvocation="357" maxMicrosecondsPerInvocation="6195" standardDeviationMircosecondsPerInvocation="635"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="150" invocations="338" avgMicrosecondsPerInvocation="444" maxMicrosecondsPerInvocation="17033" standardDeviationMircosecondsPerInvocation="1534"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="156" invocations="540" avgMicrosecondsPerInvocation="290" maxMicrosecondsPerInvocation="4592" standardDeviationMircosecondsPerInvocation="486"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="159" invocations="1111" avgMicrosecondsPerInvocation="143" maxMicrosecondsPerInvocation="14030" standardDeviationMircosecondsPerInvocation="674"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="165" invocations="339" avgMicrosecondsPerInvocation="488" maxMicrosecondsPerInvocation="8081" standardDeviationMircosecondsPerInvocation="831"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.SynchronizationOnSharedBuiltinConstant" totalMilliseconds="167" invocations="339" avgMicrosecondsPerInvocation="493" maxMicrosecondsPerInvocation="18591" standardDeviationMircosecondsPerInvocation="1338"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.UnreadFields" totalMilliseconds="186" invocations="339" avgMicrosecondsPerInvocation="550" maxMicrosecondsPerInvocation="15409" standardDeviationMircosecondsPerInvocation="1254"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="216" invocations="1111" avgMicrosecondsPerInvocation="194" maxMicrosecondsPerInvocation="1013" standardDeviationMircosecondsPerInvocation="66"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="292" invocations="2752" avgMicrosecondsPerInvocation="106" maxMicrosecondsPerInvocation="14787" standardDeviationMircosecondsPerInvocation="312"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="302" invocations="541" avgMicrosecondsPerInvocation="559" maxMicrosecondsPerInvocation="11719" standardDeviationMircosecondsPerInvocation="1115"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="304" invocations="2" avgMicrosecondsPerInvocation="152487" maxMicrosecondsPerInvocation="239751" standardDeviationMircosecondsPerInvocation="87264"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="410" invocations="8953" avgMicrosecondsPerInvocation="45" maxMicrosecondsPerInvocation="12703" standardDeviationMircosecondsPerInvocation="189"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="456" invocations="2878" avgMicrosecondsPerInvocation="158" maxMicrosecondsPerInvocation="18293" standardDeviationMircosecondsPerInvocation="564"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="750" invocations="2752" avgMicrosecondsPerInvocation="272" maxMicrosecondsPerInvocation="17897" standardDeviationMircosecondsPerInvocation="985"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="801" invocations="2753" avgMicrosecondsPerInvocation="291" maxMicrosecondsPerInvocation="21589" standardDeviationMircosecondsPerInvocation="921"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="2278" invocations="2752" avgMicrosecondsPerInvocation="828" maxMicrosecondsPerInvocation="40322" standardDeviationMircosecondsPerInvocation="2104"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="2282" invocations="3133" avgMicrosecondsPerInvocation="728" maxMicrosecondsPerInvocation="647987" standardDeviationMircosecondsPerInvocation="11621"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="2471" invocations="2752" avgMicrosecondsPerInvocation="898" maxMicrosecondsPerInvocation="26934" standardDeviationMircosecondsPerInvocation="2137"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="2524" invocations="2752" avgMicrosecondsPerInvocation="917" maxMicrosecondsPerInvocation="31050" standardDeviationMircosecondsPerInvocation="2026"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="3370" invocations="4054" avgMicrosecondsPerInvocation="831" maxMicrosecondsPerInvocation="686170" standardDeviationMircosecondsPerInvocation="10895"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265818171185" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

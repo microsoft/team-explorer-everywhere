@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265807684666" analysisTimestamp="1265807680719" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP" priority="2" abbrev="EI" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" name="getMarkers" signature="()[Lcom/microsoft/tfs/checkinpolicies/build/settings/MarkerMatch;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" start="93" end="93" startBytecode="0" endBytecode="46" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" name="markers" signature="[Lcom/microsoft/tfs/checkinpolicies/build/settings/MarkerMatch;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Field>
+    <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" start="93" end="93" startBytecode="4" endBytecode="4" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" name="&lt;init&gt;" signature="(Lcom/microsoft/tfs/checkinpolicies/build/settings/Area;[Lcom/microsoft/tfs/checkinpolicies/build/settings/MarkerMatch;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" start="64" end="71" startBytecode="0" endBytecode="131" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" name="markers" signature="[Lcom/microsoft/tfs/checkinpolicies/build/settings/MarkerMatch;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Field>
+    <LocalVariable name="markers" register="2" pc="38" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" start="70" end="70" startBytecode="38" endBytecode="38" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" name="setMarkers" signature="([Lcom/microsoft/tfs/checkinpolicies/build/settings/MarkerMatch;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" start="104" end="106" startBytecode="0" endBytecode="71" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" name="markers" signature="[Lcom/microsoft/tfs/checkinpolicies/build/settings/MarkerMatch;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+    </Field>
+    <LocalVariable name="markers" register="1" pc="8" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" start="105" end="105" startBytecode="8" endBytecode="8" sourcefile="BuildPolicyConfiguration.java" sourcepath="com/microsoft/tfs/checkinpolicies/build/settings/BuildPolicyConfiguration.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 13:14:40 +0000" total_classes="24" referenced_classes="292" total_bugs="0" total_size="1023" num_packages="3" vm_version="14.3-b01" cpu_seconds="6.41" clock_seconds="31.36" peak_mbytes="211.06" alloc_mbytes="254.06" gc_seconds="0.83">
+    <PackageStats package="com.microsoft.tfs.checkinpolicies.build" total_bugs="0" total_types="3" total_size="72">
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.BuildPolicy" sourceFile="BuildPolicy.java" interface="false" size="47" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.BuildPolicyFailure" sourceFile="BuildPolicyFailure.java" interface="false" size="9" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.TFSBuildCheckinPolicyPlugin" sourceFile="TFSBuildCheckinPolicyPlugin.java" interface="false" size="16" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.checkinpolicies.build.settings" total_bugs="0" total_types="3" total_size="252">
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.settings.Area" sourceFile="Area.java" interface="false" size="20" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.settings.BuildPolicyConfiguration" sourceFile="BuildPolicyConfiguration.java" interface="false" size="89" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.settings.MarkerMatch" sourceFile="MarkerMatch.java" interface="false" size="143" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.microsoft.tfs.checkinpolicies.build.ui" total_bugs="0" total_types="18" total_size="699">
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.BuildPolicyDialog" sourceFile="BuildPolicyDialog.java" interface="false" size="28" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.BuildPolicyResourceChangedListener" sourceFile="BuildPolicyResourceChangedListener.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.BuildPolicyUI" sourceFile="BuildPolicyUI.java" interface="false" size="142" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.GeneralTabControl" sourceFile="GeneralTabControl.java" interface="false" size="42" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.GeneralTabControl$ClickHandler" sourceFile="GeneralTabControl.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerBrowseDialog" sourceFile="MarkerBrowseDialog.java" interface="false" size="56" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerBrowseDialog$1" sourceFile="MarkerBrowseDialog.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerBrowseDialog$2" sourceFile="MarkerBrowseDialog.java" interface="false" size="10" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerListControl" sourceFile="MarkerListControl.java" interface="false" size="70" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerListControl$1" sourceFile="MarkerListControl.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerListControl$2" sourceFile="MarkerListControl.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerMatchTable" sourceFile="MarkerMatchTable.java" interface="false" size="35" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerTabControl" sourceFile="MarkerTabControl.java" interface="false" size="206" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerTabControl$1" sourceFile="MarkerTabControl.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerTabControl$2" sourceFile="MarkerTabControl.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerTabControl$3" sourceFile="MarkerTabControl.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerTabControl$4" sourceFile="MarkerTabControl.java" interface="false" size="12" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.checkinpolicies.build.ui.MarkerTabControl$CheckClickHandler" sourceFile="MarkerTabControl.java" interface="false" size="26" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.DumbMethods" totalMilliseconds="14" invocations="24" avgMicrosecondsPerInvocation="617" maxMicrosecondsPerInvocation="7216" standardDeviationMircosecondsPerInvocation="1428"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="18" invocations="143" avgMicrosecondsPerInvocation="126" maxMicrosecondsPerInvocation="1878" standardDeviationMircosecondsPerInvocation="196"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.Methods" totalMilliseconds="20" invocations="292" avgMicrosecondsPerInvocation="68" maxMicrosecondsPerInvocation="13331" standardDeviationMircosecondsPerInvocation="779"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNullDeref$CheckCallSitesAndReturnInstructions" totalMilliseconds="20" invocations="143" avgMicrosecondsPerInvocation="144" maxMicrosecondsPerInvocation="8574" standardDeviationMircosecondsPerInvocation="739"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="28" invocations="143" avgMicrosecondsPerInvocation="201" maxMicrosecondsPerInvocation="3334" standardDeviationMircosecondsPerInvocation="352"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ConstantDataflowFactory" totalMilliseconds="34" invocations="143" avgMicrosecondsPerInvocation="242" maxMicrosecondsPerInvocation="6440" standardDeviationMircosecondsPerInvocation="677"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="44" invocations="292" avgMicrosecondsPerInvocation="150" maxMicrosecondsPerInvocation="9262" standardDeviationMircosecondsPerInvocation="556"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="46" invocations="283" avgMicrosecondsPerInvocation="165" maxMicrosecondsPerInvocation="8491" standardDeviationMircosecondsPerInvocation="627"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="47" invocations="318" avgMicrosecondsPerInvocation="148" maxMicrosecondsPerInvocation="3222" standardDeviationMircosecondsPerInvocation="255"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.ReflectiveClasses" totalMilliseconds="62" invocations="292" avgMicrosecondsPerInvocation="215" maxMicrosecondsPerInvocation="13867" standardDeviationMircosecondsPerInvocation="911"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="67" invocations="291" avgMicrosecondsPerInvocation="230" maxMicrosecondsPerInvocation="9861" standardDeviationMircosecondsPerInvocation="679"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="72" invocations="148" avgMicrosecondsPerInvocation="490" maxMicrosecondsPerInvocation="9335" standardDeviationMircosecondsPerInvocation="1118"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="89" invocations="292" avgMicrosecondsPerInvocation="308" maxMicrosecondsPerInvocation="14581" standardDeviationMircosecondsPerInvocation="1157"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="111" invocations="143" avgMicrosecondsPerInvocation="779" maxMicrosecondsPerInvocation="27840" standardDeviationMircosecondsPerInvocation="2604"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="119" invocations="143" avgMicrosecondsPerInvocation="837" maxMicrosecondsPerInvocation="20639" standardDeviationMircosecondsPerInvocation="2341"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="121" invocations="182" avgMicrosecondsPerInvocation="665" maxMicrosecondsPerInvocation="23732" standardDeviationMircosecondsPerInvocation="2254"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="143" invocations="143" avgMicrosecondsPerInvocation="1003" maxMicrosecondsPerInvocation="34806" standardDeviationMircosecondsPerInvocation="3482"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="178" invocations="67" avgMicrosecondsPerInvocation="2668" maxMicrosecondsPerInvocation="31794" standardDeviationMircosecondsPerInvocation="5679"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="205" invocations="1204" avgMicrosecondsPerInvocation="170" maxMicrosecondsPerInvocation="13152" standardDeviationMircosecondsPerInvocation="683"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="340" invocations="292" avgMicrosecondsPerInvocation="1166" maxMicrosecondsPerInvocation="31151" standardDeviationMircosecondsPerInvocation="3506"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="394" invocations="4874" avgMicrosecondsPerInvocation="80" maxMicrosecondsPerInvocation="19494" standardDeviationMircosecondsPerInvocation="448"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="486" invocations="2" avgMicrosecondsPerInvocation="243323" maxMicrosecondsPerInvocation="458060" standardDeviationMircosecondsPerInvocation="214736"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="1136" invocations="1204" avgMicrosecondsPerInvocation="944" maxMicrosecondsPerInvocation="16954" standardDeviationMircosecondsPerInvocation="2102"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265807684666" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

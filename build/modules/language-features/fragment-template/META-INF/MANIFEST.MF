@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: @FRAGMENT_NAME@
+Bundle-SymbolicName: @FRAGMENT_ID@
+Bundle-Version: @FRAGMENT_VERSION@
+Fragment-Host: @HOST_PLUGIN_ID@
+ ;bundle-version="[@HOST_VERSION_MIN@,@HOST_VERSION_MAX@)"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: Microsoft Corporation

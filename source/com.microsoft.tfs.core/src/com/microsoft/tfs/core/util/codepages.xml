@@ -1,0 +1,620 @@
+<codePageMappings>
+
+	<!--
+		Maps Microsoft Windows code page numbers to canonical Java Charset
+		names. Only canonical Charset names are used - no aliases. 
+		Canonical Charset names from both Sun and IBM JVMs are given.
+		
+		For every Windows code page that has a Java Charset equivalent, the 
+		code page is listed with every known Charset equivalent in preferred
+		order. Usually, a reverse mapping can also be assumed from the Charset
+		back to the code page. If this is not true, the reverseMapping 
+		attribute will be false. The intent is to have at most one mapping to a
+		code page for each charset.
+		
+		Enumeration of valid code pages:
+        	.NET Framework BCL System.Text.Encoding.GetEncodings()
+        	http://msdn2.microsoft.com/en-us/library/ms776446.aspx
+          
+        Enumeration of valid charset names:
+        	http://java.sun.com/javase/6/docs/technotes/guides/intl/encoding.doc.html
+        	http://java.sun.com/javase/6/docs/api/java/nio/charset/Charset.html
+        	Charset.availableCharsets() on Sun and IBM JVMs
+          
+        Mapping data:
+        	http://www.fileformat.info/info/charset/codepage.htm
+        	http://demo.icu-project.org/icu-bin/convexp
+        	http://www.borgendale.com/codepage/j2conv.htm
+        	http://www.freeutils.net/source/jcharset/
+        	http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6173388
+        	ftp://ftp.software.ibm.com/eserver/zseries/zos/vse/pdf3/LE_Code_Set_Conversion.pdf
+        	org.apache.xerces.util.EncodingMap
+        	http://source.icu-project.org/repos/icu/icu/trunk/source/data/mappings/convrtrs.txt
+	-->
+
+	<codePage value="37">
+		<charset name="IBM037" />
+		<charset name="IBM-037" />
+	</codePage>
+
+	<codePage value="437">
+		<charset name="IBM437" />
+		<charset name="IBM-437" />
+	</codePage>
+
+	<codePage value="500">
+		<charset name="IBM500" />
+		<charset name="IBM-500" />
+	</codePage>
+
+	<codePage value="708">
+		<charset name="ISO-8859-6" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="720">
+		<charset name="IBM-720" />
+	</codePage>
+
+	<codePage value="737">
+		<charset name="x-IBM737" />
+		<charset name="IBM-737" />
+	</codePage>
+
+	<codePage value="775">
+		<charset name="IBM775" />
+		<charset name="IBM-775" />
+	</codePage>
+
+	<codePage value="850">
+		<charset name="IBM850" />
+		<charset name="IBM-850" />
+	</codePage>
+
+	<codePage value="852">
+		<charset name="IBM852" />
+		<charset name="IBM-852" />
+	</codePage>
+
+	<codePage value="855">
+		<charset name="IBM855" />
+		<charset name="IBM-855" />
+	</codePage>
+
+	<codePage value="857">
+		<charset name="IBM857" />
+		<charset name="IBM-857" />
+	</codePage>
+
+	<codePage value="858">
+		<charset name="IBM00858" />
+		<charset name="IBM-858" />
+	</codePage>
+
+	<codePage value="860">
+		<charset name="IBM860" />
+		<charset name="IBM-860" />
+	</codePage>
+
+	<codePage value="861">
+		<charset name="IBM861" />
+		<charset name="IBM-861" />
+	</codePage>
+
+	<codePage value="862">
+		<charset name="IBM862" />
+		<charset name="IBM-862" />
+	</codePage>
+
+	<codePage value="863">
+		<charset name="IBM863" />
+		<charset name="IBM-863" />
+	</codePage>
+
+	<codePage value="864">
+		<charset name="IBM864" />
+		<charset name="IBM-864" />
+	</codePage>
+
+	<codePage value="865">
+		<charset name="IBM865" />
+		<charset name="IBM-865" />
+	</codePage>
+
+	<codePage value="866">
+		<charset name="IBM866" />
+		<charset name="IBM-866" />
+	</codePage>
+
+	<codePage value="869">
+		<charset name="IBM869" />
+		<charset name="IBM-869" />
+	</codePage>
+
+	<codePage value="870">
+		<charset name="IBM870" />
+		<charset name="IBM-870" />
+	</codePage>
+
+	<codePage value="874">
+		<charset name="x-windows-874" />
+		<charset name="x-IBM874" />
+		<charset name="x-iso-8859-11" />
+		<charset name="IBM-874" />
+		<charset name="windows-874" />
+		<charset name="TIS-620" />
+		<charset name="ISO-8859-15" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="875">
+		<charset name="x-IBM875" />
+		<charset name="IBM-875" />
+	</codePage>
+
+	<codePage value="932">
+		<charset name="windows-31j" />
+		<charset name="x-IBM942" />
+		<charset name="x-IBM942C" />
+		<charset name="x-IBM943" />
+		<charset name="x-IBM943C" />
+		<charset name="Shift_JIS" />
+	</codePage>
+
+	<codePage value="936">
+		<charset name="x-mswin-936" />
+		<charset name="windows-936" />
+		<charset name="GB2312" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="949">
+		<charset name="x-windows-949" />
+		<charset name="x-IBM949" />
+		<charset name="x-IBM949C" />
+		<charset name="windows-949" />
+		<charset name="IBM-949" />
+		<charset name="IBM-949C" />
+	</codePage>
+
+	<codePage value="950">
+		<charset name="x-windows-950" />
+		<charset name="Big5" />
+		<charset name="Big5-HKSCS" />
+		<charset name="x-IBM950" />
+		<charset name="x-MS950-HKSCS" />
+		<charset name="windows-950" />
+		<charset name="IBM-950" />
+	</codePage>
+
+	<codePage value="1026">
+		<charset name="IBM1026" />
+		<charset name="IBM-1026" />
+	</codePage>
+
+	<codePage value="1047">
+		<charset name="IBM1047" />
+		<charset name="IBM-1047" />
+	</codePage>
+
+	<codePage value="1140">
+		<charset name="IBM01140" />
+		<charset name="IBM-1140" />
+	</codePage>
+
+	<codePage value="1141">
+		<charset name="IBM01141" />
+		<charset name="IBM-1141" />
+	</codePage>
+
+	<codePage value="1142">
+		<charset name="IBM01142" />
+		<charset name="IBM-1142" />
+	</codePage>
+
+	<codePage value="1143">
+		<charset name="IBM01143" />
+		<charset name="IBM-1143" />
+	</codePage>
+
+	<codePage value="1144">
+		<charset name="IBM01144" />
+		<charset name="IBM-1144" />
+	</codePage>
+
+	<codePage value="1145">
+		<charset name="IBM01145" />
+		<charset name="IBM-1145" />
+	</codePage>
+
+	<codePage value="1146">
+		<charset name="IBM01146" />
+		<charset name="IBM-1146" />
+	</codePage>
+
+	<codePage value="1147">
+		<charset name="IBM01147" />
+		<charset name="IBM-1147" />
+	</codePage>
+
+	<codePage value="1148">
+		<charset name="IBM01148" />
+		<charset name="IBM-1148" />
+	</codePage>
+
+	<codePage value="1149">
+		<charset name="IBM01149" />
+		<charset name="IBM-1149" />
+	</codePage>
+
+	<codePage value="1200">
+		<charset name="UTF-16LE" />
+		<charset name="x-UTF-16LE-BOM" />
+	</codePage>
+
+	<codePage value="1201">
+		<charset name="UTF-16BE" />
+		<!--
+		"UTF-16" goes here with the Big Endian mappings.  See the note 
+		in CodePageMapping's class Javadoc.  Prefer the explicit
+		"UTF-16BE" canonical name.  Technically both "UTF-16" and
+		"UTF-16BE" are canonical names for slightly different encoding
+		treatments (http://docs.oracle.com/javase/1.4.2/docs/guide/intl/encoding.doc.html),
+		but there's no code page distinction for these treatments, 
+		so we have to pick one for the mapping and explicit is better. 
+		-->
+		<charset name="UTF-16" />
+	</codePage>
+
+	<codePage value="1250">
+		<charset name="windows-1250" />
+	</codePage>
+
+	<codePage value="1251">
+		<charset name="windows-1251" />
+	</codePage>
+
+	<codePage value="1252">
+		<charset name="windows-1252" />
+	</codePage>
+
+	<codePage value="1253">
+		<charset name="windows-1253" />
+	</codePage>
+
+	<codePage value="1254">
+		<charset name="windows-1254" />
+	</codePage>
+
+	<codePage value="1255">
+		<charset name="windows-1255" />
+	</codePage>
+
+	<codePage value="1256">
+		<charset name="windows-1256" />
+		<charset name="windows-1256S" />
+	</codePage>
+
+	<codePage value="1257">
+		<charset name="windows-1257" />
+	</codePage>
+
+	<codePage value="1258">
+		<charset name="windows-1258" />
+	</codePage>
+
+	<codePage value="1361">
+		<charset name="x-Johab" />
+		<charset name="Johab" />
+	</codePage>
+
+	<codePage value="10000">
+		<charset name="x-MacRoman" />
+		<charset name="MacRoman" />
+	</codePage>
+
+	<codePage value="10004">
+		<charset name="x-MacArabic" />
+		<charset name="MacArabic" />
+	</codePage>
+
+	<codePage value="10005">
+		<charset name="x-MacHebrew" />
+		<charset name="MacHebrew" />
+	</codePage>
+
+	<codePage value="10006">
+		<charset name="x-MacGreek" />
+		<charset name="MacGreek" />
+	</codePage>
+
+	<codePage value="10007">
+		<charset name="x-MacCyrillic" />
+		<charset name="MacCyrillic" />
+	</codePage>
+
+	<codePage value="10010">
+		<charset name="x-MacRomania" />
+		<charset name="MacRomania" />
+	</codePage>
+
+	<codePage value="10017">
+		<charset name="x-MacUkraine" />
+		<charset name="MacUkraine" />
+	</codePage>
+
+	<codePage value="10021">
+		<charset name="x-MacThai" />
+		<charset name="MacThai" />
+	</codePage>
+
+	<codePage value="10029">
+		<charset name="x-MacCentralEurope" />
+		<charset name="MacCentralEurope" />
+	</codePage>
+
+	<codePage value="10079">
+		<charset name="x-MacIceland" />
+		<charset name="MacIceland" />
+	</codePage>
+
+	<codePage value="10081">
+		<charset name="x-MacTurkish" />
+		<charset name="MacTurkish" />
+	</codePage>
+
+	<codePage value="10082">
+		<charset name="x-MacCroatian" />
+		<charset name="MacCroatian" />
+	</codePage>
+
+	<codePage value="12000">
+		<charset name="UTF-32LE" />
+		<charset name="X-UTF-32LE-BOM" />
+	</codePage>
+
+	<codePage value="12001">
+		<charset name="UTF-32BE" />
+		<!--
+		"UTF-32" goes here with the Big Endian mappings.  See the note 
+		in CodePageMapping's class Javadoc.  Prefer the explicit
+		"UTF-32BE" canonical name.
+		-->
+		<charset name="UTF-32" />
+		<charset name="X-UTF-32BE-BOM" />
+	</codePage>
+
+	<codePage value="20000">
+		<charset name="x-EUC-TW" />
+		<charset name="EUC-TW" />
+	</codePage>
+
+	<codePage value="20127">
+		<charset name="US-ASCII" />
+	</codePage>
+
+	<codePage value="20273">
+		<charset name="IBM273" />
+		<charset name="IBM-273" />
+	</codePage>
+
+	<codePage value="20277">
+		<charset name="IBM277" />
+		<charset name="IBM-277" />
+	</codePage>
+
+	<codePage value="20278">
+		<charset name="IBM278" />
+		<charset name="IBM-278" />
+	</codePage>
+
+	<codePage value="20280">
+		<charset name="IBM280" />
+		<charset name="IBM-280" />
+	</codePage>
+
+	<codePage value="20284">
+		<charset name="IBM284" />
+		<charset name="IBM-284" />
+	</codePage>
+
+	<codePage value="20285">
+		<charset name="IBM285" />
+		<charset name="IBM-285" />
+	</codePage>
+
+	<codePage value="20290">
+		<charset name="IBM-290" />
+	</codePage>
+
+	<codePage value="20297">
+		<charset name="IBM297" />
+		<charset name="IBM-297" />
+	</codePage>
+
+	<codePage value="20420">
+		<charset name="IBM420" />
+		<charset name="IBM-420" />
+		<charset name="IBM-420S" />
+	</codePage>
+
+	<codePage value="20424">
+		<charset name="IBM424" />
+		<charset name="IBM-424" />
+	</codePage>
+
+	<codePage value="20833">
+		<charset name="IBM-833" />
+	</codePage>
+
+	<codePage value="20838">
+		<charset name="IBM-Thai" />
+		<charset name="IBM-838" />
+	</codePage>
+
+	<codePage value="20866">
+		<charset name="KOI8-R" />
+	</codePage>
+
+	<codePage value="20871">
+		<charset name="IBM871" />
+		<charset name="IBM-871" />
+	</codePage>
+
+	<codePage value="20924">
+		<charset name="IBM-924" />
+	</codePage>
+
+	<codePage value="20932">
+		<charset name="EUC-JP" />
+		<charset name="x-euc-jp-linux" />
+	</codePage>
+
+	<codePage value="20936">
+		<charset name="GB2312" />
+	</codePage>
+
+	<codePage value="21025">
+		<charset name="x-IBM1025" />
+		<charset name="IBM-1025" />
+	</codePage>
+
+	<codePage value="21866">
+		<charset name="KOI8-U" />
+	</codePage>
+
+	<codePage value="28591">
+		<charset name="ISO-8859-1" />
+	</codePage>
+
+	<codePage value="28592">
+		<charset name="ISO-8859-2" />
+	</codePage>
+
+	<codePage value="28593">
+		<charset name="ISO-8859-3" />
+	</codePage>
+
+	<codePage value="28594">
+		<charset name="ISO-8859-4" />
+	</codePage>
+
+	<codePage value="28595">
+		<charset name="ISO-8859-5" />
+	</codePage>
+
+	<codePage value="28596">
+		<charset name="ISO-8859-6" />
+		<charset name="ISO-8859-6S" />
+	</codePage>
+
+	<codePage value="28597">
+		<charset name="ISO-8859-7" />
+	</codePage>
+
+	<codePage value="28598">
+		<charset name="ISO-8859-8" />
+	</codePage>
+
+	<codePage value="28599">
+		<charset name="ISO-8859-9" />
+	</codePage>
+
+	<codePage value="28603">
+		<charset name="ISO-8859-13" />
+	</codePage>
+
+	<codePage value="28605">
+		<charset name="ISO-8859-15" />
+	</codePage>
+
+	<codePage value="50220">
+		<charset name="x-windows-50220" />
+	</codePage>
+
+	<codePage value="50221">
+		<charset name="x-windows-50221" />
+	</codePage>
+
+	<codePage value="50222">
+		<charset name="x-windows-iso2022jp" />
+		<charset name="ISO-2022-JP" />
+	</codePage>
+
+	<codePage value="50225">
+		<charset name="ISO-2022-KR" />
+	</codePage>
+
+	<codePage value="50227">
+		<charset name="ISO-2022-CN" />
+	</codePage>
+
+	<codePage value="51932">
+		<charset name="EUC-JP" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="51936">
+		<charset name="GB2312" reverseMapping="false" />
+		<charset name="EUC-CN" />
+	</codePage>
+
+	<codePage value="51949">
+		<charset name="EUC-KR" />
+	</codePage>
+
+	<codePage value="54936">
+		<charset name="GB18030" />
+	</codePage>
+
+	<codePage value="57002">
+		<charset name="x-ISCII91" />
+		<charset name="ISCII91" />
+	</codePage>
+
+	<codePage value="57003">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57004">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57005">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57006">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57007">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57008">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57009">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57010">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="57011">
+		<charset name="x-ISCII91" reverseMapping="false" />
+		<charset name="ISCII91" reverseMapping="false" />
+	</codePage>
+
+	<codePage value="65001">
+		<charset name="UTF-8" />
+	</codePage>
+
+</codePageMappings>

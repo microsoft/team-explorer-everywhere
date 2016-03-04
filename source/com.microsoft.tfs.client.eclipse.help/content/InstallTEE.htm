@@ -1,0 +1,574 @@
+﻿<html DIR="LTR" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:tool="http://www.microsoft.com/tooltip"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=Windows-1252"></META><META NAME="save" CONTENT="history"></META><title>Installing the Team Explorer Everywhere Plug-in and the Command-line Client</title><STYLE TYPE="text/css">
+    body
+    {
+        background:    #FFFFFF;
+        color: #000000;
+        font-family: "Segoe UI", Verdana, sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: normal;
+        margin-top:    0;
+        margin-bottom:    0;
+        margin-left:    0;
+        margin-right:    0;
+    }
+    
+    a
+    {
+        color:    #0000FF;
+    }
+    
+    a:visited
+    {
+        color:    #0000FF;
+    }
+    
+    a:link
+    {
+        color:    #0000FF;
+    }
+    
+    a:hover
+    {
+        color:    #FF0000;
+        cursor: hand;
+    }
+    
+    a:active
+    {
+        color:    #FF0000;
+        cursor: hand;
+    }
+    
+    div#mainSection
+    {
+        width: 100%;
+    }
+    
+    div#mainBody
+    {
+        margin: 10px;
+        padding-bottom: 20;
+    }
+    
+    div#header
+    {
+        background-color: #D4DFFF;
+        padding-top:    0;
+        padding-bottom:    0;
+        padding-left:    0;
+        padding-right:    0;
+        width:    100%;
+    }
+    
+    div#header table
+    {
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        width:    100%;
+    }
+    
+    span#runningHeaderText
+    {
+        color: #003399;
+    }
+    
+    span#nsrTitle
+    {
+        color: #003399;
+        font-weight: 600;
+        font-size: 125%;
+    }
+    
+    div#header table td
+    {
+        color: #0000FF;
+        margin-top:    0;
+        margin-bottom:    0;
+        padding-right: 20;
+    }
+    
+    div#header table tr#headerTableRow3 td
+    {
+        padding-bottom: 2;
+        padding-top: 5;
+    }
+    
+    div#header table#bottomTable
+    {
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        text-align: left;
+    }
+    
+    div#footer
+    {
+        margin-top:    0;
+        margin-bottom:    0;
+        margin-left:    0;
+        margin-right:    0;
+        padding-top:    2;
+        padding-bottom:    2;
+        padding-left:    2;
+        padding-right:    2;
+        width:    100%;
+    }
+    
+    hr#footerHR
+    {
+        border-bottom-color: #EEEEFF;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        border-top-color: C8CDDE;
+        border-top-style: solid;
+        border-top-width: 1;
+        height: 3;
+        color: #D4DFFF;
+    }
+    
+    div.section
+    {
+        padding-top:    2;
+        padding-bottom:    2;
+        padding-left:    16;
+        padding-right:    15;
+        width:    100%;
+    }
+    
+    .heading
+    {
+        font-weight:    bold;
+        margin-top:        18;
+        margin-bottom:    8;
+    }
+    
+    h1.heading
+    {
+        color: #003399;
+    }
+    
+    .subHeading
+    {
+        font-weight:    bold;
+        margin-bottom:    4;
+    }
+    
+    h3.subHeading
+    {
+        color:  #003399;
+        font-weight: bold;
+    }
+    
+    h4.subHeading
+    {
+        color: #003399;
+    }
+    
+    h5.subHeading
+    {
+        color: #003399;
+    }
+    
+    img.toggle
+    {
+    	border: 0;
+	margin-right: 5;
+    }
+
+    img.copyCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.downloadCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.viewCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.note
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img#languageFilterImage
+    {
+	border: 0;
+	margin-left: 10;
+	vertical-align: middle;
+    }
+
+    img#membersOptionsFilterImage
+    {
+	border: 0;
+	margin-left: 10;
+	vertical-align: middle;
+    }
+
+    img#toggleAllImage
+    {
+	margin-left: 4;
+	vertical-align: middle;
+    }
+    
+    div#mainSection table
+    {
+        border: 0;
+        width:    100%;
+    }
+    
+    div#mainSection table th
+    {
+        background:    #EFEFF7;
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        color: #000066;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div#mainSection table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div#mainSection table td.imageCell
+    {
+        white-space: nowrap;
+    }
+    
+    div.code table
+    {
+        border: 0;
+        margin-bottom: 5;
+        width: 100%
+    }
+    
+    div.code table th
+    {    
+        background:    #EFEFF7;
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        color: #000066;
+        font-weight: bold;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div.code table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+        padding-top: 5;
+    }
+    
+    div.alert table
+    {
+        border: 0;
+        width:    100%;
+    }
+    
+    div.alert table th
+    {
+        background:    #EFEFF7;
+        border-bottom-width: 0;
+        color: #000066;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div.alert table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    .copyCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    .downloadCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    .viewCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    div.code pre
+    {
+        font-family:    Monospace, Courier New, Courier;
+        color:    #000066;
+        word-wrap:    break-word;
+    }
+    
+    code
+    {
+        font-family:    Monospace, Courier New, Courier;
+        color:    #000066;
+    }
+    
+    dl
+    {
+        margin-top:    0;
+        padding-left:    1;
+    }
+    
+    dt
+    {
+        font-style:    italic;
+    }
+    
+    dd
+    {
+        margin-bottom:    0;
+        margin-left:    0;
+    }
+    
+    ul
+    {
+        margin-left: 17;
+        list-style-type: disc;
+    }
+    
+    ul ul
+    {
+        margin-bottom: 4;
+        margin-left: 17;
+        margin-top: 3;
+        list-style-type: disc;
+    }
+    
+    ol
+    {
+        margin-left: 24;
+        list-style-type: decimal;
+    }
+    
+    ol ol
+    {
+        margin-bottom: 4;
+        margin-left: 24;
+        margin-top: 3;
+        list-style-type: lower-alpha;
+    }
+    
+    li
+    {
+        margin-bottom: 3;
+    }
+    
+    p
+    {
+        margin-top: 0;
+        margin-bottom: 15;
+    }
+    
+    .tip
+    {
+        color:    #0000FF;
+        font-style: italic;
+        cursor:hand;
+        text-decoration:underline;
+    }
+    
+    .languageFilter
+    {
+        color:    #0000FF;
+        cursor:hand;
+        text-decoration:underline;
+        padding-bottom:4;
+    }
+    
+    .math
+    {
+        font-family: Times New Roman;
+    }
+    
+    .sourceCodeList
+    {
+
+    }
+    
+    pre.viewCode
+    {
+        width: 100%;
+        overflow: auto;
+    }
+    
+    MSHelp\:link
+    {
+        text-decoration: underline;
+        color: #0000ff; 
+        hoverColor: #3366ff;
+        filterString: ;
+    }
+</STYLE>
+</head>
+<body><input type="hidden" id="userDataCache" class="userDataStyle"></input><input type="hidden" id="hiddenScrollOffset"></input><img id="dropDownImage" style="display:none; height:0; width:0;" src="drpdown.gif"><img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="drpdown_orange.gif"><img id="collapseImage" style="display:none; height:0; width:0;" src="collapse.gif"><img id="expandImage" style="display:none; height:0; width:0;" src="exp.gif"><img id="copyImage" style="display:none; height:0; width:0;" src="copycode.gif"><img id="copyHoverImage" style="display:none; height:0; width:0;" src="copycodeHighlight.gif"><div id="header"><table width="100%" id="topTable"><tr id="headerTableRow1"><td align="left"><span id="runningHeaderText"></span></td></tr><tr id="headerTableRow2"><td align="left"><span id="nsrTitle">Installing the Team Explorer Everywhere Plug-in and the Command-line Client</span></td></tr><tr id="headerTableRow3"></tr></table></div><div id="mainSection"><div id="mainBody"><div id="allHistory" class="saveHistory"></div>
+				<p>You can use Team Explorer Everywhere and Visual Studio Team Foundation Server
+ as part of your development processes with Eclipse to track work items, provide version control, and automate builds. You must install either the Team Explorer Everywhere plug-in for Eclipse or the Cross-platform Command-line Client for Team Foundation Server before you can use those features.</p>
+				<p>
+					<b>In this topic</b>
+				</p>
+				<ul><li class="unordered">
+							<a href="#Prerequisites">Prerequisites</a>
+					</li><li class="unordered">
+							<a href="#InstallPlugin">Install the Team Explorer Everywhere Plug-in For Eclipse</a>
+					</li><li class="unordered">
+							<a href="#InstallCLC">Install the Cross-platform Command-line Client for Team Foundation Server</a>
+					</li></ul>
+			<a name="Prerequisites"></a><a name="InstallTEE#Prerequisites"></a><h1 class="heading">Prerequisites</h1><div id="sectionSection0" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+					<p xmlns="">You must install a supported version of Eclipse, which you can obtain from the following Web site: <a href="http://go.microsoft.com/fwlink/?LinkID=184800" target="_blank" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Eclipse.org home</linkText></a>. </p>
+					<p xmlns="">
+						<b>Operating system requirements:</b>
+					</p>
+					<ul xmlns="">
+						<li>Windows 10 (x86 and x64)</li>
+						<li>Windows 8.1 (x86 and x64)</li>
+						<li>Windows 8 (x86, x64)</li>
+						<li>Windows 7 (x86, x64)</li>
+						<li>Windows Vista (x86, x64)</li>
+						<li>Linux with GLIBC 2.3 to 2.11 (x86, x86_64, PowerPC)</li>
+						<li>Mac OS X  10.8+ (Intel only)</li>
+						<li>Solaris 8 to 11 (SPARC,x64)</li>
+						<li>AIX 5.2 to 7.1(32 and 64 bit)</li>
+						<li>HP-UX 11i v1 to v3 (PA-RISC, Itanium)</li>
+					</ul>
+					<p xmlns="">
+						<b>Integrated development environment (IDE) requirements:</b>
+					</p>
+					<ul xmlns="">
+						<li>IDEs that are based on Eclipse 3.5 to 4.4 on Windows, Linux, Mac OS X, Solaris, AIX, or HP-UX.</li>
+					</ul>
+					<p xmlns="">
+						<b>Java runtime requirements:</b>
+					</p>
+					<ul xmlns="">
+						<li>Oracle Java™ 1.6+ or IBM Java™ 1.6+ on Microsoft Windows</li>
+						<li>Apple Java™ 1.6+ on Mac OS X</li>
+						<li>Oracle Java™ 1.6+ on Linux or Solaris</li>
+						<li>IBM Java™ 1.6+ on Linux or AIX</li>
+						<li>HP Java™ 1.6+ on HP-UX</li>
+					</ul>
+					<p xmlns="">
+						<b>Team Foundation Server requirements:</b>
+					</p>
+					<ul xmlns="">
+						<li><a href="https://www.visualstudio.com/products/visual-studio-team-services-vs">Visual Studio Team Services</a></li>
+						<li>Visual Studio Team Foundation Server 2015</li>
+						<li>Visual Studio Team Foundation Server 2013</li>
+						<li>Visual Studio Team Foundation Server 2012</li>
+						<li>Visual Studio Team Foundation Server 2010</li>
+					</ul>
+				</content></div>
+				<a name="InstallPlugin"></a>
+				<a name="InstallTEE#InstallPlugin"></a>
+				<h1 class="heading">Install the Team Explorer Everywhere Plug-in For Eclipse</h1>
+				<div id="sectionSection1" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+					<p xmlns="">You must install the plug-in before you can use it in your development processes. You can install into Eclipse directly from the update site, or you can install from the Eclipse Update Site Archive.</p>
+					<h4 class="subHeading" xmlns=""><b>To install the plug-in from the Update Site</b></h4>
+					<div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"><ol class="ordered" xmlns="">
+						<li>Open Eclipse.</li>
+						<li>On the <b>Help</b> menu, choose <b>Install New Software.</b></li>
+						<li>The <b>Install</b> dialog box appears.</li>
+						<li>Choose the <b>Add</b> button.</li>
+						<li>The <b>Add Repository</b> dialog box appears.</li>
+						<li>For the name, enter "Team Explorer Everywhere"</li>
+						<li>Specify the location of the update site: <b>http://dl.microsoft.com/eclipse/tfs</b></li>
+						<li>Choose the <b>OK</b> button. </li>
+						<li>In the list of features in the Install dialog box, select the check box that corresponds to the <b>Team Explorer Everywhere Plug-in for Eclipse</b>. If you don't see this option, use the pull-down menu for <b>Work with</b> and find the update site URL you just entered in the list and select it, then select the check box beside the plug-in mentioned above.</li>
+						<li>Choose the <b>Next</b> button <u>two</u> times.</li>
+						<li>If you agree to the Microsoft Software License Terms, accept them and then choose the <b>Finish</b> button.</li>
+						<li>Restart Eclipse when you are prompted.</li>
+					</ol></ddue:steps></div>
+				</content>
+					<h4 class="subHeading" xmlns=""><b>To install the plug-in from the update site archive</b></h4><div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"><ol class="ordered" xmlns="">
+						<div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Note </th></tr><tr><td>
+							The standard update site mechanism above is the preferred installation method, however this requires a connection to the internet 
+							and will install the very latest version of the plug-in from Microsoft.  If the installation machine is not directly connected to
+							the internet or the organization prefers that a specific version of the plug-in is installed by everyone then following 
+							method may more suitable.<p></p>
+						</td></tr></table><p></p></div>
+							<li>Use the link on this page to download TFSEclipsePlugin-UpdateSiteArchive-14.0.2.zip.</li>
+							<li>Open Eclipse.</li>
+							<li>On the <b>Help</b> menu, choose <b>Install New Software</b>. </li>
+							<li>The <b>Install</b> dialog box appears. </li>
+							<li>Choose the <b>Add</b> button.</li>
+							<li>The <b>Add Repository</b> dialog box appears.</li>
+							<li>For the name, enter "Local Team Explorer Everywhere update archive".</li>
+							<li>Choose the <b>Archive</b> button.</li>
+							<li>The <b>Repository archive</b> dialog box appears.</li>
+							<li>Find and select the downloaded "<b>TFSEclipsePlugin-UpdateSiteArchive-14.0.2.zip</b>" file as the File name.</li>
+							<li> Choose the <b>Open</b> button.</li>
+							<li>Choose the <b>OK</b> button. </li>
+							<li>In the list of features in the Install dialog box, select the check box that corresponds to the <b>Team Explorer Everywhere Plug-in for Eclipse</b>.</li>
+							<li>Choose the <b>Next</b> button <u>two</u> times.</li>
+							<li>If you agree to the Microsoft Software License Terms, accept them and then choose the <b>Finish</b> button.</li>
+							<li>Restart Eclipse when you are prompted.</li>
+						</ol></ddue:steps></div>
+				</content>				
+				
+				</sections></div><a name="InstallCLC"></a><a name="InstallTEE#InstallCLC"></a><h1 class="heading">Install the Cross-platform Command-line Client for Team Foundation Server</h1><div id="sectionSection2" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+					<p xmlns="">You can perform many version control operations from the Cross-platform Command-line Client for Team Foundation Server. Before you can use this client, you must install it and configure your shell or system path to include the installation folder.</p>
+					<h4 class="subHeading" xmlns=""><b>To install the Cross-Platform Command-Line Client for Team Foundation Server</b></h4><div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+						<ol>
+							<li>Use the link on this page to download TEE-CLC-14.0.2.zip.</li>
+							<li>Unzip the archive (TEE-CLC-14.0.2.zip file) that contains the client.</li>
+							<li>Configure your shell or system path to include the folder to which you unzipped the archive.</li>
+							<li>To verify that the client is working, at a command prompt, type <b>tf</b>, and then press the ENTER key.</li>
+						</ol>
+						If the client is correctly installed, output appears, starting with "Microsoft Team Explorer Everywhere Command-line Client (version 14.0.2)".<br/>
+						<br/>
+						For information about any of the commands, you can type <b>tf help Command</b>, where <b>Command</b> is the name of the command for which you want information. For example, you could type <b>tf help checkin</b>. You can also type <b>tf command /help</b> or <b>tf command -help</b> to obtain help.<br/><br/>
+						<div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">Note </th></tr><tr><td>
+							You can control the behaviour of the command line client by setting environment variables in your shell, such as specifying a HTTP Proxy to use, enable automatic caching of your credentials or control you diff/merge tool.
+							For information on the environment variables to set see the <a href="http://go.microsoft.com/fwlink/?LinkId=258349">Set Environment Variables</a> topic on MSDN.<p></p>
+						</td></tr></table><p></p></div>
+						</ddue:steps></div>
+				</content></div>
+				</sections></div><!--[if gte IE 5]>
+			<tool:tip element="languageFilterToolTip" avoidmouse="false"/>
+		<![endif]--></div>
+	<div id="footer"><hr /><p />
+		<div class="FooterLinks">
+			<span class="FooterCopyright" title="© 2015 Microsoft. All rights reserved.">&copy; 2015 Microsoft. All rights reserved.</span>
+			<a href="http://go.microsoft.com/fwlink/?LinkID=258799" title="Terms of Use">Terms of Use</a> 
+			<span class="Pipe">&nbsp;|&nbsp;</span>
+			<a href="http://go.microsoft.com/fwlink/?LinkId=258800" title="Trademarks">Trademarks</a>
+		</div> 
+	</div>
+</div>
+</body>
+</html>

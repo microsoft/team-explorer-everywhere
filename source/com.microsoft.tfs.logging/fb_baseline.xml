@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.9" sequence="1" timestamp="1265819383983" analysisTimestamp="1265819383484" release="">
+  <Project></Project>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider">
+      <SourceLine classname="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider" sourcefile="ClassloaderConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/ClassloaderConfigurationProvider.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider" name="&lt;init&gt;" signature="(Ljava/lang/ClassLoader;[Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider" start="16" end="28" startBytecode="0" endBytecode="132" sourcefile="ClassloaderConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/ClassloaderConfigurationProvider.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider" name="resourceNames" signature="[Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider" sourcefile="ClassloaderConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/ClassloaderConfigurationProvider.java"/>
+    </Field>
+    <LocalVariable name="resourceNames" register="2" pc="39" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider" start="27" end="27" startBytecode="39" endBytecode="39" sourcefile="ClassloaderConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/ClassloaderConfigurationProvider.java"/>
+  </BugInstance>
+  <BugInstance type="EI_EXPOSE_REP2" priority="2" abbrev="EI2" category="MALICIOUS_CODE" first="1">
+    <Class classname="com.microsoft.tfs.logging.config.FromFileConfigurationProvider">
+      <SourceLine classname="com.microsoft.tfs.logging.config.FromFileConfigurationProvider" sourcefile="FromFileConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/FromFileConfigurationProvider.java"/>
+    </Class>
+    <Method classname="com.microsoft.tfs.logging.config.FromFileConfigurationProvider" name="&lt;init&gt;" signature="([Ljava/io/File;)V" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.logging.config.FromFileConfigurationProvider" start="15" end="23" startBytecode="0" endBytecode="91" sourcefile="FromFileConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/FromFileConfigurationProvider.java"/>
+    </Method>
+    <Field classname="com.microsoft.tfs.logging.config.FromFileConfigurationProvider" name="locations" signature="[Ljava/io/File;" isStatic="false">
+      <SourceLine classname="com.microsoft.tfs.logging.config.FromFileConfigurationProvider" sourcefile="FromFileConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/FromFileConfigurationProvider.java"/>
+    </Field>
+    <LocalVariable name="locations" register="1" pc="20" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="com.microsoft.tfs.logging.config.FromFileConfigurationProvider" start="22" end="22" startBytecode="20" endBytecode="20" sourcefile="FromFileConfigurationProvider.java" sourcepath="com/microsoft/tfs/logging/config/FromFileConfigurationProvider.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Wed, 10 Feb 2010 16:29:43 +0000" total_classes="12" referenced_classes="37" total_bugs="0" total_size="160" num_packages="1" vm_version="14.3-b01" cpu_seconds="5.58" clock_seconds="34.06" peak_mbytes="355.29" alloc_mbytes="254.06" gc_seconds="0.63">
+    <PackageStats package="com.microsoft.tfs.logging.config" total_bugs="0" total_types="12" total_size="160">
+      <ClassStats class="com.microsoft.tfs.logging.config.ClassloaderConfigurationProvider" sourceFile="ClassloaderConfigurationProvider.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.Config" sourceFile="Config.java" interface="false" size="30" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.DebugLogger" sourceFile="DebugLogger.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.EnableReconfigurationPolicy" sourceFile="EnableReconfigurationPolicy.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.EnableReconfigurationPolicy$1" sourceFile="EnableReconfigurationPolicy.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.EnableReconfigurationPolicy$2" sourceFile="EnableReconfigurationPolicy.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.FromFileConfigurationProvider" sourceFile="FromFileConfigurationProvider.java" interface="false" size="17" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.LoggingConfigurationProvider" sourceFile="LoggingConfigurationProvider.java" interface="true" size="2" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.MultiConfigurationProvider" sourceFile="MultiConfigurationProvider.java" interface="false" size="16" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.ResetConfigurationPolicy" sourceFile="ResetConfigurationPolicy.java" interface="false" size="11" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.ResetConfigurationPolicy$1" sourceFile="ResetConfigurationPolicy.java" interface="false" size="8" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.logging.config.ResetConfigurationPolicy$2" sourceFile="ResetConfigurationPolicy.java" interface="false" size="8" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="12" invocations="29" avgMicrosecondsPerInvocation="425" maxMicrosecondsPerInvocation="3376" standardDeviationMircosecondsPerInvocation="765"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="12" invocations="29" avgMicrosecondsPerInvocation="437" maxMicrosecondsPerInvocation="3822" standardDeviationMircosecondsPerInvocation="784"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="14" invocations="47" avgMicrosecondsPerInvocation="311" maxMicrosecondsPerInvocation="2509" standardDeviationMircosecondsPerInvocation="606"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="15" invocations="36" avgMicrosecondsPerInvocation="417" maxMicrosecondsPerInvocation="2348" standardDeviationMircosecondsPerInvocation="612"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="22" invocations="29" avgMicrosecondsPerInvocation="771" maxMicrosecondsPerInvocation="15796" standardDeviationMircosecondsPerInvocation="2856"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="28" invocations="800" avgMicrosecondsPerInvocation="35" maxMicrosecondsPerInvocation="369" standardDeviationMircosecondsPerInvocation="46"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.impl.ZipCodeBaseFactory" totalMilliseconds="34" invocations="16" avgMicrosecondsPerInvocation="2178" maxMicrosecondsPerInvocation="32230" standardDeviationMircosecondsPerInvocation="7759"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="44" invocations="37" avgMicrosecondsPerInvocation="1200" maxMicrosecondsPerInvocation="19594" standardDeviationMircosecondsPerInvocation="3234"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="56" invocations="359" avgMicrosecondsPerInvocation="157" maxMicrosecondsPerInvocation="14715" standardDeviationMircosecondsPerInvocation="825"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="60" invocations="359" avgMicrosecondsPerInvocation="169" maxMicrosecondsPerInvocation="12496" standardDeviationMircosecondsPerInvocation="801"/>
+      <ClassProfile name="edu.umd.cs.findbugs.FindBugs2" totalMilliseconds="122" invocations="2" avgMicrosecondsPerInvocation="61189" maxMicrosecondsPerInvocation="116904" standardDeviationMircosecondsPerInvocation="55715"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1265819383983" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>

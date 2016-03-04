@@ -1,0 +1,570 @@
+﻿<html DIR="LTR" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:tool="http://www.microsoft.com/tooltip"><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; CHARSET=UTF-8"></META><META NAME="save" CONTENT="history"></META><title>正在安裝 Team Explorer Everywhere 外掛程式與命令列用戶端</title><STYLE TYPE="text/css">
+    body
+    {
+        background:    #FFFFFF;
+        color: #000000;
+        font-family: "Segoe UI", Verdana, sans-serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: normal;
+        margin-top:    0;
+        margin-bottom:    0;
+        margin-left:    0;
+        margin-right:    0;
+    }
+    
+    a
+    {
+        color:    #0000FF;
+    }
+    
+    a:visited
+    {
+        color:    #0000FF;
+    }
+    
+    a:link
+    {
+        color:    #0000FF;
+    }
+    
+    a:hover
+    {
+        color:    #FF0000;
+        cursor: hand;
+    }
+    
+    a:active
+    {
+        color:    #FF0000;
+        cursor: hand;
+    }
+    
+    div#mainSection
+    {
+        width: 100%;
+    }
+    
+    div#mainBody
+    {
+        margin: 10px;
+        padding-bottom: 20;
+    }
+    
+    div#header
+    {
+        background-color: #D4DFFF;
+        padding-top:    0;
+        padding-bottom:    0;
+        padding-left:    0;
+        padding-right:    0;
+        width:    100%;
+    }
+    
+    div#header table
+    {
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        width:    100%;
+    }
+    
+    span#runningHeaderText
+    {
+        color: #003399;
+    }
+    
+    span#nsrTitle
+    {
+        color: #003399;
+        font-weight: 600;
+        font-size: 125%;
+    }
+    
+    div#header table td
+    {
+        color: #0000FF;
+        margin-top:    0;
+        margin-bottom:    0;
+        padding-right: 20;
+    }
+    
+    div#header table tr#headerTableRow3 td
+    {
+        padding-bottom: 2;
+        padding-top: 5;
+    }
+    
+    div#header table#bottomTable
+    {
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        text-align: left;
+    }
+    
+    div#footer
+    {
+        margin-top:    0;
+        margin-bottom:    0;
+        margin-left:    0;
+        margin-right:    0;
+        padding-top:    2;
+        padding-bottom:    2;
+        padding-left:    2;
+        padding-right:    2;
+        width:    100%;
+    }
+    
+    hr#footerHR
+    {
+        border-bottom-color: #EEEEFF;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        border-top-color: C8CDDE;
+        border-top-style: solid;
+        border-top-width: 1;
+        height: 3;
+        color: #D4DFFF;
+    }
+    
+    div.section
+    {
+        padding-top:    2;
+        padding-bottom:    2;
+        padding-left:    16;
+        padding-right:    15;
+        width:    100%;
+    }
+    
+    .heading
+    {
+        font-weight:    bold;
+        margin-top:        18;
+        margin-bottom:    8;
+    }
+    
+    h1.heading
+    {
+        color: #003399;
+    }
+    
+    .subHeading
+    {
+        font-weight:    bold;
+        margin-bottom:    4;
+    }
+    
+    h3.subHeading
+    {
+        color:  #003399;
+        font-weight: bold;
+    }
+    
+    h4.subHeading
+    {
+        color: #003399;
+    }
+    
+    h5.subHeading
+    {
+        color: #003399;
+    }
+    
+    img.toggle
+    {
+    	border: 0;
+	margin-right: 5;
+    }
+
+    img.copyCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.downloadCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.viewCodeImage
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img.note
+    {
+	border: 0;
+	margin-right: 3;
+    }
+
+    img#languageFilterImage
+    {
+	border: 0;
+	margin-left: 10;
+	vertical-align: middle;
+    }
+
+    img#membersOptionsFilterImage
+    {
+	border: 0;
+	margin-left: 10;
+	vertical-align: middle;
+    }
+
+    img#toggleAllImage
+    {
+	margin-left: 4;
+	vertical-align: middle;
+    }
+    
+    div#mainSection table
+    {
+        border: 0;
+        width:    100%;
+    }
+    
+    div#mainSection table th
+    {
+        background:    #EFEFF7;
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        color: #000066;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div#mainSection table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div#mainSection table td.imageCell
+    {
+        white-space: nowrap;
+    }
+    
+    div.code table
+    {
+        border: 0;
+        margin-bottom: 5;
+        width: 100%
+    }
+    
+    div.code table th
+    {    
+        background:    #EFEFF7;
+        border-bottom-color: #C8CDDE;
+        border-bottom-style: solid;
+        border-bottom-width: 1;
+        color: #000066;
+        font-weight: bold;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div.code table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+        padding-top: 5;
+    }
+    
+    div.alert table
+    {
+        border: 0;
+        width:    100%;
+    }
+    
+    div.alert table th
+    {
+        background:    #EFEFF7;
+        border-bottom-width: 0;
+        color: #000066;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    div.alert table td
+    {
+        background:    #F7F7FF;
+        border-top-color: #FFFFFF;
+        border-top-style: solid;
+        border-top-width: 1;
+        padding-left: 5;
+        padding-right: 5;
+    }
+    
+    .copyCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    .downloadCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    .viewCode
+    {
+        color: #0000ff;
+        font-weight: normal;
+    }
+    
+    div.code pre
+    {
+        font-family:    Monospace, Courier New, Courier;
+        color:    #000066;
+        word-wrap:    break-word;
+    }
+    
+    code
+    {
+        font-family:    Monospace, Courier New, Courier;
+        color:    #000066;
+    }
+    
+    dl
+    {
+        margin-top:    0;
+        padding-left:    1;
+    }
+    
+    dt
+    {
+        font-style:    italic;
+    }
+    
+    dd
+    {
+        margin-bottom:    0;
+        margin-left:    0;
+    }
+    
+    ul
+    {
+        margin-left: 17;
+        list-style-type: disc;
+    }
+    
+    ul ul
+    {
+        margin-bottom: 4;
+        margin-left: 17;
+        margin-top: 3;
+        list-style-type: disc;
+    }
+    
+    ol
+    {
+        margin-left: 24;
+        list-style-type: decimal;
+    }
+    
+    ol ol
+    {
+        margin-bottom: 4;
+        margin-left: 24;
+        margin-top: 3;
+        list-style-type: lower-alpha;
+    }
+    
+    li
+    {
+        margin-bottom: 3;
+    }
+    
+    p
+    {
+        margin-top: 0;
+        margin-bottom: 15;
+    }
+    
+    .tip
+    {
+        color:    #0000FF;
+        font-style: italic;
+        cursor:hand;
+        text-decoration:underline;
+    }
+    
+    .languageFilter
+    {
+        color:    #0000FF;
+        cursor:hand;
+        text-decoration:underline;
+        padding-bottom:4;
+    }
+    
+    .math
+    {
+        font-family: Times New Roman;
+    }
+    
+    .sourceCodeList
+    {
+
+    }
+    
+    pre.viewCode
+    {
+        width: 100%;
+        overflow: auto;
+    }
+    
+    MSHelp\:link
+    {
+        text-decoration: underline;
+        color: #0000ff; 
+        hoverColor: #3366ff;
+        filterString: ;
+    }
+</STYLE>
+</head>
+<body><input type="hidden" id="userDataCache" class="userDataStyle"></input><input type="hidden" id="hiddenScrollOffset"></input><img id="dropDownImage" style="display:none; height:0; width:0;" src="drpdown.gif"><img id="dropDownHoverImage" style="display:none; height:0; width:0;" src="drpdown_orange.gif"><img id="collapseImage" style="display:none; height:0; width:0;" src="collapse.gif"><img id="expandImage" style="display:none; height:0; width:0;" src="exp.gif"><img id="copyImage" style="display:none; height:0; width:0;" src="copycode.gif"><img id="copyHoverImage" style="display:none; height:0; width:0;" src="copycodeHighlight.gif"><div id="header"><table width="100%" id="topTable"><tr id="headerTableRow1"><td align="left"><span id="runningHeaderText"></span></td></tr><tr id="headerTableRow2"><td align="left"><span id="nsrTitle">正在安裝 Team Explorer Everywhere 外掛程式與命令列用戶端</span></td></tr><tr id="headerTableRow3"></tr></table></div><div id="mainSection"><div id="mainBody"><div id="allHistory" class="saveHistory"></div>
+				<p>利用 Eclipse 可於開發程序中使用 Team Explorer Everywhere 與 Visual Studio Team Foundation Server，來追蹤工作項目、提供版本控制，以及將建置作業自動化。必須先安裝 Eclipse 的 Team Explorer Everywhere 外掛程式或 Team Foundation Server 的跨平台命令列用戶端，才可使用這些功能。</p>
+				<p>
+					<b>本主題內容</b>
+				</p>
+				<ul><li class="unordered">
+							<a href="#Prerequisites">必要條件</a>
+					</li><li class="unordered">
+							<a href="#InstallPlugin">安裝 Eclipse 的 Team Explorer Everywhere 外掛程式</a>
+					</li><li class="unordered">
+							<a href="#InstallCLC">安裝適用於 Team Foundation Server 的跨平台命令列用戶端</a>
+					</li></ul>
+			<a name="Prerequisites"></a><a name="InstallTEE#Prerequisites"></a><h1 class="heading">必要條件</h1><div id="sectionSection0" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+					<p xmlns="">您必須安裝支援的 Eclipse 版本，請從下列網站取得支援的版本： <a href="http://go.microsoft.com/fwlink/?LinkID=184800" target="_blank" alt=""><linkText xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">Eclipse.org 首頁</linkText></a>。 </p>
+					<p xmlns="">
+						<b>作業系統需求：</b>
+					</p>
+					<ul xmlns="">
+						<li>Windows 10 (x86 及 x64)</li>
+						<li>Windows 8.1 (x86 及 x64)</li>
+						<li>Windows 8 (x86、x64)</li>
+						<li>Windows 7 (x86、x64)</li>
+						<li>Windows Vista (x86、x64)</li>
+						<li>包含 GLIBC 2.3 至 2.11 的 Linux (x86、x86_64、PowerPC)</li>
+						<li>Mac OS X 10.8+ (僅限 Intel)</li>
+						<li>Solaris 8 至 11 (SPARC、x64)</li>
+						<li>AIX 5.2 至 7.1(32 位元及 64 位元)</li>
+						<li>HP-UX 11i 第 1 版至第 3 版 (PA-RISC、Itanium)</li>
+					</ul>
+					<p xmlns="">
+						<b>整合開發環境 (IDE) 需求:</b>
+					</p>
+					<ul xmlns="">
+						<li>Windows、Linux、Mac OS X、Solaris、AIX 或 HP-UX 上採用 Eclipse 3.5 至 4.4 的 IDE。</li>
+					</ul>
+					<p xmlns="">
+						<b>Java 執行階段需求:</b>
+					</p>
+					<ul xmlns="">
+						<li>Microsoft Windows 上的 Oracle Java™ 1.6+ 或 IBM Java™ 1.6+</li>
+						<li>Mac OS X 上的 Apple Java™ 1.6+</li>
+						<li>Linux 或 Solaris 上的 Oracle Java™ 1.6+</li>
+						<li>Linux 或 AIX 上的 IBM Java™ 1.6+</li>
+						<li>HP-UX 上的 HP Java™ 1.6+</li>
+					</ul>
+					<p xmlns="">
+						<b>Team Foundation Server 需求:</b>
+					</p>
+					<ul xmlns="">
+						<li><a href="https://www.visualstudio.com/products/visual-studio-team-services-vs">Visual Studio Team Services</a></li>
+						<li>Visual Studio Team Foundation Server 2015</li>
+						<li>Visual Studio Team Foundation Server 2013</li>
+						<li>Visual Studio Team Foundation Server 2012</li>
+						<li>Visual Studio Team Foundation Server 2010</li>
+					</ul>
+				</content></div>
+				<a name="InstallPlugin"></a>
+				<a name="InstallTEE#InstallPlugin"></a>
+				<h1 class="heading">安裝 Eclipse 的 Team Explorer Everywhere 外掛程式</h1>
+				<div id="sectionSection1" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+					<p xmlns="">您必須安裝外掛程式，才可在開發處理序中使用。 您可以直接從更新網站安裝到 Eclipse，或從 Eclipse 更新網站封存安裝。</p>
+					<h4 class="subHeading" xmlns=""><b>從更新網站安裝外掛程式</b></h4>
+					<div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"><ol class="ordered" xmlns="">
+						<li>開啟 Eclipse。</li>
+						<li>在 [說明]<b></b> 功能表上，選擇 [安裝新軟體]<b></b>。</li>
+						<li>[安裝]<b></b> 對話方塊會隨即出現。</li>
+						<li>選擇 [新增]<b></b> 按鈕。</li>
+						<li>[新增儲存機制]<b></b> 對話方塊會隨即出現。</li>
+						<li>請為名稱輸入 [Team Explorer Everywhere]</li>
+						<li>指定更新網站的位置: <b>http://dl.microsoft.com/eclipse/tfs</b></li>
+						<li>選擇 [確定]<b></b> 按鈕。 </li>
+						<li>在 [安裝] 對話方塊的功能清單中，選取與 [Eclipse 的 Team Explorer Everywhere 外掛程式]<b></b> 相對應的核取方塊。若沒有看到此選項，請利用 [使用]<b></b> 的下拉功能表，在清單中找到剛剛所輸入的更新網站 URL 並加以選取，然後再選取上述外掛程式旁的核取方塊。</li>
+						<li>選擇 [下一步]<b></b> 按鈕<u>兩</u>次。</li>
+						<li>若同意 Microsoft Software 授權條款，請加以接受，然後選擇 [完成]<b></b> 按鈕。</li>
+						<li>當您收到提示時，重新啟動 Eclipse。</li>
+					</ol></ddue:steps></div>
+				</content>
+					<h4 class="subHeading" xmlns=""><b>從更新網站封存安裝此外掛程式</b></h4><div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"><ol class="ordered" xmlns="">
+						<div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">注意 </th></tr><tr><td>
+							建議您選用上述標準更新網站機制安裝方法，但這需要連線到網際網路，並會安裝 Microsoft 所提供的最新版外掛程式。  若安裝機器未直接連線到網際網路，或組織指定所有人必須安裝特定版本的外掛程式，接下來的方法可能會更加合適。<p></p>
+						</td></tr></table><p></p></div>
+							<li>使用此頁面上的連結下載 TFSEclipsePlugin-UpdateSiteArchive-14.0.2.zip。</li>
+							<li>開啟 Eclipse。</li>
+							<li>在 [說明]<b></b> 功能表上，選擇 [安裝新軟體]<b></b>。 </li>
+							<li>[安裝]<b></b> 對話方塊會隨即出現。 </li>
+							<li>選擇 [新增]<b></b> 按鈕。</li>
+							<li>[新增儲存機制]<b></b> 對話方塊會隨即出現。</li>
+							<li>請為名稱輸入 [本機 Team Explorer Everywhere 更新封存]。</li>
+							<li>選擇 [封存]<b></b> 按鈕。</li>
+							<li>[儲存機制封存]<b></b> 對話方塊會隨即出現。</li>
+							<li>尋找並選取先前所下載的 "<b>TFSEclipsePlugin-UpdateSiteArchive-14.0.2.zip</b>" 檔案，並以其做為檔名。</li>
+							<li> 選擇 [開啟]<b></b> 按鈕。</li>
+							<li>選擇 [確定]<b></b> 按鈕。 </li>
+							<li>在 [安裝] 對話方塊的功能清單中，選取與 [Eclipse 的 Team Explorer Everywhere 外掛程式]<b></b> 相對應的核取方塊。</li>
+							<li>選擇 [下一步]<b></b> 按鈕<u>兩</u>次。</li>
+							<li>若您同意 Microsoft Software 授權條款，請加以接受，然後選擇 [完成]<b></b> 按鈕。</li>
+							<li>當您收到提示時，重新啟動 Eclipse。</li>
+						</ol></ddue:steps></div>
+				</content>				
+				
+				</sections></div><a name="InstallCLC"></a><a name="InstallTEE#InstallCLC"></a><h1 class="heading">安裝 Team Foundation Server 跨平台命令列用戶端</h1><div id="sectionSection2" class="section"><content xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+					<p xmlns="">您可以從 Team Foundation Server 跨平台命令列用戶端執行許多版本控制作業。 您必須先安裝此用戶端，並將您的 Shell 或系統路徑設定成包含安裝資料夾。</p>
+					<h4 class="subHeading" xmlns=""><b>安裝 Team Foundation Server 跨平台命令列用戶端</b></h4><div class="subSection" xmlns=""><ddue:steps xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5">
+						<ol>
+							<li>使用此頁面上的連結下載 TEE-CLC-14.0.2.zip。</li>
+							<li>解壓縮包含此用戶端的封存 (TEE-CLC-14.0.2.zip file)。</li>
+							<li>將您的 Shell 或系統路徑設定成包含存放封存解壓縮後之內容的資料夾。</li>
+							<li>若要驗證用戶端已在運作中，請在命令提示輸入 <b>tf</b>，然後按 [ENTER] 鍵。</li>
+						</ol>
+						若用戶端安裝正確，開頭為「Microsoft Team Explorer Everywhere 命令列用戶端 (14.0.2 版)」的輸出會隨即出現。<br/>
+						<br/>
+						如需任何命令的詳細資訊，可以輸入 <b>tf help Command</b>，其中 <b>Command</b> 是取得資訊所屬之命令的名稱。 例如，您可以輸入 <b>tf help checkin</b>。 您也可以輸入 <b>tf command /help</b> 或 <b>tf command -help</b> 來取得說明。<br/><br/>
+						<div class="alert" xmlns=""><table width="100%" cellspacing="0" cellpadding="0"><tr><th align="left">注意 </th></tr><tr><td>
+							您可以在 Shell 中設定環境變數，以控制命令列用戶端的行為， 例如指定所要使用的 HTTP Proxy、啟用自動快取認證，或控制差異/合併工具。
+							如需要設定之環境變數的相關資訊，請參閱 MSDN 上的 <a href="http://go.microsoft.com/fwlink/?LinkId=258349">設定環境變數</a> 主題。<p></p>
+						</td></tr></table><p></p></div>
+						</ddue:steps></div>
+				</content></div>
+				</sections></div><!--[if gte IE 5]>
+			<tool:tip element="languageFilterToolTip" avoidmouse="false"/>
+		<![endif]--></div>
+	<div id="footer"><hr /><p />
+		<div class="FooterLinks">
+			<span class="FooterCopyright" title="© 2015 Microsoft. 著作權所有，並保留一切權利。">&copy; 2015 Microsoft. 著作權所有，並保留一切權利。</span>
+			<a href="http://go.microsoft.com/fwlink/?LinkID=258799" title="使用規定">使用規定</a> 
+			<span class="Pipe">&nbsp;|&nbsp;</span>
+			<a href="http://go.microsoft.com/fwlink/?LinkId=258800" title="商標">商標</a>
+		</div> 
+	</div>
+</div>
+</body>
+</html>

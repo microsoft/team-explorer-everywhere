@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="com.microsoft.tfs.checkinpolicies.checkinPolicy">
+      <policy
+            class="com.microsoft.tfs.checkinpolicies.workitemquerypolicy.ui.WorkItemQueryPolicyUI"
+            typeID="com.teamprise.checkinpolicies.workitemquerypolicy.WorkItemQueryPolicy-1">
+      </policy>
+   </extension>
+
+</plugin>

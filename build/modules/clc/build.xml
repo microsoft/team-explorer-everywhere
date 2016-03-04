@@ -1,0 +1,263 @@
+<project name="clc" basedir=".">
+
+	<property name="dir.plugin.clc" value="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc" />
+	<property name="nlz.outdir" value="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc.nlz" />
+	<property name="nlz.jar.name" value="com.microsoft.tfs.client.clc.nlz.jar" />
+	<property name="nl1.outdir" value="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc.nl1" />
+	<property name="nl1.jar.name" value="com.microsoft.tfs.client.clc.nl1.jar" />
+
+	<target name="clean.clc">
+		<delete dir="${dir.binaries.clc}" />
+	</target>
+
+	<target name="build_clc_feature">
+		<echo message="[TFSBuildStep] Building feature ${id.feature.clc}" />
+
+		<macro.build-feature id.feature="${id.feature.clc}"
+		                     dir.builder="${dir.global.buildtooling}/modules/clc/builder"
+		                     dir.buildDirectory="${dir.global.build.output}" />
+
+	</target>
+
+	<!--
+			Creates a ploc (.nlz) , content run through ploc while merged
+		-->
+	<macrodef name="macro.fragmerge.nlz">
+		<attribute name="project" />
+		<sequential>
+			<fragmerge archiveroot="${path.temp-directory.english-resource-archive}"
+			           archivelanguage="en"
+			           archivecountry="US"
+			           project="@{project}"
+			           fragmentdir="${nlz.outdir}"
+			           fragmentlanguage="zz"
+			           fragmentcountry="ZZ"
+			           ploc="true" />
+		</sequential>
+	</macrodef>
+
+	<!--
+			Creates Language Pack 1 (.nl1)
+		-->
+	<macrodef name="macro.fragmerge.nl1.lang">
+		<attribute name="project" />
+		<attribute name="language" />
+		<attribute name="country" />
+		<sequential>
+			<fragmerge archiveroot="${dir.global.build.translations}"
+			           archivelanguage="@{language}"
+			           archivecountry="@{country}"
+			           project="@{project}"
+			           fragmentdir="${nl1.outdir}"
+			           fragmentlanguage="@{language}"
+			           fragmentcountry="@{country}" />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="macro.fragmerge.nl1">
+		<attribute name="project" />
+		<sequential>
+
+			<!-- Call the other macro once for each language to package -->
+
+			<macro.fragmerge.nl1.lang project="@{project}" language="de" country="" />
+			<macro.fragmerge.nl1.lang project="@{project}" language="fr" country="" />
+			<macro.fragmerge.nl1.lang project="@{project}" language="ja" country="" />
+			<macro.fragmerge.nl1.lang project="@{project}" language="pt" country="" />
+			<macro.fragmerge.nl1.lang project="@{project}" language="zh" country="TW" />
+			<macro.fragmerge.nl1.lang project="@{project}" language="zh" country="CN" />
+
+		</sequential>
+	</macrodef>
+
+	<target name="clc-nlz">
+		<macro.fragmerge.nlz project="com.microsoft.tfs.logging" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.util" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.jni" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.console" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.client.common" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.client.common.pid" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.core.httpclient" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.core.ws.runtime" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.core.ws" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.core" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.checkinpolicies" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.checkinpolicies.build" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.checkinpolicies.checkforcomments" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.checkinpolicies.forbiddenpatterns" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.checkinpolicies.workitempolicy" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.checkinpolicies.workitemquerypolicy" />
+		<macro.fragmerge.nlz project="com.microsoft.tfs.client.clc" />
+	</target>
+
+	<target name="clc-nl1">
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.logging" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.util" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.jni" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.console" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.client.common" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.client.common.pid" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.core.httpclient" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.core.ws.runtime" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.core.ws" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.core" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.checkinpolicies" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.checkinpolicies.build" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.checkinpolicies.checkforcomments" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.checkinpolicies.forbiddenpatterns" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.checkinpolicies.workitempolicy" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.checkinpolicies.workitemquerypolicy" />
+		<macro.fragmerge.nl1 project="com.microsoft.tfs.client.clc" />
+	</target>
+
+	<!--
+		Assembles the CLC ZIP archive from plug-ins previously built by PDE build.
+		Merges in language packs.
+	-->
+	<target name="package_clc" depends="clc-nlz,clc-nl1">
+
+		<echo message="[TFSBuildStep] Packaging CLC" />
+
+		<!-- create a temp dir to hold jars -->
+		<delete dir="${dir.binaries.clc}/lib" />
+		<mkdir dir="${dir.binaries.clc}/lib" />
+
+		<!-- copy and flatten dependency jars -->
+		<copy todir="${dir.binaries.clc}/lib" flatten="true">
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core/libs" includes="**/*.jar" />
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.httpclient/libs" includes="**/*.jar" />
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.logging/lib" includes="**/*.jar" />
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.ws.runtime/lib" includes="**/*.jar" />
+		</copy>
+
+		<!-- copy plugin jars -->
+		<copy todir="${dir.binaries.clc}/lib">
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.clc" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.common.pid" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.console" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws.runtime" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.util" includes="*.jar" />
+
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.build" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.checkforcomments"
+			         includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.forbiddenpatterns"
+			         includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.workitempolicy"
+			         includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies.workitemquerypolicy"
+			         includes="*.jar" />
+		</copy>
+
+		<!-- create a temp directory to hold modified scripts -->
+		<delete dir="${dir.binaries.clc}/scripts" />
+		<mkdir dir="${dir.binaries.clc}/scripts" />
+
+		<!-- copy launcher templates scripts to tf script -->
+		<copy file="${dir.plugin.clc}/scripts/clc-launcher" tofile="${dir.binaries.clc}/scripts/tf" />
+		<copy file="${dir.plugin.clc}/scripts/clc-launcher.cmd" tofile="${dir.binaries.clc}/scripts/tf.cmd" />
+
+		<!-- replace a few variables in the templates -->
+		<property name="clc.settings.vendor" value="Microsoft" />
+		<property name="clc.settings.vendor.lowercase" value="microsoft" />
+		<property name="clc.settings.application" value="Team Foundation" />
+		<property name="clc.settings.version" value="4.0" />
+		<property name="clc.vc.name" value="TFS Cross Platform Command Line Client" />
+		<property name="clc.vc.class" value="com.microsoft.tfs.client.clc.vc.Main" />
+
+		<replace file="${dir.binaries.clc}/scripts/tf" token="@@LAUNCHER_APPLICATION@@" value="${clc.vc.name}" />
+		<replace file="${dir.binaries.clc}/scripts/tf" token="@@LAUNCHER_CLASS@@" value="${clc.vc.class}" />
+		<replace file="${dir.binaries.clc}/scripts/tf" token="@@SETTINGS_VENDOR@@" value="${clc.settings.vendor}" />
+		<replace file="${dir.binaries.clc}/scripts/tf"
+		         token="@@SETTINGS_VENDOR_LOWERCASE@@"
+		         value="${clc.settings.vendor.lowercase}" />
+		<replace file="${dir.binaries.clc}/scripts/tf"
+		         token="@@SETTINGS_APPLICATION@@"
+		         value="${clc.settings.application}" />
+		<replace file="${dir.binaries.clc}/scripts/tf" token="@@SETTINGS_VERSION@@" value="${clc.settings.version}" />
+
+		<replace file="${dir.binaries.clc}/scripts/tf.cmd" token="@@LAUNCHER_APPLICATION@@" value="${clc.vc.name}" />
+		<replace file="${dir.binaries.clc}/scripts/tf.cmd" token="@@LAUNCHER_CLASS@@" value="${clc.vc.class}" />
+		<replace file="${dir.binaries.clc}/scripts/tf.cmd" token="@@SETTINGS_VENDOR@@" value="${clc.settings.vendor}" />
+		<replace file="${dir.binaries.clc}/scripts/tf.cmd"
+		         token="@@SETTINGS_VENDOR_LOWERCASE@@"
+		         value="${clc.settings.vendor.lowercase}" />
+		<replace file="${dir.binaries.clc}/scripts/tf.cmd"
+		         token="@@SETTINGS_APPLICATION@@"
+		         value="${clc.settings.application}" />
+		<replace file="${dir.binaries.clc}/scripts/tf.cmd"
+		         token="@@SETTINGS_VERSION@@"
+		         value="${clc.settings.version}" />
+
+    <!-- create language pack jars -->
+    <jar basedir="${nlz.outdir}" destfile="${dir.binaries.clc}/${nlz.jar.name}" />
+    <jar basedir="${nl1.outdir}" destfile="${dir.binaries.clc}/lib/${nl1.jar.name}" />
+
+    <!-- create language pack archives with the right internal archive prefix -->
+    <zip destfile="${dir.binaries.clc}/${name.filename-prefix.nlz}.zip">
+      <zipfileset dir="${dir.binaries.clc}" includes="${nlz.jar.name}" prefix="${name.archive-prefix.clc}/lib" />
+    </zip>
+    
+		<!-- Create the standard (full install) output CLC zip file -->
+		<zip destfile="${dir.binaries.clc}/${name.filename-prefix.clc}.zip">
+			<!-- license and third-party software notices -->
+			<zipfileset dir="${dir.plugin.clc}" includes="license.html" prefix="${name.archive-prefix.clc}" />
+			<zipfileset dir="${dir.plugin.clc}" includes="ThirdPartyNotices.html" prefix="${name.archive-prefix.clc}" />
+
+			<!-- .tpattributes file to let customers check in their installed packages -->
+			<zipfileset dir="${dir.binaries.clc}/scripts"
+			            includes="dist-tpattributes"
+			            fullpath="${name.archive-prefix.clc}/.tpattributes" />
+
+			<!-- help content from the plugin -->
+			<zipfileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.client.eclipse.help/content"
+			            includes="**/*"
+			            filemode="644"
+			            prefix="${name.archive-prefix.clc}/help" />
+
+			<!-- scripts -->
+			<zipfileset dir="${dir.binaries.clc}/scripts"
+			            includes="tf"
+			            filemode="755"
+			            prefix="${name.archive-prefix.clc}" />
+			<zipfileset dir="${dir.binaries.clc}/scripts" includes="tf.cmd" prefix="${name.archive-prefix.clc}" />
+
+			<!-- core native libraries -->
+			<!-- HP-UX (and possibly other Unixes) requires shared libraries be executable. -->
+			<zipfileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/os"
+			            includes="**/*"
+			            excludes=".tpattributes"
+			            filemode="755"
+			            prefix="${name.archive-prefix.clc}/native" />
+
+			<!-- jars -->
+			<zipfileset dir="${dir.binaries.clc}" includes="lib/*.jar" prefix="${name.archive-prefix.clc}" />
+		</zip>
+
+		<!-- delete temporary directories -->
+		<delete dir="${dir.binaries.clc}/lib" />
+		<delete dir="${dir.binaries.clc}/scripts" />
+
+
+    
+
+		<!-- delete temporary language pack directories and files -->
+		<delete dir="${nlz.outdir}" includeemptydirs="true" />
+		<delete file="${dir.binaries.clc}/${nlz.jar.name}" />
+		<delete dir="${nl1.outdir}" includeemptydirs="true" />
+		<delete file="${dir.binaries.clc}/${nl1.jar.name}" />
+	</target>
+
+	<!--
+		Needs english-resource-archive to build the language packs.
+	-->
+	<target name="clc" depends="english-resource-archive,build_clc_feature,package_clc">
+	</target>
+
+</project>

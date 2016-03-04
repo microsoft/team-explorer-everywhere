@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension-point id="resourceChangingCommandListeners" name="%extension-point.resourceChangingCommandListeners.name" schema="schema/resourceChangingCommandListeners.exsd"/>
+   <extension-point id="codeMarkerListenerProviders" name="%extension-point.codeMarkerListenerProviders.name" schema="schema/codeMarkerListenerProviders.exsd"/>
+   <extension-point id="buildStatusManagerListeners" name="%extension-point.buildStatusManagerListeners.name" schema="schema/buildStatusManagerListeners.exsd"/>
+   <extension-point id="autoConnector" name="%extension-point.autoConnector.name" schema="schema/autoConnector.exsd"/>
+   <extension-point id="asyncObjectWaiter" name="%extension-point.asyncObjectWaiter.name" schema="schema/asyncObjectWaiter.exsd"/>
+   
+   <extension
+           point="org.eclipse.core.runtime.preferences">
+        <initializer
+              class="com.microsoft.tfs.client.common.prefs.PreferenceInitializer">
+        </initializer>
+     </extension>
+</plugin>

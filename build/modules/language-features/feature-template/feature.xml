@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="@FEATURE_ID@"
+      label="@FEATURE_NAME@"
+      version="@FEATURE_VERSION@"
+      provider-name="%Feature-Vendor">
+
+   <description>@FEATURE_DESCRIPTION@</description>
+
+   <copyright>
+      %Feature-Copyright
+   </copyright>
+
+   <license url="%Feature-License-Url">
+      %Feature-License-Text
+   </license>
+   
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.build.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.checkforcomments.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.forbiddenpatterns.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.workitempolicy.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.checkinpolicies.workitemquerypolicy.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.pid.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.ui.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.ui.teambuild.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.ui.teambuild.egit.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.common.ui.vcexplorer.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.eclipse.help.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.eclipse.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.eclipse.ui.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.client.eclipse.ui.egit.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.core.httpclient.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.core.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.core.ws.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.core.ws.runtime.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.jni.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.logging.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.microsoft.tfs.util.@PLUGIN_SUFFIX@"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+</feature>

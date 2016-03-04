@@ -1,0 +1,144 @@
+<!--
+	TEE Build - First Stage (Configuration)
+
+	This stage is all about setting Ant properties that later stages will use.
+	It also writes a properties file that the Eclipse Ant Runner stage will use.
+	That properties file includes all the properties read here except for some
+	Ant- and OS-specific ones that might interfere with the external Ant invocation.
+-->
+<project name="build-1-config" basedir="." default="build_1_config">
+
+	<!-- Constant properties never externally configured. -->
+	<property name="dir.global.build.source" location="${basedir}/../source" />
+	<property name="dir.global.build.translations" location="${basedir}/../translations" />
+	<property name="dir.global.build.output" location="${basedir}/output" />
+	<property name="dir.global.build.output.plugins" location="${dir.global.build.output}/plugins" />
+	<property name="dir.global.build.output.features" location="${dir.global.build.output}/features" />
+	<property name="dir.global.buildtooling" location="${basedir}" />
+
+	<!-- P2 likes URLs -->
+
+	<property name="dir.global.p2BuildRepo" location="${dir.global.build.output}/p2BuildRepo" />
+	<mkdir dir="${dir.global.p2BuildRepo}" />
+	<makeurl property="url.global.p2BuildRepo" file="${dir.global.p2BuildRepo}" />
+
+	<!--
+		Reads version configuration information.  Sets these properties:
+		
+		number.version.major 	("12")
+		number.version.minor 	("0")
+		number.version.service 	("2")
+		number.version.build	("1234XYZ")
+		string.version.1-2-3	("14.0.2")
+		string.version.1-2-3-4  ("14.0.2.1234XYZ")
+	-->
+	<target name="read_version_config">
+
+		<!-- Defines the major, minor, and service versions (but not build). -->
+		<property file="${dir.global.buildtooling}/product_version.properties" />
+
+		<!-- 
+			Callers (Team Build) will almost always set number.version.build explicitly, but default to 
+			something for manual builds. 
+		-->
+		<tstamp>
+			<format property="number.version.build" pattern="yyyyMMddHHmm" />
+		</tstamp>
+
+		<!--
+			Some version strings for use in archive names, etc.
+		-->
+
+		<!-- major.minor.service -->
+		<property name="string.version.1-2-3"
+		          value="${number.version.major}.${number.version.minor}.${number.version.service}" />
+		<!-- major.minor.service.build -->
+		<property name="string.version.1-2-3-4"
+		          value="${number.version.major}.${number.version.minor}.${number.version.service}.${number.version.build}" />
+	</target>
+
+	<!--
+		Reads the machine-configs/machine-<hostname>.properties file (if it exists), and 
+		verifies that all required build properties were set.
+		
+		The existence of a machine properties file is optional, but it's easier than setting
+		lots of properties on the command line.
+	-->
+	<target name="read_machine_config">
+
+		<condition property="machine.properties" value="${basedir}/machine.properties" >
+			<not>
+				<isset property="machine.properties" />
+			</not>
+		</condition>
+				
+		<echo message="Checking for ${machine.properties}" />
+		<property file="${machine.properties}" />
+
+		<!--
+			Many of the machine properties have default values. This is mainly
+			to support interactive / dev users of the build script so there isn't
+			so much configuration required just to do a simple build. Here we set
+			machine properties to defaults. If the a property has already been set above,
+			the set here will do nothing.
+			
+			The default paths assume a Team Build mapping configuration (with
+			Sources and Binaries).
+		-->
+		<condition property="value.eclipse-ant-runner.maxmemory" value="768M" >
+			<not>
+				<isset property="value.eclipse-ant-runner.maxmemory" />
+			</not>
+		</condition>
+		
+		<property name="dir.binaries" value="${dir.global.build.output}/bin" />
+
+		<!-- Controls which targets get build ("*" means all) -->
+		<property name="config.build.targets" value="*" />
+
+		<!--
+			Not all of the machine properties can be defaulted.
+			Here we perform validation to fail the build if required, non-defaultable
+			machine properties are not set.
+		-->
+		<fail unless="dir.machine.build-runtime"
+		      message="build machine property [dir.machine.build-runtime] is not set (set it in machine properties file [${file.machine.properties}] or on the command line)" />
+
+	</target>
+
+	<target name="ensure_category_definitions_exist">
+		<property name="file.global.p2CategoryDefinition" location="${dir.global.buildtooling}/category.xml" />
+
+		<available file="${file.global.p2CategoryDefinition}"
+		           property="exists.file.global.p2CategoryDefinition"
+		           value="true" />
+		<fail unless="exists.file.global.p2CategoryDefinition"
+		      message="P2 category definition file missing [${file.global.p2CategoryDefinition}]" />
+
+		<!-- makeurl fails if file missing, better to print message above -->
+		<makeurl property="url.global.p2CategoryDefinition" file="${file.global.p2CategoryDefinition}" />
+	</target>
+
+	<!--
+		Prints out the configuration properties that we read from files/environment.
+		We print out most of the things that the user might ever want to change (or
+		verify were set by Team Build, etc.), and omit the internal ones that 
+		probably won't get changed.
+	-->
+	<target name="print_config">
+		<echo message="Build:" level="info" />
+		<echo message="  config.build.targets             = [${config.build.targets}]" level="info" />
+		<echo message="  string.version.1-2-3-4           = [${string.version.1-2-3-4}]" level="info" />
+		<echo message="Paths:" level="info" />
+		<echo message="  dir.machine.build-runtime        = [${dir.machine.build-runtime}]" level="info" />
+		<echo message="  dir.binaries                     = [${dir.binaries}]" level="info" />
+		<echo message="  url.global.p2BuildRepo           = [${url.global.p2BuildRepo}]" level="info" />
+		<echo message="  file.global.p2CategoryDefinition = [${file.global.p2CategoryDefinition}]" level="info" />
+	</target>
+
+	<target name="build_1_config"
+	        depends="read_version_config,read_machine_config,ensure_category_definitions_exist,print_config">
+		<echo message="[TFSBuildStep] Configuration stage complete" />
+	</target>
+
+</project>

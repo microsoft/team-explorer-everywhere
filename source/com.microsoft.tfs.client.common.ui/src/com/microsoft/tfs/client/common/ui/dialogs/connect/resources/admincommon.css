@@ -1,0 +1,320 @@
+/*This file is auto generated from base css file in ..\AdminCommon.css*/
+html,body,div,dl,dt,dd,pre,form,blockquote,fieldset,input  
+{
+    margin: 0; 
+    padding: 0;
+}
+
+div 
+{
+     margin: 0; 
+     padding: 0;
+}
+
+h1,h2,h3,h4,h5,h6,p, ul,ol,li  
+{
+    margin: 0; 
+    padding: 0; 
+}
+
+h1,h2,h3,h4,h5,h6,pre,code,address,caption,cite,code,em,strong,th  
+{
+    font-size: 1em; 
+    font-weight: normal; 
+    font-style: normal; 
+}
+
+ul,ol  
+{
+    list-style: none; 
+}
+
+fieldset,img  
+{
+    border: none; 
+}
+
+a:link, a:visited, a:active  
+{
+    text-decoration: none; 
+}
+
+a {cursor:pointer; }
+
+a:hover  
+{
+    text-decoration: underline;
+}
+
+table, table tr, table td 
+{
+    margin:0px; 
+    padding:0px; 
+    border-spacing:0px;
+}
+
+a.linkBlue  
+{
+    color: #2470e3;
+}
+
+header 
+{
+    height:30px; 
+    border-bottom:1px dashed #cccccc; 
+    padding:10px 0 2px 0;
+}
+
+#img_userImage 
+{
+    padding-left:10px; 
+    vertical-align:middle;
+}
+
+div.error 
+{
+    background-color:#e6b9b9; 
+    color:#FF0000 ; 
+    border:1px solid #cccccc;
+}
+
+.hide  
+{
+    display:none;
+}
+
+div.hide 
+{
+    display:none;
+}
+
+
+span.error 
+{
+    color:#FF0000 ;
+}
+
+ul 
+{
+    list-style-position: outside; 
+    list-style-type: none; 
+    padding: 0px;
+}
+
+ul.user-account-header
+{
+    float: right; 
+    height: 32px; 
+    margin-right: 10px; 
+    min-width: 1px; 
+    padding-top: 3px;
+}
+
+.user-account-header li 
+{
+    display:inline; 
+    float:right; 
+    color: #808080; 
+    font-size: 11px; 
+    height: 32px; 
+    line-height: 32px; 
+    margin-right: 10px;
+}
+
+
+p.accent-down-text 
+{
+    color: #959595;
+    padding-bottom:8px;
+}
+
+span.accent-down-text 
+{
+    color: #959595;
+}
+
+.highlight-tag
+{
+    color: #000000; 
+    font-size: 11px;
+    font-weight: bold;
+}
+
+input.hide 
+{
+    visibility:hidden;
+}
+
+.bread-crumb  
+{
+    font-size: 10px;
+    margin: 10px 0px 5px 0px; 
+    text-transform: uppercase;
+}
+
+.bread-crumb li 
+{
+    display:inline; 
+    margin-right:4px;
+}
+
+.bread-crumb li.last a 
+{
+    background: none; 
+    padding-right: 0px;
+}
+
+.bread-crumb a 
+{
+    background: transparent url('data:image/png;base64,%%%INCLUDE(format="base64", file="breadcrumb.png")%%%') no-repeat 100% 50%; 
+    padding-right: 13px; 
+    text-decoration: none;
+}
+
+.navContextMenus 
+{ 
+    font:normal 18px Segoe UI, Tahoma, Arial, Verdana;
+    font-weight: lighter;
+    margin: -8px 0px 0px 0px; 
+    text-transform:lowercase;
+}
+
+.navContextMenus li 
+{
+    display:inline; 
+    margin-right:8px;
+}
+
+.navContextMenus li.context a 
+{
+    font:normal 40px Segoe UI, Tahoma, Arial, Verdana; /*color:#5A9DF5;*/ 
+    font-weight: lighter;
+    margin:0px; 
+    padding:0px; 
+    color:#2470e3; 
+}
+
+.navContextMenus li.selected 
+{
+    font-weight:bold;
+}
+
+.navContextMenus a 
+{
+    text-decoration: none;
+}
+
+.navContextMenus a.selected 
+{
+    font-weight:bold;
+}
+
+/* HEADER CONTROL */
+#div_pageHeader 
+{
+    width:100%; 
+    overflow:auto; 
+    border-bottom:1px solid #eee;
+}
+
+#div_pageNav 
+{
+    width:600px; 
+    float:left; 
+}
+
+#div_UserHeaderInfo 
+{
+    float:right;
+    width:360px;
+}
+
+#div_pageNavVisualStudio 
+{
+    width:100%; 
+    float:left; 
+}
+
+/* FOOTER STYLE */
+div#globalfooter 
+{ 
+    color: #808080;
+    font-size: 10px; 
+    margin-top: 30px; 
+    text-align: left !important; 
+    position:static;
+}
+
+div#globalfooter a 
+{
+    padding: 0 10px;
+}
+
+div#msfooter 
+{ 
+    clear: both; 
+    border-top: 1px solid #ddd; 
+    padding-top: 10px; 
+}
+
+div#msfooter p 
+{
+    float: left; 
+    margin-left:5px;
+}
+
+#footersections li 
+{
+    display: inline;
+}
+
+#footersections a 
+{
+    border-left: 1px solid #808080; 
+    padding: 0 0 0 2px; 
+    margin-left: 2px; 
+}
+
+#footersections a.first 
+{
+    border-left: 0; 
+    padding: 0 0 0 2px; 
+    margin-left: 2px;
+}
+
+/* Main page context */
+.wait-element
+{
+    background-color: #cccccc; 
+    opacity: 0.50;
+    filter: alpha(opacity=50);
+    position: absolute;
+    cursor: wait;
+    z-index: 1000;
+}
+
+.wait-box
+{
+    background-color: #ffffff;
+    border: 1px solid #808080; 
+    cursor: wait;
+    padding: 4px;
+    position: absolute;
+    z-index: 1001;
+}
+
+.wait-image
+{
+    vertical-align: middle;
+    padding-right: 5px;
+    width: 68px;
+    height: 68px;
+}
+
+.wait-message
+{
+    padding-left: 5px; 
+    padding-right: 5px;
+    display: inline-block;
+}
+
