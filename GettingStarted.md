@@ -1,6 +1,15 @@
 # Getting started with TEE development
 The instructions below will help you get your development environment configured so that you can build, test and debug Team Explorer Everywhere.
 
+### Clone the Repository
+Use the Git tool of your choice to clone the repository into a local path.
+For example, you could use git.exe from a Windows console window:
+```
+mkdir c:\repos
+pushd c:\repos
+git clone https://github.com/Microsoft/team-explorer-everywhere
+```
+
 ## Building with Ant
 ### Install Java 6
 1. We use JavaSE-1.6 as the minimal supported Java execution environment.
@@ -25,15 +34,6 @@ The instructions below will help you get your development environment configured
 We use Eclipse 3.5.2 as the minimum supported Eclipse version.
 1. Download and install Eclipse Classic from [Eclipse 3.5.2](http://www.eclipse.org/downloads/packages/release/galileo/sr2). On Windows, you may want to use a third party ZIP tool to unzip the Eclipse archive.
 1. Install the [EGit 2.1.0](http://archive.eclipse.org/egit/updates-2.1) plug-in into that Eclipse instance.
-
-### Clone the Repository
-Use the Git tool of your choice to clone the repository into a local path.
-For example, you could use git.exe from a Windows console window:
-```
-mkdir c:\repos
-pushd c:\repos
-git clone https://github.com/Microsoft/team-explorer-everywhere
-```
 
 ## Build and Run with Eclipse
 ### Tools
