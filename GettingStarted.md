@@ -1,13 +1,13 @@
 # Getting started with TEE development
 The instructions below will help you get your development environment configured so that you can build, test and debug Team Explorer Everywhere.
 
-### Clone the Repository
+## Clone the repository
 Use the Git tool of your choice to clone the repository into a local path.
 For example, you could use git.exe from a Windows console window:
 ```
 mkdir c:\repos
 pushd c:\repos
-git clone https://github.com/Microsoft/team-explorer-everywhere
+git clone https://github.com/Microsoft/team-explorer-everywhere.git
 ```
 
 1. We keep LF line-ending on the server. Please set the `core.safecrlf` git config property to true.
