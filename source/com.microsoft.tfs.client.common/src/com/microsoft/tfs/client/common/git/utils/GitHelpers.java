@@ -45,7 +45,11 @@ public abstract class GitHelpers {
     }
 
     public static boolean activateBundle(final Bundle bundle) {
-        if (bundle != null && (bundle.getState() & Bundle.ACTIVE) == 0) {
+        if (bundle == null) {
+            return false;
+        }
+        
+        if ((bundle.getState() & Bundle.ACTIVE) == 0) {
             try {
                 bundle.start(Bundle.START_TRANSIENT);
                 return true;
@@ -53,7 +57,8 @@ public abstract class GitHelpers {
                 log.error("Error activating " + bundle.getSymbolicName(), e); //$NON-NLS-1$
             }
         }
-        return false;
+        
+        return (bundle.getState() & Bundle.ACTIVE) != 0;
     }
 
     public static Object getInstance(
