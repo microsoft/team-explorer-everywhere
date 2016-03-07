@@ -17,24 +17,22 @@ git config --local core.safecrlf true
 
 ## Install development tools
 
-### Install Java 6
-1. We use JavaSE-1.6 as the minimal supported Java execution environment.
-1. Download and install the JDK for [JavaSE-1.6](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html).
-1. Set the JAVA_HOME environment variable to point to the install, e.g.
- * (Windows) `SET JAVA_HOME=C:\dev\java\jdk1.6.0_45`
+### Install Java
+
+Two versions of the Java Development Kit are needed: we use Java SE 6 as the minimal supported Java execution environment and to build the release kit, as well as Java SE 8 for running Eclipse.
+
+1. Download and install Java SE 6:
+  * [Windows and Linux: Java Development Kit 6u45](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR)
+  * [Mac: Apple Java 1.6.0_65, a.k.a. Java for OS X 2015-001](https://support.apple.com/kb/DL1572?locale=en_US)
+1. Set the JAVA_HOME environment variable to point to the install, e.g
+ * (Windows) `SET JAVA_HOME=C:\Program Files\Java\jdk1.6.0_45`
  * (Linux) `JAVA_HOME=~/dev/java/jdk1.6.0_45`
- * (Mac) `JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home`
+ * (Mac) `JAVA_HOME=/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home`
 1. Add JAVA_HOME bin directory to the path
  * (Windows) `SET PATH=%JAVA_HOME%\bin;%PATH%`
  * (Linux) `PATH=$JAVA_HOME/bin:$PATH`
  * (Mac) `PATH=$JAVA_HOME/bin:$PATH`
-
-### Java Requirements
-We use JavaSE-1.6 as the minimal supported Java execution environment.
-Depending on the Eclipse version you use you might have to install a later JDK version.
-For Eclipse Mars install JDK 8 or later. You can find the JDK downloads on Oracle's web site at
-[Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
-Find older versions in [Previous Releases](http://www.oracle.com/technetwork/java/javase/archive-139210.html).
+1. Download and install Java SE 8 JDK from [Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
 ### Install Ant
 1. If you do not already have it, download and install Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
