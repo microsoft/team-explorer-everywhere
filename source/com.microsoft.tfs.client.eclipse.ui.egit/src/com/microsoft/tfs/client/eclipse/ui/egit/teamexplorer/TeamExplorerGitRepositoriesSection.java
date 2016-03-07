@@ -118,11 +118,10 @@ public class TeamExplorerGitRepositoriesSection extends TeamExplorerBaseSection 
         SWTUtil.gridLayout(composite, 1, true, 0, 5);
 
         if (context.isConnected()) {
-            treeViewer = new TreeViewer(composite, SWT.MULTI | SWT.NO_SCROLL);
+            treeViewer = new TreeViewer(composite, SWT.SINGLE | SWT.NO_SCROLL);
             treeViewer.setContentProvider(new GitItemContentProvider());
             treeViewer.setLabelProvider(new GitItemLabelProvider());
             treeViewer.addDoubleClickListener(new GitItemDoubleClickListener());
-
             treeViewer.setInput(projectRepositories);
             treeViewer.setExpandedElements(projectRepositories.keySet().toArray());
             GridDataBuilder.newInstance().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(treeViewer.getControl());
@@ -351,7 +350,7 @@ public class TeamExplorerGitRepositoriesSection extends TeamExplorerBaseSection 
         @Override
         public void run() {
             try {
-                if (!GitHelpers.isEGitInstalled(false)) {
+                if (!GitHelpers.isEGitInstalled(true)) {
                     final String errorMessage =
                         Messages.getString("TeamExplorerGitWizardNavigationLink.EGitMissingErrorMessageText"); //$NON-NLS-1$
                     final String title =

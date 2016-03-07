@@ -16,6 +16,7 @@ import com.microsoft.tfs.client.common.git.EclipseProjectInfo;
 import com.microsoft.tfs.client.common.git.utils.GitHelpers;
 import com.microsoft.tfs.client.common.ui.framework.helper.MessageBoxHelpers;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
+import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerGitRepository;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerItem;
 import com.microsoft.tfs.client.common.ui.wizard.common.WizardCrossCollectionSelectionPage;
 import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
@@ -37,6 +38,15 @@ public class GitImportWizard extends ImportWizard {
 
     public GitImportWizard(final List<TypedServerItem> initialSelectedItems) {
         super(SourceControlCapabilityFlags.GIT);
+        if (initialSelectedItems != null && initialSelectedItems.size() > 0) {
+            // There should only be one repo selected, so take the first one and
+            // add it
+            if (initialSelectedItems.get(0) instanceof TypedServerGitRepository) {
+                setPageData(
+                    WizardCrossCollectionRepoSelectionPage.INITIALLY_SELECTED_REPO,
+                    (TypedServerGitRepository) initialSelectedItems.get(0));
+            }
+        }
         addPage(new GitImportWizardRepositoriesPage(initialSelectedItems));
     }
 
