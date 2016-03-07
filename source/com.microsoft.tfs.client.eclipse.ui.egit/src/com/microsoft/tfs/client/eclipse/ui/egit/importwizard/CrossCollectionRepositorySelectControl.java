@@ -238,6 +238,10 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
         return table.getSelectedRepository();
     }
 
+    public void setSelectedRepository(CrossCollectionRepositoryInfo repository) {
+        table.setSelectedElement(repository);
+    }
+    
     public String getWorkingDirectory() {
         final String parentDirectory = parentDirectoryBox.getText();
         final String folderName = folderNameBox.getText();

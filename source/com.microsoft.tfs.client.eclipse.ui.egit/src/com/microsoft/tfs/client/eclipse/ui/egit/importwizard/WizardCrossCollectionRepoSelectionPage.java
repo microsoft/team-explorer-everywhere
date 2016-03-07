@@ -55,6 +55,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
     private static final Log logger = LogFactory.getLog(WizardCrossCollectionRepoSelectionPage.class);
 
     public static final String PAGE_NAME = "WizardCrossCollectionRepoSelectionPage"; //$NON-NLS-1$
+    public static final String INITIALLY_SELECTED_REPO = "InitiallySelectedRepo"; //$NON-NLS-1$
 
     private boolean cloningHadErrors = false;
     private CrossCollectionRepositorySelectControl repositorySelectControl;
@@ -111,7 +112,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
                 }
             }
 
-            boolean cloningSucceeded = finishPage(info, workingDirectory);
+            final boolean cloningSucceeded = finishPage(info, workingDirectory);
             setPageComplete(cloningSucceeded);
 
             return cloningSucceeded;
@@ -126,7 +127,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
     }
 
     @Override
-    protected void appendCollectionInformation(TFSTeamProjectCollection collection) {
+    protected void appendCollectionInformation(final TFSTeamProjectCollection collection) {
         final VersionControlClient vcClient = collection.getVersionControlClient();
         final QueryGitRepositoriesCommand queryCommand3 = new QueryGitRepositoriesCommand(vcClient);
         final IStatus status3 = getCommandExecutor().execute(queryCommand3);
@@ -144,6 +145,23 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
     @Override
     protected void refreshUI() {
         repositorySelectControl.refresh(repos);
+
+        // Check to see if there was an initially selected repo.
+        // If so, select it in the list.
+        if (getExtendedWizard().hasPageData(INITIALLY_SELECTED_REPO)) {
+            final TypedServerGitRepository selectedRepo =
+                (TypedServerGitRepository) getExtendedWizard().getPageData(INITIALLY_SELECTED_REPO);
+            for (final CrossCollectionRepositoryInfo r : repos) {
+                if (r.getRepositoryGUID().equalsIgnoreCase(selectedRepo.getJson().getId())) {
+                    repositorySelectControl.setSelectedRepository(r);
+                    // Now that we have selected it, remove the page
+                    // data, so that we don't keep trying to select it
+                    // as the user moves around
+                    getExtendedWizard().setPageData(INITIALLY_SELECTED_REPO, null);
+                    break;
+                }
+            }
+        }
     }
 
     private boolean finishPage(final CrossCollectionRepositoryInfo selectedRepository, final String workingDirectory) {
@@ -277,7 +295,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
     }
 
     private UsernamePasswordCredentials getCredentials(final TFSConnection connection) {
-        CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getGitCredentialsManager();
+        final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getGitCredentialsManager();
         Credentials savedCredentials = null;
 
         CachedCredentials cachedCredentials = credentialsManager.getCredentials(connection.getBaseURI());
@@ -294,7 +312,8 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
         credentialsDialog.setCredentials(savedCredentials);
 
         if (credentialsDialog.open() == IDialogConstants.OK_ID) {
-            UsernamePasswordCredentials credentials = (UsernamePasswordCredentials) credentialsDialog.getCredentials();
+            final UsernamePasswordCredentials credentials =
+                (UsernamePasswordCredentials) credentialsDialog.getCredentials();
 
             cachedCredentials =
                 new CachedCredentials(connection.getBaseURI(), credentials.getUsername(), credentials.getPassword());
