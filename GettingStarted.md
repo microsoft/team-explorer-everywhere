@@ -15,7 +15,8 @@ We keep LF line-ending on the server. Please set the `core.safecrlf` git config 
 git config --local core.safecrlf true
 ```
 
-## Building with Ant
+## Install development tools
+
 ### Install Java 6
 1. We use JavaSE-1.6 as the minimal supported Java execution environment.
 1. Download and install the JDK for [JavaSE-1.6](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html).
@@ -27,6 +28,13 @@ git config --local core.safecrlf true
  * (Windows) `SET PATH=%JAVA_HOME%\bin;%PATH%`
  * (Linux) `PATH=$JAVA_HOME/bin:$PATH`
  * (Mac) `PATH=$JAVA_HOME/bin:$PATH`
+
+### Java Requirements
+We use JavaSE-1.6 as the minimal supported Java execution environment.
+Depending on the Eclipse version you use you might have to install a later JDK version.
+For Eclipse Mars install JDK 8 or later. You can find the JDK downloads on Oracle's web site at
+[Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+Find older versions in [Previous Releases](http://www.oracle.com/technetwork/java/javase/archive-139210.html).
 
 ### Install Ant
 1. If you do not already have it, download and install Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
@@ -43,13 +51,6 @@ We use Eclipse 3.5.2 as the minimum supported Eclipse version.
 ## Build and Run with Eclipse
 ### Tools
 Install Eclipse Mars.2 Release (4.5.2) for RCP and RAP Developers or later.
-
-### Java Requirements
-We use JavaSE-1.6 as the minimal supported Java execution environment.
-Depending on the Eclipse version you use you might have to install a later JDK version.
-For Eclipse Mars install JDK 8 or later. You can find the JDK downloads on Oracle's web site at
-[Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
-Find older versions in [Previous Releases](http://www.oracle.com/technetwork/java/javase/archive-139210.html).
 
 ### Eclipse IDE Configuration
 In a new empty Eclipse workspace open the Preferences dialog using Window -> Preferences menu option.
