@@ -131,13 +131,31 @@ git config core.safecrlf true
 ## Debugging
 ### Creating Runtime Configurations
 1. Create a "Plugin" configuration to run/debug the plugin code.
-  * ... 
+  * Open the Debug Configurations window using `Run` -> `Debug Configurations`
+  * Create a new Eclipse Application configuration:
+    * Right click the `Eclipse Application` node in the configurations list.
+    * Select the `New` pop menu option.
+  * Enter a unique name for the new configuration 
+  * On the **Main** tab:
+    * Select the `Run a product` option and `org.eclipse.platform.ide`.
+    * Select the `Execution environment` option and the target Java version.
 1. Create a "CLC" configuration to run/debug the command-line client code.
-  * ... 
+  * Open the Debug Configurations window using `Run` -> `Debug Configurations`
+  * Create a new Java Application configuration:
+    * Right click the `Java Application` node in the configurations list.
+    * Select the `New` pop menu option.
+  * Enter a unique name for the new configuration 
+  * On the **Main** tab:
+    * Set the `Project` to `com.microsoft.tfs.client.clc`.
+    * Set the `Main class` to `com.microsoft.tfs.client.clc.vc.Main`.
+  * On the **Arguments** tab:
+    * In the `VM arguments` section add information for the TEE to locate its native libraries 
+      `-Dcom.microsoft.tfs.jni.native.base-directory=${workspace_loc:com.microsoft.tfs.jni}/os`
+    * In the `Program arguments` section enter the `tf` command arguments for the run, e.g. `workspaces /help`.
 
 ### Running Under the Debugger
-1. To debug the plugin or the command-line client, click Run -> Debug Configurations.
-1. Select the desired configuration and click the Debug button.
+1. To debug the plugin or the command-line client, click `Run` -> `Debug Configurations`.
+1. Select the desired runtime configuration and click the Debug button.
 
 ## Contribution License Agreement
 In order to contribute, you will need to sign a [Contributor License Agreement](https://cla.microsoft.com/).
