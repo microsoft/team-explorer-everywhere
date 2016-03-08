@@ -154,24 +154,28 @@ make sure the desired target is selected.
 
 ### Create Runtime Configurations in Eclipse
 1. Create a "Plugin" configuration to run/debug the plugin code.
-  * Open the Debug Configurations window using `Run` -> `Debug Configurations`
+  * Open the Debug Configurations window using `Run` -> `Debug Configurations...`
   * Create a new Eclipse Application configuration:
-    * Right click the `Eclipse Application` node in the configurations list.
+    * Right-click the `Eclipse Application` node in the configurations list.
     * Select the `New` pop menu option.
-  * Enter a unique name for the new configuration 
+  * Enter `TEE Eclipse plugin` as the new configuration `Name`
   * On the **Main** tab:
-    * Select the `Run a product` option and `org.eclipse.platform.ide`.
-    * Select the `Execution environment` option and the target Java version.
+    * Select the `Run a product` option and enter `org.eclipse.platform.ide` in the textbox.
+    * Select the `Execution environment` option and make sure `JavaSE-1.6` is selected.
+  * Click `Debug` to test the configuration
 1. Create a "CLC" configuration to run/debug the command-line client code.
-  * Open the Debug Configurations window using `Run` -> `Debug Configurations`
+  * Open the Debug Configurations window using `Run` -> `Debug Configurations...`
   * Create a new Java Application configuration:
-    * Right click the `Java Application` node in the configurations list.
+    * Right-click the `Java Application` node in the configurations list.
     * Select the `New` pop menu option.
-  * Enter a unique name for the new configuration 
+  * Enter `TEE CLC` as the new configuration `Name`
   * On the **Main** tab:
-    * Set the `Project` to `com.microsoft.tfs.client.clc`.
-    * Set the `Main class` to `com.microsoft.tfs.client.clc.vc.Main`.
+    * Set the `Project` to `com.microsoft.tfs.client.clc`
+    * Set the `Main class` to `com.microsoft.tfs.client.clc.vc.Main`
   * On the **Arguments** tab:
-    * In the `VM arguments` section add information for the TEE to locate its native libraries 
-      `-Dcom.microsoft.tfs.jni.native.base-directory=${workspace_loc:com.microsoft.tfs.jni}/os`
+    * In the `VM arguments` section add the following so the CLC can locate its native libraries:
+      ```
+      -Dcom.microsoft.tfs.jni.native.base-directory=${workspace_loc:com.microsoft.tfs.jni}/os
+      ```
     * In the `Program arguments` section enter the `tf` command arguments for the run, e.g. `workspaces /help`.
+  * Click `Debug` to test the configuration
