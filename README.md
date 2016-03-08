@@ -38,6 +38,6 @@ Note: The Eclipse target installation location is needed as a parameter for the 
 ``` 
 1. Build results can be found in `build/output`
 
-## Contributing
+## How can I contribute?
 We welcome pull requests. Please fork this repo and send us your contributions.
-See [Contributing](https://github.com/Microsoft/team-explorer-everywhere/blob/master/Contributing.md) for details.
+See [Contributing.md](Contributing.md) for details.
