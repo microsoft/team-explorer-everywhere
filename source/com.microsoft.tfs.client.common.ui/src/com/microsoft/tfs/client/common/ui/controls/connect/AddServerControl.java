@@ -28,6 +28,7 @@ import com.microsoft.tfs.client.common.ui.framework.sizing.ControlSize;
 import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
+import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.valid.Validatable;
 import com.microsoft.tfs.util.valid.Validator;
 
@@ -230,8 +231,25 @@ public class AddServerControl extends BaseControl implements Validatable {
                 /* Make sure this is a complete URI. */
                 if (serverURI.getHost() != null) {
                     SWTUtil.setCompositeEnabled(connectionDetailsGroup, false);
-                    previewText.setText(serverURI.toString());
 
+                    if (ServerURIUtils.isHosted(serverURI)) {
+                        serverURI = URIUtils.newURI(serverURI.getScheme(), serverURI.getAuthority(), null, null, null);
+                    } else {
+                        final String uriPath = serverURI.getPath();
+                        final String[] pathItems = StringHelpers.isNullOrEmpty(uriPath) ? null : uriPath.split("/"); //$NON-NLS-1$
+
+                        if (pathItems != null && pathItems.length > 1) {
+                            serverURI =
+                                URIUtils.newURI(
+                                    serverURI.getScheme(),
+                                    serverURI.getAuthority(),
+                                    "/" + pathItems[1], //$NON-NLS-1$
+                                    null,
+                                    null);
+                        }
+                    }
+
+                    previewText.setText(serverURI.toString());
                     return;
                 }
             } catch (final IllegalArgumentException e) {
