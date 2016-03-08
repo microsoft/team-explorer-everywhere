@@ -123,6 +123,7 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
 
 
 ### Install Ant
+
 1. If you do not already have it, download and install Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
 1. Add the full path of the Ant `bin` directory to the `PATH` system environment variable. You can find more Ant installation details [here](http://ant.apache.org/manual/install.html#installing).
  * (Windows) `SET PATH=C:\dev\apache-ant-1.9.6\bin;%PATH%`
