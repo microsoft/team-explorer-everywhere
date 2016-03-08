@@ -142,17 +142,18 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
 1. Click the `Next` button.
 1. Make sure that all the `com.microsoft.tfs.*` projects are selected and click the `Finish` button.
 
-#### Dependencies
+### Install Eclipse dependencies
 
-To install dependencies
-* Open the `com.mictosoft.tfs.client.eclipse.target' project.
-* Select the `<version>.target` file that matches to your Eclipse platform target version.
-* Open the file with the default editor (Target Editor).
-Whait until Eclipse downloads indexes of the referenced p2 repositories.
-* Click the `Set as Target Platform` link at the top right of the Target Definition view.
-* Open `Window` -> `Preferences` -> Plug-In Development` -> `Target Platform` and
+There are additional Eclipse-related dependencies that must be installed _for each Eclipse platform target version_.  For now, let's install the dependencies of earliest-supported Eclipse version (3.5.2).  If you ever need to target another version of Eclipse, repeat this process with the matching version.
+
+1. Open the `com.microsoft.tfs.client.eclipse.target` project.
+1. Select the `3.5.target` file
+1. Open the file with the default editor (Target Editor).
+1. Wait until Eclipse downloads indexes of the referenced p2 repositories. (this might take a few minutes)
+1. Click the `Set as Target Platform` link at the top right of the Target Definition view.
+1. Open `Window` -> `Preferences` -> `Plug-In Development` -> `Target Platform` and
 make sure the desired target is selected.
-* Clean rebuild projects. (`Project` -> `Clean` -> `Clean all projects`)
+1. Perform a clean rebuild of all projects. (`Project` -> `Clean...` -> `Clean all projects` -> `OK`)
 
 ## Debugging
 ### Creating Runtime Configurations
