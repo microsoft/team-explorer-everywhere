@@ -10,8 +10,10 @@ Interested in contributing to the team-explorer-everywhere project? There are pl
 * Participate in [discussions](https://social.msdn.microsoft.com/Forums/vstudio/en-US/home?forum=tee&filter=alltypes&sort=lastpostdesc)
 
 ## Code Styles
-A few styles we follow:
-1. No tabs in source code. All tabs should be expanded to 4 spaces.
+
+A few styles we follow; most of these are enforced by the Eclipse configuration described in the [Getting Started Guide](GettingStarted.md).
+
+1. No tabs in source code. Indentation is done using 4 spaces.
 1. No imports with "*".
 1. The attribute `final` should be used whereever it's possible. 
 1. All Java source files must have the following two lines at the top:
