@@ -24,6 +24,10 @@ A few styles we follow:
 git config core.safecrlf true
 ```
 
+## Building, testing and debugging
+
+Before you can build, please follow the [Getting Started Guide](GettingStarted.md) to install & configure the tools you'll need.
+
 ## Testing
 
 1. ...
