@@ -36,35 +36,46 @@ Two versions of the Java Development Kit are needed: we use Java SE 6 as the min
 
 ### Install Eclipse
 
-### Install the Eclipse Target Environment
-We use Eclipse 3.5.2 as the minimum supported Eclipse version.
-1. Download and install Eclipse Classic from [Eclipse 3.5.2](http://www.eclipse.org/downloads/packages/release/galileo/sr2). On Windows, you may want to use a third party ZIP tool to unzip the Eclipse archive.
-1. Install the [EGit 2.1.0](http://archive.eclipse.org/egit/updates-2.1) plug-in into that Eclipse instance.
+Two versions of Eclipse are needed: we use Eclipse 3.5.2 (Galileo) as the Target Environment, which is the minimum supported Eclipse version (used for building the release and testing backward-compatibility) and Eclipse 4.5.2 (Mars.2) as a dedicated team-explorer-everywhere Development Environment.  Using a dedicated Eclipse installation and workspace for development makes it less disruptive to configure Eclipse-wide preferences.
 
-### Tools
-Install Eclipse Mars.2 Release (4.5.2) for RCP and RAP Developers or later.
+1. Download and extract [Eclipse Classic 3.5.2](http://www.eclipse.org/downloads/packages/eclipse-classic-352/galileosr2) to the `dev/eclipseTargets/352` sub-folder under your `HOME` folder.
+  * (Windows) Use [7-Zip](http://www.7-zip.org/) to [make sure all files are extracted](https://bugs.eclipse.org/bugs/show_bug.cgi?id=166597).
+1. Launch Eclipse 3.5.2
+  1. `Help` -> `Install New Software...`
+  1. In the *Work with* textbox, type `http://archive.eclipse.org/egit/updates-2.1` and click `Add...`
+  1. The *Add Site* dialog appears.  Type `EGit 2.1.0` in the _Name_ textbox and click `OK`.
+  1. Expand both features and select the following plug-ins:
+    * *Eclipse EGit*
+    * *Eclipse EGit - Source*
+    * *Eclipse JGit*
+    * *Eclipse JGit - Source*
+  1. Click `Next >` and finish the wizard to install the plugins
+  1. TODO: install more modern SWT than 4.1 for browser-based authentication
+1. Download and extract [Eclipse for RCP and RAP Developers 4.5.2](http://www.eclipse.org/downloads/packages/eclipse-rcp-and-rap-developers/mars2)
+  * (Windows) Use [7-Zip](http://www.7-zip.org/) to [make sure all files are extracted](https://bugs.eclipse.org/bugs/show_bug.cgi?id=166597).
+1. Launch Eclipse 4.5.2 and follow the instructions below to configure it
 
-### Eclipse IDE Configuration
-In a new empty Eclipse workspace open the Preferences dialog using Window -> Preferences menu option.
+### Configure Eclipse
+In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `Preferences` menu option.
 
 1. Set JRE preferences
   * Go to the `Java` -> `Installed JREs` page.
     - Click the `Add` button.
     - Select `Standard VM` and click the `Next` button.
-    - Enter a full JDK path into the JRE home field. Note that you should use the JDK folder, not a JRE one.
+    - Enter the absolute path to the JDK 6 into the JRE home field. Note that you should use the JDK folder, not the JRE one.
     - Click the `Finish` button.
-    - Select the check-box at the added JDK and click the `Apply` button.
+    - Select the checkbox next to the newly-added JDK and click the `Apply` button.
   * Go to the `Java` -> `Installed JREs` -> `Execution Environment` page.
     - Select `JavaSE-1.6` in the `Execution Environments` column.
-    - Select the check-box at the desired compatible JDK in the Compatible JREs column.
+    - Select the checkbox next to the best match in the Compatible JREs column.
 
 1. Set Compiler preferences
   * Go to the `Java` -> `Compiler` page.
-    - Select `1.6` in the `Compiler complience level` list-box.
-    - Select the `Use default complience setting` check-box.
+    - Select `1.6` in the `Compiler compliance level` list box.
+    - Select the `Use default compliance setting` checkbox.
     - Click the `Apply` button.
   * Go to the `Java` -> `Compiler` -> `Error/Warnings` page.
-    - Select `Error` in the `Non-externalized strings (missing/unused $NON-NLS$ tag)` list-box.
+    - Select `Error` in the `Non-externalized strings (missing/unused $NON-NLS$ tag)` list box.
     - Click the `Apply` button.
 
 1. Set Editor preferences
@@ -81,32 +92,32 @@ In a new empty Eclipse workspace open the Preferences dialog using Window -> Pre
           - `Remove unnecessary casts`
     - Click the `Apply` button.
   * Go to the `Java` -> `Editor` -> `Templates` page.
-    - Click the `Import` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the team-explorer-everywhere repository.
+    - Click the `Import...` button.
+    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Editor Templates.xml` file and click `Open`.
     - Click the `Apply` button.
 
 1. Set Code Style preferences
   * Go to the `Java` -> `Code Style` -> `Clean Up` page.
-    - Click the `Import` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the team-explorer-everywhere repository.
+    - Click the `Import...` button.
+    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code Cleanup.xml` file and click `Open`.
-    - Make sure that `Java ALM` is selected in the `Active profile` list-box.
+    - Make sure that `Java ALM` is selected in the `Active profile` list box.
     - Click the `Apply` button.
   * Go to the `Java` -> `Code Style` -> `Code Templates` page.
-    - Click the `Import` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the team-explorer-everywhere repository.
+    - Click the `Import...` button.
+    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code Templates.xml` file and click `Open`.
     - Click the `Apply` button.
   * Go to the `Java` -> `Code Style` -> `Formatter` page.
-    - Click the `Import` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the team-explorer-everywhere repository.
+    - Click the `Import...` button.
+    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code Formatting.xml` file and click `Open`.
-    - Make sure that `Java ALM` is selected in the `Active profile` list-box.
+    - Make sure that `Java ALM` is selected in the `Active profile` list box.
     - Click the `Apply` button.
-  * Go to the `Java` -> `Code Style` -> `Organize Import` page.
-    - Click the `Import` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the team-explorer-everywhere repository.
+  * Go to the `Java` -> `Code Style` -> `Organize Imports` page.
+    - Click the `Import...` button.
+    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code.importorder` file and click `Open`.
     - Click the `Apply` button.
 
