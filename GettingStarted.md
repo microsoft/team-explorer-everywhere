@@ -10,6 +10,11 @@ pushd c:\repos
 git clone https://github.com/Microsoft/team-explorer-everywhere
 ```
 
+1. We keep LF line-ending on the server. Please set the `core.safecrlf` git config property to true.
+```
+git config core.safecrlf true
+```
+
 ## Building with Ant
 ### Install Java 6
 1. We use JavaSE-1.6 as the minimal supported Java execution environment.
@@ -133,12 +138,6 @@ Whait until Eclipse downloads indexes of the referenced p2 repositories.
 * Open `Window` -> `Preferences` -> Plug-In Development` -> `Target Platform` and
 make sure the desired target is selected.
 * Clean rebuild projects. (`Project` -> `Clean` -> `Clean all projects`)
-
-
-1. We keep LF line-ending on the server. Please set the `core.safecrlf` git config property to true.
-```
-git config core.safecrlf true
-```
 
 ## Debugging
 ### Creating Runtime Configurations
