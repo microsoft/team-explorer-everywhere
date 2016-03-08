@@ -38,7 +38,7 @@ Two versions of the Java Development Kit are needed: we use Java SE 6 as the min
 
 Two versions of Eclipse are needed: we use Eclipse 3.5.2 (Galileo) as the Target Environment, which is the minimum supported Eclipse version (used for building the release and testing backward-compatibility) and Eclipse 4.5.2 (Mars.2) as a dedicated team-explorer-everywhere Development Environment.  Using a dedicated Eclipse installation and workspace for development makes it less disruptive to configure Eclipse-wide preferences.
 
-1. Download and extract [Eclipse Classic 3.5.2](http://www.eclipse.org/downloads/packages/eclipse-classic-352/galileosr2) to the `dev/eclipseTargets/352` sub-folder under your `HOME` folder.
+1. Download and extract [Eclipse Classic 3.5.2](http://www.eclipse.org/downloads/packages/eclipse-classic-352/galileosr2) to the `dev/eclipseTargets/352` sub-folder under your `HOME` folder.  The absolute path to this folder will be needed later when building with Ant.
   * (Windows) Use [7-Zip](http://www.7-zip.org/) to [make sure all files are extracted](https://bugs.eclipse.org/bugs/show_bug.cgi?id=166597).
 1. Launch Eclipse 3.5.2
   1. `Help` -> `Install New Software...`
