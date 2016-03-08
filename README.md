@@ -32,11 +32,11 @@ Note: The Eclipse target installation location is needed as a parameter for the 
 1. From a terminal/console window, change to the `build` sub-folder of the root folder of the **team-explorer-everywhere** repository
 1. Run ant -Ddir.machine.build-runtime=`<pathToEclipseTarget>`, for example, 
 ```
-(Windows) ant -Ddir.machine.build-runtime=c:\Users\<userId>\dev\eclipseTargets\352\
+(Windows) ant -Ddir.machine.build-runtime=C:\Users\<userId>\dev\eclipseTargets\352\
 (Linux) ant -Ddir.machine.build-runtime=/home/<userId>/dev/eclipseTargets/352/
-(Mac) ant -Ddir.machine.build-runtime=/Applications/eclipse-classic/
+(Mac) ant -Ddir.machine.build-runtime=/Users/<userId>/dev/eclipseTargets/352/
 ``` 
-1. Build results can be found in `build\output`
+1. Build results can be found in `build/output`
 
 ## Contributing
 We welcome pull requests. Please fork this repo and send us your contributions.
