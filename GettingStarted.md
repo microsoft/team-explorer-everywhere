@@ -129,7 +129,7 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
     - Select the `Java ALM Java Code.importorder` file and click `Open`.
     - Click the `Apply` button.
 
-### Importing Projects
+### Import the projects into Eclipse
 
 1. Open Git Import Wizard using `File` -> `Import` -> `Git` ->`Projects from Git`.
 1. Select `Existing local repository`, click the `Add` button.
@@ -152,8 +152,7 @@ There are additional Eclipse-related dependencies that must be installed _for ea
 make sure the desired target is selected.
 1. Perform a clean rebuild of all projects. (`Project` -> `Clean...` -> `Clean all projects` -> `OK`)
 
-## Debugging
-### Creating Runtime Configurations
+### Create Runtime Configurations in Eclipse
 1. Create a "Plugin" configuration to run/debug the plugin code.
   * Open the Debug Configurations window using `Run` -> `Debug Configurations`
   * Create a new Eclipse Application configuration:
