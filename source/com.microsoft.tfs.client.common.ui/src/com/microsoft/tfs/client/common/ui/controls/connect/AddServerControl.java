@@ -229,6 +229,11 @@ public class AddServerControl extends BaseControl implements Validatable {
 
                 /* Make sure this is a complete URI. */
                 if (serverURI.getHost() != null) {
+
+                    if (ServerURIUtils.isHosted(serverURI)) {
+                        serverURI = URIUtils.newURI(serverURI.getScheme(), serverURI.getAuthority(), null, null, null);
+                    }
+
                     SWTUtil.setCompositeEnabled(connectionDetailsGroup, false);
                     previewText.setText(serverURI.toString());
 
