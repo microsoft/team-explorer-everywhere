@@ -34,6 +34,14 @@ Two versions of the Java Development Kit are needed: we use Java SE 6 as the min
  * (Mac) `PATH=$JAVA_HOME/bin:$PATH`
 1. Download and install Java SE 8 JDK from [Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
+### Install Ant
+
+1. If you do not already have it, download and install Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
+1. Add the full path of the Ant `bin` directory to the `PATH` system environment variable. You can find more Ant installation details [here](http://ant.apache.org/manual/install.html#installing).
+ * (Windows) `SET PATH=C:\dev\apache-ant-1.9.6\bin;%PATH%`
+ * (Linux) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
+ * (Mac) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
+
 ### Install Eclipse
 
 Two versions of Eclipse are needed: we use Eclipse 3.5.2 (Galileo) as the Target Environment, which is the minimum supported Eclipse version (used for building the release and testing backward-compatibility) and Eclipse 4.5.2 (Mars.2) as a dedicated team-explorer-everywhere Development Environment.  Using a dedicated Eclipse installation and workspace for development makes it less disruptive to configure Eclipse-wide preferences.
@@ -120,17 +128,6 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
     - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code.importorder` file and click `Open`.
     - Click the `Apply` button.
-
-
-### Install Ant
-
-1. If you do not already have it, download and install Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
-1. Add the full path of the Ant `bin` directory to the `PATH` system environment variable. You can find more Ant installation details [here](http://ant.apache.org/manual/install.html#installing).
- * (Windows) `SET PATH=C:\dev\apache-ant-1.9.6\bin;%PATH%`
- * (Linux) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
- * (Mac) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
-
-## Build and Run with Eclipse
 
 ### Importing Projects
 
