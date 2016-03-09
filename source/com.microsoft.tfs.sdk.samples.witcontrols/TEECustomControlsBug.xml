@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <witd:WITD application="Work item type editor" version="1.0" xmlns:witd="http://schemas.microsoft.com/VisualStudio/2008/workitemtracking/typedef">
   <WORKITEMTYPE name="TEECustomControlsBug">
     <DESCRIPTION>Describes a divergence between required and actual behavior, and tracks the work done to correct the defect and verify the correction.</DESCRIPTION>
