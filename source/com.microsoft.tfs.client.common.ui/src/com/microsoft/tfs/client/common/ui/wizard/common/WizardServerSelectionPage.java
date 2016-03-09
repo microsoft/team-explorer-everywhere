@@ -73,27 +73,20 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         layout.marginHeight = getVerticalMargin();
         container.setLayout(layout);
 
-        final ICommandExecutor errorDialogCommandExecutor = getCommandExecutor();
-
-        final ICommandExecutor noErrorDialogCommandExecutor = getCommandExecutor();
-        noErrorDialogCommandExecutor.setCommandFinishedCallback(
-            UICommandFinishedCallbackFactory.getDefaultNoErrorDialogCallback());
-
         serverTypeSelectControl = new ServerTypeSelectControl(container, SWT.NONE);
-        serverTypeSelectControl.setCommandExecutor(errorDialogCommandExecutor);
-        serverTypeSelectControl.setNoErrorDialogCommandExecutor(noErrorDialogCommandExecutor);
         GridDataBuilder.newInstance().grab().fill().applyTo(serverTypeSelectControl);
 
         serverTypeSelectControl.addListener(new ServerTypeSelectionChangedListener() {
             @Override
             public void onServerTypeSelectionChanged(final ServerTypeSelectionChangedEvent event) {
-                if (serverTypeSelectControl.getServer() != null) {
-                    setPageData(serverTypeSelectControl.getServer());
+                final URI serverURI = serverTypeSelectControl.getServer();
+                if (serverURI != null) {
+                    setPageData(serverURI);
                 } else {
                     removePageData();
                 }
 
-                setPageComplete(serverTypeSelectControl.getServer() != null);
+                setPageComplete(serverURI != null);
             }
         });
 
@@ -189,7 +182,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                     if (configurationServer != null) {
                         configurationServers.add(configurationServer);
                     }
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     log.error(e.getMessage(), e);
                 }
             }
@@ -270,7 +263,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         final ConnectToConfigurationServerTask connectTask =
             new ConnectToConfigurationServerTask(getShell(), accountUrl, accountCredentials);
         connectTask.setCommandExecutor(noErrorDialogCommandExecutor);
-        IStatus status = connectTask.run();
+        final IStatus status = connectTask.run();
 
         final TFSConnection connection;
         if (status.isOK()) {
@@ -320,6 +313,10 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
     @Override
     protected void refresh() {
+        if (serverTypeSelectControl == null) {
+            return;
+        }
+
         final URI serverURI =
             getExtendedWizard().hasPageData(URI.class) ? (URI) getExtendedWizard().getPageData(URI.class) : null;
 
