@@ -58,7 +58,6 @@ Two versions of Eclipse are needed: we use Eclipse 3.5.2 (Galileo) as the Target
     * *Eclipse JGit*
     * *Eclipse JGit - Source*
   1. Click `Next >` and finish the wizard to install the plugins
-  1. TODO: install more modern SWT than 4.1 for browser-based authentication
 1. Download and extract [Eclipse for RCP and RAP Developers 4.5.2](http://www.eclipse.org/downloads/packages/eclipse-rcp-and-rap-developers/mars2)
   * (Windows) Use [7-Zip](http://www.7-zip.org/) to [make sure all files are extracted](https://bugs.eclipse.org/bugs/show_bug.cgi?id=166597).
 1. Launch Eclipse 4.5.2 and follow the instructions below to configure it
