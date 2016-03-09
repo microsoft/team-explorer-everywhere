@@ -67,14 +67,14 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
 
 1. Set JRE preferences
   * Go to the `Java` -> `Installed JREs` page.
-    - Click the `Add` button.
+    - Click the `Add...` button.
     - Select `Standard VM` and click the `Next` button.
     - Enter the absolute path to the JDK 6 into the JRE home field. Note that you should use the JDK folder, not the JRE one.
     - Click the `Finish` button.
     - Select the checkbox next to the newly-added JDK and click the `Apply` button.
   * Go to the `Java` -> `Installed JREs` -> `Execution Environment` page.
     - Select `JavaSE-1.6` in the `Execution Environments` column.
-    - Select the checkbox next to the best match in the Compatible JREs column.
+    - Select the checkbox next to the best match in the `Compatible JREs` column.
 
 1. Set Compiler preferences
   * Go to the `Java` -> `Compiler` page.
@@ -131,7 +131,7 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
 ### Import the projects into Eclipse
 
 1. Open Git Import Wizard using `File` -> `Import` -> `Git` ->`Projects from Git`.
-1. Select `Existing local repository`, click the `Add` button.
+1. Select `Existing local repository`, click the `Add...` button.
   1. Using the `Browse...` button, navigate to your local copy of the **team-explorer-everywhere** repository, select it, and click the `Finish` button.
 1. Click the `Next` button to switch to the Wizard Selection page.
 1. Select the `Import existing Eclipse projects` option and the `source` folder under the root of the repository.
@@ -140,12 +140,12 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
 
 ### Install Eclipse dependencies
 
-There are additional Eclipse-related dependencies that must be installed _for each Eclipse platform target version_.  For now, let's install the dependencies of earliest-supported Eclipse version (3.5.2).  If you ever need to target another version of Eclipse, repeat this process with the matching version.
+There are additional Eclipse-related dependencies that must be installed _for each Eclipse platform target version_.  For now, let's install the dependencies of the earliest-supported Eclipse version (3.5.2).  If you ever need to target another version of Eclipse, repeat this process with the matching version.
 
 1. Open the `com.microsoft.tfs.client.eclipse.target` project.
-1. Select the `3.5.target` file
+1. Select the `3.5.target` file.
 1. Open the file with the default editor (Target Editor).
-1. Wait until Eclipse downloads indexes of the referenced p2 repositories. (this might take a few minutes)
+1. Wait a few minutes while Eclipse downloads indices of the referenced p2 repositories.
 1. Click the `Set as Target Platform` link at the top right of the Target Definition view.
 1. Open `Window` -> `Preferences` -> `Plug-In Development` -> `Target Platform` and
 make sure the desired target is selected.
@@ -157,17 +157,17 @@ make sure the desired target is selected.
   * Create a new Eclipse Application configuration:
     * Right-click the `Eclipse Application` node in the configurations list.
     * Select the `New` pop menu option.
-  * Enter `TEE Eclipse plugin` as the new configuration `Name`
+  * Enter `TEE Eclipse plugin` as the new configuration `Name`.
   * On the **Main** tab:
     * Select the `Run a product` option and enter `org.eclipse.platform.ide` in the textbox.
     * Select the `Execution environment` option and make sure `JavaSE-1.6` is selected.
-  * Click `Debug` to test the configuration
+  * Click `Debug` to test the configuration.
 1. Create a "CLC" configuration to run/debug the command-line client code.
   * Open the Debug Configurations window using `Run` -> `Debug Configurations...`
   * Create a new Java Application configuration:
     * Right-click the `Java Application` node in the configurations list.
     * Select the `New` pop menu option.
-  * Enter `TEE CLC` as the new configuration `Name`
+  * Enter `TEE CLC` as the new configuration `Name`.
   * On the **Main** tab:
     * Set the `Project` to `com.microsoft.tfs.client.clc`
     * Set the `Main class` to `com.microsoft.tfs.client.clc.vc.Main`
@@ -177,4 +177,4 @@ make sure the desired target is selected.
       -Dcom.microsoft.tfs.jni.native.base-directory=${workspace_loc:com.microsoft.tfs.jni}/os
       ```
     * In the `Program arguments` section enter the `tf` command arguments for the run, e.g. `workspaces /help`.
-  * Click `Debug` to test the configuration
+  * Click `Debug` to test the configuration.
