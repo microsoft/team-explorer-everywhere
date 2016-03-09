@@ -5,16 +5,26 @@ package com.microsoft.tfs.client.common.ui.controls.connect;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.fieldassist.ComboContentAdapter;
+import org.eclipse.jface.fieldassist.ContentProposal;
+import org.eclipse.jface.fieldassist.ContentProposalAdapter;
+import org.eclipse.jface.fieldassist.IContentProposal;
+import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
@@ -25,25 +35,32 @@ import com.microsoft.tfs.client.common.ui.browser.BrowserFacade.LaunchMode;
 import com.microsoft.tfs.client.common.ui.controls.generic.BaseControl;
 import com.microsoft.tfs.client.common.ui.controls.generic.compatibility.link.CompatibilityLinkControl;
 import com.microsoft.tfs.client.common.ui.controls.generic.compatibility.link.CompatibilityLinkFactory;
+import com.microsoft.tfs.client.common.ui.dialogs.connect.ServerListDialog;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandExecutorFactory;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandFinishedCallbackFactory;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
+import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
+import com.microsoft.tfs.core.util.serverlist.ServerList;
+import com.microsoft.tfs.core.util.serverlist.ServerListConfigurationEntry;
+import com.microsoft.tfs.core.util.serverlist.ServerListManagerFactory;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
 
 public class ServerTypeSelectControl extends BaseControl {
     private static final Log log = LogFactory.getLog(ServerTypeSelectControl.class);
 
     private URI serverURI = null;
-    private boolean serverReadonly = false;
     private boolean ignoreServerChangeEvents = false;
     private ICommandExecutor commandExecutor;
     private ICommandExecutor noErrorDialogCommandExecutor;
-    private final ServerSelectControl serverControl;
+    private Combo serverCombo;
+    private ContentProposalAdapter serverComboAdapter;
+    private PropsalProvider proposalProvider;
     private final Button vstsButton;
     private final Button tfsButton;
+    private final Composite serverControl;
     private final SingleListenerFacade listeners = new SingleListenerFacade(ServerTypeSelectionChangedListener.class);
 
     public ServerTypeSelectControl(final Composite parent, final int style) {
@@ -56,18 +73,44 @@ public class ServerTypeSelectControl extends BaseControl {
         layout.verticalSpacing = 0;
         setLayout(layout);
 
-        SelectionAdapter buttonsChanged = new SelectionAdapter() {
+        final SelectionAdapter buttonsChanged = new SelectionAdapter() {
             @Override
             public void widgetSelected(final SelectionEvent e) {
                 onButtonsChanged();
             }
         };
 
-        vstsButton = new Button(this, SWT.RADIO);
-        vstsButton.setText(Messages.getString("ServerTypeSelectControl.BrowseVstsButtonText")); //$NON-NLS-1$
-        vstsButton.setSelection(true);
-        vstsButton.addSelectionListener(buttonsChanged);
-        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().applyTo(vstsButton);
+        vstsButton = createTeamServicesButton(layout, buttonsChanged);
+        tfsButton = createTeamFoundationServerButton(layout, buttonsChanged);
+        serverControl = setupServerCombo(layout);
+
+        populateServersCombo();
+
+        if (serverURI != null) {
+            setServerOnCombo(serverURI);
+        } else {
+            setServer(getServerFromCombo());
+        }
+
+        // fire the buttons changed event so that the initial state is updated
+        onButtonsChanged();
+    }
+
+    private Button createTeamFoundationServerButton(final GridLayout layout, final SelectionAdapter buttonsChanged) {
+        final Button button = new Button(this, SWT.RADIO);
+        button.setText(Messages.getString("ServerTypeSelectControl.ConnectButtonText")); //$NON-NLS-1$
+        button.addSelectionListener(buttonsChanged);
+        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().vIndent(getVerticalSpacing() * 2).applyTo(button);
+
+        return button;
+    }
+
+    private Button createTeamServicesButton(final GridLayout layout, final SelectionAdapter buttonsChanged) {
+        final Button button = new Button(this, SWT.RADIO);
+        button.setText(Messages.getString("ServerTypeSelectControl.BrowseVstsButtonText")); //$NON-NLS-1$
+        button.setSelection(true);
+        button.addSelectionListener(buttonsChanged);
+        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().applyTo(button);
 
         final Label vstsLabel = SWTUtil.createLabel(
             this,
@@ -114,33 +157,112 @@ public class ServerTypeSelectControl extends BaseControl {
         GridDataBuilder.newInstance().hFill().hGrab().hIndent(getHorizontalSpacing() * 4).wHint(
             getMinimumMessageAreaWidth()).applyTo(learnMoreLink.getControl());
 
-        tfsButton = new Button(this, SWT.RADIO);
-        tfsButton.setText(Messages.getString("ServerTypeSelectControl.ConnectButtonText")); //$NON-NLS-1$
-        tfsButton.addSelectionListener(buttonsChanged);
-        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().vIndent(getVerticalSpacing() * 2).applyTo(
-            tfsButton);
+        return button;
+    }
 
-        serverControl = new ServerSelectControl(this, SWT.NONE);
-        GridDataBuilder.newInstance().hSpan(layout).hIndent(getHorizontalSpacing() * 4).hFill().hGrab().vIndent(
-            getVerticalSpacing()).applyTo(serverControl);
+    private Composite setupServerCombo(final GridLayout parentLayout) {
+        final Composite container = new Composite(this, SWT.NULL);
+        final GridLayout layout = SWTUtil.gridLayout(container, 2, false, 0, 0);
+        layout.marginWidth = 0;
+        layout.marginHeight = 0;
+        layout.horizontalSpacing = getHorizontalSpacing();
+        layout.verticalSpacing = getVerticalSpacing();
 
-        if (serverURI != null) {
-            serverControl.setServerURI(serverURI);
-        } else if (serverControl.getServerURI() != null) {
-            setServer(serverControl.getServerURI());
-        }
-        serverControl.setEnabled(!serverReadonly);
-        serverControl.addServerSelectionChangedListener(new ISelectionChangedListener() {
+        serverCombo = new Combo(container, SWT.NONE);
+        // setup Auto Complete for the combo box
+        proposalProvider = new PropsalProvider();
+        final ComboContentAdapter comboContentAdapter = new ComboContentAdapter();
+        serverComboAdapter = new ContentProposalAdapter(serverCombo, comboContentAdapter, proposalProvider, null, null);
+        serverComboAdapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
+        GridDataBuilder.newInstance().hGrab().hFill().applyTo(serverCombo);
+        serverCombo.addModifyListener(new ModifyListener() {
             @Override
-            public void selectionChanged(final SelectionChangedEvent event) {
+            public void modifyText(final ModifyEvent e) {
                 if (!ignoreServerChangeEvents) {
-                    setServer(serverControl.getServerURI());
+                    setServer(getServerFromCombo(), false);
                 }
             }
         });
 
-        // fire the buttons changed event so that the initial state is updated
-        onButtonsChanged();
+        final Button serversButton =
+            SWTUtil.createButton(container, Messages.getString("ServerSelectControl.ServersButtonText")); //$NON-NLS-1$
+        serversButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(final SelectionEvent e) {
+                onServersButtonSelected();
+            }
+        });
+
+        GridDataBuilder.newInstance().hSpan(parentLayout).hIndent(getHorizontalSpacing() * 4).hFill().hGrab().vIndent(
+            getVerticalSpacing()).applyTo(container);
+
+        return container;
+    }
+
+    private void populateServersCombo() {
+        final ServerList serverList =
+            ServerListManagerFactory.getServerListProvider(DefaultPersistenceStoreProvider.INSTANCE).getServerList();
+
+        int i = 0;
+        final Set<ServerListConfigurationEntry> servers = serverList.getServers();
+        final String[] list = new String[servers.size()];
+        for (final ServerListConfigurationEntry entry : servers) {
+            list[i++] = entry.getURI().toString();
+        }
+        Arrays.sort(list);
+        serverCombo.setItems(list);
+        proposalProvider.setProposals(list);
+
+        if (list.length == 1) {
+            serverCombo.select(0);
+        }
+    }
+
+    protected void onServersButtonSelected() {
+        final URI lastSelectedServer = getServerFromCombo();
+        final ServerList serverList =
+            ServerListManagerFactory.getServerListProvider(DefaultPersistenceStoreProvider.INSTANCE).getServerList();
+
+        final ServerList serverListCopy = new ServerList();
+        serverListCopy.addAll(serverList.getServers());
+
+        final ServerListDialog dialog = new ServerListDialog(getShell(), serverListCopy);
+        dialog.open();
+
+        /*
+         * Note: there is no OK/Cancel on ServerListDialog: all exit paths
+         * should continue.
+         */
+
+        ServerListManagerFactory.getServerListProvider(DefaultPersistenceStoreProvider.INSTANCE).setServerList(
+            serverListCopy);
+
+        populateServersCombo();
+
+        final ServerListConfigurationEntry lastAddedServerListEntry = dialog.getLastAddedServerListEntry();
+
+        if (lastAddedServerListEntry != null) {
+            setServerOnCombo(lastAddedServerListEntry.getURI());
+        } else {
+            setServerOnCombo(lastSelectedServer);
+        }
+    }
+
+    private void setServerOnCombo(final URI server) {
+        if (server != null) {
+            serverCombo.setText(server.toString());
+        } else {
+            serverCombo.setText(""); //$NON-NLS-1$
+        }
+    }
+
+    private URI getServerFromCombo() {
+        final String server = serverCombo.getText();
+        if (server != null && server.length() > 0) {
+            return URI.create(server.trim());
+        }
+
+        return null;
     }
 
     public void addListener(final ServerTypeSelectionChangedListener listener) {
@@ -180,16 +302,31 @@ public class ServerTypeSelectControl extends BaseControl {
     }
 
     public URI getServer() {
+        if (this.serverURI == null) {
+            return URIUtils.VSTS_ROOT_URL;
+        }
         return this.serverURI;
     }
 
     public void setServer(final URI serverURI) {
+        setServer(serverURI, true);
+    }
+
+    private void setServer(URI serverURI, final boolean setCombo) {
         ignoreServerChangeEvents = true;
-        serverControl.setServerURI(serverURI);
+        if (serverURI != null && URIUtils.VSTS_ROOT_URL.equals(serverURI)) {
+            // setServer was called with the VSTS root url, so replace that with
+            // null
+            serverURI = null;
+        }
+
+        if (setCombo) {
+            setServerOnCombo(serverURI);
+        }
 
         // If we have an authority and it matches the one selected in the combo,
         // change the radio button
-        if (serverURI != null && ServerURIUtils.equals(serverURI, serverControl.getServerURI())) {
+        if (serverURI != null && ServerURIUtils.equals(serverURI, getServerFromCombo())) {
             setVstsSelection(false);
         }
         ignoreServerChangeEvents = false;
@@ -204,9 +341,9 @@ public class ServerTypeSelectControl extends BaseControl {
 
     private void onButtonsChanged() {
         if (vstsButton.getSelection()) {
-            setServer(URIUtils.VSTS_ROOT_URL);
+            setServer(null);
         } else {
-            setServer(serverControl.getServerURI());
+            setServer(getServerFromCombo());
         }
     }
 
@@ -243,6 +380,44 @@ public class ServerTypeSelectControl extends BaseControl {
 
         public URI getServerURI() {
             return serverURI;
+        }
+    }
+
+    private class PropsalProvider implements IContentProposalProvider {
+        private String[] proposals = new String[0];
+
+        public void setProposals(final String[] proposals) {
+            if (proposals == null) {
+                this.proposals = new String[0];
+            } else {
+                this.proposals = proposals;
+            }
+        }
+
+        @Override
+        public IContentProposal[] getProposals(final String contents, final int position) {
+            // Work-around to make sure that the popup doesn't open when the
+            // user has opened the dropdown of the combo. By returning an empty
+            // list, the popup won't be shown.
+            if (ignoreServerChangeEvents || serverCombo.getListVisible()) {
+                return new IContentProposal[0];
+            }
+
+            final List<IContentProposal> list = new ArrayList<IContentProposal>(proposals.length);
+            if (contents == null || contents.length() == 0) {
+                for (int i = 0; i < proposals.length; i++) {
+                    list.add(new ContentProposal(proposals[i]));
+                }
+            } else {
+                final String search = contents.toLowerCase().trim();
+                for (int i = 0; i < proposals.length; i++) {
+                    if (proposals[i] != null && proposals[i].toLowerCase().contains(search)) {
+                        list.add(new ContentProposal(proposals[i]));
+                    }
+                }
+            }
+
+            return (IContentProposal[]) list.toArray(new IContentProposal[list.size()]);
         }
     }
 }
