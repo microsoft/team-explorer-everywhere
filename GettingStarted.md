@@ -3,10 +3,8 @@ The instructions below will help you get your development environment configured
 
 ## Clone and configure the repository
 Use the Git tool of your choice to clone the repository into a local path.
-For example, you could use git.exe from a Windows console window:
+For example, you could use the command-line client from a console/terminal window:
 ```
-mkdir c:\repos
-pushd c:\repos
 git clone https://github.com/Microsoft/team-explorer-everywhere.git
 ```
 
@@ -24,27 +22,18 @@ Two versions of the Java Development Kit are needed: we use Java SE 6 as the min
 1. Download and install Java SE 6:
   * [Windows and Linux: Java Development Kit 6u45](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html#jdk-6u45-oth-JPR)
   * [Mac: Apple Java 1.6.0_65, a.k.a. Java for OS X 2015-001](https://support.apple.com/kb/DL1572?locale=en_US)
-1. Set the JAVA_HOME environment variable to point to the install, e.g
- * (Windows) `SET JAVA_HOME=C:\Program Files\Java\jdk1.6.0_45`
- * (Linux) `JAVA_HOME=~/dev/java/jdk1.6.0_45`
- * (Mac) `JAVA_HOME=/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home`
-1. Add JAVA_HOME bin directory to the path
- * (Windows) `SET PATH=%JAVA_HOME%\bin;%PATH%`
- * (Linux) `PATH=$JAVA_HOME/bin:$PATH`
- * (Mac) `PATH=$JAVA_HOME/bin:$PATH`
+1. Ensure the `JAVA_HOME` environment variable is persistently configured to point to the JDK folder.
+1. Ensure the `bin` sub-folder under `JAVA_HOME` is persistently added to the `PATH` environment variable.
 1. Download and install Java SE 8 JDK from [Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
 ### Install Ant
 
-1. If you do not already have it, download and install Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
-1. Add the full path of the Ant `bin` directory to the `PATH` system environment variable. You can find more Ant installation details [here](http://ant.apache.org/manual/install.html#installing).
- * (Windows) `SET PATH=C:\dev\apache-ant-1.9.6\bin;%PATH%`
- * (Linux) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
- * (Mac) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
+1. If you do not already have it, download and extract Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
+1. Ensure the path of the Ant `bin` sub-folder is persistently added to the `PATH` environment variable.
 
 ### Install Eclipse
 
-Two versions of Eclipse are needed: we use Eclipse 3.5.2 (Galileo) as the Target Environment, which is the minimum supported Eclipse version (used for building the release and testing backward-compatibility) and Eclipse 4.5.2 (Mars.2) as a dedicated team-explorer-everywhere Development Environment.  Using a dedicated Eclipse installation and workspace for development makes it less disruptive to configure Eclipse-wide preferences.
+Two versions of Eclipse are needed: we use Eclipse 3.5.2 (Galileo) as the Target Environment, which is the minimum supported Eclipse version (used for building the release) and Eclipse 4.5.2 (Mars.2) as a dedicated team-explorer-everywhere Development Environment.  Using a dedicated Eclipse installation and workspace for development makes it less disruptive to configure Eclipse-wide preferences.
 
 1. Download and extract [Eclipse Classic 3.5.2](http://www.eclipse.org/downloads/packages/eclipse-classic-352/galileosr2) to the `dev/eclipseTargets/352` sub-folder under your `HOME` folder.  The absolute path to this folder will be needed later when building with Ant.
   * (Windows) Use [7-Zip](http://www.7-zip.org/) to [make sure all files are extracted](https://bugs.eclipse.org/bugs/show_bug.cgi?id=166597).
@@ -54,9 +43,7 @@ Two versions of Eclipse are needed: we use Eclipse 3.5.2 (Galileo) as the Target
   1. The *Add Site* dialog appears.  Type `EGit 2.1.0` in the _Name_ textbox and click `OK`.
   1. Expand both features and select the following plug-ins:
     * *Eclipse EGit*
-    * *Eclipse EGit - Source*
     * *Eclipse JGit*
-    * *Eclipse JGit - Source*
   1. Click `Next >` and finish the wizard to install the plugins
 1. Download and extract [Eclipse for RCP and RAP Developers 4.5.2](http://www.eclipse.org/downloads/packages/eclipse-rcp-and-rap-developers/mars2)
   * (Windows) Use [7-Zip](http://www.7-zip.org/) to [make sure all files are extracted](https://bugs.eclipse.org/bugs/show_bug.cgi?id=166597).
@@ -100,31 +87,31 @@ In a new empty Eclipse workspace open the Preferences dialog using `Window` -> `
     - Click the `Apply` button.
   * Go to the `Java` -> `Editor` -> `Templates` page.
     - Click the `Import...` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
+    - Navigate to the `dev-config\codeStyle` sub-folder of your local copy of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Editor Templates.xml` file and click `Open`.
     - Click the `Apply` button.
 
 1. Set Code Style preferences
   * Go to the `Java` -> `Code Style` -> `Clean Up` page.
     - Click the `Import...` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
+    - Navigate to the `dev-config\codeStyle` sub-folder of your local copy of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code Cleanup.xml` file and click `Open`.
     - Make sure that `Java ALM` is selected in the `Active profile` list box.
     - Click the `Apply` button.
   * Go to the `Java` -> `Code Style` -> `Code Templates` page.
     - Click the `Import...` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
+    - Navigate to the `dev-config\codeStyle` sub-folder of your local copy of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code Templates.xml` file and click `Open`.
     - Click the `Apply` button.
   * Go to the `Java` -> `Code Style` -> `Formatter` page.
     - Click the `Import...` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
+    - Navigate to the `dev-config\codeStyle` sub-folder of your local copy of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code Formatting.xml` file and click `Open`.
     - Make sure that `Java ALM` is selected in the `Active profile` list box.
     - Click the `Apply` button.
   * Go to the `Java` -> `Code Style` -> `Organize Imports` page.
     - Click the `Import...` button.
-    - Navigate to the `dev-config\codeStyle` subfolder of the **team-explorer-everywhere** repository.
+    - Navigate to the `dev-config\codeStyle` sub-folder of your local copy of the **team-explorer-everywhere** repository.
     - Select the `Java ALM Java Code.importorder` file and click `Open`.
     - Click the `Apply` button.
 

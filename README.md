@@ -29,14 +29,14 @@ The CLC is a separate download choice when you choose to download TEE [here](htt
 Before you can build, please follow the [Getting Started Guide](GettingStarted.md) to install & configure the tools you'll need.
 
 Note: The Eclipse target installation location is needed as a parameter for the Ant build variable `dir.machine.build-runtime`. For the samples below, we will assume that the target Eclipse version was installed into the `dev/eclipseTargets/352` sub-folder under your `HOME` folder.
-1. From a terminal/console window, change to the `build` sub-folder of the root folder of the **team-explorer-everywhere** repository
+1. From a terminal/console window, change to the `build` sub-folder of the root folder of the **team-explorer-everywhere** repository.
 1. Run ant -Ddir.machine.build-runtime=`<pathToEclipseTarget>`, for example, 
 ```
 (Windows) ant -Ddir.machine.build-runtime=C:\Users\<userId>\dev\eclipseTargets\352\
 (Linux) ant -Ddir.machine.build-runtime=/home/<userId>/dev/eclipseTargets/352/
 (Mac) ant -Ddir.machine.build-runtime=/Users/<userId>/dev/eclipseTargets/352/
 ``` 
-1. Build results can be found in `build/output`
+1. Build results can be found in the `output` sub-folder.
 
 ## How can I contribute?
 We welcome pull requests. Please fork this repo and send us your contributions.
