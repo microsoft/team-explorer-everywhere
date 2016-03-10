@@ -93,7 +93,7 @@ In a new empty Eclipse workspace open the Preferences dialog using Window -> Pre
 1. Select `Existing local repository`, click the `Add` button.
 1. Using the `Browse` button, navigate to  and your local copy of the team-explorer-everywhere repository, select it, and click the `Finish` button.
 1. Click the `Next` button to switch to the Wizard Selection page.
-1. Select the `Import existing Eclipse projects' option and the `source` folder under the root of the repository.
+1. Select the `Import existing Eclipse projects` option and the `source` folder under the root of the repository.
 1. Click the `Next` button.
 1. Make sure that all `com.microsoft.tfs.*` project are selected and click the `Finish` button.
 
