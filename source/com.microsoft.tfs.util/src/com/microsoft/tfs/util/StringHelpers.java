@@ -291,6 +291,24 @@ public abstract class StringHelpers {
     }
 
     /**
+     * Tests whether one of the strings in the given array of candidates equals
+     * the given search string, ignoring character case.
+     *
+     * @param s
+     *        the string to search (not null).
+     * @param searchFor
+     *        the string to search for in the string (not null).
+     * @return true if the search string was found in s ignoring character case,
+     *         false if it was not found.
+     */
+    public static boolean containsIgnoreCase(final String s, final String searchFor) {
+        Check.notNull(s, "s"); //$NON-NLS-1$
+        Check.notNull(searchFor, "searchFor"); //$NON-NLS-1$
+
+        return s.toLowerCase().contains(searchFor.toLowerCase());
+    }
+
+    /**
      * Test if the passed {@link String} is <code>null</code> or has a length of
      * zero.
      *

@@ -61,7 +61,7 @@ public abstract class WizardCrossCollectionSelectionPage extends ExtendedWizardP
     private Label emailLabel;
     private CompatibilityLinkControl serverLink;
 
-    public WizardCrossCollectionSelectionPage(String pageName, String title, String description) {
+    public WizardCrossCollectionSelectionPage(final String pageName, final String title, final String description) {
         super(pageName, title, description);
     }
 
@@ -101,8 +101,8 @@ public abstract class WizardCrossCollectionSelectionPage extends ExtendedWizardP
         createControls(container, sourceControlCapabilityFlags);
 
         final Composite connectionLabeComposite = buildConnectionLabel(container);
-        GridDataBuilder.newInstance().hSpan(layout).wHint(100).hFill().hGrab().vIndent(
-            getVerticalSpacing() * 2).applyTo(connectionLabeComposite);
+        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().vIndent(getVerticalSpacing() * 2).applyTo(
+            connectionLabeComposite);
 
         final Label changeServerLabel =
             SWTUtil.createLabel(container, Messages.getString("WizardCrossCollectionSelectionPage.ChangeConnection")); //$NON-NLS-1$
@@ -162,7 +162,9 @@ public abstract class WizardCrossCollectionSelectionPage extends ExtendedWizardP
 
     private void updateConnectionLabel() {
         if (serverLink != null) {
-            serverLink.setSimpleText(getServerForDisplay());
+            // Adding whitespace to work around Link control bug
+            // (https://bugs.eclipse.org/bugs/show_bug.cgi?id=151322)
+            serverLink.setText("<a>" + getServerForDisplay() + "</a>      "); //$NON-NLS-1$ //$NON-NLS-2$
         }
         if (emailLabel != null) {
             emailLabel.setText(getUserNameForDisplay());
@@ -289,7 +291,7 @@ public abstract class WizardCrossCollectionSelectionPage extends ExtendedWizardP
                     }
 
                     // For each collection get the list of projects
-                    for (TFSTeamProjectCollection collection : collections) {
+                    for (final TFSTeamProjectCollection collection : collections) {
                         appendCollectionInformation(collection);
                     }
                     updateConnectionLabel();
