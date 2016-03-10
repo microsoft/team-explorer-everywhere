@@ -18,7 +18,6 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.ConnectHelpers;
 import com.microsoft.tfs.client.common.ui.wizard.common.WizardCrossCollectionProjectSelectionPage;
 import com.microsoft.tfs.client.common.ui.wizard.common.WizardCrossCollectionSelectionPage;
 import com.microsoft.tfs.client.common.ui.wizard.common.WizardServerSelectionPage;
-import com.microsoft.tfs.client.common.ui.wizard.common.WizardTeamProjectPage;
 import com.microsoft.tfs.client.common.ui.wizard.eula.AbstractEULAWizard;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
@@ -44,14 +43,12 @@ import com.microsoft.tfs.util.StringUtil;
  */
 public abstract class ConnectWizard extends AbstractEULAWizard {
     private final SourceControlCapabilityFlags sourceControlCapabilityFlags;
-    private final boolean useLegacyPages;
     private final int selectionType;
     private WizardServerSelectionPage serverSelectionPage;
     private WizardCrossCollectionSelectionPage selectionPage;
 
     public static final int PROJECT_SELECTION = 1;
     public static final int SERVERONLY_SELECTION = 2;
-    public static final int LEGACY_SELECTION = 3;
 
     public static final String SELECTED_TEAM_PROJECTS = "ConnectWizard.selectedTeamProjects"; //$NON-NLS-1$
 
@@ -70,24 +67,19 @@ public abstract class ConnectWizard extends AbstractEULAWizard {
         final int selectionType) {
         super(windowTitle, defaultPageImageDescriptor, dialogSettingsKey);
         this.sourceControlCapabilityFlags = sourceControlCapabilityFlags;
-        this.useLegacyPages = selectionType == LEGACY_SELECTION;
         this.selectionType = selectionType;
     }
 
     protected void addConnectionPages() {
         addEULAPages();
 
-        if (useLegacyPages) {
-            addPage(new WizardTeamProjectPage());
-        } else {
-            serverSelectionPage = new WizardServerSelectionPage();
-            addPage(serverSelectionPage);
+        serverSelectionPage = new WizardServerSelectionPage();
+        addPage(serverSelectionPage);
 
-            // Attempt to add a selection page
-            selectionPage = getSelectionPage();
-            if (selectionPage != null) {
-                addPage(selectionPage);
-            }
+        // Attempt to add a selection page
+        selectionPage = getSelectionPage();
+        if (selectionPage != null) {
+            addPage(selectionPage);
         }
     }
 
@@ -96,19 +88,13 @@ public abstract class ConnectWizard extends AbstractEULAWizard {
      * own selection page.
      */
     protected WizardCrossCollectionSelectionPage getSelectionPage() {
-        WizardCrossCollectionSelectionPage selectionPage =
+        final WizardCrossCollectionSelectionPage selectionPage =
             selectionType == ConnectWizard.PROJECT_SELECTION ? new WizardCrossCollectionProjectSelectionPage() : null;
         return selectionPage;
     }
 
-    protected boolean useLegacyPages() {
-        return useLegacyPages;
-    }
-
     protected String getSelectionPageName() {
-        if (useLegacyPages) {
-            return WizardTeamProjectPage.PAGE_NAME;
-        } else if (selectionPage != null) {
+        if (selectionPage != null) {
             return selectionPage.getName();
         }
 
@@ -172,20 +158,18 @@ public abstract class ConnectWizard extends AbstractEULAWizard {
 
     @Override
     public IWizardPage getPreviousPage(final IWizardPage page) {
-        if (!useLegacyPages) {
-            // If the current page is the Project page, make sure the user can
-            // go back to the server type selection page
-            if (page != null && selectionPage != null && page.getName().equals(selectionPage.getName())) {
-                final IWizardPage previousPage = getPage(WizardServerSelectionPage.PAGE_NAME);
-                return previousPage;
-            }
+        // If the current page is the Project page, make sure the user can
+        // go back to the server type selection page
+        if (page != null && selectionPage != null && page.getName().equals(selectionPage.getName())) {
+            final IWizardPage previousPage = getPage(WizardServerSelectionPage.PAGE_NAME);
+            return previousPage;
         }
 
         return super.getPreviousPage(page);
     }
 
     @Override
-    public void previousPageSet(IWizardPage currentPage, IWizardPage previousPage) {
+    public void previousPageSet(final IWizardPage currentPage, final IWizardPage previousPage) {
         // if the current page is the selection page, we may want to "fix" the
         // previous page
         if (currentPage != null && selectionPage != null && currentPage.getName().equals(selectionPage.getName())) {
@@ -208,32 +192,23 @@ public abstract class ConnectWizard extends AbstractEULAWizard {
             return nextLicensePage;
         }
 
-        if (useLegacyPages) {
-            // Return the appropriate page for the old connectWizard
-            if (!hasPageData(URI.class) || !hasPageData(TFSTeamProjectCollection.class)) {
-                return getPage(WizardTeamProjectPage.PAGE_NAME);
-            }
-        } else {
+        // Make sure we have a list of collections for the following pages
+        // to use
+        if (!hasPageData(TFSConnection[].class) && hasPageData(TFSConnection.class)) {
+            setPageData(TFSConnection[].class, new TFSConnection[] {
+                (TFSConnection) getPageData(TFSConnection.class)
+            });
+        }
 
-            // Make sure we have a list of collections for the following pages
-            // to use
-            if (!hasPageData(TFSConnection[].class) && hasPageData(TFSConnection.class)) {
-                setPageData(TFSConnection[].class, new TFSConnection[] {
-                    (TFSConnection) getPageData(TFSConnection.class)
-                });
-            }
+        // Return the ServerSelectionPage or the
+        // CrossCollectionSelectionPage based on what is set
+        if (!hasPageData(URI.class) || !hasPageData(TFSConnection[].class)) {
+            return getPage(WizardServerSelectionPage.PAGE_NAME);
+        }
 
-            // Return the ServerSelectionPage or the
-            // CrossCollectionSelectionPage based on what is set
-            if (!hasPageData(URI.class) || !hasPageData(TFSConnection[].class)) {
-                return getPage(WizardServerSelectionPage.PAGE_NAME);
-            }
-
-            if (selectionPage != null
-                && (!hasPageData(TFSTeamProjectCollection.class)
-                    || !hasPageData(ConnectWizard.SELECTED_TEAM_PROJECTS))) {
-                return getPage(selectionPage.getName());
-            }
+        if (selectionPage != null
+            && (!hasPageData(TFSTeamProjectCollection.class) || !hasPageData(ConnectWizard.SELECTED_TEAM_PROJECTS))) {
+            return getPage(selectionPage.getName());
         }
 
         return null;

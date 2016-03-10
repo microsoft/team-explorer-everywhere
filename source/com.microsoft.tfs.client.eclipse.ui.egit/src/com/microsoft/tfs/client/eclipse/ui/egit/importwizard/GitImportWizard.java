@@ -22,7 +22,6 @@ import com.microsoft.tfs.client.common.ui.wizard.common.WizardCrossCollectionSel
 import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizard;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.ImportWizardWorkspacePage;
-import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportItemCollectionBase;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportOptions;
 import com.microsoft.tfs.core.clients.versioncontrol.SourceControlCapabilityFlags;
 
@@ -47,7 +46,6 @@ public class GitImportWizard extends ImportWizard {
                     (TypedServerGitRepository) initialSelectedItems.get(0));
             }
         }
-        addPage(new GitImportWizardRepositoriesPage(initialSelectedItems));
     }
 
     @Override
@@ -56,10 +54,6 @@ public class GitImportWizard extends ImportWizard {
         GitHelpers.activateEGitUI();
 
         addPage(new ImportWizardWorkspacePage());
-        if (useLegacyPages()) {
-            addPage(new GitImportWizardCloneParametersPage());
-            addPage(new GitImportWizardClonePage());
-        }
         addPage(new GitImportWizardSelectFoldersPage());
         addPage(new GitImportWizardSelectProjectsPage());
     }
@@ -67,12 +61,7 @@ public class GitImportWizard extends ImportWizard {
     @Override
     protected WizardCrossCollectionSelectionPage getSelectionPage() {
         final WizardCrossCollectionSelectionPage selectionPage;
-        if (!useLegacyPages()) {
-            selectionPage = new WizardCrossCollectionRepoSelectionPage();
-        } else {
-            selectionPage = null;
-        }
-
+        selectionPage = new WizardCrossCollectionRepoSelectionPage();
         return selectionPage;
     }
 
@@ -92,30 +81,9 @@ public class GitImportWizard extends ImportWizard {
             return nextConnectionPage;
         }
 
-        if (useLegacyPages()) {
-            if (!hasPageData(ImportItemCollectionBase.class)) {
-                return getPage(GitImportWizardRepositoriesPage.PAGE_NAME);
-            } else if (page == null) {
-                return getPage(GitImportWizardCloneParametersPage.PAGE_NAME);
-            }
-
-            // directly launch clone page and skip repo page if has data needed
-            if (GitImportWizardRepositoriesPage.PAGE_NAME.equals(page.getName())) {
-                return getPage(GitImportWizardCloneParametersPage.PAGE_NAME);
-            }
-
-            if (GitImportWizardCloneParametersPage.PAGE_NAME.equals(page.getName())) {
-                return getPage(GitImportWizardClonePage.PAGE_NAME);
-            }
-
-            if (GitImportWizardClonePage.PAGE_NAME.equals(page.getName())) {
-                return getPage(GitImportWizardSelectFoldersPage.PAGE_NAME);
-            }
-        } else {
-            // The new flow reduces the repo selection down to one page
-            if (!hasPageData(GitImportWizardSelectFoldersPage.SELECTED_FOLDERS)) {
-                return getPage(GitImportWizardSelectFoldersPage.PAGE_NAME);
-            }
+        // The new flow reduces the repo selection down to one page
+        if (!hasPageData(GitImportWizardSelectFoldersPage.SELECTED_FOLDERS)) {
+            return getPage(GitImportWizardSelectFoldersPage.PAGE_NAME);
         }
 
         if (GitImportWizardSelectFoldersPage.PAGE_NAME.equals(page.getName())) {

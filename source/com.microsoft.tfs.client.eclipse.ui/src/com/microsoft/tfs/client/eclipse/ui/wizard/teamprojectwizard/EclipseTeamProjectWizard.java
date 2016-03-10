@@ -17,7 +17,6 @@ import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.server.TFSServer;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.image.ImageHelper;
-import com.microsoft.tfs.client.common.ui.wizard.common.WizardTeamProjectPage;
 import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
 import com.microsoft.tfs.client.common.ui.wizard.teamprojectwizard.ITeamProjectWizard;
 import com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin;

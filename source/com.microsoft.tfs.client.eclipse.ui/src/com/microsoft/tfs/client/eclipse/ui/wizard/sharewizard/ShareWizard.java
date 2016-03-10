@@ -80,7 +80,7 @@ public class ShareWizard extends EclipseConnectWizard implements IConfigurationW
             Messages.getString("ShareWizard.WizardDescription"), //$NON-NLS-1$
             imageHelper.getImageDescriptor(TFSCommonUIClientPlugin.PLUGIN_ID, "images/wizard/pageheader.png"), //$NON-NLS-1$
             SourceControlCapabilityFlags.TFS,
-            ConnectWizard.LEGACY_SELECTION);
+            ConnectWizard.PROJECT_SELECTION);
 
         addConnectionPages();
         addPage(new ShareWizardWorkspacePage());
