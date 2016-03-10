@@ -7,7 +7,7 @@ import org.eclipse.jface.wizard.IWizardPage;
 
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.image.ImageHelper;
-import com.microsoft.tfs.client.common.ui.wizard.common.WizardTeamProjectPage;
+import com.microsoft.tfs.client.common.ui.wizard.common.WizardCrossCollectionSelectionPage;
 import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
 import com.microsoft.tfs.client.eclipse.ui.Messages;
 import com.microsoft.tfs.client.eclipse.ui.TFSEclipseClientUIPlugin;
@@ -38,15 +38,11 @@ public class EclipseConnectErrorWizard extends ConnectWizard {
     }
 
     public void setErrorMessage(final String errorMessage) {
-        setPageData(WizardTeamProjectPage.PROJECT_COLLECTION_ERROR_MESSAGE, errorMessage);
+        setPageData(WizardCrossCollectionSelectionPage.PROJECT_COLLECTION_ERROR_MESSAGE, errorMessage);
     }
 
     @Override
     public boolean enableNext(final IWizardPage currentPage) {
-        if (currentPage.getName().equals(WizardTeamProjectPage.PAGE_NAME)) {
-            return false;
-        }
-
         return true;
     }
 
@@ -57,10 +53,6 @@ public class EclipseConnectErrorWizard extends ConnectWizard {
 
     @Override
     protected boolean enableFinish(final IWizardPage currentPage) {
-        if (currentPage.getName().equals(WizardTeamProjectPage.PAGE_NAME)) {
-            return true;
-        }
-
         return false;
     }
 
