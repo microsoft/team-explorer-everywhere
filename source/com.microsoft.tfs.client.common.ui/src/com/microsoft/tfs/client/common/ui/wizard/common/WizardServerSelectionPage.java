@@ -90,7 +90,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
             }
         });
 
-        setPageComplete(false);
+        setPageComplete(serverTypeSelectControl.getServer() != null);
     }
 
     @Override
