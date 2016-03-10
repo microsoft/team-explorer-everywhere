@@ -7,6 +7,8 @@ import java.net.URI;
 import java.text.MessageFormat;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -28,6 +30,7 @@ import com.microsoft.tfs.client.common.ui.framework.sizing.ControlSize;
 import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
+import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.valid.Validatable;
 import com.microsoft.tfs.util.valid.Validator;
 
@@ -37,6 +40,8 @@ import com.microsoft.tfs.util.valid.Validator;
  * @threadsafety unknown
  */
 public class AddServerControl extends BaseControl implements Validatable {
+    private static final Log log = LogFactory.getLog(AddServerControl.class);
+
     private static final String DEFAULT_PATH = "tfs"; //$NON-NLS-1$
 
     /* These are the ports we use as defaults - ie, TFS is on port 8080. */
@@ -230,17 +235,25 @@ public class AddServerControl extends BaseControl implements Validatable {
                 /* Make sure this is a complete URI. */
                 if (serverURI.getHost() != null) {
                     SWTUtil.setCompositeEnabled(connectionDetailsGroup, false);
-                    previewText.setText(serverURI.toString());
 
+                    if (ServerURIUtils.isHosted(serverURI)) {
+                        serverURI = URIUtils.newURI(
+                            ServerURIUtils.HOSTED_SERVICE_DEFAULT_SCHEME,
+                            serverURI.getAuthority(),
+                            null,
+                            null,
+                            null);
+                    }
+
+                    previewText.setText(serverURI.toString());
                     return;
                 }
-            } catch (final IllegalArgumentException e) {
-                serverURI = null;
+            } catch (final Exception e) {
+                log.error("Error processing server URL: ", e); //$NON-NLS-1$
             }
 
             serverURI = null;
             previewText.setText(Messages.getString("AddServerControl.ErrorServerNameEmpty")); //$NON-NLS-1$
-
             return;
         }
 
@@ -260,7 +273,6 @@ public class AddServerControl extends BaseControl implements Validatable {
         final String[] serverNameAndPath = serverName.split(Pattern.quote("/"), 2); //$NON-NLS-1$
         if (serverNameAndPath.length > 0) {
             final String uriServerName = serverNameAndPath[0];
-            final String uriPath = serverNameAndPath.length > 1 ? "/" + serverNameAndPath[1] : null; //$NON-NLS-1$
 
             // Check for match with a hosted suffix
             final boolean isHosted = ServerURIUtils.isHosted(uriServerName);
@@ -270,23 +282,17 @@ public class AddServerControl extends BaseControl implements Validatable {
                 SWTUtil.setCompositeEnabled(connectionDetailsGroup, false);
 
                 try {
-                    serverURI =
-                        ServerURIUtils.normalizeURI(
-                            URIUtils.newURI(
-                                ServerURIUtils.HOSTED_SERVICE_DEFAULT_SCHEME,
-                                uriServerName,
-                                uriPath,
-                                null,
-                                null),
-                            true);
+                    serverURI = ServerURIUtils.normalizeURI(
+                        URIUtils.newURI(ServerURIUtils.HOSTED_SERVICE_DEFAULT_SCHEME, uriServerName, null, null, null),
+                        true);
                 } catch (final IllegalArgumentException e) {
+                    log.error("Error processing server URL: ", e); //$NON-NLS-1$
                     serverURI = null;
                     previewText.setText(Messages.getString("AddServerControl.ErrorServerNameEmpty")); //$NON-NLS-1$
                     return;
                 }
 
                 previewText.setText(serverURI.toString());
-
                 return;
             }
         }
@@ -301,15 +307,13 @@ public class AddServerControl extends BaseControl implements Validatable {
         if (serverName.length() == 0) {
             serverURI = null;
             previewText.setText(Messages.getString("AddServerControl.ErrorServerNameEmpty")); //$NON-NLS-1$
-
             return;
         }
 
         /* Port is required. */
-        if (port.length() == 0) {
+        if (StringHelpers.isNullOrEmpty(port)) {
             serverURI = null;
             previewText.setText(Messages.getString("AddServerControl.ErrorPortEmpty")); //$NON-NLS-1$
-
             return;
         }
 
@@ -319,7 +323,6 @@ public class AddServerControl extends BaseControl implements Validatable {
         } catch (final NumberFormatException e) {
             serverURI = null;
             previewText.setText(Messages.getString("AddServerControl.ErrorPortEmpty")); //$NON-NLS-1$
-
             return;
         }
 
@@ -339,9 +342,9 @@ public class AddServerControl extends BaseControl implements Validatable {
         try {
             serverURI = ServerURIUtils.normalizeURI(URIUtils.newURI(scheme, authority, path, null, null), true);
         } catch (final IllegalArgumentException e) {
+            log.error("Error processing server URL: ", e); //$NON-NLS-1$
             serverURI = null;
             previewText.setText(Messages.getString("AddServerControl.ErrorServerNameEmpty")); //$NON-NLS-1$
-
             return;
         }
 
