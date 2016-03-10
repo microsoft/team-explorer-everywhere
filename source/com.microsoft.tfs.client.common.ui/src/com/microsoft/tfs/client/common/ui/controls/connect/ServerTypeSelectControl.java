@@ -52,7 +52,6 @@ public class ServerTypeSelectControl extends BaseControl {
     private URI serverURI = null;
     private boolean ignoreServerChangeEvents = false;
     private Combo serverCombo;
-    private ContentProposalAdapter serverComboAdapter;
     private ProposalProvider proposalProvider;
     private final Button vstsButton;
     private final Button tfsButton;
@@ -178,7 +177,8 @@ public class ServerTypeSelectControl extends BaseControl {
         // Setup Auto Complete for the combo box
         proposalProvider = new ProposalProvider();
         final ComboContentAdapter comboContentAdapter = new ComboContentAdapter();
-        serverComboAdapter = new ContentProposalAdapter(serverCombo, comboContentAdapter, proposalProvider, null, null);
+        final ContentProposalAdapter serverComboAdapter =
+            new ContentProposalAdapter(serverCombo, comboContentAdapter, proposalProvider, null, null);
         serverComboAdapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
 
         // Add the servers button
@@ -232,9 +232,12 @@ public class ServerTypeSelectControl extends BaseControl {
         populateServersCombo();
 
         final ServerListConfigurationEntry lastAddedServerListEntry = dialog.getLastAddedServerListEntry();
+        final ServerListConfigurationEntry[] selectedServers = dialog.getSelectedServerListEntries();
 
         if (lastAddedServerListEntry != null) {
             setServerOnCombo(lastAddedServerListEntry.getURI());
+        } else if (selectedServers != null && selectedServers.length > 0) {
+            setServerOnCombo(selectedServers[0].getURI());
         } else {
             setServerOnCombo(lastSelectedServer);
         }
