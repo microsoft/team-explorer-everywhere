@@ -10,11 +10,16 @@ import java.util.TimerTask;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.IScopeContext;
-import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.core.variables.IStringVariableManager;
+import org.eclipse.core.variables.VariablesPlugin;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jgit.util.FS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -27,13 +32,14 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
 import com.microsoft.tfs.client.common.ui.controls.generic.BaseControl;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
+import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
 import com.microsoft.tfs.client.eclipse.ui.egit.importwizard.CrossCollectionRepositoryTable.CrossCollectionRepositoryInfo;
 import com.microsoft.tfs.core.clients.versioncontrol.SourceControlCapabilityFlags;
+import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
 import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
 import com.microsoft.tfs.util.Check;
@@ -45,9 +51,8 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
 
     public static final String REPO_TABLE_ID = "CrossCollectionRepositorySelectControl.repoTable"; //$NON-NLS-1$
 
-    private static final String EGIT_PREF_STORE_ID = "org.eclipse.egit.ui"; //$NON-NLS-1$
-
-    private static final String DEFAULT_REPOSITORY_DIR_KEY = "default_repository_dir"; //$NON-NLS-1$
+    private static final String DEFAULT_REPOSITORY_DIR_UI_KEY = "default_repository_dir"; //$NON-NLS-1$
+    private static final String DEFAULT_REPOSITORY_DIR_CORE_KEY = "core_defaultRepositoryDir"; //$NON-NLS-1$
 
     private final Text filterBox;
     private final Timer filterTimer;
@@ -147,7 +152,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
         });
     }
 
-    private void onSelectionChanged(boolean updateFolderName) {
+    private void onSelectionChanged(final boolean updateFolderName) {
         if (ignoreChanges) {
             return;
         }
@@ -203,26 +208,71 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
     }
 
     private String getDefaultGitRootFolder() {
-        final IScopeContext scope = new InstanceScope();
-        final IEclipsePreferences prefs = scope.getNode(EGIT_PREF_STORE_ID);
+        final String rootFolderPreference = getDefaultRootFolderPreference();
+        Check.notNull(rootFolderPreference, "Default root folder preference"); //$NON-NLS-1$
 
-        Check.notNull(prefs, "Egit preferences store"); //$NON-NLS-1$
+        // The preference could contain variables. Let's expand all of them.
+        final String rootDirectory = expandVariables(rootFolderPreference);
+        if (!StringHelpers.isNullOrEmpty(rootDirectory)) {
+            return rootDirectory;
+        }
 
-        String workingDirectory = prefs.get(DEFAULT_REPOSITORY_DIR_KEY, null);
+        // We've got an empty path after variables substitution. Let's use the
+        // current Eclipse workspace root.
+        final IPath eclipseWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot().getRawLocation();
 
-        // If the preference is not set then use the home environment variable
-        if (StringHelpers.isNullOrEmpty(workingDirectory)) {
-            workingDirectory = PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.HOME);
+        // Convert path separators according to the hosting OS rules.
+        return eclipseWorkspaceRoot.toOSString();
 
-            // If the home environment variable is not set then use the user
-            // profile (the same logic as eGit)
-            if (StringHelpers.isNullOrEmpty(workingDirectory)) {
-                workingDirectory =
-                    PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.USER_PROFILE);
+    }
+
+    private String getDefaultRootFolderPreference() {
+        String rootFolderPreference = null;
+
+        // EGit 4.0 and earlier hosted default repository root directory
+        // preference in the UI plugin.
+        final IPreferenceStore uiPrefs = org.eclipse.egit.ui.Activator.getDefault().getPreferenceStore();
+        if (uiPrefs != null) {
+            rootFolderPreference = uiPrefs.getString(DEFAULT_REPOSITORY_DIR_UI_KEY);
+            if (!StringHelpers.isNullOrEmpty(rootFolderPreference)) {
+                return rootFolderPreference;
             }
         }
 
-        return workingDirectory;
+        // Since EGit 4.1 default repository root directory preference is hosted
+        // in the Core plugin.
+        final IEclipsePreferences corePrefs =
+            org.eclipse.egit.core.Activator.getDefault().getRepositoryUtil().getPreferences();
+        if (corePrefs != null) {
+            rootFolderPreference = corePrefs.get(DEFAULT_REPOSITORY_DIR_CORE_KEY, null);
+            if (!StringHelpers.isNullOrEmpty(rootFolderPreference)) {
+                return rootFolderPreference;
+            }
+        }
+
+        // If the preference is not set, then use the home environment variable
+        rootFolderPreference = PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.HOME);
+        if (!StringHelpers.isNullOrEmpty(rootFolderPreference)) {
+            return rootFolderPreference;
+        }
+
+        // If the home environment variable is not set, then use the user home
+        // directory. (The same logic as in eGit.)
+        rootFolderPreference = LocalPath.combine(FS.DETECTED.userHome().getPath(), "git"); //$NON-NLS-1$
+
+        return rootFolderPreference;
+    }
+
+    private String expandVariables(final String source) {
+        IStringVariableManager variableManager = VariablesPlugin.getDefault().getStringVariableManager();
+
+        try {
+            return variableManager.performStringSubstitution(source);
+        } catch (CoreException e) {
+            log.error("The source string '" + source + "' contains undefined variables", e); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        return null;
     }
 
     private String browse(final String currentDirectory) {
@@ -241,7 +291,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
     public void setSelectedRepository(CrossCollectionRepositoryInfo repository) {
         table.setSelectedElement(repository);
     }
-    
+
     public String getWorkingDirectory() {
         final String parentDirectory = parentDirectoryBox.getText();
         final String folderName = folderNameBox.getText();

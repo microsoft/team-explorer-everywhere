@@ -17,7 +17,7 @@ public class StringUtil {
 
     /**
      * Format a comment for one line display. Removes all new line characters
-     * and tabs then trims any whitespace from the end of the comment and ands
+     * and tabs then trims any whitespace from the end of the comment and adds
      * an ellipsis if the comment is greater than
      * {@link StringUtil#MAX_COMMENT_DISPLAY_LENGTH}
      *

@@ -370,7 +370,7 @@ public class ServerTypeSelectControl extends BaseControl {
                 }
             }
 
-            return (IContentProposal[]) list.toArray(new IContentProposal[list.size()]);
+            return list.toArray(new IContentProposal[list.size()]);
         }
 
         private class ContentProposal implements IContentProposal {

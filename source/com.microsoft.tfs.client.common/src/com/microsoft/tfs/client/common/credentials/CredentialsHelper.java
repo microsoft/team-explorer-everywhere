@@ -148,11 +148,17 @@ public abstract class CredentialsHelper {
         if (cachedCredentials != null) {
             return cachedCredentials.toCredentials();
         } else {
-            CookieCredentials cookieCredentials = (CookieCredentials) connection.getCredentials();
-            for (Cookie cookie : cookieCredentials.getCookies()) {
-                cookie.setDomain(URIUtils.VSTS_SUFFIX);
+            final Credentials currentCredentials = connection.getCredentials();
+
+            if (currentCredentials instanceof CookieCredentials) {
+                final Cookie[] cookies = ((CookieCredentials) currentCredentials).getCookies();
+                for (Cookie cookie : cookies) {
+                    cookie.setDomain(URIUtils.VSTS_SUFFIX);
+                }
+                return new CookieCredentials(cookies);
+            } else {
+                return currentCredentials;
             }
-            return cookieCredentials;
         }
     }
 
