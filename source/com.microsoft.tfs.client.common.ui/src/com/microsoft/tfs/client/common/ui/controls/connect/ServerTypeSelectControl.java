@@ -14,7 +14,6 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.jface.fieldassist.ComboContentAdapter;
-import org.eclipse.jface.fieldassist.ContentProposal;
 import org.eclipse.jface.fieldassist.ContentProposalAdapter;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
@@ -372,6 +371,35 @@ public class ServerTypeSelectControl extends BaseControl {
             }
 
             return (IContentProposal[]) list.toArray(new IContentProposal[list.size()]);
+        }
+
+        private class ContentProposal implements IContentProposal {
+            private final String content;
+
+            public ContentProposal(final String content) {
+                this.content = content;
+            }
+
+            @Override
+            public String getContent() {
+                return content;
+            }
+
+            @Override
+            public int getCursorPosition() {
+                return 0;
+            }
+
+            @Override
+            public String getLabel() {
+                return null;
+            }
+
+            @Override
+            public String getDescription() {
+                return null;
+            }
+
         }
     }
 }
