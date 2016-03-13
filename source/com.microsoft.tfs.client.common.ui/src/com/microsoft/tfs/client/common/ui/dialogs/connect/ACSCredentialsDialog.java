@@ -51,7 +51,7 @@ import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.core.ws.runtime.exceptions.FederatedAuthException;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.TypesafeEnum;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
 
@@ -124,7 +124,7 @@ public class ACSCredentialsDialog extends CredentialsCompleteDialog {
             log.trace("    ServerURI = " + exception.getServerURI()); //$NON-NLS-1$
             log.trace(
                 "    Credentials = " + (exception.getCredentials() != null ? exception.getCredentials() : "null")); //$NON-NLS-1$ //$NON-NLS-2$
-            log.trace("    Mechanisms = " + StringHelpers.join(exception.getMechanisms(), ", ")); //$NON-NLS-1$ //$NON-NLS-2$
+            log.trace("    Mechanisms = " + StringUtil.join(exception.getMechanisms(), ", ")); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         setOptionIncludeDefaultButtons(false);

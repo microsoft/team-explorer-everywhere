@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.NotYetImplementedException;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class SparseTree<T> {
     /**
@@ -1284,7 +1284,7 @@ public class SparseTree<T> {
         }
 
         if (tokenSeparator != '\0') {
-            return StringHelpers.trimEnd(token, tokenSeparator);
+            return StringUtil.trimEnd(token, tokenSeparator);
         } else if (fixedElementLength > 0) {
             if (token.length() == 0) {
                 throw new IllegalArgumentException(

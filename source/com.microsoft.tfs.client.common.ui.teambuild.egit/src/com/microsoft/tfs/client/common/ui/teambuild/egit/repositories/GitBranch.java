@@ -16,7 +16,7 @@ import com.microsoft.tfs.client.common.git.commands.QueryGitItemsCommand;
 import com.microsoft.tfs.client.common.git.json.TfsGitItemJson;
 import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class GitBranch implements Comparable<GitBranch> {
     private static final Log log = LogFactory.getLog(GitBranch.class);
@@ -39,10 +39,10 @@ public class GitBranch implements Comparable<GitBranch> {
         this.repository = repository;
         this.localFullName = localFullName;
         this.remoteFullName = remoteFullName;
-        this.localName = StringHelpers.isNullOrEmpty(localFullName) ? null : localFullName.startsWith(Constants.R_HEADS)
+        this.localName = StringUtil.isNullOrEmpty(localFullName) ? null : localFullName.startsWith(Constants.R_HEADS)
             ? localFullName.substring(Constants.R_HEADS.length()) : localFullName;
         this.remoteName =
-            StringHelpers.isNullOrEmpty(remoteFullName) ? null : remoteFullName.startsWith(Constants.R_HEADS)
+            StringUtil.isNullOrEmpty(remoteFullName) ? null : remoteFullName.startsWith(Constants.R_HEADS)
                 ? remoteFullName.substring(Constants.R_HEADS.length()) : remoteFullName;
     }
 

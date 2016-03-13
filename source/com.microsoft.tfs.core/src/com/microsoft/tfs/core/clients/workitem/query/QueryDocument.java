@@ -38,7 +38,7 @@ import com.microsoft.tfs.core.util.MementoRepository;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.listeners.ListenerList;
 import com.microsoft.tfs.util.listeners.StandardListenerList;
 
@@ -292,7 +292,7 @@ public class QueryDocument {
     private void saveToFile() {
         final String queryText = getQueryText();
         final String teamName;
-        if (StringHelpers.isNullOrEmpty(queryText) || !queryText.contains(WIQLOperators.MACRO_CURRENT_ITERATION)) {
+        if (StringUtil.isNullOrEmpty(queryText) || !queryText.contains(WIQLOperators.MACRO_CURRENT_ITERATION)) {
             teamName = null;
         } else {
             teamName = getTeamName();

@@ -33,7 +33,7 @@ import java.util.TimeZone;
 
 import com.microsoft.tfs.core.ws.runtime.types.GUID;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.base64.Base64;
 
 /**
@@ -310,7 +310,7 @@ public abstract class XMLConvert {
      * @return the converted value.
      */
     public static long toLong(final String value) {
-        if (StringHelpers.isNullOrEmpty(value)) {
+        if (StringUtil.isNullOrEmpty(value)) {
             return -1;
         } else {
             return Long.parseLong(value);
@@ -395,7 +395,7 @@ public abstract class XMLConvert {
      * @return the converted value.
      */
     public static GUID toGUID(final String value) {
-        if (StringHelpers.isNullOrEmpty(value)) {
+        if (StringUtil.isNullOrEmpty(value)) {
             return null;
         }
 
@@ -451,7 +451,7 @@ public abstract class XMLConvert {
      *         input string was <code>null</code> or empty
      */
     public static Calendar toCalendar(final String value, final boolean includeTime) {
-        if (StringHelpers.isNullOrEmpty(value)) {
+        if (StringUtil.isNullOrEmpty(value)) {
             return null;
         }
 

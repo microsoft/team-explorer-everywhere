@@ -24,7 +24,7 @@ import com.microsoft.tfs.core.httpclient.HttpStatus;
 import com.microsoft.tfs.core.httpclient.methods.GetMethod;
 import com.microsoft.tfs.core.httpclient.util.URIUtil;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
 public class QueryGitRepositoriesCommand extends TFSCommand implements ICommand {
@@ -67,7 +67,7 @@ public class QueryGitRepositoriesCommand extends TFSCommand implements ICommand 
 
             final String gitURI;
 
-            if (StringHelpers.isNullOrEmpty(projectNameOrGUID)) {
+            if (StringUtil.isNullOrEmpty(projectNameOrGUID)) {
                 gitURI = baseURI.toString() + "_apis/git/repositories"; //$NON-NLS-1$
             } else {
                 gitURI = baseURI.toString() + "_apis/git/" + URIUtil.encodePath(projectNameOrGUID) + "/repositories"; //$NON-NLS-1$ //$NON-NLS-2$

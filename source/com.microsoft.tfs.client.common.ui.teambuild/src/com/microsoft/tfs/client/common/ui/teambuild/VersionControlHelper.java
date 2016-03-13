@@ -44,7 +44,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.specs.version.LatestVersion
 import com.microsoft.tfs.core.util.FileEncoding;
 import com.microsoft.tfs.jni.helpers.LocalHost;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * A helper class to perform common version control operations from within the
@@ -312,7 +312,7 @@ public class VersionControlHelper {
     }
 
     public static String calculateDefaultBuildFileLocation(final String teamProject, final String buildDefinitionName) {
-        if (StringHelpers.isNullOrEmpty(buildDefinitionName) || StringHelpers.isNullOrEmpty(teamProject)) {
+        if (StringUtil.isNullOrEmpty(buildDefinitionName) || StringUtil.isNullOrEmpty(teamProject)) {
             return ""; //$NON-NLS-1$
         }
 

@@ -10,7 +10,6 @@ import com.microsoft.tfs.core.clients.versioncontrol.VersionControlConstants;
 import com.microsoft.tfs.core.util.TFSUser;
 import com.microsoft.tfs.core.util.UserNameUtil;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 /**
@@ -101,7 +100,7 @@ public class IdentityHelper {
     public static String getUniqueNameIfCurrentUser(final TeamFoundationIdentity identity, final String userName) {
         Check.notNull(identity, "identity"); //$NON-NLS-1$
 
-        if (StringHelpers.isNullOrEmpty(userName)) {
+        if (StringUtil.isNullOrEmpty(userName)) {
             return userName;
         }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.microsoft.tfs.console.display.ConsoleDisplay;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.TypesafeEnum;
 
 /**
@@ -588,10 +588,10 @@ public final class TextOutputTable {
                  * part goes into the new row.
                  */
                 if (wrapIndex + 1 <= text.length()) {
-                    newRow[i] = StringHelpers.trimBegin(text.substring(wrapIndex + 1));
+                    newRow[i] = StringUtil.trimBegin(text.substring(wrapIndex + 1));
                 }
 
-                text = StringHelpers.trimEnd(sub.substring(0, wrapIndex + 1));
+                text = StringUtil.trimEnd(sub.substring(0, wrapIndex + 1));
 
                 needsNewRow = true;
             }

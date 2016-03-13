@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.tfs.core.Messages;
-import com.microsoft.vss.client.core.utils.StringUtil;
+import com.microsoft.tfs.util.StringUtil;
 
 public class ReferenceLinksDeserializer extends JsonDeserializer<ReferenceLinks> {
 

@@ -7,8 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.vss.client.core.utils.JsonHelper;
-import com.microsoft.vss.client.core.utils.StringUtil;
 
 public class NameValueCollection extends HashMap<String, String> {
 

@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 
 import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class LocalPathCombo extends AbstractPathCombo {
 
@@ -68,7 +68,7 @@ public class LocalPathCombo extends AbstractPathCombo {
 
     @Override
     protected String getParentPath(final String path) {
-        if (StringHelpers.isNullOrEmpty(path)) {
+        if (StringUtil.isNullOrEmpty(path)) {
             return null;
         }
         final String parentPath = LocalPath.getParent(path);

@@ -45,7 +45,7 @@ import com.microsoft.tfs.core.clients.workitem.query.qe.QEQueryRowCollection;
 import com.microsoft.tfs.core.clients.workitem.query.qe.WIQLOperators;
 import com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryType;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * This class is extremely similar to:
@@ -365,7 +365,7 @@ public class WIQLTranslator {
     }
 
     private String[] splitRemovingEmptyEntries(final String input, final String delimiters) {
-        final String[] array = StringHelpers.split(delimiters, input);
+        final String[] array = StringUtil.split(delimiters, input);
         final List<String> sections = new ArrayList<String>();
         for (int i = 0; i < array.length; i++) {
             if (array[i].trim().length() > 0) {

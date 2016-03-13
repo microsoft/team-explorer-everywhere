@@ -13,7 +13,7 @@ import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * This sample demonstrates reading credentials from Window Credentials Manager
@@ -36,7 +36,7 @@ public class WinCredentialsManagerSample {
 
         URI httpProxyURI = null;
 
-        if (!StringHelpers.isNullOrEmpty(ConsoleSettings.HTTP_PROXY_URL)) {
+        if (!StringUtil.isNullOrEmpty(ConsoleSettings.HTTP_PROXY_URL)) {
             try {
                 httpProxyURI = new URI(ConsoleSettings.HTTP_PROXY_URL);
             } catch (final URISyntaxException e) {
@@ -78,7 +78,7 @@ public class WinCredentialsManagerSample {
         if (cachedCredentials != null) {
             credentials =
                 new UsernamePasswordCredentials(cachedCredentials.getUsername(), cachedCredentials.getPassword());
-        } else if (!StringHelpers.isNullOrEmpty(ConsoleSettings.USERNAME)) {
+        } else if (!StringUtil.isNullOrEmpty(ConsoleSettings.USERNAME)) {
             credentials = new UsernamePasswordCredentials(ConsoleSettings.USERNAME, ConsoleSettings.PASSWORD);
             if (ConsoleSettings.SAVE_CREDENTIALS && credentialsManager.canWrite()) {
                 cachedCredentials = new CachedCredentials(serverURI, credentials);

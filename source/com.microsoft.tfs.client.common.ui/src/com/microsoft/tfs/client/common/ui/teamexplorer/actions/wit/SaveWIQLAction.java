@@ -15,7 +15,7 @@ import com.microsoft.tfs.core.clients.workitem.query.StoredQuery;
 import com.microsoft.tfs.core.clients.workitem.query.WIQDocument;
 import com.microsoft.tfs.core.clients.workitem.query.qe.WIQLOperators;
 import com.microsoft.tfs.core.clients.workitem.queryhierarchy.QueryDefinition;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class SaveWIQLAction extends TeamExplorerWITBaseAction {
     @Override
@@ -41,7 +41,7 @@ public class SaveWIQLAction extends TeamExplorerWITBaseAction {
 
         final String queryText = query.getQueryText();
         final String teamName;
-        if (StringHelpers.isNullOrEmpty(queryText) || !queryText.contains(WIQLOperators.MACRO_CURRENT_ITERATION)) {
+        if (StringUtil.isNullOrEmpty(queryText) || !queryText.contains(WIQLOperators.MACRO_CURRENT_ITERATION)) {
             teamName = null;
         } else {
             teamName = WorkItemHelpers.getCurrentTeamName();

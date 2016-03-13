@@ -24,7 +24,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.IOUtils;
 import com.microsoft.tfs.util.LocaleUtil;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.temp.TempStorageService;
 
 public class CreateV1ProjectFileCommand extends CreateProjectFileCommand {
@@ -141,14 +141,14 @@ public class CreateV1ProjectFileCommand extends CreateProjectFileCommand {
 
         String projectFile = IOUtils.toString(url.openStream(), BUILD_FILE_ENCODING);
 
-        projectFile = StringHelpers.replace(projectFile, "#VERSION#", "1"); //$NON-NLS-1$ //$NON-NLS-2$
-        projectFile = StringHelpers.replace(projectFile, "#BUILDDIRECTORY#", buildDirectory); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#BUILDMACHINE#", buildAgent); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#CONFIGURATIONTOBUILD#", getConfigurationString()); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#DESCRIPTION#", description); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#DROPLOCATION#", dropLocation); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#TEAMPROJECT#", teamProject); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#COMPILEFILE#", antBuildFile); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#VERSION#", "1"); //$NON-NLS-1$ //$NON-NLS-2$
+        projectFile = StringUtil.replace(projectFile, "#BUILDDIRECTORY#", buildDirectory); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#BUILDMACHINE#", buildAgent); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#CONFIGURATIONTOBUILD#", getConfigurationString()); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#DESCRIPTION#", description); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#DROPLOCATION#", dropLocation); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#TEAMPROJECT#", teamProject); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#COMPILEFILE#", antBuildFile); //$NON-NLS-1$
 
         writeToFile(projectFile, path, BUILD_FILE_ENCODING);
 
@@ -162,7 +162,7 @@ public class CreateV1ProjectFileCommand extends CreateProjectFileCommand {
 
         String workspaceFile = IOUtils.toString(url.openStream(), BUILD_FILE_ENCODING);
 
-        workspaceFile = StringHelpers.replace(workspaceFile, "#INTERNALMAPPINGS#", getInternalMappingsString()); //$NON-NLS-1$
+        workspaceFile = StringUtil.replace(workspaceFile, "#INTERNALMAPPINGS#", getInternalMappingsString()); //$NON-NLS-1$
 
         writeToFile(workspaceFile, path, BUILD_FILE_ENCODING);
 
@@ -194,7 +194,7 @@ public class CreateV1ProjectFileCommand extends CreateProjectFileCommand {
             if (mapping.getMappingType() != WorkspaceMappingType.CLOAK) {
                 internalMappings.append("\" LocalItem=\""); //$NON-NLS-1$
                 internalMappings.append(
-                    StringHelpers.replace(
+                    StringUtil.replace(
                         mapping.getLocalItem(),
                         BuildConstants.SOURCE_DIR_ENVIRONMENT_VARIABLE,
                         buildDirectory));

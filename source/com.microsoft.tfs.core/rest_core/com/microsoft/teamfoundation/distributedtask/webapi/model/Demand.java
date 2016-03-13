@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.vss.client.core.utils.ArgumentUtility;
-import com.microsoft.vss.client.core.utils.StringUtil;
 
 @JsonDeserialize(using = DemandDeserializer.class)
 @JsonSerialize(using = DemandSerializer.class)

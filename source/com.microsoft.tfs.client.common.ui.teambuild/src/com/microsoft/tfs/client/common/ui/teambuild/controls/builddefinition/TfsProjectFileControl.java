@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.microsoft.tfs.client.common.ui.teambuild.Messages;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class TfsProjectFileControl extends ProjectFileControl {
     public TfsProjectFileControl(final Composite parent, final int style) {
@@ -18,7 +18,7 @@ public class TfsProjectFileControl extends ProjectFileControl {
     protected void validate() {
         final String configFolderPath = configFolderText.getText().trim();
         isValidServerPath =
-            !StringHelpers.isNullOrEmpty(configFolderPath) && configFolderPath.startsWith(ServerPath.ROOT);
+            !StringUtil.isNullOrEmpty(configFolderPath) && configFolderPath.startsWith(ServerPath.ROOT);
         super.validate();
     }
 

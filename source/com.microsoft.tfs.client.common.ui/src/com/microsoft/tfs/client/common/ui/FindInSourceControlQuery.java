@@ -6,7 +6,7 @@ package com.microsoft.tfs.client.common.ui;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.core.memento.Memento;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class FindInSourceControlQuery {
     private final String serverPath;
@@ -140,7 +140,7 @@ public class FindInSourceControlQuery {
 
         for (final Memento option : options) {
             final String optionName = option.getString(FindInSCEQueryOptionsPersistence.OPTION_NAME);
-            if (!StringHelpers.isNullOrEmpty(optionName)) {
+            if (!StringUtil.isNullOrEmpty(optionName)) {
                 if (optionName.equals(RECURSIVE_OPTION_NAME)) {
                     final boolean value = option.getBoolean(FindInSCEQueryOptionsPersistence.VALUE_NAME).booleanValue();
                     recursive = value;
@@ -149,7 +149,7 @@ public class FindInSourceControlQuery {
                     checkedOut = value;
                 } else if (optionName.equals(CHECKOUT_USER_OPTION_NAME)) {
                     final String value = option.getString(FindInSCEQueryOptionsPersistence.VALUE_NAME);
-                    checkedOutUser = StringHelpers.isNullOrEmpty(value) ? null : value;
+                    checkedOutUser = StringUtil.isNullOrEmpty(value) ? null : value;
                 } else if (optionName.equals(SHOW_STATUS_OPTION_NAME)) {
                     final boolean value = option.getBoolean(FindInSCEQueryOptionsPersistence.VALUE_NAME).booleanValue();
                     showStatus = value;

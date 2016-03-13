@@ -48,7 +48,6 @@ import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
 import com.microsoft.tfs.core.internal.wrappers.WrapperUtils;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 import ms.tfs.build.buildservice._04._BuildDefinition;
@@ -365,7 +364,7 @@ public class BuildDefinition extends WebServiceObjectWrapper implements IBuildDe
 
     public void setFullPath(final String value) {
         getWebServiceObject().setFullPath(value);
-        if (StringHelpers.isNullOrEmpty(value)) {
+        if (StringUtil.isNullOrEmpty(value)) {
             teamProject = StringUtil.EMPTY;
             name = StringUtil.EMPTY;
         } else {
@@ -806,7 +805,7 @@ public class BuildDefinition extends WebServiceObjectWrapper implements IBuildDe
     }
 
     public String getConfigurationFolderUri(final String configurationFolderPath) {
-        if (StringHelpers.isNullOrEmpty(configurationFolderPath)) {
+        if (StringUtil.isNullOrEmpty(configurationFolderPath)) {
             return null;
         }
 

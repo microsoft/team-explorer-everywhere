@@ -11,7 +11,7 @@ import com.microsoft.tfs.core.clients.build.soapextensions.ContinuousIntegration
 import com.microsoft.tfs.core.clients.build.soapextensions.DefinitionTriggerType;
 import com.microsoft.tfs.core.clients.build.utils.BuildPath;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 import ms.tfs.build.buildservice._04._BuildDefinitionSpec;
 
@@ -31,10 +31,10 @@ public class BuildDefinitionSpec extends WebServiceObjectWrapper implements IBui
             name = BuildPath.getItemName(fullPath);
             teamProject = BuildPath.getTeamProject(fullPath);
         }
-        if (StringHelpers.isNullOrEmpty(name)) {
+        if (StringUtil.isNullOrEmpty(name)) {
             name = BuildConstants.STAR;
         }
-        if (StringHelpers.isNullOrEmpty(teamProject)) {
+        if (StringUtil.isNullOrEmpty(teamProject)) {
             teamProject = BuildConstants.STAR;
         }
     }
@@ -56,8 +56,8 @@ public class BuildDefinitionSpec extends WebServiceObjectWrapper implements IBui
 
         final _BuildDefinitionSpec spec = getWebServiceObject();
 
-        this.name = StringHelpers.isNullOrEmpty(name) ? BuildConstants.STAR : name;
-        this.teamProject = StringHelpers.isNullOrEmpty(teamProject) ? BuildConstants.STAR : teamProject;
+        this.name = StringUtil.isNullOrEmpty(name) ? BuildConstants.STAR : name;
+        this.teamProject = StringUtil.isNullOrEmpty(teamProject) ? BuildConstants.STAR : teamProject;
         spec.setFullPath(BuildPath.combine(teamProject, name));
 
         if (propertyNameFilters != null) {

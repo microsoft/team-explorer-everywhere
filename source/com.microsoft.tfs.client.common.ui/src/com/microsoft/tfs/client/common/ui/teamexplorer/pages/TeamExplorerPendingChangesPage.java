@@ -82,7 +82,7 @@ import com.microsoft.tfs.core.clients.webservices.IdentityHelper;
 import com.microsoft.tfs.core.clients.webservices.TeamFoundationIdentity;
 import com.microsoft.tfs.core.pendingcheckin.PendingCheckin;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class TeamExplorerPendingChangesPage extends TeamExplorerBasePage {
     public static final String ID =
@@ -775,11 +775,11 @@ public class TeamExplorerPendingChangesPage extends TeamExplorerBasePage {
 
         final StringBuilder sb = new StringBuilder();
 
-        if (!StringHelpers.isNullOrEmpty(mainErrorMessage)) {
+        if (!StringUtil.isNullOrEmpty(mainErrorMessage)) {
             sb.append(mainErrorMessage);
         }
 
-        if (!StringHelpers.isNullOrEmpty(causeErrorMessage)) {
+        if (!StringUtil.isNullOrEmpty(causeErrorMessage)) {
             if (sb.length() > 0) {
                 sb.append(": "); //$NON-NLS-1$
             }

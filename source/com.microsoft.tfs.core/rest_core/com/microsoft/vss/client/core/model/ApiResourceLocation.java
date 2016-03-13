@@ -6,7 +6,7 @@ package com.microsoft.vss.client.core.model;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.vss.client.core.model.ApiResourceVersion.Version;
 
 public class ApiResourceLocation {
@@ -87,7 +87,7 @@ public class ApiResourceLocation {
 
     @JsonProperty("minVersion")
     public void setMinVersionString(final String minVersion) {
-        if (StringHelpers.isNullOrEmpty(minVersion)) {
+        if (StringUtil.isNullOrEmpty(minVersion)) {
             this.minVersion = new Version(1, 0);
         } else {
             this.minVersion = new Version(minVersion);
@@ -105,7 +105,7 @@ public class ApiResourceLocation {
 
     @JsonProperty("maxVersion")
     public void setMaxVersionString(final String maxVersion) {
-        if (StringHelpers.isNullOrEmpty(maxVersion)) {
+        if (StringUtil.isNullOrEmpty(maxVersion)) {
             this.maxVersion = new Version(1, 0);
         } else {
             this.maxVersion = new Version(maxVersion);
@@ -123,7 +123,7 @@ public class ApiResourceLocation {
 
     @JsonProperty("releasedVersion")
     public void setReleasedVersionString(final String releasedVersion) {
-        if (StringHelpers.isNullOrEmpty(releasedVersion)) {
+        if (StringUtil.isNullOrEmpty(releasedVersion)) {
             this.releasedVersion = new Version(1, 0);
         } else {
             this.releasedVersion = new Version(releasedVersion);

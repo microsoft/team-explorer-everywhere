@@ -31,7 +31,6 @@ import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
 import com.microsoft.tfs.core.internal.wrappers.WrapperUtils;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.datetime.DotNETDate;
 
@@ -138,7 +137,7 @@ public class BuildDetail extends WebServiceObjectWrapper implements IBuildDetail
 
         requestIds = proxy.getQueueIds().clone();
 
-        if (StringHelpers.isNullOrEmpty(proxy.getLastChangedByDisplayName())) {
+        if (StringUtil.isNullOrEmpty(proxy.getLastChangedByDisplayName())) {
             proxy.setLastChangedByDisplayName(proxy.getLastChangedBy());
         }
 
@@ -537,7 +536,7 @@ public class BuildDetail extends WebServiceObjectWrapper implements IBuildDetail
 
             // Compat: Orcas servers don't return the TeamProject for the Build
             // Detail
-            if (StringHelpers.isNullOrEmpty(getWebServiceObject().getTeamProject())) {
+            if (StringUtil.isNullOrEmpty(getWebServiceObject().getTeamProject())) {
                 // Set Team Project to match the definition
                 getWebServiceObject().setTeamProject(buildDefinition.getTeamProject());
             }

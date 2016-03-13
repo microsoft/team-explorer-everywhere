@@ -43,7 +43,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
 import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
 
 public class CrossCollectionRepositorySelectControl extends BaseControl {
@@ -213,7 +213,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
 
         // The preference could contain variables. Let's expand all of them.
         final String rootDirectory = expandVariables(rootFolderPreference);
-        if (!StringHelpers.isNullOrEmpty(rootDirectory)) {
+        if (!StringUtil.isNullOrEmpty(rootDirectory)) {
             return rootDirectory;
         }
 
@@ -234,7 +234,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
         final IPreferenceStore uiPrefs = org.eclipse.egit.ui.Activator.getDefault().getPreferenceStore();
         if (uiPrefs != null) {
             rootFolderPreference = uiPrefs.getString(DEFAULT_REPOSITORY_DIR_UI_KEY);
-            if (!StringHelpers.isNullOrEmpty(rootFolderPreference)) {
+            if (!StringUtil.isNullOrEmpty(rootFolderPreference)) {
                 return rootFolderPreference;
             }
         }
@@ -245,14 +245,14 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
             org.eclipse.egit.core.Activator.getDefault().getRepositoryUtil().getPreferences();
         if (corePrefs != null) {
             rootFolderPreference = corePrefs.get(DEFAULT_REPOSITORY_DIR_CORE_KEY, null);
-            if (!StringHelpers.isNullOrEmpty(rootFolderPreference)) {
+            if (!StringUtil.isNullOrEmpty(rootFolderPreference)) {
                 return rootFolderPreference;
             }
         }
 
         // If the preference is not set, then use the home environment variable
         rootFolderPreference = PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.HOME);
-        if (!StringHelpers.isNullOrEmpty(rootFolderPreference)) {
+        if (!StringUtil.isNullOrEmpty(rootFolderPreference)) {
             return rootFolderPreference;
         }
 
@@ -295,7 +295,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
     public String getWorkingDirectory() {
         final String parentDirectory = parentDirectoryBox.getText();
         final String folderName = folderNameBox.getText();
-        if (!StringHelpers.isNullOrEmpty(parentDirectory) && !StringHelpers.isNullOrEmpty(folderName)) {
+        if (!StringUtil.isNullOrEmpty(parentDirectory) && !StringUtil.isNullOrEmpty(folderName)) {
             final File parent = new File(parentDirectory.trim());
             final File workingDirectory = new File(parent, folderName.trim());
             return workingDirectory.getPath();

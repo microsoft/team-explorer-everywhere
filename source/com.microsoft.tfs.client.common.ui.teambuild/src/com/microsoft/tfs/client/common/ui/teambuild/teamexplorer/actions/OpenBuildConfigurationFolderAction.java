@@ -17,7 +17,7 @@ import com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.VersionContr
 import com.microsoft.tfs.core.clients.build.BuildSourceProviders;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.IBuildDefinitionSourceProvider;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class OpenBuildConfigurationFolderAction extends TeamExplorerSingleBuildDefinitionAction {
     private static final Log log = LogFactory.getLog(OpenBuildConfigurationFolderAction.class);
@@ -55,7 +55,7 @@ public class OpenBuildConfigurationFolderAction extends TeamExplorerSingleBuildD
 
         final String configurationPath = selectedDefinition.getConfigurationFolderPath();
 
-        if (StringHelpers.isNullOrEmpty(configurationPath)) {
+        if (StringUtil.isNullOrEmpty(configurationPath)) {
             return;
         }
 

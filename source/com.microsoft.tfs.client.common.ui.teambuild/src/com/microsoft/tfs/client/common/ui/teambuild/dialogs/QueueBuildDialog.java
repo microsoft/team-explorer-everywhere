@@ -60,7 +60,6 @@ import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Shelveset;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.WorkspaceSpec;
 import com.microsoft.tfs.core.util.UserNameUtil;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 public class QueueBuildDialog extends BaseDialog {
@@ -579,7 +578,7 @@ public class QueueBuildDialog extends BaseDialog {
         // Note that drop location could be null if unable to parse the TFS2005
         // build file.
         final String dropLocation = selectedBuildDefinition.getDefaultDropLocation();
-        if (StringHelpers.isNullOrEmpty(dropLocation)) {
+        if (StringUtil.isNullOrEmpty(dropLocation)) {
             dropText.setText(Messages.getString("QueueBuildDialog.NoDropOptionText")); //$NON-NLS-1$
             dropText.setEnabled(false);
             isNoDropLocation = true;

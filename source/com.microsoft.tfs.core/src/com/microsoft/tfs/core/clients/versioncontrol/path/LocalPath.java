@@ -23,7 +23,7 @@ import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.FileHelpers;
 import com.microsoft.tfs.util.LocaleInvariantStringHelpers;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * <p>
@@ -665,9 +665,9 @@ public abstract class LocalPath {
      * @return
      */
     public static String[] getHierarchy(final String fromPath, final String toPath) {
-        if (StringHelpers.isNullOrEmpty(toPath)) {
+        if (StringUtil.isNullOrEmpty(toPath)) {
             return getHierarchy(fromPath);
-        } else if (StringHelpers.isNullOrEmpty(fromPath)) {
+        } else if (StringUtil.isNullOrEmpty(fromPath)) {
             return getHierarchy(toPath);
         }
 
@@ -1271,7 +1271,7 @@ public abstract class LocalPath {
          * Strip any leading whitespace so we can match against the beginning of
          * the string.
          */
-        pathString = StringHelpers.trimBegin(pathString);
+        pathString = StringUtil.trimBegin(pathString);
 
         if (pathString.length() == 0) {
             return pathString;
@@ -1692,7 +1692,7 @@ public abstract class LocalPath {
      * @return
      */
     public static boolean exists(final String filePath) {
-        if (StringHelpers.isNullOrEmpty(filePath)) {
+        if (StringUtil.isNullOrEmpty(filePath)) {
             return false;
         }
 

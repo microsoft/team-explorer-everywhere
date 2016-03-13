@@ -16,7 +16,7 @@ import com.microsoft.tfs.core.util.SpecialFolders;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * <p>
@@ -99,7 +99,7 @@ public class VersionedVendorFilesystemPersistenceStore extends FilesystemPersist
         if (path != null) {
             path = path.trim();
             try {
-                if (StringHelpers.isNullOrEmpty(path)) {
+                if (StringUtil.isNullOrEmpty(path)) {
                     log.warn("User specified profile location path is empty, TEE will use default profile location."); //$NON-NLS-1$
                 } else if (!LocalPath.isPathRooted(path)) {
                     log.warn("User specified location " //$NON-NLS-1$

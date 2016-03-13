@@ -30,7 +30,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.version.ChangesetVersionSpec;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.version.LatestVersionSpec;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.version.VersionSpec;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Prompts the user to choose an item to rollback and a rollback mode: - a
@@ -139,7 +139,7 @@ public class RollbackItemDialog extends ExtendedButtonDialog {
 
             if (!ServerPath.isServerPath(item)) {
                 final String serverPath = repository.getWorkspace().getMappedServerPath(item);
-                if (StringHelpers.isNullOrEmpty(serverPath)) {
+                if (StringUtil.isNullOrEmpty(serverPath)) {
                     final String noMappingExistsFormat = Messages.getString("RollbackItemDialog.NoMappingExistsFormat"); //$NON-NLS-1$
                     MessageBoxHelpers.errorMessageBox(
                         getShell(),

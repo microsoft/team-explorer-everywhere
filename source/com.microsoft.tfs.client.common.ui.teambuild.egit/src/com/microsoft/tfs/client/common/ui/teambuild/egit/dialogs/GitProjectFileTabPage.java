@@ -12,7 +12,7 @@ import com.microsoft.tfs.core.clients.build.GitProperties;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.exceptions.ConfigurationFolderPathNotFoundException;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class GitProjectFileTabPage extends ProjectFileTabPage {
     public GitProjectFileTabPage(final IBuildDefinition buildDefinition) {
@@ -34,7 +34,7 @@ public class GitProjectFileTabPage extends ProjectFileTabPage {
             configPath = getBuildDefinition().getConfigurationFolderPath();
         } catch (final ConfigurationFolderPathNotFoundException e) {
             // default to the team project root
-            if (!StringHelpers.isNullOrEmpty(getBuildDefinition().getTeamProject())) {
+            if (!StringUtil.isNullOrEmpty(getBuildDefinition().getTeamProject())) {
                 configPath = GitProperties.GitPathBeginning
                     + getBuildDefinition().getTeamProject()
                     + ServerPath.PREFERRED_SEPARATOR_CHARACTER
@@ -42,13 +42,13 @@ public class GitProjectFileTabPage extends ProjectFileTabPage {
                     + ServerPath.PREFERRED_SEPARATOR_CHARACTER
                     + "master"; //$NON-NLS-1$
 
-                if (!StringHelpers.isNullOrEmpty(getBuildDefinition().getName())) {
+                if (!StringUtil.isNullOrEmpty(getBuildDefinition().getName())) {
                     configPath += ServerPath.PREFERRED_SEPARATOR_CHARACTER + getBuildDefinition().getName();
                 }
             }
         }
 
-        if (!StringHelpers.isNullOrEmpty(configPath)) {
+        if (!StringUtil.isNullOrEmpty(configPath)) {
             getControl().getConfigFolderText().setText(configPath);
         }
 

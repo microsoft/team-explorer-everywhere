@@ -43,7 +43,7 @@ import com.microsoft.tfs.core.product.ProductName;
 import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 import com.microsoft.tfs.core.ws.runtime.exceptions.ProxyException;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
 /**
@@ -664,7 +664,7 @@ public abstract class Application implements AbstractConsoleApplication {
         }
 
         // We always skip leading whitespace.
-        line = StringHelpers.trimBegin(line);
+        line = StringUtil.trimBegin(line);
 
         // Skip lines that begin with a comment indicator
         if (line.toLowerCase().startsWith("rem ") || line.toLowerCase().startsWith("#")) //$NON-NLS-1$ //$NON-NLS-2$

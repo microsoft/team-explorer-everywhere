@@ -17,7 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * A file attributes file is a text file consisting of lines, each a
@@ -113,7 +113,7 @@ public final class FileAttributesFile {
             int lineNumber = 0;
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
-                line = StringHelpers.trimBegin(line);
+                line = StringUtil.trimBegin(line);
 
                 // Skip empty lines and comment lines.
                 if (line.length() == 0 || line.startsWith("" + COMMENT_CHAR)) //$NON-NLS-1$
@@ -124,7 +124,7 @@ public final class FileAttributesFile {
                 if (lineTransformation != null) {
                     line = lineTransformation.transform(line);
 
-                    if (StringHelpers.isNullOrEmpty(line)) {
+                    if (StringUtil.isNullOrEmpty(line)) {
                         continue;
                     }
                 }

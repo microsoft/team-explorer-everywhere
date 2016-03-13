@@ -182,7 +182,6 @@ import com.microsoft.tfs.util.IOUtils;
 import com.microsoft.tfs.util.LocaleInvariantStringHelpers;
 import com.microsoft.tfs.util.NewlineUtils;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.process.ProcessFinishedHandler;
 import com.microsoft.tfs.util.tasks.CanceledException;
@@ -1161,7 +1160,7 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
             if (authorDisplayName == null) {
                 authorDisplayName = UserNameUtil.getCurrentUserName();
                 final String domainName = UserNameUtil.getCurrentUserDomain();
-                if (!StringHelpers.isNullOrEmpty(domainName)) {
+                if (!StringUtil.isNullOrEmpty(domainName)) {
                     authorDisplayName = UserNameUtil.format(authorDisplayName, domainName);
                 }
             }
@@ -1937,7 +1936,7 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
                  * non-empty ones.
                  */
 
-                if (!StringHelpers.isNullOrEmpty(existingWorkingFolder.getLocalItem())
+                if (!StringUtil.isNullOrEmpty(existingWorkingFolder.getLocalItem())
                     && LocalPath.equals(existingWorkingFolder.getLocalItem(), newWorkingFolder.getLocalItem())) {
                     if (overwriteExisting && numRemoved == 0) {
                         i.remove();
@@ -3763,7 +3762,7 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
         final String[] exclusionsApplied = walker.getExclusionsApplied();
 
         if (exclusionsApplied.length > 0) {
-            final String exclusionsList = StringHelpers.join(exclusionsApplied, ";"); //$NON-NLS-1$
+            final String exclusionsList = StringUtil.join(exclusionsApplied, ";"); //$NON-NLS-1$
 
             client.getEventEngine().fireNonFatalError(
                 new NonFatalErrorEvent(

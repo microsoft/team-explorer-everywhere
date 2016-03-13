@@ -28,7 +28,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.specs.version.LatestVersion
 import com.microsoft.tfs.core.clients.versioncontrol.specs.version.VersionSpec;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.LocaleUtil;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
 public class RollbackCommand extends TFSCommand {
@@ -127,7 +127,7 @@ public class RollbackCommand extends TFSCommand {
 
             ItemSpec[] items = null;
 
-            if (!StringHelpers.isNullOrEmpty(itemPath)) {
+            if (!StringUtil.isNullOrEmpty(itemPath)) {
                 if (!workspace.isServerPathMapped(itemPath)) {
                     final String messageNotMappedFormat = Messages.getString("RollbackCommand.NotMappedMessageFormat"); //$NON-NLS-1$
                     final String messageNotMapped = MessageFormat.format(messageNotMappedFormat, itemPath);

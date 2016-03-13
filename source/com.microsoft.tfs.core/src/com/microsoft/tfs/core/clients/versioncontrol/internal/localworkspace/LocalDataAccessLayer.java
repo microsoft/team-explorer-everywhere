@@ -99,7 +99,7 @@ import com.microsoft.tfs.jni.FileSystemUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.datetime.DotNETDate;
 import com.microsoft.tfs.util.tasks.TaskMonitor;
 
@@ -4783,7 +4783,7 @@ public class LocalDataAccessLayer {
 
             // The team project name of $/ is String.Empty.
             // Don't emit it as a result.
-            if (!StringHelpers.isNullOrEmpty(teamProjectName)) {
+            if (!StringUtil.isNullOrEmpty(teamProjectName)) {
                 projectNames.add(teamProjectName);
             }
         }

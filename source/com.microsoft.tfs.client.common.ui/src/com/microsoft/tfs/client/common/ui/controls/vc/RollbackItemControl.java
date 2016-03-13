@@ -34,7 +34,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Changeset;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.version.VersionSpec;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.valid.IValidationMessage;
 import com.microsoft.tfs.util.valid.IValidity;
 import com.microsoft.tfs.util.valid.MultiValidator;
@@ -503,7 +503,7 @@ public class RollbackItemControl extends BaseControl implements Validatable {
         final ServerItemSource serverItemSource = new WorkspaceItemSource(repository.getWorkspace());
 
         String initialItem = ServerPath.ROOT;
-        if (!StringHelpers.isNullOrEmpty(itemPath) && ServerPath.isServerPath(itemPath)) {
+        if (!StringUtil.isNullOrEmpty(itemPath) && ServerPath.isServerPath(itemPath)) {
             initialItem = itemPath;
         }
 

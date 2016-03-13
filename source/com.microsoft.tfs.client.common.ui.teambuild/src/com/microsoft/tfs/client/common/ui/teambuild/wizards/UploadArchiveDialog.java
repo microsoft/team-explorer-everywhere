@@ -37,7 +37,7 @@ import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class UploadArchiveDialog extends BaseDialog {
     private final String title;
@@ -157,7 +157,7 @@ public class UploadArchiveDialog extends BaseDialog {
             @Override
             public void modifyText(final ModifyEvent e) {
                 final String inputPath = serverPathText.getText().trim();
-                if (StringHelpers.isNullOrEmpty(inputPath) || !ServerPath.isServerPath(inputPath)) {
+                if (StringUtil.isNullOrEmpty(inputPath) || !ServerPath.isServerPath(inputPath)) {
                     getButton(IDialogConstants.OK_ID).setEnabled(false);
                     iconLabel.setImage(warningImage);
                     helpLabel.setText(invalidServerPathText);
@@ -172,7 +172,7 @@ public class UploadArchiveDialog extends BaseDialog {
                     final String serverDir =
                         inputPath.substring(0, inputPath.lastIndexOf(ServerPath.PREFERRED_SEPARATOR_CHARACTER) + 1);
                     final String inputZipName = ServerPath.getFileName(inputPath);
-                    if (!StringHelpers.isNullOrEmpty(serverDir) && !StringHelpers.isNullOrEmpty(inputZipName)) {
+                    if (!StringUtil.isNullOrEmpty(serverDir) && !StringUtil.isNullOrEmpty(inputZipName)) {
                         archiveName = inputZipName;
                         serverPath = serverDir;
                     }
@@ -199,7 +199,7 @@ public class UploadArchiveDialog extends BaseDialog {
 
     @Override
     protected void okPressed() {
-        if (StringHelpers.isNullOrEmpty(serverPath)) {
+        if (StringUtil.isNullOrEmpty(serverPath)) {
             iconLabel.setImage(warningImage);
             helpLabel.setText(invalidServerPathText);
             return;
@@ -242,9 +242,9 @@ public class UploadArchiveDialog extends BaseDialog {
 
     @Override
     protected void hookAfterButtonsCreated() {
-        if (StringHelpers.isNullOrEmpty(archiveName)
-            || StringHelpers.isNullOrEmpty(localPath)
-            || StringHelpers.isNullOrEmpty(serverPath)) {
+        if (StringUtil.isNullOrEmpty(archiveName)
+            || StringUtil.isNullOrEmpty(localPath)
+            || StringUtil.isNullOrEmpty(serverPath)) {
             getButton(IDialogConstants.OK_ID).setEnabled(false);
         }
     }
@@ -265,11 +265,11 @@ public class UploadArchiveDialog extends BaseDialog {
         /*
          * Smart default second choice: get Ant path from eclipse directory
          */
-        if (StringHelpers.isNullOrEmpty(localFolderPath) && buildToolName.equalsIgnoreCase(ANT)) {
+        if (StringUtil.isNullOrEmpty(localFolderPath) && buildToolName.equalsIgnoreCase(ANT)) {
             localFolderPath = getEclipseAntPath();
         }
 
-        if (!StringHelpers.isNullOrEmpty(localFolderPath) && generateZipName(true)) {
+        if (!StringUtil.isNullOrEmpty(localFolderPath) && generateZipName(true)) {
             folderPathText.setText(localFolderPath);
         }
 
@@ -293,7 +293,7 @@ public class UploadArchiveDialog extends BaseDialog {
 
                 // Set the initial filter path according to what is typed in
                 // or set default path based on environment variables
-                if (StringHelpers.isNullOrEmpty(folderPathText.getText())) {
+                if (StringUtil.isNullOrEmpty(folderPathText.getText())) {
                     dlg.setFilterPath(localFolderPath);
                 } else {
                     dlg.setFilterPath(folderPathText.getText().trim());
@@ -305,7 +305,7 @@ public class UploadArchiveDialog extends BaseDialog {
                     MessageFormat.format(Messages.getString("UploadArchiveDialog.UploadTextFormat"), buildToolName)); //$NON-NLS-1$
 
                 final String path = dlg.open();
-                if (!StringHelpers.isNullOrEmpty(path)) {
+                if (!StringUtil.isNullOrEmpty(path)) {
                     localFolderPath = path;
                     if (generateZipName(false)) {
                         folderPathText.setText(localPath);
@@ -322,7 +322,7 @@ public class UploadArchiveDialog extends BaseDialog {
 
         try {
             final String name = new File(localFolderPath).getCanonicalFile().getName();
-            if (StringHelpers.isNullOrEmpty(name)) {
+            if (StringUtil.isNullOrEmpty(name)) {
                 if (!fromEnvVariable) {
                     MessageBoxHelpers.warningMessageBox(
                         getShell(),
@@ -364,7 +364,7 @@ public class UploadArchiveDialog extends BaseDialog {
                     localZipPath = path;
                     try {
                         archiveName = new File(localZipPath).getCanonicalFile().getName();
-                        if (!StringHelpers.isNullOrEmpty(archiveName)) {
+                        if (!StringUtil.isNullOrEmpty(archiveName)) {
                             localPath = localZipPath;
                             fileZipName = archiveName;
                             serverPathText.setText(serverPath + archiveName);
@@ -391,7 +391,7 @@ public class UploadArchiveDialog extends BaseDialog {
                     "*.zip" //$NON-NLS-1$
                 });
                 final String path = dlg.open();
-                if (!StringHelpers.isNullOrEmpty(path)) {
+                if (!StringUtil.isNullOrEmpty(path)) {
                     localZipPath = path;
                     try {
                         archiveName = new File(localZipPath).getCanonicalFile().getName();
@@ -483,7 +483,7 @@ public class UploadArchiveDialog extends BaseDialog {
         if (okButton == null) {
             return;
         }
-        if (StringHelpers.isNullOrEmpty(archiveName) || archiveName.trim().length() == 0) {
+        if (StringUtil.isNullOrEmpty(archiveName) || archiveName.trim().length() == 0) {
             okButton.setEnabled(false);
         } else if (selectFolderRadio.getSelection()) {
             final String folderText = folderPathText.getText() != null ? folderPathText.getText().trim() : ""; //$NON-NLS-1$
@@ -497,13 +497,13 @@ public class UploadArchiveDialog extends BaseDialog {
     public String getEnvVariablePath(final String envVar) {
         String path = System.getenv(envVar + "_HOME"); //$NON-NLS-1$
 
-        if (!StringHelpers.isNullOrEmpty(path)) {
+        if (!StringUtil.isNullOrEmpty(path)) {
             return path;
         }
 
         path = System.getenv(envVar + "HOME"); //$NON-NLS-1$
 
-        if (!StringHelpers.isNullOrEmpty(path)) {
+        if (!StringUtil.isNullOrEmpty(path)) {
             return path;
         }
 

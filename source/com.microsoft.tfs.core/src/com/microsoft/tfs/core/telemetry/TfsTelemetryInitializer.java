@@ -24,7 +24,6 @@ import com.microsoft.tfs.jni.helpers.LocalHost;
 import com.microsoft.tfs.util.ArrayUtils;
 import com.microsoft.tfs.util.HashUtils;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 public class TfsTelemetryInitializer implements ContextInitializer {
@@ -127,7 +126,7 @@ public class TfsTelemetryInitializer implements ContextInitializer {
 
     private String getExeName() {
         final String exeFile = System.getProperty("eclipse.launcher"); //$NON-NLS-1$
-        if (StringHelpers.isNullOrEmpty(exeFile)) {
+        if (StringUtil.isNullOrEmpty(exeFile)) {
             return ProductInformation.getCurrent().getProductShortNameNOLOC();
         } else {
             return LocalPath.getFileName(exeFile);
@@ -143,7 +142,7 @@ public class TfsTelemetryInitializer implements ContextInitializer {
         final String osName = getSystemProperty("os.name"); //$NON-NLS-1$
         final String shortName;
 
-        if (StringHelpers.isNullOrEmpty(osName)) {
+        if (StringUtil.isNullOrEmpty(osName)) {
             shortName = StringUtil.EMPTY;
         } else {
             final String[] nameParts = osName.trim().split(" ", 2); //$NON-NLS-1$
@@ -203,7 +202,7 @@ public class TfsTelemetryInitializer implements ContextInitializer {
 
     private String getFrameworkVersion() {
         String version = getSystemProperty("eclipse.buildId"); //$NON-NLS-1$
-        if (!StringHelpers.isNullOrEmpty(version)) {
+        if (!StringUtil.isNullOrEmpty(version)) {
             return version;
         } else {
             final String osgiVersion = getSystemProperty("osgi.framework.version"); //$NON-NLS-1$
@@ -225,26 +224,26 @@ public class TfsTelemetryInitializer implements ContextInitializer {
 
     private String getApplicationMajorVersion() {
         final String v = CoreVersionInfo.getMajorVersion();
-        return !StringHelpers.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
+        return !StringUtil.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
     }
 
     private String getApplicationMinorVersion() {
         final String v = CoreVersionInfo.getMinorVersion();
-        return !StringHelpers.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
+        return !StringUtil.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
     }
 
     private String getApplicationServiceVersion() {
         final String v = CoreVersionInfo.getServiceVersion();
-        return !StringHelpers.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
+        return !StringUtil.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
     }
 
     private String getApplicationBuildVersion() {
         final String v = CoreVersionInfo.getBuildVersion();
-        return !StringHelpers.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
+        return !StringUtil.isNullOrEmpty(v) ? v : DEFAULT_VERSION;
     }
 
     private String getApplicationVersion() {
-        return StringHelpers.join(new String[] {
+        return StringUtil.join(new String[] {
             getApplicationMajorVersion(),
             getApplicationMinorVersion(),
             getApplicationServiceVersion(),

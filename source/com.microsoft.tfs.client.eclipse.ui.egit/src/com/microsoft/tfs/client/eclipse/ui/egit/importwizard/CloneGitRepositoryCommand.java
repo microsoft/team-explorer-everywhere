@@ -28,7 +28,6 @@ import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
@@ -60,8 +59,8 @@ public class CloneGitRepositoryCommand extends TFSCommand {
         final boolean cloneSubmodules,
         final String remoteName) {
         if (credentials != null
-            && !StringHelpers.isNullOrEmpty(credentials.getUsername())
-            && !StringHelpers.isNullOrEmpty(credentials.getPassword())) {
+            && !StringUtil.isNullOrEmpty(credentials.getUsername())
+            && !StringUtil.isNullOrEmpty(credentials.getPassword())) {
             this.credentialsProvider =
                 new UsernamePasswordCredentialsProvider(credentials.getUsername(), credentials.getPassword());
         } else {

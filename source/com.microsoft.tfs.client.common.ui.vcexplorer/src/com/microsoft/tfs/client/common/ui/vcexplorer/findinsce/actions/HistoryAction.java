@@ -17,7 +17,7 @@ import com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.FindInSource
 import com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.FindInSourceControlEditorInput;
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.RecursionType;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class HistoryAction extends Action {
     private final ImageHelper imageHelper = new ImageHelper(TFSCommonUIClientPlugin.PLUGIN_ID);
@@ -66,7 +66,7 @@ public class HistoryAction extends Action {
         // avoid problems with pending renames
         final String LocalPath =
             editorInput.getRepository().getWorkspace().getMappedLocalPath(serverItems[0].getServerPath());
-        final String itemPath = !StringHelpers.isNullOrEmpty(LocalPath) ? LocalPath : serverItems[0].getServerPath();
+        final String itemPath = !StringUtil.isNullOrEmpty(LocalPath) ? LocalPath : serverItems[0].getServerPath();
 
         if (serverItems != null && serverItems.length > 0) {
             new ViewHistoryTask(

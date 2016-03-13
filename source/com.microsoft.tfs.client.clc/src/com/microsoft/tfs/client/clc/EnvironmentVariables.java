@@ -4,7 +4,7 @@
 package com.microsoft.tfs.client.clc;
 
 import com.microsoft.tfs.jni.PlatformMiscUtils;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Environment variables only used by the CLC.
@@ -104,7 +104,7 @@ public abstract class EnvironmentVariables {
     public static boolean getBoolean(final String variableName, final boolean defaultValue) {
         final String value = PlatformMiscUtils.getInstance().getEnvironmentVariable(variableName);
 
-        if (StringHelpers.isNullOrEmpty(value)) {
+        if (StringUtil.isNullOrEmpty(value)) {
             return defaultValue;
         } else {
             return !value.equalsIgnoreCase("FALSE") && //$NON-NLS-1$

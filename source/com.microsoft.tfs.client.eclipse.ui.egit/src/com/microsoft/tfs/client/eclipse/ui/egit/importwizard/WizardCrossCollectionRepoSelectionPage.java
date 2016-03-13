@@ -49,7 +49,7 @@ import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectionSelectionPage {
     private static final Log logger = LogFactory.getLog(WizardCrossCollectionRepoSelectionPage.class);
@@ -85,7 +85,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
                     removeWizardData(false);
                 }
 
-                setPageComplete(info != null && !StringHelpers.isNullOrEmpty(workingDirectory));
+                setPageComplete(info != null && !StringUtil.isNullOrEmpty(workingDirectory));
             }
         });
         GridDataBuilder.newInstance().grab().fill().applyTo(repositorySelectControl);
@@ -96,7 +96,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
         repositorySelectControl.stopTimer();
         final CrossCollectionRepositoryInfo info = repositorySelectControl.getSelectedRepository();
         final String workingDirectory = repositorySelectControl.getWorkingDirectory();
-        if (info != null && !StringHelpers.isNullOrEmpty(workingDirectory)) {
+        if (info != null && !StringUtil.isNullOrEmpty(workingDirectory)) {
             final TFSTeamProjectCollection connection = info.getCollection();
 
             setWizardData(connection, info);

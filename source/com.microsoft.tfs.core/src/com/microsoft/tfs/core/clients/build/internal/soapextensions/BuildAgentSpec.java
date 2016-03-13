@@ -6,7 +6,7 @@ package com.microsoft.tfs.core.clients.build.internal.soapextensions;
 import com.microsoft.tfs.core.clients.build.BuildConstants;
 import com.microsoft.tfs.core.clients.build.IBuildAgentSpec;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 import ms.tfs.build.buildservice._04._BuildAgentSpec;
 
@@ -29,8 +29,8 @@ public class BuildAgentSpec extends WebServiceObjectWrapper implements IBuildAge
         final String[] propertyNameFilters,
         final String[] tags) {
         this();
-        setName(StringHelpers.isNullOrEmpty(name) ? BuildConstants.STAR : name);
-        setServiceHostName(StringHelpers.isNullOrEmpty(serviceHostName) ? BuildConstants.STAR : serviceHostName);
+        setName(StringUtil.isNullOrEmpty(name) ? BuildConstants.STAR : name);
+        setServiceHostName(StringUtil.isNullOrEmpty(serviceHostName) ? BuildConstants.STAR : serviceHostName);
 
         if (propertyNameFilters != null) {
             setPropertyNameFilters(propertyNameFilters);

@@ -10,7 +10,7 @@ import com.microsoft.tfs.core.clients.framework.configuration.entities.Reporting
 import com.microsoft.tfs.core.clients.framework.configuration.entities.TeamProjectEntity;
 import com.microsoft.tfs.core.clients.framework.configuration.internal.TFSCatalogEntitySession;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * @since TEE-SDK-10.1
@@ -51,10 +51,10 @@ public class TeamProjectCatalogEntity extends TFSCatalogEntity implements TeamPr
         final String gitEnabledProperty = getProperty(SOURCE_CONTROL_GIT_ENABLED);
         final String capabilityFlagsProperty = getProperty(SOURCE_CONTROL_CAPABILITY_FLAGS);
 
-        if (!StringHelpers.isNullOrEmpty(gitEnabledProperty)) {
+        if (!StringUtil.isNullOrEmpty(gitEnabledProperty)) {
             // Hybrid project with Git support
             return gitEnabledProperty.equalsIgnoreCase("true"); //$NON-NLS-1$
-        } else if (!StringHelpers.isNullOrEmpty(capabilityFlagsProperty)) {
+        } else if (!StringUtil.isNullOrEmpty(capabilityFlagsProperty)) {
             // Git or Tfs only project
             return capabilityFlagsProperty.equals(SOURCE_CONTROL_CAPABILITY_FLAG_GIT_VALUE);
         } else {
@@ -67,10 +67,10 @@ public class TeamProjectCatalogEntity extends TFSCatalogEntity implements TeamPr
         final String tfvcEnabledProperty = getProperty(SOURCE_CONTROL_TFVC_ENABLED);
         final String capabilityFlagsProperty = getProperty(SOURCE_CONTROL_CAPABILITY_FLAGS);
 
-        if (!StringHelpers.isNullOrEmpty(tfvcEnabledProperty)) {
+        if (!StringUtil.isNullOrEmpty(tfvcEnabledProperty)) {
             // Hybrid project with Tfvc support
             return tfvcEnabledProperty.equalsIgnoreCase("true"); //$NON-NLS-1$
-        } else if (!StringHelpers.isNullOrEmpty(capabilityFlagsProperty)) {
+        } else if (!StringUtil.isNullOrEmpty(capabilityFlagsProperty)) {
             // Git or Tfvc only project
             return capabilityFlagsProperty.equals(SOURCE_CONTROL_CAPABILITY_FLAG_TFVC_VALUE);
         } else {

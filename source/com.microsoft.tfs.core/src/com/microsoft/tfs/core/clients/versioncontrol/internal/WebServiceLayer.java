@@ -113,7 +113,7 @@ import com.microsoft.tfs.core.internal.wrappers.WrapperUtils;
 import com.microsoft.tfs.core.ws.runtime.exceptions.ProxyException;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.TaskMonitor;
 import com.microsoft.tfs.util.tasks.TaskMonitorService;
 
@@ -3272,7 +3272,7 @@ public abstract class WebServiceLayer {
     protected Workspace getWorkspace(final String workspaceName, final String ownerName) {
         Workspace workspace = null;
 
-        if (!StringHelpers.isNullOrEmpty(workspaceName) && !StringHelpers.isNullOrEmpty(ownerName)) {
+        if (!StringUtil.isNullOrEmpty(workspaceName) && !StringUtil.isNullOrEmpty(ownerName)) {
             final VersionControlClient client = getVersionControlClient();
 
             if (!ownerName.equals(VersionControlConstants.AUTHENTICATED_USER)) {

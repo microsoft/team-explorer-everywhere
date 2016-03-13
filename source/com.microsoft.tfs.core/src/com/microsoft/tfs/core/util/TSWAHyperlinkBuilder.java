@@ -36,7 +36,7 @@ import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.exceptions.TECoreException;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.URLEncode;
 
 /**
@@ -616,13 +616,13 @@ public class TSWAHyperlinkBuilder {
 
     private URI formatURL(String urlText, final String[] replacementArgs, final List<String> additionalQueryParams) {
         URI uri = null;
-        urlText = StringHelpers.replace(urlText, "tfs={tfsUrl}&", ""); //$NON-NLS-1$ //$NON-NLS-2$
+        urlText = StringUtil.replace(urlText, "tfs={tfsUrl}&", ""); //$NON-NLS-1$ //$NON-NLS-2$
         if (urlText.indexOf("{projectCollectionGuid}") > 0) //$NON-NLS-1$
         {
             if (collectionId == GUID.EMPTY) {
                 throw new TECoreException("Collection ID is not initialized"); //$NON-NLS-1$
             } else {
-                urlText = StringHelpers.replace(
+                urlText = StringUtil.replace(
                     urlText,
                     "{projectCollectionGuid}", //$NON-NLS-1$
                     URLEncode.encode(collectionId.getGUIDString()));
@@ -631,7 +631,7 @@ public class TSWAHyperlinkBuilder {
 
         if (replacementArgs != null) {
             for (int i = 0; i < replacementArgs.length - 1; i += 2) {
-                urlText = StringHelpers.replace(
+                urlText = StringUtil.replace(
                     urlText,
                     "{" + replacementArgs[i] + "}", //$NON-NLS-1$ //$NON-NLS-2$
                     URLEncode.encode(replacementArgs[i + 1]).replace("&", "%26")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -820,7 +820,7 @@ public class TSWAHyperlinkBuilder {
 
     public URI getSourceExplorerUrl(final String projectName, final String teamName, final String serverItemPath) {
         String serverItem = serverItemPath;
-        if (StringHelpers.isNullOrEmpty(serverItem)) {
+        if (StringUtil.isNullOrEmpty(serverItem)) {
             serverItem = ServerPath.ROOT;
         }
 
@@ -997,10 +997,10 @@ public class TSWAHyperlinkBuilder {
     }
 
     private String getFallbackURL(final String toolName, final String projectName, final String teamName) {
-        if (StringHelpers.isNullOrEmpty(projectName)) {
+        if (StringUtil.isNullOrEmpty(projectName)) {
             return collection.getBaseURI() + toolName;
         }
-        if (StringHelpers.isNullOrEmpty(teamName)) {
+        if (StringUtil.isNullOrEmpty(teamName)) {
             return collection.getBaseURI() + "{projectName}/" + toolName; //$NON-NLS-1$
         } else {
             return collection.getBaseURI() + "{projectName}/{teamName}/" + toolName; //$NON-NLS-1$

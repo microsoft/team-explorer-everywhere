@@ -42,7 +42,7 @@ import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.IBuildDefinitionSourceProvider;
 import com.microsoft.tfs.core.clients.build.exceptions.BuildException;
 import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * The git repo and branch information are from REST API now. VS uses fullname
@@ -207,7 +207,7 @@ public class GitSourceSettingsControl extends BaseControl {
         final IBuildDefinitionSourceProvider sourceProvider = buildDefinition.getDefaultSourceProvider();
         final String uniqRepoName = sourceProvider.getValueByName(GitProperties.RepositoryName);
 
-        if (StringHelpers.isNullOrEmpty(uniqRepoName)) {
+        if (StringUtil.isNullOrEmpty(uniqRepoName)) {
             // This is a new build definition, sourceProvider fields are not
             // filled yet
             // set default branch checked for CI builds based on initRepo
@@ -230,7 +230,7 @@ public class GitSourceSettingsControl extends BaseControl {
                     repoCombo.select(i);
                     onRepoSelected(repository);
 
-                    if (!StringHelpers.isNullOrEmpty(branchName)) {
+                    if (!StringUtil.isNullOrEmpty(branchName)) {
                         for (int j = 0; j < repository.getBranches().size(); j++) {
                             final GitBranch branch = (GitBranch) branchComboViewer.getElementAt(j);
 

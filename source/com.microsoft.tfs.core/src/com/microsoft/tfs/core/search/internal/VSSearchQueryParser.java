@@ -14,7 +14,7 @@ import com.microsoft.tfs.core.search.IVSSearchToken;
 import com.microsoft.tfs.core.search.VSSearchFilterTokenType;
 import com.microsoft.tfs.core.search.VSSearchParseError;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class VSSearchQueryParser implements IVSSearchQueryParser {
     public interface TokenFoundCallback {
@@ -81,7 +81,7 @@ public class VSSearchQueryParser implements IVSSearchQueryParser {
         }
 
         // Assemble the search string from the tokens
-        return StringHelpers.join(
+        return StringUtil.join(
             tokensTexts.toArray(new String[tokensTexts.size()]),
             Character.toString(VSSearchQueryParser.SyntaxCharacters.SPACE_SEPARATOR));
     }
@@ -549,7 +549,7 @@ public class VSSearchQueryParser implements IVSSearchQueryParser {
         } else {
             // Take the original field and see if there are non-whitespace
             // characters (skipping possible leading exclusion filter mark)
-            String originalField = StringHelpers.trimBegin(
+            String originalField = StringUtil.trimBegin(
                 filterToken.getOriginalTokenText().substring(0, filterToken.getFilterSeparatorPosition()));
             if (originalField.length() > 0 && VSSearchQueryParser.isExcludeFilter(originalField.charAt(0))) {
                 originalField = originalField.substring(1);
@@ -591,7 +591,7 @@ public class VSSearchQueryParser implements IVSSearchQueryParser {
             : VSSearchQueryParser.SyntaxCharacters.PARTIAL_MATCH_FILTER_SEPARATOR;
 
         // And return the string by joining with a filter separator character
-        return StringHelpers.join(new String[] {
+        return StringUtil.join(new String[] {
             filterField,
             filterValue
         }, Character.toString(filterSeparator));

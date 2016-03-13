@@ -46,7 +46,7 @@ import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.IBuildServer;
 import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Show the edit TFGit build definition dialog.
@@ -328,7 +328,7 @@ public class GitBuildDefinitionDialog extends BuildDefinitionDialog {
     private String getBuildProjectAbsolutePath() {
         final String relativePath = getBuildProjectRelativePath();
 
-        if (!StringHelpers.isNullOrEmpty(relativePath)) {
+        if (!StringUtil.isNullOrEmpty(relativePath)) {
             final GitRepository repository = getBuildProjectRepository();
             return LocalPath.combine(repository.getWorkingDirectoryPath(), relativePath);
         }
@@ -350,7 +350,7 @@ public class GitBuildDefinitionDialog extends BuildDefinitionDialog {
     private String getBuildResponseAbsolutePath() {
         final String relativePath = getBuildResponseRelativePath();
 
-        if (!StringHelpers.isNullOrEmpty(relativePath)) {
+        if (!StringUtil.isNullOrEmpty(relativePath)) {
             final GitRepository repository = getBuildProjectRepository();
             return LocalPath.combine(repository.getWorkingDirectoryPath(), relativePath);
         }

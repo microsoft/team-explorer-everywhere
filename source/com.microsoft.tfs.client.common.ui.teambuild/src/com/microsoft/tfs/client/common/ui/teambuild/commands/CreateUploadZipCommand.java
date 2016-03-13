@@ -31,7 +31,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.localworkspace.IgnoreFile;
 import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.LocaleUtil;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.temp.TempStorageService;
 
 /**
@@ -145,7 +145,7 @@ public class CreateUploadZipCommand extends TFSCommand {
             return Status.OK_STATUS;
         } catch (final Exception e) {
             log.error(e);
-            if (StringHelpers.isNullOrEmpty(errorMsg)) {
+            if (StringUtil.isNullOrEmpty(errorMsg)) {
                 errorMsg = e.getMessage();
             }
             return new Status(Status.ERROR, TFSCommonUIClientPlugin.PLUGIN_ID, errorMsg);

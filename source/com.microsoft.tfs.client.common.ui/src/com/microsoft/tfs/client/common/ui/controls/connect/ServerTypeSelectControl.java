@@ -42,7 +42,7 @@ import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.core.util.serverlist.ServerList;
 import com.microsoft.tfs.core.util.serverlist.ServerListConfigurationEntry;
 import com.microsoft.tfs.core.util.serverlist.ServerListManagerFactory;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
 
 public class ServerTypeSelectControl extends BaseControl {
@@ -252,7 +252,7 @@ public class ServerTypeSelectControl extends BaseControl {
 
     private URI getServerFromCombo() {
         final String server = serverCombo.getText();
-        if (!StringHelpers.isNullOrEmpty(server)) {
+        if (!StringUtil.isNullOrEmpty(server)) {
             return URIUtils.newURI(server.trim());
         }
 
@@ -339,7 +339,7 @@ public class ServerTypeSelectControl extends BaseControl {
             this.proposals.clear();
             if (proposals != null) {
                 for (final String p : proposals) {
-                    if (!StringHelpers.isNullOrEmpty(p)) {
+                    if (!StringUtil.isNullOrEmpty(p)) {
                         this.proposals.add(p);
                     }
                 }
@@ -356,7 +356,7 @@ public class ServerTypeSelectControl extends BaseControl {
             }
 
             final List<IContentProposal> list = new ArrayList<IContentProposal>(proposals.size());
-            if (StringHelpers.isNullOrEmpty(contents)) {
+            if (StringUtil.isNullOrEmpty(contents)) {
                 for (int i = 0; i < proposals.size(); i++) {
                     list.add(new ContentProposal(proposals.get(i)));
                 }
@@ -364,7 +364,7 @@ public class ServerTypeSelectControl extends BaseControl {
                 final String search = contents.toLowerCase().trim();
                 for (int i = 0; i < proposals.size(); i++) {
                     final String p = proposals.get(i);
-                    if (StringHelpers.containsIgnoreCase(p, search)) {
+                    if (StringUtil.containsIgnoreCase(p, search)) {
                         list.add(new ContentProposal(p));
                     }
                 }

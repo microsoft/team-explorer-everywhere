@@ -27,7 +27,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.conflicts.ConflictDescripti
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.RecursionType;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.version.VersionSpec;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class RollbackTask extends BaseTask {
     private final TFSRepository repository;
@@ -93,7 +93,7 @@ public class RollbackTask extends BaseTask {
             itemPath = dialog.getItem();
         }
 
-        if (!StringHelpers.isNullOrEmpty(itemPath)) {
+        if (!StringUtil.isNullOrEmpty(itemPath)) {
             final TFSItem item = TFSItemFactory.getItemAtPath(repository, itemPath);
             this.recursionType = item instanceof TFSFolder ? RecursionType.FULL : RecursionType.NONE;
         } else {

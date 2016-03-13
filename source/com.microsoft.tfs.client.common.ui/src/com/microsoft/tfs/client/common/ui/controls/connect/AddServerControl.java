@@ -30,7 +30,7 @@ import com.microsoft.tfs.client.common.ui.framework.sizing.ControlSize;
 import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.valid.Validatable;
 import com.microsoft.tfs.util.valid.Validator;
 
@@ -311,7 +311,7 @@ public class AddServerControl extends BaseControl implements Validatable {
         }
 
         /* Port is required. */
-        if (StringHelpers.isNullOrEmpty(port)) {
+        if (StringUtil.isNullOrEmpty(port)) {
             serverURI = null;
             previewText.setText(Messages.getString("AddServerControl.ErrorPortEmpty")); //$NON-NLS-1$
             return;

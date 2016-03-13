@@ -20,7 +20,7 @@ import com.microsoft.tfs.core.httpclient.URIException;
 import com.microsoft.tfs.core.httpclient.util.URIUtil;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.LocaleUtil;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Static utility methods for working with {@link URI}s.
@@ -626,7 +626,7 @@ public class URIUtils {
             '/'
         };
 
-        return StringHelpers.trimEnd(path1, trimChars) + separator + StringHelpers.trimBegin(path2, trimChars);
+        return StringUtil.trimEnd(path1, trimChars) + separator + StringUtil.trimBegin(path2, trimChars);
     }
 
     /**

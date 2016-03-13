@@ -28,7 +28,7 @@ import com.microsoft.tfs.core.ws.runtime.client.SOAPService;
 import com.microsoft.tfs.core.ws.runtime.client.TransportRequestHandler;
 import com.microsoft.tfs.core.ws.runtime.exceptions.FederatedAuthException;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * A default implementation of {@link TransportRequestHandler} that handles
@@ -132,7 +132,7 @@ public class DefaultTransportRequestHandler implements TransportRequestHandler {
 
         boolean basic = false;
         for (final String mechanism : exception.getMechanisms()) {
-            if (!StringHelpers.isNullOrEmpty(mechanism)) {
+            if (!StringUtil.isNullOrEmpty(mechanism)) {
                 final String[] parts = mechanism.split(" ", 2); //$NON-NLS-1$
                 if ("Basic".equalsIgnoreCase(parts[0])) //$NON-NLS-1$
                 {

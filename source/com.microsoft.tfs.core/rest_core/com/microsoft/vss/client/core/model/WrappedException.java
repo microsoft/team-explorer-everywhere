@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.microsoft.vss.client.core.utils.StringUtil;
+import com.microsoft.tfs.util.StringUtil;
 
 public class WrappedException {
     private WrappedException innerException;

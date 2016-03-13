@@ -22,7 +22,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.specs.DownloadSpec;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
 import com.microsoft.tfs.core.internal.wrappers.WrapperUtils;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.datetime.CalendarUtils;
 import com.microsoft.tfs.util.datetime.DotNETDate;
 
@@ -854,7 +854,7 @@ public final class GetOperation extends WebServiceObjectWrapper implements Compa
         int c = getItemID();
 
         final String targetServerItem = getTargetServerItem();
-        if (!StringHelpers.isNullOrEmpty(targetServerItem)) {
+        if (!StringUtil.isNullOrEmpty(targetServerItem)) {
             c = c << 7 | targetServerItem.hashCode();
         }
 

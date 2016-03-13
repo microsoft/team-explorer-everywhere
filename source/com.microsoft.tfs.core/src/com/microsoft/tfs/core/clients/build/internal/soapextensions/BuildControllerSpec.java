@@ -6,7 +6,7 @@ package com.microsoft.tfs.core.clients.build.internal.soapextensions;
 import com.microsoft.tfs.core.clients.build.BuildConstants;
 import com.microsoft.tfs.core.clients.build.IBuildControllerSpec;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 import ms.tfs.build.buildservice._04._BuildControllerSpec;
 
@@ -36,8 +36,8 @@ public class BuildControllerSpec extends WebServiceObjectWrapper implements IBui
 
         final _BuildControllerSpec spec = getWebServiceObject();
 
-        spec.setName(StringHelpers.isNullOrEmpty(name) ? BuildConstants.STAR : name);
-        spec.setServiceHostName(StringHelpers.isNullOrEmpty(serviceHostName) ? BuildConstants.STAR : serviceHostName);
+        spec.setName(StringUtil.isNullOrEmpty(name) ? BuildConstants.STAR : name);
+        spec.setServiceHostName(StringUtil.isNullOrEmpty(serviceHostName) ? BuildConstants.STAR : serviceHostName);
 
         if (propertyNameFilters != null) {
             spec.setPropertyNameFilters(propertyNameFilters);
