@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.jgit;resolution:=optional,
  com.microsoft.tfs.client.eclipse.ui,
  org.eclipse.ui,
  org.eclipse.ui.navigator,
- org.eclipse.core.variables
+ org.eclipse.core.variables,
+ org.eclipse.swt
 Export-Package: com.microsoft.tfs.client.eclipse.ui.egit,
  com.microsoft.tfs.client.eclipse.ui.egit.importwizard,
  com.microsoft.tfs.client.eclipse.ui.egit.teamexplorer

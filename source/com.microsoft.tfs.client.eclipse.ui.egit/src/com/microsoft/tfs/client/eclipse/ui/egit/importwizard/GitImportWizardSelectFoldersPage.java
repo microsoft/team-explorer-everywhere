@@ -20,8 +20,12 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -134,18 +138,50 @@ public class GitImportWizardSelectFoldersPage extends ExtendedWizardPage {
         GridDataBuilder.newInstance().fill().grab().hHint(150).applyTo(treeControl);
         treeControl.setHeaderVisible(false);
 
-        folderColumn = new TreeColumn(treeControl, SWT.NONE);
-        folderColumn.setText(Messages.getString("GitImportWizardSelectFoldersPage.ProjectColumnName")); //$NON-NLS-1$
-        folderColumn.setWidth(300);
+        folderColumn = new TreeColumn(treeControl, SWT.CENTER);
+        folderColumn.setText(Messages.getString("GitImportWizardSelectFoldersPage.FoldersColumnName")); //$NON-NLS-1$
+        // folderColumn.setWidth(300);
 
         final TreeViewerColumn nameColumnViewer = new TreeViewerColumn(treeViewer, folderColumn);
         nameColumnViewer.setLabelProvider(new FolderNameLabelProvider());
 
-        treeControl.setHeaderVisible(false);
-
         treeViewer.setUseHashlookup(true);
         treeViewer.setContentProvider(new FolderTreeContentProvider());
         treeViewer.setAutoExpandLevel(2);
+
+        container.addControlListener(new ControlAdapter() {
+
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void controlResized(final ControlEvent e) {
+                // super.controlResized(e);
+                final Rectangle clientArea = container.getClientArea();
+                final Point preferredSize = treeControl.computeSize(SWT.DEFAULT, SWT.DEFAULT);
+                final Point oldSize = treeControl.getSize();
+
+                int newColmnWidth = clientArea.width - 2 * (treeControl.getBorderWidth() + getHorizontalMargin());
+                if (preferredSize.y > clientArea.height) {
+                    // if the vertical scrollbar is required, subtract its width
+                    // from the new column width
+                    final Point vBarSize = treeControl.getVerticalBar().getSize();
+                    newColmnWidth -= vBarSize.x;
+                }
+
+                if (oldSize.x > clientArea.width) {
+                    // if the table shrinks, make the column
+                    // smaller first and then resize the table
+                    folderColumn.setWidth(newColmnWidth);
+                    treeControl.setSize(clientArea.width, clientArea.height);
+                } else {
+                    // if table widens, make the table
+                    // bigger first and then resize the columns
+                    treeControl.setSize(clientArea.width, clientArea.height);
+                    folderColumn.setWidth(newColmnWidth);
+                }
+            }
+        });
 
         treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
@@ -207,7 +243,7 @@ public class GitImportWizardSelectFoldersPage extends ExtendedWizardPage {
 
     private ImportEclipseProject[] getSelectedFolders() {
         final List<ImportEclipseProject> projects = new ArrayList<ImportEclipseProject>();
-        final ITreeSelection selectedElements = ((ITreeSelection) treeViewer.getSelection());
+        final ITreeSelection selectedElements = (ITreeSelection) treeViewer.getSelection();
 
         for (final Iterator<?> i = selectedElements.iterator(); i.hasNext();) {
             final ImportEclipseProject folder = (ImportEclipseProject) i.next();
@@ -268,7 +304,7 @@ public class GitImportWizardSelectFoldersPage extends ExtendedWizardPage {
             if (element instanceof ImportEclipseProject) {
                 final ImportEclipseProject project = (ImportEclipseProject) element;
 
-                cell.setText(project.getFolderName());
+                cell.setText(project.getParentFolder() == null ? project.getProjectPath() : project.getFolderName());
             }
         }
     }
