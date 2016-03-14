@@ -27,11 +27,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Static helper class to duplicate certain String helper methods used in TFS.
- * This is analogous to the .NET Microsoft.TeamFoundation.Common.StringUtil
- * class.
- */
 public abstract class StringUtil {
 
     public static final int MAX_COMMENT_DISPLAY_LENGTH = 120;
