@@ -5,7 +5,7 @@ package com.microsoft.tfs.core.clients.build;
 
 import com.microsoft.tfs.core.clients.build.internal.soapextensions.BuildDefinitionSourceProvider;
 import com.microsoft.tfs.core.clients.build.soapextensions.DefinitionTriggerType;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class BuildSourceProviders {
     public static final String TfVersionControl = "TFVC"; //$NON-NLS-1$
@@ -23,7 +23,7 @@ public class BuildSourceProviders {
 
     public static boolean isTfVersionControl(final String sourceProvider) {
         // Tfs is the default provider so empty/null means Tfs
-        return StringHelpers.isNullOrEmpty(sourceProvider) || sourceProvider.equalsIgnoreCase(TfVersionControl);
+        return StringUtil.isNullOrEmpty(sourceProvider) || sourceProvider.equalsIgnoreCase(TfVersionControl);
     }
 
     public static boolean isTfGit(final IBuildDefinitionSourceProvider sourceProvider) {

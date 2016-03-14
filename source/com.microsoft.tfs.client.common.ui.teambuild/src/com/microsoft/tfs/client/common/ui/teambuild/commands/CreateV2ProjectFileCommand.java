@@ -20,7 +20,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.IOUtils;
 import com.microsoft.tfs.util.LocaleUtil;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.temp.TempStorageService;
 
 /**
@@ -148,7 +148,7 @@ public class CreateV2ProjectFileCommand extends CreateProjectFileCommand {
             buildMachine = UNKNOWN;
         }
         String dropLocation;
-        if (!StringHelpers.isNullOrEmpty(getBuildDefinition().getDefaultDropLocation())) {
+        if (!StringUtil.isNullOrEmpty(getBuildDefinition().getDefaultDropLocation())) {
             dropLocation = getBuildDefinition().getDefaultDropLocation();
         } else {
             dropLocation = "\\\\" + UNKNOWN + "\\drops"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -161,16 +161,16 @@ public class CreateV2ProjectFileCommand extends CreateProjectFileCommand {
             apiVersion = "10.0"; //$NON-NLS-1$
         }
 
-        projectFile = StringHelpers.replace(projectFile, "#TFSAPIVERSION#", apiVersion); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#VERSION#", version); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#BUILDDIRECTORY#", buildDirectory); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#BUILDMACHINE#", buildMachine); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#CONFIGURATIONTOBUILD#", getConfigurationString()); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#DESCRIPTION#", getBuildDefinition().getDescription()); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#DROPLOCATION#", dropLocation); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#TEAMPROJECT#", getBuildDefinition().getTeamProject()); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#COMPILEFILE#", getBuildFilePath()); //$NON-NLS-1$
-        projectFile = StringHelpers.replace(projectFile, "#JAVASECTION#", getJavaSettings()); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#TFSAPIVERSION#", apiVersion); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#VERSION#", version); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#BUILDDIRECTORY#", buildDirectory); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#BUILDMACHINE#", buildMachine); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#CONFIGURATIONTOBUILD#", getConfigurationString()); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#DESCRIPTION#", getBuildDefinition().getDescription()); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#DROPLOCATION#", dropLocation); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#TEAMPROJECT#", getBuildDefinition().getTeamProject()); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#COMPILEFILE#", getBuildFilePath()); //$NON-NLS-1$
+        projectFile = StringUtil.replace(projectFile, "#JAVASECTION#", getJavaSettings()); //$NON-NLS-1$
         projectFile = replaceBuildToolSection(projectFile);
 
         final String path = LocalPath.combine(tempFolder, BuildConstants.PROJECT_FILE_NAME);
@@ -182,9 +182,9 @@ public class CreateV2ProjectFileCommand extends CreateProjectFileCommand {
 
     private String replaceBuildToolSection(final String projectFile) {
         if (projectFile.indexOf(MAVEN_MARKER) != -1) {
-            return StringHelpers.replace(projectFile, MAVEN_MARKER, getMavenSettings());
+            return StringUtil.replace(projectFile, MAVEN_MARKER, getMavenSettings());
         } else if (projectFile.indexOf(ANT_MARKER) != -1) {
-            return StringHelpers.replace(projectFile, ANT_MARKER, getAntSettings());
+            return StringUtil.replace(projectFile, ANT_MARKER, getAntSettings());
         } else {
             return projectFile;
         }
@@ -220,7 +220,7 @@ public class CreateV2ProjectFileCommand extends CreateProjectFileCommand {
 
     private String getAntSettings() {
         final StringBuilder antSettings = new StringBuilder();
-        if (!StringHelpers.isNullOrEmpty(buildToolHome)) {
+        if (!StringUtil.isNullOrEmpty(buildToolHome)) {
             antSettings.append("<!--  Ant_Home");//$NON-NLS-1$
             antSettings.append(NEWLINE);
             antSettings.append("     Set this flag to enable/disable updating ANT_HOME on a successful build.");//$NON-NLS-1$
@@ -229,7 +229,7 @@ public class CreateV2ProjectFileCommand extends CreateProjectFileCommand {
             antSettings.append(NEWLINE);
             antSettings.append("    <Ant_Home>" + buildToolHome + "</Ant_Home>");//$NON-NLS-1$ //$NON-NLS-2$
             antSettings.append(NEWLINE);
-        } else if (!StringHelpers.isNullOrEmpty(buildToolZipPath)) {
+        } else if (!StringUtil.isNullOrEmpty(buildToolZipPath)) {
             antSettings.append("<!--  ANTServerPath");//$NON-NLS-1$
             antSettings.append(NEWLINE);
             antSettings.append("     Set this property to the server path of the Ant archive.");//$NON-NLS-1$
@@ -244,7 +244,7 @@ public class CreateV2ProjectFileCommand extends CreateProjectFileCommand {
 
     private String getMavenSettings() {
         final StringBuilder mavenSettings = new StringBuilder();
-        if (!StringHelpers.isNullOrEmpty(buildToolHome)) {
+        if (!StringUtil.isNullOrEmpty(buildToolHome)) {
             mavenSettings.append("<!--  M2_Home");//$NON-NLS-1$
             mavenSettings.append(NEWLINE);
             mavenSettings.append("     Set this flag to enable/disable updating M2_HOME on a successful build.");//$NON-NLS-1$
@@ -253,7 +253,7 @@ public class CreateV2ProjectFileCommand extends CreateProjectFileCommand {
             mavenSettings.append(NEWLINE);
             mavenSettings.append("    <M2_Home>" + buildToolHome + "</M2_Home>");//$NON-NLS-1$ //$NON-NLS-2$
             mavenSettings.append(NEWLINE);
-        } else if (!StringHelpers.isNullOrEmpty(buildToolZipPath)) {
+        } else if (!StringUtil.isNullOrEmpty(buildToolZipPath)) {
             mavenSettings.append("<!--  MavenServerPath");//$NON-NLS-1$
             mavenSettings.append(NEWLINE);
             mavenSettings.append("     Set this property to the server path of the Maven archive.");//$NON-NLS-1$

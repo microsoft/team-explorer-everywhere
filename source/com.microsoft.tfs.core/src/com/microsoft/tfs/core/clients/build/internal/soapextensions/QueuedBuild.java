@@ -26,8 +26,8 @@ import com.microsoft.tfs.core.clients.build.soapextensions.QueuePriority;
 import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
 import com.microsoft.tfs.util.GUID;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.GUID.GUIDStringFormat;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.datetime.DotNETDate;
 
 import ms.tfs.build.buildservice._04._QueuedBuild;
@@ -178,11 +178,11 @@ public class QueuedBuild extends WebServiceObjectWrapper implements IQueuedBuild
         this.postponed = (getStatus().equals(QueueStatus.POSTPONED));
         this.lastSnapshot = getSnapshot();
 
-        if (StringHelpers.isNullOrEmpty(getRequestedByDisplayName())) {
+        if (StringUtil.isNullOrEmpty(getRequestedByDisplayName())) {
             getWebServiceObject().setRequestedByDisplayName(getRequestedBy());
         }
 
-        if (StringHelpers.isNullOrEmpty(getRequestedForDisplayName())) {
+        if (StringUtil.isNullOrEmpty(getRequestedForDisplayName())) {
             getWebServiceObject().setRequestedForDisplayName(getRequestedFor());
         }
 
@@ -436,7 +436,7 @@ public class QueuedBuild extends WebServiceObjectWrapper implements IQueuedBuild
         // Compat: Orcas servers don't return the TeamProject for the Queued
         // Build
         if (buildDefinition != null) {
-            if (StringHelpers.isNullOrEmpty(getTeamProject())) {
+            if (StringUtil.isNullOrEmpty(getTeamProject())) {
                 // Set Team Project to match the definition
                 getWebServiceObject().setTeamProject(buildDefinition.getTeamProject());
             }

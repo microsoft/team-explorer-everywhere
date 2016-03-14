@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import com.microsoft.tfs.core.memento.Memento;
 import com.microsoft.tfs.core.memento.XMLMemento;
 import com.microsoft.tfs.core.util.MementoRepository;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class FindInSCEQueryOptionsPersistence {
     private static final String PERSISTENCE_KEY = "com.microsoft.tfs.client.common.ui.findinscequeryoptions"; //$NON-NLS-1$
@@ -32,7 +32,7 @@ public class FindInSCEQueryOptionsPersistence {
         final String rootMementoName = rootMemento != null ? rootMemento.getName() : null;
 
         if (rootMemento != null) {
-            if (StringHelpers.isNullOrEmpty(rootMementoName) || !rootMementoName.equals(ROOT_MEMENTO_NAME)) {
+            if (StringUtil.isNullOrEmpty(rootMementoName) || !rootMementoName.equals(ROOT_MEMENTO_NAME)) {
                 log.warn("Find in SCE options cache is corrupted"); //$NON-NLS-1$
             } else {
                 /*
@@ -51,7 +51,7 @@ public class FindInSCEQueryOptionsPersistence {
         final String rootMementoName = rootMemento != null ? rootMemento.getName() : null;
 
         if (rootMemento == null
-            || StringHelpers.isNullOrEmpty(rootMementoName)
+            || StringUtil.isNullOrEmpty(rootMementoName)
             || !rootMementoName.equals(ROOT_MEMENTO_NAME)) {
             rootMemento = new XMLMemento(ROOT_MEMENTO_NAME);
         } else {

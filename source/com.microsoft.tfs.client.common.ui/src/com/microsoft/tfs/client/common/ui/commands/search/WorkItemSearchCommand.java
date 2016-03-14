@@ -51,7 +51,7 @@ import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
 import com.microsoft.tfs.util.LocaleInvariantStringHelpers;
 import com.microsoft.tfs.util.LocaleUtil;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.datetime.LenientDateTimeParser;
 
 @SuppressWarnings("restriction")
@@ -218,7 +218,7 @@ public class WorkItemSearchCommand extends TFSCommand {
             // Hover preview fields
             wiql.append(getRequiredFieldsWiqlFragment());
         } else {
-            wiql.append(StringHelpers.join(new String[] {
+            wiql.append(StringUtil.join(new String[] {
                 CoreFieldReferenceNames.WORK_ITEM_TYPE,
                 CoreFieldReferenceNames.TITLE,
                 CoreFieldReferenceNames.STATE,
@@ -251,7 +251,7 @@ public class WorkItemSearchCommand extends TFSCommand {
             && p.getCategories().contains(CoreCategoryReferenceNames.CODE_REVIEW_RESPONSE)) {
             // Exclude the code review response category
             wiql.append(" "); //$NON-NLS-1$
-            wiql.append(StringHelpers.join(new String[] {
+            wiql.append(StringUtil.join(new String[] {
                 WIQLOperators.AND,
                 WIQLHelpers.getEnclosedField(CoreFieldReferenceNames.WORK_ITEM_TYPE),
                 WIQLOperators.NOT_IN_GROUP,

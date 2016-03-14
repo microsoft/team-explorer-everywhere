@@ -29,7 +29,7 @@ import com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin;
 import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportEclipseProject;
 import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
 public class ImportEclipseProjectsCommand extends TFSCommand {
@@ -109,7 +109,7 @@ public class ImportEclipseProjectsCommand extends TFSCommand {
                 if (projectInfo instanceof ImportEclipseProject) {
                     final String repoPath = getRepoPath((ImportEclipseProject) projectInfo);
 
-                    if (StringHelpers.isNullOrEmpty(repoPath)) {
+                    if (StringUtil.isNullOrEmpty(repoPath)) {
                         logger.warn(
                             "Git repository not found for the project " + projectInfo.getProjectPath(), //$NON-NLS-1$
                             new Exception("Fake exception for call stack trace:")); //$NON-NLS-1$
@@ -181,7 +181,7 @@ public class ImportEclipseProjectsCommand extends TFSCommand {
         String path = project.getProjectPath();
         final String rootPath = LocalPath.getPathRoot(path);
 
-        while (!StringHelpers.isNullOrEmpty(path) && rootPath != path) {
+        while (!StringUtil.isNullOrEmpty(path) && rootPath != path) {
             final String repoPath = LocalPath.combine(path, GIT_FOLDER_NAME);
 
             if (LocalPath.exists(repoPath)) {

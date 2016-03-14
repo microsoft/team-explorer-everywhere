@@ -13,8 +13,8 @@ import com.microsoft.tfs.core.clients.build.soapextensions.QueuePriority;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.WorkspaceSpec;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
 import com.microsoft.tfs.util.GUID;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.GUID.GUIDStringFormat;
-import com.microsoft.tfs.util.StringHelpers;
 
 import ms.tfs.build.buildservice._04._BuildRequest;
 
@@ -291,7 +291,7 @@ public class BuildRequest extends WebServiceObjectWrapper implements IBuildReque
 
     public void beforeSerialize() {
         // If shelveset name is empty, leave it empty.
-        if (!StringHelpers.isNullOrEmpty(getShelvesetName())) {
+        if (!StringUtil.isNullOrEmpty(getShelvesetName())) {
             // Ensure that the shelveset name includes the full owner name.
             final WorkspaceSpec spec = WorkspaceSpec.parse(
                 getShelvesetName(),

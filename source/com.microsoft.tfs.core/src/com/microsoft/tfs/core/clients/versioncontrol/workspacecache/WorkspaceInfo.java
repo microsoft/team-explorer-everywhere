@@ -29,7 +29,6 @@ import com.microsoft.tfs.core.clients.versioncontrol.workspacecache.internal.Int
 import com.microsoft.tfs.core.ws.runtime.xml.XMLConvert;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.xml.DOMUtils;
 
@@ -270,7 +269,7 @@ public final class WorkspaceInfo implements Comparable<WorkspaceInfo> {
         // The "ownerDisplayName" attribute was absent for some users.
         // Expecting it to always exist was causing a NullPointerException.
         // Now, use the "ownerName" if the "ownerDisplayName" is missing.
-        if (StringHelpers.isNullOrEmpty(workspaceInfo.ownerDisplayName)) {
+        if (StringUtil.isNullOrEmpty(workspaceInfo.ownerDisplayName)) {
             workspaceInfo.ownerDisplayName = workspaceInfo.getOwnerName();
         }
 
@@ -320,7 +319,7 @@ public final class WorkspaceInfo implements Comparable<WorkspaceInfo> {
                 for (int i = 0; i < aliasNodes.length; i++) {
                     final String alias = getStringValue(aliasNodes[i].getAttributes().getNamedItem(XML_OWNER_ALIAS));
 
-                    if (!StringHelpers.isNullOrEmpty(alias)) {
+                    if (!StringUtil.isNullOrEmpty(alias)) {
                         aliases.add(alias);
                     } else {
                         log.error(MessageFormat.format(
@@ -361,7 +360,7 @@ public final class WorkspaceInfo implements Comparable<WorkspaceInfo> {
     private static boolean getBooleanValue(final Node attrNode) {
         final String v = getStringValue(attrNode, null);
 
-        if (StringHelpers.isNullOrEmpty(v)) {
+        if (StringUtil.isNullOrEmpty(v)) {
             return false;
         } else {
             return Boolean.parseBoolean(v);
@@ -371,7 +370,7 @@ public final class WorkspaceInfo implements Comparable<WorkspaceInfo> {
     private static Calendar getTimeStampValue(final Node attrNode) {
         final String v = getStringValue(attrNode, null);
 
-        if (StringHelpers.isNullOrEmpty(v)) {
+        if (StringUtil.isNullOrEmpty(v)) {
             return null;
         } else {
             return XMLConvert.toCalendar(v, true);
@@ -381,7 +380,7 @@ public final class WorkspaceInfo implements Comparable<WorkspaceInfo> {
     private static WorkspaceOptions getWorkspaceOptionsValue(final Node attrNode) {
         final String v = getStringValue(attrNode, null);
 
-        if (StringHelpers.isNullOrEmpty(v)) {
+        if (StringUtil.isNullOrEmpty(v)) {
             return WorkspaceOptions.NONE;
         } else {
             try {

@@ -5,9 +5,9 @@ package com.microsoft.tfs.util;
 
 import junit.framework.TestCase;
 
-public class StringHelpersTest extends TestCase {
+public class StringUtilTest extends TestCase {
     public void testSingle() {
-        final String[] actual = StringHelpers.split(";,", "John"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "John"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John" //$NON-NLS-1$
@@ -15,7 +15,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testBasic() {
-        final String[] actual = StringHelpers.split(";,", "John,Jane,Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "John,Jane,Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -25,7 +25,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testBasicWithIrishName() {
-        final String[] actual = StringHelpers.split(";,", "John,Jane O'Roe,Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "John,Jane O'Roe,Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -35,7 +35,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testBasicWithSpaces() {
-        final String[] actual = StringHelpers.split(";,", "John, Jane, Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "John, Jane, Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -45,7 +45,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testBasicWithSpacesBeforeAndAfter() {
-        final String[] actual = StringHelpers.split(";,", "John , Jane , Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "John , Jane , Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -55,7 +55,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testQuotedStringWithOne() {
-        final String[] actual = StringHelpers.split(";,", "\"Doe, John\""); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "\"Doe, John\""); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "Doe, John" //$NON-NLS-1$
@@ -63,7 +63,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testQuotedStringWithMany() {
-        final String[] actual = StringHelpers.split(";,", "\"Doe, John\",\"O'Roe, Jane\""); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "\"Doe, John\",\"O'Roe, Jane\""); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "Doe, John", //$NON-NLS-1$
@@ -72,7 +72,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testSingleQuotedStringWithOne() {
-        final String[] actual = StringHelpers.split(";,", "'Doe, John'"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "'Doe, John'"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "Doe, John" //$NON-NLS-1$
@@ -80,7 +80,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testSingleQuotedStringWithMany() {
-        final String[] actual = StringHelpers.split(";,", "'Doe, John','Roe, Jane'"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split(";,", "'Doe, John','Roe, Jane'"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "Doe, John", //$NON-NLS-1$
@@ -89,14 +89,14 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testNullTextPassed() {
-        final String[] actual = StringHelpers.split(";,", null); //$NON-NLS-1$
+        final String[] actual = StringUtil.split(";,", null); //$NON-NLS-1$
 
         assertArraysEquals(new String[0], actual);
     }
 
     public void testNullDelimterThrowsException() {
         try {
-            StringHelpers.split(null, null);
+            StringUtil.split(null, null);
         } catch (final Exception e) {
             assertTrue("IllegalArgumentException expected", e instanceof IllegalArgumentException); //$NON-NLS-1$
             return;
@@ -106,7 +106,7 @@ public class StringHelpersTest extends TestCase {
 
     public void testQuoteDelimterThrowsException() {
         try {
-            StringHelpers.split("\"", "blah blah"); //$NON-NLS-1$ //$NON-NLS-2$
+            StringUtil.split("\"", "blah blah"); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (final Exception e) {
             assertTrue("IllegalArgumentException expected", e instanceof IllegalArgumentException); //$NON-NLS-1$
             return;
@@ -116,7 +116,7 @@ public class StringHelpersTest extends TestCase {
 
     public void testSingleQuoteDelimterThrowsException() {
         try {
-            StringHelpers.split("\'", "blah blah"); //$NON-NLS-1$ //$NON-NLS-2$
+            StringUtil.split("\'", "blah blah"); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (final Exception e) {
             assertTrue("IllegalArgumentException expected", e instanceof IllegalArgumentException); //$NON-NLS-1$
             return;
@@ -125,7 +125,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testPipeDelimter() {
-        final String[] actual = StringHelpers.split("|", "John|Jane|Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split("|", "John|Jane|Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -135,7 +135,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testAsteriskDelimter() {
-        final String[] actual = StringHelpers.split("*", "John*Jane*Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split("*", "John*Jane*Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -145,7 +145,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testSquareBrackerDelimter() {
-        final String[] actual = StringHelpers.split("]", "John]Jane]Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split("]", "John]Jane]Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -155,7 +155,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testNotSymbolDelimter() {
-        final String[] actual = StringHelpers.split("^;", "John^Jane;Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split("^;", "John^Jane;Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -165,7 +165,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testHyphenDelimter() {
-        final String[] actual = StringHelpers.split("-", "John-Jane-Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.split("-", "John-Jane-Robinson"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -176,7 +176,7 @@ public class StringHelpersTest extends TestCase {
 
     public void testRegexArgumentsThrowsException() {
         try {
-            StringHelpers.split("a-d[m-p]", "blah blah"); //$NON-NLS-1$ //$NON-NLS-2$
+            StringUtil.split("a-d[m-p]", "blah blah"); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (final Exception e) {
             assertTrue("IllegalArgumentException expected", e instanceof IllegalArgumentException); //$NON-NLS-1$
             return;
@@ -185,7 +185,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testSplitRemoveWithNoEmpties() {
-        final String[] actual = StringHelpers.splitRemoveEmpties("John\\Jane\\Robinson", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.splitRemoveEmpties("John\\Jane\\Robinson", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$
@@ -195,7 +195,7 @@ public class StringHelpersTest extends TestCase {
     }
 
     public void testSplitRemoveWithEmpties() {
-        final String[] actual = StringHelpers.splitRemoveEmpties("\\John\\\\Jane\\\\Robinson\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
+        final String[] actual = StringUtil.splitRemoveEmpties("\\John\\\\Jane\\\\Robinson\\", "\\\\"); //$NON-NLS-1$ //$NON-NLS-2$
 
         assertArraysEquals(new String[] {
             "John", //$NON-NLS-1$

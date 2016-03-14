@@ -51,7 +51,7 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerEvents;
 import com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerBaseSection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSection {
     private final String FILTER_WATERMARK =
@@ -219,7 +219,7 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
     private BuildDefinitionReference[] filterBuildDefinitions(
         final BuildDefinitionReference[] allDefinitions,
         final String filterText) {
-        final boolean noFilterProvided = StringHelpers.isNullOrEmpty(filterText);
+        final boolean noFilterProvided = StringUtil.isNullOrEmpty(filterText);
 
         final List<BuildDefinitionReference> list = new ArrayList<BuildDefinitionReference>();
         final String lowerFilter = noFilterProvided ? null : filterText.toLowerCase();

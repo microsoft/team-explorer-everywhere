@@ -74,7 +74,6 @@ import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.RecursionTyp
 import com.microsoft.tfs.core.clients.versioncontrol.specs.ItemSpec;
 import com.microsoft.tfs.core.clients.versioncontrol.specs.version.LatestVersionSpec;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
 
@@ -512,7 +511,7 @@ public class FindInSourceControlEditor extends EditorPart {
                         getQueryPath(),
                         query.isRecursive() ? StringUtil.EMPTY
                             : Messages.getString("FindInSourceControlEditor.ResultsQueryLabelOneLevel"))); //$NON-NLS-1$
-            } else if (StringHelpers.isNullOrEmpty(query.getCheckedOutUser())) {
+            } else if (StringUtil.isNullOrEmpty(query.getCheckedOutUser())) {
                 resultsLabel.setText(
                     MessageFormat.format(
                         Messages.getString("FindInSourceControlEditor.ResultsCheckedOutFormat"), //$NON-NLS-1$
@@ -614,7 +613,7 @@ public class FindInSourceControlEditor extends EditorPart {
                         getQueryPath(),
                         query.isRecursive() ? StringUtil.EMPTY
                             : Messages.getString("FindInSourceControlEditor.ResultsQueryLabelOneLevel"))); //$NON-NLS-1$
-            } else if (StringHelpers.isNullOrEmpty(query.getCheckedOutUser())) {
+            } else if (StringUtil.isNullOrEmpty(query.getCheckedOutUser())) {
                 resultsLabel.setText(
                     MessageFormat.format(
                         Messages.getString("FindInSourceControlEditor.ResultsCheckedOutFormat"), //$NON-NLS-1$

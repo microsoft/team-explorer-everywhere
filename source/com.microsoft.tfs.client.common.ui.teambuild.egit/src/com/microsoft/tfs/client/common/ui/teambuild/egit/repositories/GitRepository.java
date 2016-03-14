@@ -24,7 +24,7 @@ import com.microsoft.tfs.client.common.ui.teambuild.egit.Messages;
 import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class GitRepository implements Comparable<GitRepository> {
     private static final Log log = LogFactory.getLog(GitRepositoriesMap.class);
@@ -148,7 +148,7 @@ public class GitRepository implements Comparable<GitRepository> {
         try {
             final String currentBranchName = localRepository.getBranch();
 
-            if (StringHelpers.isNullOrEmpty(currentBranchName)) {
+            if (StringUtil.isNullOrEmpty(currentBranchName)) {
                 return null;
             } else {
                 for (final GitBranch branch : branches) {

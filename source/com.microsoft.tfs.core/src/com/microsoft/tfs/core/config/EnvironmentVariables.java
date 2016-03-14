@@ -12,7 +12,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.PropertyConstants;
 import com.microsoft.tfs.core.clients.versioncontrol.Workstation;
 import com.microsoft.tfs.core.config.persistence.PersistenceStoreProvider;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * <p>
@@ -189,7 +189,7 @@ public abstract class EnvironmentVariables {
 
     public static int getInt(final String variableName, final int defaultValue) {
         final String value = getString(variableName);
-        if (StringHelpers.isNullOrEmpty(value)) {
+        if (StringUtil.isNullOrEmpty(value)) {
             return defaultValue;
         } else {
             try {
@@ -222,7 +222,7 @@ public abstract class EnvironmentVariables {
     public static boolean getBoolean(final String variableName, final boolean defaultValue) {
         final String value = getString(variableName);
 
-        if (StringHelpers.isNullOrEmpty(value)) {
+        if (StringUtil.isNullOrEmpty(value)) {
             return defaultValue;
         } else {
             return !value.equalsIgnoreCase("FALSE") && //$NON-NLS-1$
@@ -236,6 +236,6 @@ public abstract class EnvironmentVariables {
     }
 
     public static boolean isDefined(final String variableName) {
-        return !StringHelpers.isNullOrEmpty(getString(variableName));
+        return !StringUtil.isNullOrEmpty(getString(variableName));
     }
 }

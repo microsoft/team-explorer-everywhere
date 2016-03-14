@@ -39,7 +39,7 @@ import com.microsoft.tfs.core.httpclient.methods.RequestEntity;
 import com.microsoft.tfs.core.httpclient.methods.StringRequestEntity;
 import com.microsoft.tfs.core.product.CoreVersionInfo;
 import com.microsoft.tfs.core.util.URIUtils;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.vss.client.core.model.ApiResourceLocation;
 import com.microsoft.vss.client.core.model.ApiResourceLocationCollection;
 import com.microsoft.vss.client.core.model.ApiResourceVersion;
@@ -51,7 +51,6 @@ import com.microsoft.vss.client.core.model.VssServiceException;
 import com.microsoft.vss.client.core.model.VssServiceResponseException;
 import com.microsoft.vss.client.core.model.WrappedException;
 import com.microsoft.vss.client.core.utils.JsonHelper;
-import com.microsoft.vss.client.core.utils.StringUtil;
 
 public abstract class VssHttpClientBase {
     private static final Log log = LogFactory.getLog(VssHttpClientBase.class);
@@ -212,7 +211,7 @@ public abstract class VssHttpClientBase {
                 }
 
                 final String value = routeValues.get(name);
-                if (!StringHelpers.isNullOrEmpty(value)) {
+                if (!StringUtil.isNullOrEmpty(value)) {
                     actualParameters.add(value);
                 }
             } else {
@@ -268,7 +267,7 @@ public abstract class VssHttpClientBase {
         final String baseMediaType,
         final Map<String, String> parameters) {
         final StringBuilder mediaType =
-            new StringBuilder(StringHelpers.isNullOrEmpty(baseMediaType) ? APPLICATION_JSON_TYPE : baseMediaType);
+            new StringBuilder(StringUtil.isNullOrEmpty(baseMediaType) ? APPLICATION_JSON_TYPE : baseMediaType);
 
         for (final Entry<String, String> e : parameters.entrySet()) {
             addMediaTypeParameter(mediaType, e.getKey(), e.getValue());

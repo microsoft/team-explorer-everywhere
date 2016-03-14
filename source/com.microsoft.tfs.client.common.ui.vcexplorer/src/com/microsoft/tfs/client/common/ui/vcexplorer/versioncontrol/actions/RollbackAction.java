@@ -11,7 +11,7 @@ import com.microsoft.tfs.client.common.ui.tasks.vc.RollbackTask;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.PendingChangesHelpers;
 import com.microsoft.tfs.client.common.ui.vc.tfsitem.TFSItem;
 import com.microsoft.tfs.core.clients.versioncontrol.WebServiceLevel;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class RollbackAction extends TeamViewerAction {
     private TFSItem item;
@@ -51,11 +51,11 @@ public class RollbackAction extends TeamViewerAction {
             return false;
         }
 
-        if (item.isDeleted() && !StringHelpers.isNullOrEmpty(item.getMappedLocalPath())) {
+        if (item.isDeleted() && !StringUtil.isNullOrEmpty(item.getMappedLocalPath())) {
             return true;
         }
 
-        if (StringHelpers.isNullOrEmpty(item.getLocalPath())) {
+        if (StringUtil.isNullOrEmpty(item.getLocalPath())) {
             return false;
         }
 
@@ -65,7 +65,7 @@ public class RollbackAction extends TeamViewerAction {
 
         final String itemPath = item.getSourceServerPath();
 
-        if (StringHelpers.isNullOrEmpty(itemPath)) {
+        if (StringUtil.isNullOrEmpty(itemPath)) {
             return false;
         }
 

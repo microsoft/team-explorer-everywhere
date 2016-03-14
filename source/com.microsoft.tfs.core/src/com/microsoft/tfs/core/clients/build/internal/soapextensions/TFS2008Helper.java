@@ -31,7 +31,6 @@ import com.microsoft.tfs.core.clients.build.soapextensions.ContinuousIntegration
 import com.microsoft.tfs.core.clients.build.soapextensions.ControllerStatus;
 import com.microsoft.tfs.core.clients.build.soapextensions.DefinitionTriggerType;
 import com.microsoft.tfs.core.exceptions.NotSupportedException;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 public class TFS2008Helper {
@@ -56,12 +55,12 @@ public class TFS2008Helper {
 
         // Must escape backslash for String and RegEx, thus 4-backslashes in the
         // regex.
-        final String[] parts = StringHelpers.splitRemoveEmpties(spec.getName(), "\\\\"); //$NON-NLS-1$
+        final String[] parts = StringUtil.splitRemoveEmpties(spec.getName(), "\\\\"); //$NON-NLS-1$
         if (parts.length == 2) {
             spec2008.setTeamProject(parts[0]);
             spec2008.setName(parts[1]);
         } else {
-            if (StringHelpers.isNullOrEmpty(defaultTeamProjectName)) {
+            if (StringUtil.isNullOrEmpty(defaultTeamProjectName)) {
                 defaultTeamProjectName = BuildConstants.STAR;
             }
             spec2008.setTeamProject(defaultTeamProjectName);

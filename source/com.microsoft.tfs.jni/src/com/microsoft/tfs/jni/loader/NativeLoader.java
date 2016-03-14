@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Loads JNI libraries using an procedure that improves on the default Java
@@ -320,25 +320,25 @@ public class NativeLoader {
          * (32/64), so we must choose one OSGI name that covers both.
          */
 
-        if (StringHelpers.containsStringInsensitive(X86_SYNONYMS, arch)) {
+        if (StringUtil.containsStringInsensitive(X86_SYNONYMS, arch)) {
             return "x86"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(AMD64_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(AMD64_SYNONYMS, arch)) {
             return "x86_64"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(POWERPC_32_SYNONYMS, arch)
-            || StringHelpers.containsStringInsensitive(POWERPC_64_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(POWERPC_32_SYNONYMS, arch)
+            || StringUtil.containsStringInsensitive(POWERPC_64_SYNONYMS, arch)) {
             return "ppc"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(SPARC_32_SYNONYMS, arch)
-            || StringHelpers.containsStringInsensitive(SPARC_64_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(SPARC_32_SYNONYMS, arch)
+            || StringUtil.containsStringInsensitive(SPARC_64_SYNONYMS, arch)) {
             return "sparc"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(PA_RISC_20_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(PA_RISC_20_SYNONYMS, arch)) {
             return "PA_RISC"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(ITANIUM_64_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(ITANIUM_64_SYNONYMS, arch)) {
             return "ia64"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(ITANIUM_32_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(ITANIUM_32_SYNONYMS, arch)) {
             return "ia64_32"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(Z_ARCH_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(Z_ARCH_SYNONYMS, arch)) {
             return "390"; //$NON-NLS-1$
-        } else if (StringHelpers.containsStringInsensitive(ARM_32_SYNONYMS, arch)) {
+        } else if (StringUtil.containsStringInsensitive(ARM_32_SYNONYMS, arch)) {
             return "arm"; //$NON-NLS-1$
         }
 

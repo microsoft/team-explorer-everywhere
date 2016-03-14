@@ -29,7 +29,7 @@ import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.jni.helpers.LocalHost;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.visualstudio.services.delegatedauthorization.DelegatedAuthorizationHttpClient;
 import com.microsoft.visualstudio.services.delegatedauthorization.model.SessionToken;
 
@@ -89,7 +89,7 @@ public abstract class CredentialsHelper {
 
             if (cachedCredentials != null
                 && cachedCredentials.isPatCredentials()
-                && !StringHelpers.isNullOrEmpty(cachedCredentials.getPassword())) {
+                && !StringUtil.isNullOrEmpty(cachedCredentials.getPassword())) {
 
                 return true;
             }

@@ -30,7 +30,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.sparsetree.SparseTree.EnumN
 import com.microsoft.tfs.core.clients.versioncontrol.sparsetree.SparseTreeAdditionalData;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.datetime.DotNETDate;
 
 public class LocalPendingChangesTable extends LocalMetadataTable {
@@ -899,11 +899,11 @@ public class LocalPendingChangesTable extends LocalMetadataTable {
             ServerPath.ROOT,
             EnumSubTreeOptions.ENUMERATE_SUB_TREE_ROOT,
             Integer.MAX_VALUE)) {
-            if (!StringHelpers.isNullOrEmpty(pcEntry.getBranchFromItem())) {
+            if (!StringUtil.isNullOrEmpty(pcEntry.getBranchFromItem())) {
                 knownServerItems.add(pcEntry.getBranchFromItem());
             }
 
-            if (!StringHelpers.isNullOrEmpty(pcEntry.getCommittedServerItem())) {
+            if (!StringUtil.isNullOrEmpty(pcEntry.getCommittedServerItem())) {
                 knownServerItems.add(pcEntry.getCommittedServerItem());
             }
         }
@@ -912,11 +912,11 @@ public class LocalPendingChangesTable extends LocalMetadataTable {
             ServerPath.ROOT,
             EnumSubTreeOptions.ENUMERATE_SUB_TREE_ROOT,
             Integer.MAX_VALUE)) {
-            if (!StringHelpers.isNullOrEmpty(pcEntry.getBranchFromItem())) {
+            if (!StringUtil.isNullOrEmpty(pcEntry.getBranchFromItem())) {
                 knownServerItems.add(pcEntry.getBranchFromItem());
             }
 
-            if (!StringHelpers.isNullOrEmpty(pcEntry.getCommittedServerItem())) {
+            if (!StringUtil.isNullOrEmpty(pcEntry.getCommittedServerItem())) {
                 knownServerItems.add(pcEntry.getCommittedServerItem());
             }
         }
@@ -955,11 +955,11 @@ public class LocalPendingChangesTable extends LocalMetadataTable {
 
                 renamedEntry.setTargetServerItem(serverItemMapper.map(renamedEntry.getTargetServerItem()));
 
-                if (!StringHelpers.isNullOrEmpty(renamedEntry.getBranchFromItem())) {
+                if (!StringUtil.isNullOrEmpty(renamedEntry.getBranchFromItem())) {
                     renamedEntry.setBranchFromItem(serverItemMapper.map(renamedEntry.getBranchFromItem()));
                 }
 
-                if (!StringHelpers.isNullOrEmpty(renamedEntry.getCommittedServerItem())) {
+                if (!StringUtil.isNullOrEmpty(renamedEntry.getCommittedServerItem())) {
                     renamedEntry.setCommittedServerItem(serverItemMapper.map(renamedEntry.getCommittedServerItem()));
 
                     if (renamedEntry.isCommitted()) {
@@ -992,11 +992,11 @@ public class LocalPendingChangesTable extends LocalMetadataTable {
 
                 renamedEntry.setTargetServerItem(serverItemMapper.map(renamedEntry.getTargetServerItem()));
 
-                if (!StringHelpers.isNullOrEmpty(renamedEntry.getBranchFromItem())) {
+                if (!StringUtil.isNullOrEmpty(renamedEntry.getBranchFromItem())) {
                     renamedEntry.setBranchFromItem(serverItemMapper.map(renamedEntry.getBranchFromItem()));
                 }
 
-                if (!StringHelpers.isNullOrEmpty(renamedEntry.getCommittedServerItem())) {
+                if (!StringUtil.isNullOrEmpty(renamedEntry.getCommittedServerItem())) {
                     renamedEntry.setCommittedServerItem(serverItemMapper.map(renamedEntry.getCommittedServerItem()));
                 }
 

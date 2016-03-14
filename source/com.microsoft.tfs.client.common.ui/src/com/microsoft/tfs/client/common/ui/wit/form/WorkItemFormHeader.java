@@ -23,7 +23,7 @@ import com.microsoft.tfs.core.clients.workitem.WorkItemStateAdapter;
 import com.microsoft.tfs.core.clients.workitem.WorkItemStateListener;
 import com.microsoft.tfs.core.clients.workitem.fields.FieldChangeEvent;
 import com.microsoft.tfs.core.clients.workitem.fields.FieldChangeListener;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class WorkItemFormHeader extends Composite {
     private final WorkItem workItem;
@@ -171,7 +171,7 @@ public class WorkItemFormHeader extends Composite {
         }
 
         // Escape any ampersands
-        message = StringHelpers.replace(message, "&", "&&"); //$NON-NLS-1$ //$NON-NLS-2$
+        message = StringUtil.replace(message, "&", "&&"); //$NON-NLS-1$ //$NON-NLS-2$
 
         if (message != null) {
             sb.append(" : "); //$NON-NLS-1$

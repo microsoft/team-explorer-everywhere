@@ -28,7 +28,7 @@ import com.microsoft.tfs.core.httpclient.methods.GetMethod;
 import com.microsoft.tfs.core.httpclient.util.URIUtil;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
 public class QueryGitItemsCommand extends TFSCommand {
@@ -104,7 +104,7 @@ public class QueryGitItemsCommand extends TFSCommand {
 
             if (statusCode == HttpStatus.SC_OK) {
                 final InputStream input = method.getResponseBodyAsStream();
-                if (StringHelpers.isNullOrEmpty(path)) {
+                if (StringUtil.isNullOrEmpty(path)) {
                     repositoryItems = JsonHelper.getObjectMapper().readValue(input, TfsGitItemsJson.class);
                     repositoryItem = null;
                 } else {
@@ -181,7 +181,7 @@ public class QueryGitItemsCommand extends TFSCommand {
 
         sb.append("/items"); //$NON-NLS-1$
 
-        if (!StringHelpers.isNullOrEmpty(path)) {
+        if (!StringUtil.isNullOrEmpty(path)) {
             if (path.charAt(0) != ServerPath.PREFERRED_SEPARATOR_CHARACTER) {
                 sb.append(ServerPath.PREFERRED_SEPARATOR_CHARACTER);
             }
@@ -189,7 +189,7 @@ public class QueryGitItemsCommand extends TFSCommand {
             sb.append(URIUtil.encodePath(path));
         }
 
-        if (!StringHelpers.isNullOrEmpty(branchName)) {
+        if (!StringUtil.isNullOrEmpty(branchName)) {
             sb.append("?version="); //$NON-NLS-1$
             sb.append(branchName);
         }

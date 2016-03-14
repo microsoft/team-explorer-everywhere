@@ -68,7 +68,7 @@ import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportGit
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportItemCollectionBase;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportOptions;
 import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
 public class GitImportWizardSelectProjectsPage extends ExtendedWizardPage {
@@ -600,7 +600,7 @@ public class GitImportWizardSelectProjectsPage extends ExtendedWizardPage {
                     @Override
                     public void editorValueChanged(final boolean oldValidState, final boolean newValidState) {
                         final String errorMessage = editor.getErrorMessage();
-                        if (!StringHelpers.isNullOrEmpty(errorMessage)) {
+                        if (!StringUtil.isNullOrEmpty(errorMessage)) {
                             setErrorMessage(errorMessage);
                             setPageComplete(false);
                         } else {
@@ -640,7 +640,7 @@ public class GitImportWizardSelectProjectsPage extends ExtendedWizardPage {
             if (element instanceof ImportEclipseProject) {
                 final ImportEclipseProject project = (ImportEclipseProject) element;
                 final String newProjectName = (String) newValue;
-                if (!StringHelpers.isNullOrEmpty(newProjectName) && !newProjectName.equals(project.getProjectName())) {
+                if (!StringUtil.isNullOrEmpty(newProjectName) && !newProjectName.equals(project.getProjectName())) {
                     project.setProjectName(newProjectName);
                     treeViewer.update(element, null);
                     handleProjectSelection();

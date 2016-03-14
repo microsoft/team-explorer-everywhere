@@ -47,7 +47,7 @@ import com.microsoft.tfs.core.clients.workitem.link.VersionedItemLinkTypeNames;
 import com.microsoft.tfs.core.util.TSWAHyperlinkBuilder;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class ArtifactLinkHelpers {
     private static final Log log = LogFactory.getLog(ArtifactLinkHelpers.class);
@@ -88,7 +88,7 @@ public class ArtifactLinkHelpers {
         URI uri;
         try {
             uri = URIUtils.newURI(location);
-            if (StringHelpers.isNullOrEmpty(uri.getScheme())) {
+            if (StringUtil.isNullOrEmpty(uri.getScheme())) {
                 location = "http://" + location; //$NON-NLS-1$
                 uri = URIUtils.newURI(location);
             }

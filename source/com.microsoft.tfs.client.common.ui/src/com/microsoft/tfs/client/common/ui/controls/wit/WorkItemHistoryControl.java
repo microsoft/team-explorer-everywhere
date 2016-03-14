@@ -47,7 +47,7 @@ import com.microsoft.tfs.core.clients.workitem.revision.RevisionField;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.HTTPUtil;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class WorkItemHistoryControl extends BaseControl {
     private static final Log log = LogFactory.getLog(WorkItemHistoryControl.class);
@@ -508,12 +508,12 @@ public class WorkItemHistoryControl extends BaseControl {
     }
 
     private static String escapeTextInput(String untrustedData) {
-        untrustedData = StringHelpers.replace(untrustedData, "&", "&amp;"); //$NON-NLS-1$ //$NON-NLS-2$
-        untrustedData = StringHelpers.replace(untrustedData, "<", "&lt;"); //$NON-NLS-1$ //$NON-NLS-2$
-        untrustedData = StringHelpers.replace(untrustedData, ">", "&gt;"); //$NON-NLS-1$ //$NON-NLS-2$
-        untrustedData = StringHelpers.replace(untrustedData, "\"", "&quot;"); //$NON-NLS-1$ //$NON-NLS-2$
-        untrustedData = StringHelpers.replace(untrustedData, "'", "&#x27;"); //$NON-NLS-1$ //$NON-NLS-2$
-        untrustedData = StringHelpers.replace(untrustedData, "/", "&#x2F;"); //$NON-NLS-1$ //$NON-NLS-2$
+        untrustedData = StringUtil.replace(untrustedData, "&", "&amp;"); //$NON-NLS-1$ //$NON-NLS-2$
+        untrustedData = StringUtil.replace(untrustedData, "<", "&lt;"); //$NON-NLS-1$ //$NON-NLS-2$
+        untrustedData = StringUtil.replace(untrustedData, ">", "&gt;"); //$NON-NLS-1$ //$NON-NLS-2$
+        untrustedData = StringUtil.replace(untrustedData, "\"", "&quot;"); //$NON-NLS-1$ //$NON-NLS-2$
+        untrustedData = StringUtil.replace(untrustedData, "'", "&#x27;"); //$NON-NLS-1$ //$NON-NLS-2$
+        untrustedData = StringUtil.replace(untrustedData, "/", "&#x2F;"); //$NON-NLS-1$ //$NON-NLS-2$
         return untrustedData;
     }
 

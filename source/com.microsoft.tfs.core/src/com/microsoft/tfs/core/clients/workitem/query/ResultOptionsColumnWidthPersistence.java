@@ -6,7 +6,7 @@ package com.microsoft.tfs.core.clients.workitem.query;
 import com.microsoft.tfs.core.memento.Memento;
 import com.microsoft.tfs.core.memento.XMLMemento;
 import com.microsoft.tfs.core.util.MementoRepository;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * <p>
@@ -44,7 +44,7 @@ public class ResultOptionsColumnWidthPersistence {
         final Memento rootMemento = mementos.load(PERSISTENCE_KEY);
         final String rootMementoName = rootMemento != null ? rootMemento.getName() : null;
         if (rootMemento == null
-            || StringHelpers.isNullOrEmpty(rootMementoName)
+            || StringUtil.isNullOrEmpty(rootMementoName)
             || !rootMementoName.equals(ROOT_MEMENTO_NAME)) {
             return;
         }
@@ -67,7 +67,7 @@ public class ResultOptionsColumnWidthPersistence {
         Memento rootMemento = mementos.load(PERSISTENCE_KEY);
         final String rootMementoName = rootMemento != null ? rootMemento.getName() : null;
         if (rootMemento == null
-            || StringHelpers.isNullOrEmpty(rootMementoName)
+            || StringUtil.isNullOrEmpty(rootMementoName)
             || !rootMementoName.equals(ROOT_MEMENTO_NAME)) {
             rootMemento = new XMLMemento(ROOT_MEMENTO_NAME);
         } else {

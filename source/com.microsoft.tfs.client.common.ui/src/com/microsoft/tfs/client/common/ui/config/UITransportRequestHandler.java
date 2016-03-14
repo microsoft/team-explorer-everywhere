@@ -37,7 +37,7 @@ import com.microsoft.tfs.core.ws.runtime.client.SOAPService;
 import com.microsoft.tfs.core.ws.runtime.exceptions.FederatedAuthException;
 import com.microsoft.tfs.core.ws.runtime.exceptions.FederatedAuthFailedException;
 import com.microsoft.tfs.core.ws.runtime.exceptions.UnauthorizedException;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * A {@link TransportAuthHandler} for the UI client, capable of handling
@@ -100,7 +100,7 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
          * If the user has provided UsernamePasswordCredentials with an empty
          * password, this cannot be correct, so prompt them.
          */
-        if (StringHelpers.isNullOrEmpty(oldCredentials.getPassword())) {
+        if (StringUtil.isNullOrEmpty(oldCredentials.getPassword())) {
             log.debug(" UsernamePasswordCredentials with an empty password detected"); //$NON-NLS-1$
             final Credentials newCredentials = getCredentials(
                 new UITransportUsernamePasswordAuthRunnable(

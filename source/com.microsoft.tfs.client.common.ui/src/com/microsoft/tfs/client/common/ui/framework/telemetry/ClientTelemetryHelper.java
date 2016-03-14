@@ -22,7 +22,7 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerNavi
 import com.microsoft.tfs.core.telemetry.TfsTelemetryConstants;
 import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class ClientTelemetryHelper extends TfsTelemetryHelper {
     public static void sendWizardOpened(final ExtendedWizard wizard) {
@@ -143,7 +143,7 @@ public class ClientTelemetryHelper extends TfsTelemetryHelper {
     }
 
     private static void addCommandNameProperty(final Map<String, String> properties, final String commandName) {
-        if (!StringHelpers.isNullOrEmpty(commandName)) {
+        if (!StringUtil.isNullOrEmpty(commandName)) {
             properties.put(TfsTelemetryConstants.PLUGIN_EVENT_PROPERTY_COMMAND_NAME, commandName);
         }
     }

@@ -21,7 +21,7 @@ import com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.helpers.BuildHe
 import com.microsoft.tfs.core.clients.build.IBuildDetail;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.core.util.TSWAHyperlinkBuilder;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class OpenDropFolderAction extends BuildDetailAction {
 
@@ -35,7 +35,7 @@ public class OpenDropFolderAction extends BuildDetailAction {
 
         final IBuildDetail build = getSelectedBuildDetail();
         final String buildDropLocation = build.getDropLocation();
-        if (!StringHelpers.isNullOrEmpty(buildDropLocation)) {
+        if (!StringUtil.isNullOrEmpty(buildDropLocation)) {
             // in case of hosted build controller
             if (ServerPath.isServerPath(buildDropLocation)) {
                 VersionControlHelper.openSourceControlExplorer(buildDropLocation);

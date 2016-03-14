@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.URLEncode;
 
@@ -40,7 +39,7 @@ public class GitProperties {
     }
 
     public static String getRepoNameFromUniqueRepoName(final String uniqRepoName) {
-        if (StringHelpers.isNullOrEmpty(uniqRepoName)) {
+        if (StringUtil.isNullOrEmpty(uniqRepoName)) {
             return null;
         }
 
@@ -62,7 +61,7 @@ public class GitProperties {
         isPattern = false;
         branch = branchSpec;
 
-        if (!StringHelpers.isNullOrEmpty(branchSpec)) {
+        if (!StringUtil.isNullOrEmpty(branchSpec)) {
             if (branchSpec.startsWith(BranchExclusionOperator)) {
                 excludeBranch = true;
                 branch = branch.substring(1);
@@ -93,13 +92,13 @@ public class GitProperties {
 
     public static String joinBranches(final String[] branches) {
         if (branches != null && branches.length > 0) {
-            return StringHelpers.join(branches, BranchSeparator);
+            return StringUtil.join(branches, BranchSeparator);
         }
         return null;
     }
 
     public static List<String> splitBranches(final String branchString) {
-        if (StringHelpers.isNullOrEmpty(branchString)) {
+        if (StringUtil.isNullOrEmpty(branchString)) {
             return null;
         }
 
@@ -111,7 +110,7 @@ public class GitProperties {
         final String collectionUrl,
         final String teamProjectName,
         final String repoName) {
-        if (StringHelpers.isNullOrEmpty(collectionUrl) || StringHelpers.isNullOrEmpty(repoName)) {
+        if (StringUtil.isNullOrEmpty(collectionUrl) || StringUtil.isNullOrEmpty(repoName)) {
             return null;
         }
 
@@ -122,7 +121,7 @@ public class GitProperties {
         }
 
         String projName = teamProjectName;
-        if (StringHelpers.isNullOrEmpty(teamProjectName)) {
+        if (StringUtil.isNullOrEmpty(teamProjectName)) {
             // If no team project was provided then assume that the team project
             // name is the same as the repoName
             projName = repoName;
@@ -136,11 +135,11 @@ public class GitProperties {
     }
 
     public static String gitUriToLocalRelativePath(final String gitUri) {
-        if (StringHelpers.isNullOrEmpty(gitUri) || !gitUri.startsWith(GitPathBeginning)) {
+        if (StringUtil.isNullOrEmpty(gitUri) || !gitUri.startsWith(GitPathBeginning)) {
             return null;
         }
         final String text = gitUri.substring(GitPathBeginning.length());
-        final String[] parts = StringHelpers.split("/", text); //$NON-NLS-1$
+        final String[] parts = StringUtil.split("/", text); //$NON-NLS-1$
 
         if (parts.length >= 4) {
             // git folder uri is like this
@@ -156,14 +155,14 @@ public class GitProperties {
         final String repo,
         final String branch,
         final String relativePathInRepo) {
-        if (StringHelpers.isNullOrEmpty(project) && StringHelpers.isNullOrEmpty(repo)) {
+        if (StringUtil.isNullOrEmpty(project) && StringUtil.isNullOrEmpty(repo)) {
             return null;
         }
 
         final StringBuilder sb = new StringBuilder(GitPathBeginning);
 
         // if project name is null, try use repo name
-        if (StringHelpers.isNullOrEmpty(project)) {
+        if (StringUtil.isNullOrEmpty(project)) {
             sb.append(repo);
         } else {
             sb.append(project);
@@ -171,7 +170,7 @@ public class GitProperties {
         }
         sb.append(PathSeparator);
 
-        if (StringHelpers.isNullOrEmpty(repo)) {
+        if (StringUtil.isNullOrEmpty(repo)) {
             sb.append(project);
         } else {
             sb.append(repo);
@@ -181,13 +180,13 @@ public class GitProperties {
         sb.append(PathSeparator);
 
         // default to master branch if branch is null
-        if (StringHelpers.isNullOrEmpty(branch)) {
+        if (StringUtil.isNullOrEmpty(branch)) {
             sb.append("master"); //$NON-NLS-1$
         } else {
             sb.append(branch);
         }
 
-        if (!StringHelpers.isNullOrEmpty(relativePathInRepo)) {
+        if (!StringUtil.isNullOrEmpty(relativePathInRepo)) {
             String normalizedPath = normalizePathSeparator(relativePathInRepo);
             while (normalizedPath.length() > 0 && normalizedPath.charAt(0) == PathSeparator) {
                 normalizedPath = normalizedPath.substring(1);
@@ -206,7 +205,7 @@ public class GitProperties {
      *
      */
     public static String getShortBranchName(final String name) {
-        if (StringHelpers.isNullOrEmpty(name) || !name.startsWith(BranchPrefix)) {
+        if (StringUtil.isNullOrEmpty(name) || !name.startsWith(BranchPrefix)) {
             return name;
         } else {
             String shortName = name.substring(BranchPrefix.length());
@@ -237,7 +236,7 @@ public class GitProperties {
         final AtomicReference<String> repositoryName,
         final AtomicReference<String> branchName,
         final AtomicReference<String> path) {
-        if (StringHelpers.isNullOrEmpty(url) || !url.startsWith(GitPathBeginning)) {
+        if (StringUtil.isNullOrEmpty(url) || !url.startsWith(GitPathBeginning)) {
             return false;
         }
 
@@ -254,7 +253,7 @@ public class GitProperties {
         }
 
         for (int i = 0; i < parts.length - 1; i++) {
-            if (StringHelpers.isNullOrEmpty(parts[i])) {
+            if (StringUtil.isNullOrEmpty(parts[i])) {
                 return false;
             }
         }

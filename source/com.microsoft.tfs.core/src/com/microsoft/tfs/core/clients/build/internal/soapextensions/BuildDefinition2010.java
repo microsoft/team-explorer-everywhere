@@ -13,7 +13,7 @@ import com.microsoft.tfs.core.clients.build.flags.DefinitionQueueStatus;
 import com.microsoft.tfs.core.clients.build.internal.utils.XamlHelper;
 import com.microsoft.tfs.core.clients.build.soapextensions.ContinuousIntegrationType;
 import com.microsoft.tfs.core.internal.wrappers.WrapperUtils;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 import ms.tfs.build.buildservice._03._BuildDefinition;
 import ms.tfs.build.buildservice._03._ContinuousIntegrationType;
@@ -62,7 +62,7 @@ public class BuildDefinition2010 extends BuildGroupItem2010 {
 
         if (version.isV2()) {
             setDefaultBuildAgentURI(getBuildControllerURI());
-            if (!StringHelpers.isNullOrEmpty(definition.getProcessParameters())) {
+            if (!StringUtil.isNullOrEmpty(definition.getProcessParameters())) {
                 final Properties parameters = XamlHelper.loadPartial(definition.getProcessParameters());
                 final String key = "ConfigurationFolderPath"; //$NON-NLS-1$
 

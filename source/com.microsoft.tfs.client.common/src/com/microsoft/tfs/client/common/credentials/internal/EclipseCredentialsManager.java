@@ -28,7 +28,6 @@ import com.microsoft.tfs.core.httpclient.cookie.CookieSpec;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 public class EclipseCredentialsManager implements CredentialsManager {
@@ -100,7 +99,7 @@ public class EclipseCredentialsManager implements CredentialsManager {
             try {
                 final String storedUserName = node.get(USER_NAME, ""); //$NON-NLS-1$
                 final String password = node.get(PASSWORD, ""); //$NON-NLS-1$
-                if (!StringHelpers.isNullOrEmpty(storedUserName) && !StringHelpers.isNullOrEmpty(password)) {
+                if (!StringUtil.isNullOrEmpty(storedUserName) && !StringUtil.isNullOrEmpty(password)) {
                     log.debug("User name & password credentials created"); //$NON-NLS-1$
                     return new CachedCredentials(serverURI, storedUserName, password);
                 }

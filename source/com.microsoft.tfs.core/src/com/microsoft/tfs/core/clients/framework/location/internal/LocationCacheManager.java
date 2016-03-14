@@ -26,7 +26,7 @@ import com.microsoft.tfs.core.persistence.LockMode;
 import com.microsoft.tfs.core.persistence.PersistenceStore;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * The in-memory cache of data returned by the TFS location service.
@@ -476,11 +476,11 @@ public class LocationCacheManager {
                         if (relativeDirectory != null && relativeDirectory.length() > 0) {
                             // TODO: Which encoding?
                             final String unescapedAbsoluteUriTrimmed =
-                                URLDecoder.decode(StringHelpers.trimEnd(accessMapping.getAccessPoint(), '/'));
+                                URLDecoder.decode(StringUtil.trimEnd(accessMapping.getAccessPoint(), '/'));
 
                             // TODO: Which encoding?
                             final String unescapedRelativeDirectoryTrimmed =
-                                URLDecoder.decode(StringHelpers.trimEnd(relativeDirectory, '/'));
+                                URLDecoder.decode(StringUtil.trimEnd(relativeDirectory, '/'));
 
                             if (unescapedAbsoluteUriTrimmed.toLowerCase().endsWith(
                                 unescapedRelativeDirectoryTrimmed.toLowerCase())) {
@@ -552,7 +552,7 @@ public class LocationCacheManager {
         clientAccessMapping = null;
 
         for (final AccessMapping accessMapping : mapAccessMappings.values()) {
-            final String trimmedAccessPoint = StringHelpers.trimEnd(accessMapping.getAccessPoint(), '/');
+            final String trimmedAccessPoint = StringUtil.trimEnd(accessMapping.getAccessPoint(), '/');
             final String absoluteUri = connectionBaseUri.toString();
 
             if (absoluteUri.toLowerCase().startsWith(trimmedAccessPoint.toLowerCase())) {
@@ -563,12 +563,12 @@ public class LocationCacheManager {
         defaultAccessMapping = mapAccessMappings.get(defaultAccessMappingMoniker);
 
         if (clientAccessMapping == null) {
-            String accessPoint = StringHelpers.trimEnd(connectionBaseUri.toString(), '/');
+            String accessPoint = StringUtil.trimEnd(connectionBaseUri.toString(), '/');
             getWebApplicationRelativeDirectory();
 
             if (webApplicationRelativeDirectory != null && webApplicationRelativeDirectory.length() > 0) {
                 final String trimmedRealtiveDirectory =
-                    StringHelpers.trimEnd(getWebApplicationRelativeDirectory(), '/');
+                    StringUtil.trimEnd(getWebApplicationRelativeDirectory(), '/');
                 final String unescapedAbsoluteUriTrimmed = URLDecoder.decode(accessPoint); // TODO:
                 // Which
                 // encoding?

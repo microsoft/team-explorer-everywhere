@@ -127,7 +127,7 @@ import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Closable;
 import com.microsoft.tfs.util.NewlineUtils;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * The base class for other command classes in the command-line client.
@@ -661,7 +661,7 @@ public abstract class Command
 
             // Do free arguments.
             final String freeArgumentsSyntax = profile.getFreeArgumentsSyntax();
-            if (!StringHelpers.isNullOrEmpty(freeArgumentsSyntax)) {
+            if (!StringUtil.isNullOrEmpty(freeArgumentsSyntax)) {
                 if (sb.length() > 0) {
                     sb.append(" "); //$NON-NLS-1$
                 }
@@ -1852,7 +1852,7 @@ public abstract class Command
             for (final PendingChange pc : e.getUndoneChanges()) {
                 String localOrServerPath = pc.getLocalItem();
 
-                if (StringHelpers.isNullOrEmpty(localOrServerPath)) {
+                if (StringUtil.isNullOrEmpty(localOrServerPath)) {
                     localOrServerPath = pc.getServerItem();
                 }
 
@@ -2495,7 +2495,7 @@ public abstract class Command
 
         for (int i = startIndex; i < arguments.length; i++) {
             final String arg = arguments[i];
-            if (!StringHelpers.isNullOrEmpty(arg)) {
+            if (!StringUtil.isNullOrEmpty(arg)) {
                 try {
                     /*
                      * The constructor for QualifiedItem will canonialize the

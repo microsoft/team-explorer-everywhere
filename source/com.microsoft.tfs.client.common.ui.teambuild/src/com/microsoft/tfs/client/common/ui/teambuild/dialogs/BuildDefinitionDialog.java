@@ -51,7 +51,7 @@ import com.microsoft.tfs.core.clients.build.soapextensions.ProcessTemplateType;
 import com.microsoft.tfs.core.clients.versioncontrol.VersionControlClient;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Show the edit build definition dialog.
@@ -180,7 +180,7 @@ public abstract class BuildDefinitionDialog extends BaseDialog {
     }
 
     private void nameChanged(final String newName) {
-        if (!StringHelpers.isNullOrEmpty(newName) && !newName.equalsIgnoreCase(lastDefinitionName)) {
+        if (!StringUtil.isNullOrEmpty(newName) && !newName.equalsIgnoreCase(lastDefinitionName)) {
             lastDefinitionName = newName;
             generalTabPage.getControl().getNameText().setText(newName);
 
@@ -212,7 +212,7 @@ public abstract class BuildDefinitionDialog extends BaseDialog {
 
         lastBuildFileLocation = newLocation;
 
-        if (StringHelpers.isNullOrEmpty(lastBuildFileLocation)
+        if (StringUtil.isNullOrEmpty(lastBuildFileLocation)
             || !projectFileTabPage.getControl().isServerPathValid()) {
             return false;
         }

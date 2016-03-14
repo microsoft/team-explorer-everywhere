@@ -91,7 +91,7 @@ import com.microsoft.tfs.core.clients.workitem.query.qe.SortField;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.HTTPUtil;
 import com.microsoft.tfs.util.NewlineUtils;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.listeners.ListenerList;
 import com.microsoft.tfs.util.listeners.StandardListenerList;
 
@@ -878,7 +878,7 @@ public class QueryResultsControl extends CompatibilityVirtualTable {
 
     private static String escapeClipboardTextCell(String text) {
         if (text != null) {
-            text = StringHelpers.replace(text, "\t", "    "); //$NON-NLS-1$ //$NON-NLS-2$
+            text = StringUtil.replace(text, "\t", "    "); //$NON-NLS-1$ //$NON-NLS-2$
             text = text.replace('\n', ' ');
             text = text.replace('\r', ' ');
         }

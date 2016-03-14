@@ -24,7 +24,6 @@ import com.microsoft.tfs.core.clients.build.soapextensions.AgentStatus;
 import com.microsoft.tfs.core.clients.build.soapextensions.ControllerStatus;
 import com.microsoft.tfs.core.clients.build.soapextensions.DefinitionTriggerType;
 import com.microsoft.tfs.core.clients.build.soapextensions.QueuePriority;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 public class BuildEnumerationHelper {
@@ -180,7 +179,7 @@ public class BuildEnumerationHelper {
                 reasonStrings.add(Messages.getString("BuildClient.BuildReasonCheckInShelveset")); //$NON-NLS-1$
             }
         }
-        return StringHelpers.join(reasonStrings.toArray(new String[reasonStrings.size()]), ENUM_SEPERATOR);
+        return StringUtil.join(reasonStrings.toArray(new String[reasonStrings.size()]), ENUM_SEPERATOR);
     }
 
     /**
@@ -219,7 +218,7 @@ public class BuildEnumerationHelper {
             }
         }
 
-        return StringHelpers.join(statusStrings.toArray(new String[statusStrings.size()]), ENUM_SEPERATOR);
+        return StringUtil.join(statusStrings.toArray(new String[statusStrings.size()]), ENUM_SEPERATOR);
     }
 
     /**
@@ -297,7 +296,7 @@ public class BuildEnumerationHelper {
             }
         }
 
-        return StringHelpers.join(optionsStrings.toArray(new String[optionsStrings.size()]), ENUM_SEPERATOR);
+        return StringUtil.join(optionsStrings.toArray(new String[optionsStrings.size()]), ENUM_SEPERATOR);
     }
 
     /**
@@ -363,7 +362,7 @@ public class BuildEnumerationHelper {
             }
         }
 
-        return StringHelpers.join(statusStrings.toArray(new String[statusStrings.size()]), ENUM_SEPERATOR);
+        return StringUtil.join(statusStrings.toArray(new String[statusStrings.size()]), ENUM_SEPERATOR);
     }
 
     /**
@@ -402,7 +401,7 @@ public class BuildEnumerationHelper {
             }
         }
 
-        return StringHelpers.join(triggerStrings.toArray(new String[triggerStrings.size()]), ENUM_SEPERATOR);
+        return StringUtil.join(triggerStrings.toArray(new String[triggerStrings.size()]), ENUM_SEPERATOR);
     }
 
     @SuppressWarnings("rawtypes")

@@ -17,7 +17,7 @@ import com.microsoft.tfs.client.common.git.json.TfsGitRepositoryJson;
 import com.microsoft.tfs.client.eclipse.ui.Messages;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class ImportGitRepository extends ImportItemBase implements Comparable<ImportGitRepository> {
     private static final String NEWLINE = System.getProperty("line.separator"); //$NON-NLS-1$
@@ -100,7 +100,7 @@ public class ImportGitRepository extends ImportItemBase implements Comparable<Im
                 idx++;
             }
 
-            if (StringHelpers.isNullOrEmpty(defaultBranch) && branches.length > 0) {
+            if (StringUtil.isNullOrEmpty(defaultBranch) && branches.length > 0) {
                 defaultBranch = branches[0];
                 defaultRef = refs[0];
             }

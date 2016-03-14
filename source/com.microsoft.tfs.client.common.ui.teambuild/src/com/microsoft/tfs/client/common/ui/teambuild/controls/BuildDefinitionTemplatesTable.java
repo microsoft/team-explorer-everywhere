@@ -15,7 +15,6 @@ import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.table.TableColumnData;
 import com.microsoft.tfs.client.common.ui.framework.table.TableControl;
 import com.microsoft.tfs.client.common.ui.teambuild.Messages;
-import com.microsoft.tfs.util.StringHelpers;
 import com.microsoft.tfs.util.StringUtil;
 
 public class BuildDefinitionTemplatesTable extends TableControl {
@@ -74,7 +73,7 @@ public class BuildDefinitionTemplatesTable extends TableControl {
     }
 
     private String getColumnText(final String s) {
-        if (StringHelpers.isNullOrEmpty(s)) {
+        if (StringUtil.isNullOrEmpty(s)) {
             return StringUtil.EMPTY;
         } else {
             return s;

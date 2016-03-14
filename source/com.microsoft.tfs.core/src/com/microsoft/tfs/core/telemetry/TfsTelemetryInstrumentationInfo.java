@@ -11,7 +11,7 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Get Telemetry information
@@ -69,9 +69,9 @@ public abstract class TfsTelemetryInstrumentationInfo {
 
                     // Default to production environment, all invalid inputs
                     // will be resolved as "false"
-                    if (!StringHelpers.isNullOrEmpty(isTestEnvProperty) && Boolean.parseBoolean(isTestEnvProperty)) {
+                    if (!StringUtil.isNullOrEmpty(isTestEnvProperty) && Boolean.parseBoolean(isTestEnvProperty)) {
                         isTestEnv = true;
-                        if (!StringHelpers.isNullOrEmpty(isDeveloperModeProperty)
+                        if (!StringUtil.isNullOrEmpty(isDeveloperModeProperty)
                             && Boolean.parseBoolean(isDeveloperModeProperty)) {
                             isDeveloperMode = true;
                         }

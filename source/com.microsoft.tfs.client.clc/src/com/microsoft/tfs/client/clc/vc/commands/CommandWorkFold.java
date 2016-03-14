@@ -42,7 +42,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.WorkingFolde
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace;
 import com.microsoft.tfs.core.clients.versioncontrol.workspacecache.WorkspaceInfo;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public final class CommandWorkFold extends Command {
     @Override
@@ -419,7 +419,7 @@ public final class CommandWorkFold extends Command {
                     continue;
                 }
 
-                if (StringHelpers.startsWithIgnoreCase(line, "(cloaked)")) //$NON-NLS-1$
+                if (StringUtil.startsWithIgnoreCase(line, "(cloaked)")) //$NON-NLS-1$
                 {
                     line = line.substring(9);
 
@@ -441,7 +441,7 @@ public final class CommandWorkFold extends Command {
                      */
                     if (serverPath == paths[0]
                         || !ServerPath.isServerPath(serverPath)
-                        || !StringHelpers.isNullOrEmpty(localPath)) {
+                        || !StringUtil.isNullOrEmpty(localPath)) {
                         final String messageFormat = Messages.getString("CommandWorkFold.MappingFileCloakErrorFormat"); //$NON-NLS-1$
                         final String message = MessageFormat.format(messageFormat, linenum);
                         throw new CLCException(message);

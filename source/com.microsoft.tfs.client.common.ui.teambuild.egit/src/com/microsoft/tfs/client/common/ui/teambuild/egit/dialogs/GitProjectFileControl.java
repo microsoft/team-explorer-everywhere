@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.microsoft.tfs.client.common.ui.teambuild.controls.builddefinition.ProjectFileControl;
 import com.microsoft.tfs.client.common.ui.teambuild.egit.Messages;
 import com.microsoft.tfs.core.clients.build.GitProperties;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class GitProjectFileControl extends ProjectFileControl {
     String repoLocalPath = null;
@@ -26,7 +26,7 @@ public class GitProjectFileControl extends ProjectFileControl {
         isValidServerPath = true;
         final String configFolderPath = configFolderText.getText().trim();
 
-        if (StringHelpers.isNullOrEmpty(configFolderPath)
+        if (StringUtil.isNullOrEmpty(configFolderPath)
             || !configFolderPath.startsWith(GitProperties.GitPathBeginning)) {
             isValidServerPath = false;
         } else {

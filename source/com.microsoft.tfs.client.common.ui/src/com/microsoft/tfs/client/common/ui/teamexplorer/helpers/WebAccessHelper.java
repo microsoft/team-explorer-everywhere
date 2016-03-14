@@ -33,7 +33,7 @@ import com.microsoft.tfs.core.exceptions.TECoreException;
 import com.microsoft.tfs.core.httpclient.util.URIUtil;
 import com.microsoft.tfs.core.util.TSWAHyperlinkBuilder;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class WebAccessHelper {
     private static final Log log = LogFactory.getLog(WebAccessHelper.class);
@@ -232,7 +232,7 @@ public class WebAccessHelper {
     }
 
     public static URI getWebAccessQueryEditorURI(final TSWAHyperlinkBuilder tswaBuilder, final QueryItem queryItem) {
-        final String queryPath = StringHelpers.replace(
+        final String queryPath = StringUtil.replace(
             QueryFolderUtil.getHierarchicalPath(queryItem.getParent()),
             QueryFolderUtil.PATH_HIERARCHY_SEPARATOR,
             "/") //$NON-NLS-1$
@@ -242,7 +242,7 @@ public class WebAccessHelper {
     }
 
     public static URI getWebAccessQueryResultURI(final TSWAHyperlinkBuilder tswaBuilder, final QueryItem queryItem) {
-        final String queryPath = StringHelpers.replace(
+        final String queryPath = StringUtil.replace(
             QueryFolderUtil.getHierarchicalPath(queryItem.getParent()),
             QueryFolderUtil.PATH_HIERARCHY_SEPARATOR,
             "/") //$NON-NLS-1$
@@ -274,9 +274,9 @@ public class WebAccessHelper {
             if (uriText.indexOf("/{projectName}") > 0) //$NON-NLS-1$
             {
                 if (projectName == null) {
-                    uriText = StringHelpers.replace(uriText, "/{projectName}", ""); //$NON-NLS-1$ //$NON-NLS-2$
+                    uriText = StringUtil.replace(uriText, "/{projectName}", ""); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    uriText = StringHelpers.replace(uriText, "{projectName}", projectName); //$NON-NLS-1$
+                    uriText = StringUtil.replace(uriText, "{projectName}", projectName); //$NON-NLS-1$
                 }
             }
 

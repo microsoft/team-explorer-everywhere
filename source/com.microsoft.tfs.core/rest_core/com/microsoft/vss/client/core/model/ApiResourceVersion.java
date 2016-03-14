@@ -4,8 +4,7 @@
 package com.microsoft.vss.client.core.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.microsoft.tfs.util.StringHelpers;
-import com.microsoft.vss.client.core.utils.StringUtil;
+import com.microsoft.tfs.util.StringUtil;
 
 public class ApiResourceVersion {
     private final static String PREVIEW_STAGE_NAME = "preview"; //$NON-NLS-1$
@@ -39,7 +38,7 @@ public class ApiResourceVersion {
 
     @JsonProperty("ApiVersion")
     public void setApiVersionString(final String apiVersionString) {
-        if (StringHelpers.isNullOrEmpty(apiVersionString)) {
+        if (StringUtil.isNullOrEmpty(apiVersionString)) {
             this.apiVersion = new Version(1, 0);
         } else {
             this.apiVersion = new Version(apiVersionString);
@@ -182,13 +181,13 @@ public class ApiResourceVersion {
                 sMinor = version.substring(n + 1);
             }
 
-            if (StringHelpers.isNullOrEmpty(sMajor)) {
+            if (StringUtil.isNullOrEmpty(sMajor)) {
                 major = 0;
             } else {
                 major = Integer.parseInt(sMajor);
             }
 
-            if (StringHelpers.isNullOrEmpty(sMinor)) {
+            if (StringUtil.isNullOrEmpty(sMinor)) {
                 minor = 0;
             } else {
                 minor = Integer.parseInt(sMinor);

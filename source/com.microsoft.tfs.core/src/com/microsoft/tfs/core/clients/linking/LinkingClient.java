@@ -19,7 +19,7 @@ import com.microsoft.tfs.core.clients.registration.RegistrationEntry;
 import com.microsoft.tfs.core.clients.registration.RegistrationExtendedAttribute;
 import com.microsoft.tfs.core.clients.registration.ServiceInterface;
 import com.microsoft.tfs.core.clients.registration.ToolNames;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 import ms.tfs.services.linking._03._Artifact;
 import ms.tfs.services.linking._03._IntegrationServiceSoap;
@@ -55,7 +55,7 @@ public class LinkingClient {
                             break;
                         }
                     }
-                    if (!StringHelpers.isNullOrEmpty(urlString)) {
+                    if (!StringUtil.isNullOrEmpty(urlString)) {
                         final _IntegrationServiceSoap linkingService = connection.getLinkingWebService(urlString);
                         artifactProviders.put(allRegistrationEntries[i].getType(), linkingService);
                     }
@@ -163,7 +163,7 @@ public class LinkingClient {
         final RegistrationEntry entry = getRegistrationClient().getRegistrationEntry(id.getTool());
         final RegistrationExtendedAttribute[] attributes = entry.getRegistrationExtendedAttributes();
         if (attributes != null) {
-            for (int j = 0; j < attributes.length && StringHelpers.isNullOrEmpty(displaySegment); j++) {
+            for (int j = 0; j < attributes.length && StringUtil.isNullOrEmpty(displaySegment); j++) {
                 if (attributes[j].getName().equals("ArtifactDisplayUrl")) //$NON-NLS-1$
                 {
                     displaySegment = attributes[j].getValue();
@@ -178,7 +178,7 @@ public class LinkingClient {
         final StringBuffer url = new StringBuffer();
         url.append(connection.getURL());
 
-        if (!StringHelpers.isNullOrEmpty(displaySegment) && displaySegment.startsWith(ArtifactID.URI_SEPARATOR)) {
+        if (!StringUtil.isNullOrEmpty(displaySegment) && displaySegment.startsWith(ArtifactID.URI_SEPARATOR)) {
             url.append(displaySegment);
         }
 

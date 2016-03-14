@@ -56,7 +56,7 @@ import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportOpt
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.clients.commonstructure.ProjectInfo;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class TfsImportWizardTreePage extends ExtendedWizardPage {
     public static final String PAGE_NAME = "TfsImportWizardTreePage"; //$NON-NLS-1$
@@ -266,7 +266,7 @@ public class TfsImportWizardTreePage extends ExtendedWizardPage {
 
         final String filePath = fileDialog.open();
 
-        if (!StringHelpers.isNullOrEmpty(filePath)) {
+        if (!StringUtil.isNullOrEmpty(filePath)) {
             final ImportFolderCollection loadedItemCollection = new ImportFolderCollection(options);
 
             try {

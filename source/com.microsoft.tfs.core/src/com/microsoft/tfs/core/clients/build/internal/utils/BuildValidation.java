@@ -9,7 +9,7 @@ import com.microsoft.tfs.core.Messages;
 import com.microsoft.tfs.core.clients.build.BuildConstants;
 import com.microsoft.tfs.core.clients.versioncontrol.path.Wildcard;
 import com.microsoft.tfs.core.exceptions.TECoreException;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class BuildValidation {
     // Note that this class is roughly analogous to
@@ -102,7 +102,7 @@ public class BuildValidation {
     }
 
     private static ValidationResult validateControllerName(final String name, final boolean allowWildcards) {
-        if (StringHelpers.isNullOrEmpty(name)) {
+        if (StringUtil.isNullOrEmpty(name)) {
             return new ValidationResult(false, Messages.getString("BuildValidation.NameRequired")); //$NON-NLS-1$
         }
 

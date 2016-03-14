@@ -35,7 +35,7 @@ import com.microsoft.tfs.core.clients.workitem.query.StoredQueryCollection;
 import com.microsoft.tfs.core.clients.workitem.query.StoredQueryFactory;
 import com.microsoft.tfs.core.clients.workitem.query.WorkItemCollection;
 import com.microsoft.tfs.core.exceptions.InputValidationException;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class CommandQuery extends BaseWITCommand {
 
@@ -499,7 +499,7 @@ public class CommandQuery extends BaseWITCommand {
     private String backCompatNameToDisplayName(String queryName) {
         if (queryName.indexOf((char) 0x00ab) >= 0) {
             queryName = queryName.substring(queryName.indexOf((char) 0x00ab) + 1);
-            queryName = StringHelpers.replace(queryName, new String(new char[] {
+            queryName = StringUtil.replace(queryName, new String(new char[] {
                 0x00bb,
                 ' '
             }), "\\"); //$NON-NLS-1$

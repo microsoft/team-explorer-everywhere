@@ -16,7 +16,7 @@ import com.microsoft.tfs.core.util.CodePageMapping.UnknownEncodingException;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * <p>
@@ -173,7 +173,7 @@ public final class FileEncoding {
 
         // "file.encoding" method.
         final String fileEncodingValue = System.getProperty("file.encoding"); //$NON-NLS-1$
-        if (!StringHelpers.isNullOrEmpty(fileEncodingValue)) {
+        if (!StringUtil.isNullOrEmpty(fileEncodingValue)) {
             try {
                 final int cp = CodePageMapping.getCodePage(fileEncodingValue);
                 log.trace(

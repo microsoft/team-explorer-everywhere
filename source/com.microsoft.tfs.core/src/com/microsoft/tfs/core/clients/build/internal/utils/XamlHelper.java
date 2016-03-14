@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.microsoft.tfs.core.Messages;
-import com.microsoft.tfs.util.StringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.xml.DOMCreateUtils;
 import com.microsoft.tfs.util.xml.DOMSerializeUtils;
 import com.microsoft.tfs.util.xml.DOMUtils;
@@ -82,11 +82,11 @@ public class XamlHelper {
      */
     private static String escapeValue(final String rawString) {
         String escaped = rawString;
-        escaped = StringHelpers.replace(escaped, "&", "&amp;"); //$NON-NLS-1$ //$NON-NLS-2$
-        escaped = StringHelpers.replace(escaped, "<", "&lt;"); //$NON-NLS-1$ //$NON-NLS-2$
-        escaped = StringHelpers.replace(escaped, ">", "&gt;"); //$NON-NLS-1$ //$NON-NLS-2$
-        escaped = StringHelpers.replace(escaped, "'", "&apos;"); //$NON-NLS-1$ //$NON-NLS-2$
-        escaped = StringHelpers.replace(escaped, "\"", "&quot;"); //$NON-NLS-1$ //$NON-NLS-2$
+        escaped = StringUtil.replace(escaped, "&", "&amp;"); //$NON-NLS-1$ //$NON-NLS-2$
+        escaped = StringUtil.replace(escaped, "<", "&lt;"); //$NON-NLS-1$ //$NON-NLS-2$
+        escaped = StringUtil.replace(escaped, ">", "&gt;"); //$NON-NLS-1$ //$NON-NLS-2$
+        escaped = StringUtil.replace(escaped, "'", "&apos;"); //$NON-NLS-1$ //$NON-NLS-2$
+        escaped = StringUtil.replace(escaped, "\"", "&quot;"); //$NON-NLS-1$ //$NON-NLS-2$
         return escaped;
     }
 

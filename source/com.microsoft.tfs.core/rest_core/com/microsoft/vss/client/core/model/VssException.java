@@ -3,7 +3,7 @@
 
 package com.microsoft.vss.client.core.model;
 
-import com.microsoft.vss.client.core.utils.StringUtil;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * <p>
