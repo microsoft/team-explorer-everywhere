@@ -264,7 +264,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
     }
 
     private String expandVariables(final String source) {
-        IStringVariableManager variableManager = VariablesPlugin.getDefault().getStringVariableManager();
+        final IStringVariableManager variableManager = VariablesPlugin.getDefault().getStringVariableManager();
 
         try {
             return variableManager.performStringSubstitution(source);
