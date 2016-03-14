@@ -28,8 +28,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.IWorkingSetManager;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.IWorkingSetSelectionDialog;
-import org.eclipse.ui.internal.WorkbenchPlugin;
 
 import com.microsoft.tfs.client.common.codemarker.CodeMarker;
 import com.microsoft.tfs.client.common.codemarker.CodeMarkerDispatch;
@@ -357,11 +357,11 @@ public class TfsImportWizardTreePage extends ExtendedWizardPage {
      */
     private void computeWorkingSets(final IWorkingSet newWorkingSet) {
         if (newWorkingSet == null) {
-            workingSets = WorkbenchPlugin.getDefault().getWorkingSetManager().getWorkingSets();
+            workingSets = PlatformUI.getWorkbench().getWorkingSetManager().getWorkingSets();
         } else {
             final List<IWorkingSet> workingSetList = new ArrayList<IWorkingSet>();
 
-            workingSetList.addAll(Arrays.asList(WorkbenchPlugin.getDefault().getWorkingSetManager().getWorkingSets()));
+            workingSetList.addAll(Arrays.asList(PlatformUI.getWorkbench().getWorkingSetManager().getWorkingSets()));
 
             if (!workingSetList.contains(newWorkingSet)) {
                 workingSetList.add(newWorkingSet);
@@ -460,7 +460,7 @@ public class TfsImportWizardTreePage extends ExtendedWizardPage {
 
     private void selectWorkingSet() {
         final IWorkingSetSelectionDialog workingSetDialog =
-            WorkbenchPlugin.getDefault().getWorkingSetManager().createWorkingSetSelectionDialog(getShell(), false);
+            PlatformUI.getWorkbench().getWorkingSetManager().createWorkingSetSelectionDialog(getShell(), false);
 
         if (workingSetDialog.open() != IDialogConstants.OK_ID) {
             return;
