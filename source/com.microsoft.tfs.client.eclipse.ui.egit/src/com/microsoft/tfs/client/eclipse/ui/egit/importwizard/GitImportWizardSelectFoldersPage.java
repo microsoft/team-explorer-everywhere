@@ -140,7 +140,6 @@ public class GitImportWizardSelectFoldersPage extends ExtendedWizardPage {
 
         folderColumn = new TreeColumn(treeControl, SWT.CENTER);
         folderColumn.setText(Messages.getString("GitImportWizardSelectFoldersPage.FoldersColumnName")); //$NON-NLS-1$
-        // folderColumn.setWidth(300);
 
         final TreeViewerColumn nameColumnViewer = new TreeViewerColumn(treeViewer, folderColumn);
         nameColumnViewer.setLabelProvider(new FolderNameLabelProvider());
