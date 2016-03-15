@@ -17,7 +17,6 @@ import com.microsoft.tfs.client.common.ui.framework.helper.MessageBoxHelpers;
 import com.microsoft.tfs.client.common.ui.framework.helper.ShellUtils;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
-import com.microsoft.tfs.core.PreFrameworkServerDataProvider;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.clients.commonstructure.ProjectInfo;
 import com.microsoft.tfs.core.clients.framework.ServerDataProvider;
@@ -326,7 +325,7 @@ public class WebAccessHelper {
         final String serviceType,
         final GUID serviceIdentifier) {
         final ServerDataProvider provider = collection.getServerDataProvider();
-        if (provider == null || provider instanceof PreFrameworkServerDataProvider) {
+        if (provider == null) {
             return null;
         }
 

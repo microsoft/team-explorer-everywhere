@@ -793,11 +793,7 @@ public class BuildDetail extends WebServiceObjectWrapper implements IBuildDetail
             // changed.
             if (!currentSnapshot.getFields().equals(BuildUpdate.NONE)) {
                 BuildDetail build = null;
-                if (buildServer.getBuildServerVersion().isV2()) {
-                    build = buildServer.getBuild2008Helper().updateBuilds(new BuildUpdateOptions[] {
-                        currentSnapshot
-                    })[0];
-                } else if (buildServer.getBuildServerVersion().isV3()) {
+                if (buildServer.getBuildServerVersion().isV3()) {
                     build = buildServer.getBuild2010Helper().updateBuilds(new BuildUpdateOptions[] {
                         currentSnapshot
                     })[0];

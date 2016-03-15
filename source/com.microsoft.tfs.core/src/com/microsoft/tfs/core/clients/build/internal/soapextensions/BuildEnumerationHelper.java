@@ -19,7 +19,6 @@ import com.microsoft.tfs.core.clients.build.flags.BuildStatus;
 import com.microsoft.tfs.core.clients.build.flags.DefinitionQueueStatus;
 import com.microsoft.tfs.core.clients.build.flags.DeleteOptions;
 import com.microsoft.tfs.core.clients.build.flags.QueueStatus;
-import com.microsoft.tfs.core.clients.build.soapextensions.Agent2008Status;
 import com.microsoft.tfs.core.clients.build.soapextensions.AgentStatus;
 import com.microsoft.tfs.core.clients.build.soapextensions.ControllerStatus;
 import com.microsoft.tfs.core.clients.build.soapextensions.DefinitionTriggerType;
@@ -44,8 +43,6 @@ public class BuildEnumerationHelper {
             return StringUtil.EMPTY;
         } else if (value instanceof AgentStatus) {
             return getDisplayText((AgentStatus) value);
-        } else if (value instanceof Agent2008Status) {
-            return getDisplayText((Agent2008Status) value);
         } else if (value instanceof BuildPhaseStatus) {
             return getDisplayText((BuildPhaseStatus) value);
         } else if (value instanceof BuildReason) {
@@ -86,31 +83,6 @@ public class BuildEnumerationHelper {
         }
         if (status.equals(AgentStatus.OFFLINE)) {
             return Messages.getString("BuildClient.AgentStatusOffline"); //$NON-NLS-1$
-        }
-        return StringUtil.EMPTY;
-    }
-
-    /**
-     * Gets the localized display text for Agent2008Status values. This method
-     * is for back compat and so is left internal for now.
-     *
-     *
-     * @param status
-     *        The value for which display text is returned.
-     * @return The localized display text.
-     */
-    public static String getDisplayText(final Agent2008Status status) {
-        if (status == Agent2008Status.ENABLED) {
-            return Messages.getString("BuildClient.2008StatusEnabled"); //$NON-NLS-1$
-        }
-        if (status == Agent2008Status.DISABLED) {
-            return Messages.getString("BuildClient.2008StatusDisabled"); //$NON-NLS-1$
-        }
-        if (status == Agent2008Status.UNREACHABLE) {
-            return Messages.getString("BuildClient.2008StatusUnreachable"); //$NON-NLS-1$
-        }
-        if (status == Agent2008Status.INITIALIZING) {
-            return Messages.getString("BuildClient.2008StatusInitializing"); //$NON-NLS-1$
         }
         return StringUtil.EMPTY;
     }

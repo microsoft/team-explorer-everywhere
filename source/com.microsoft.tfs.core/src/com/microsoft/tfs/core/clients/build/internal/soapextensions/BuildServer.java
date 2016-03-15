@@ -68,7 +68,7 @@ import com.microsoft.tfs.core.clients.build.flags.QueryDeletedOption;
 import com.microsoft.tfs.core.clients.build.flags.QueryOptions;
 import com.microsoft.tfs.core.clients.build.flags.QueueOptions;
 import com.microsoft.tfs.core.clients.build.flags.QueuedBuildRetryOption;
-import com.microsoft.tfs.core.clients.build.soapextensions.Agent2008Status;
+import com.microsoft.tfs.core.clients.build.soapextensions.AgentStatus;
 import com.microsoft.tfs.core.clients.build.soapextensions.ContinuousIntegrationType;
 import com.microsoft.tfs.core.clients.build.soapextensions.DefinitionTriggerType;
 import com.microsoft.tfs.core.clients.build.soapextensions.ProcessTemplateType;
@@ -87,7 +87,6 @@ public class BuildServer implements IBuildServer {
     private final TFSTeamProjectCollection tfs;
     private BuildServerVersion serverVersion;
 
-    private Build2008Helper build2008Helper;
     private Build2010Helper build2010Helper;
     private BuildWebService4 buildService4;
     private BuildQueueWebService4 buildQueueService4;
@@ -530,9 +529,7 @@ public class BuildServer implements IBuildServer {
     public IBuildDefinition[] getAffectedBuildDefinitions(
         final String[] serverItems,
         final DefinitionTriggerType triggerType) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().getAffectedBuildDefinitions(serverItems, triggerType);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().getAffectedBuildDefinitions(serverItems, triggerType);
         } else {
             return getBuildService().getAffectedBuildDefinitions(serverItems, triggerType);
@@ -689,9 +686,7 @@ public class BuildServer implements IBuildServer {
         final String[] informationTypes,
         final QueryOptions queryOptions,
         final QueryDeletedOption queryDeletedOption) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queryBuildsByUri(buildUris, informationTypes, queryOptions, queryDeletedOption);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().queryBuildsByUri(buildUris, informationTypes, queryOptions, queryDeletedOption);
         } else {
             return getBuildService().queryBuildsByUri(
@@ -782,9 +777,7 @@ public class BuildServer implements IBuildServer {
     public IBuildQueryResult[] queryBuilds(final IBuildDetailSpec[] buildDetailSpecs) {
         IBuildQueryResult[] results = null;
 
-        if (getBuildServerVersion().isV2()) {
-            results = getBuild2008Helper().queryBuilds(buildDetailSpecs);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             results = getBuild2010Helper().queryBuilds(buildDetailSpecs);
         } else {
             results = getBuildService().queryBuilds(buildDetailSpecs);
@@ -896,9 +889,7 @@ public class BuildServer implements IBuildServer {
             throw new NotSupportedException(MessageFormat.format(format, options));
         }
 
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().deleteBuilds(uris, options);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().deleteBuilds(uris, options);
         } else {
             return getBuildService().deleteBuilds(uris, options);
@@ -958,9 +949,7 @@ public class BuildServer implements IBuildServer {
             updateOptions[i] = ((BuildDetail) builds[i]).getUpdateOptions();
         }
 
-        if (getBuildServerVersion().isV2()) {
-            result = getBuild2008Helper().updateBuilds(updateOptions);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             result = getBuild2010Helper().updateBuilds(updateOptions);
         } else {
             result = getBuildService().updateBuilds(updateOptions);
@@ -1110,9 +1099,7 @@ public class BuildServer implements IBuildServer {
         final String[] buildDefinitionUris,
         final String[] propertyNameFilters,
         final QueryOptions options) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queryBuildDefinitionsByUri(buildDefinitionUris).getDefinitions();
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().queryBuildDefinitionsByUri(buildDefinitionUris, options).getDefinitions();
         } else {
             return getBuildService().queryBuildDefinitionsByUri(
@@ -1176,9 +1163,7 @@ public class BuildServer implements IBuildServer {
     // / <returns>The matching build definition query results.</returns>
     @Override
     public IBuildDefinitionQueryResult[] queryBuildDefinitions(final IBuildDefinitionSpec[] buildDefinitionSpecs) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queryBuildDefinitions(buildDefinitionSpecs);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().queryBuildDefinitions(buildDefinitionSpecs);
         } else {
             return getBuildService().queryBuildDefinitions(buildDefinitionSpecs);
@@ -1217,9 +1202,7 @@ public class BuildServer implements IBuildServer {
             return;
         }
 
-        if (getBuildServerVersion().isV2()) {
-            getBuild2008Helper().deleteBuildDefinitions(definitionUris);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             getBuild2010Helper().deleteBuildDefinitions(definitionUris);
         } else {
             getBuildService().deleteBuildDefinitions(definitionUris);
@@ -1273,9 +1256,7 @@ public class BuildServer implements IBuildServer {
             IBuildDefinition[] addResult;
             final BuildDefinition[] toAdd = definitionsToAdd.toArray(new BuildDefinition[definitionsToAdd.size()]);
 
-            if (getBuildServerVersion().isV2()) {
-                addResult = getBuild2008Helper().addBuildDefinitions(toAdd);
-            } else if (getBuildServerVersion().isV3()) {
+            if (getBuildServerVersion().isV3()) {
                 addResult = getBuild2010Helper().addBuildDefinitions(toAdd);
             } else {
                 addResult = getBuildService().addBuildDefinitions(toAdd);
@@ -1300,9 +1281,7 @@ public class BuildServer implements IBuildServer {
             final BuildDefinition[] toUpdate =
                 definitionsToUpdate.toArray(new BuildDefinition[definitionsToUpdate.size()]);
 
-            if (getBuildServerVersion().isV2()) {
-                updateResult = getBuild2008Helper().updateBuildDefinitions(toUpdate);
-            } else if (getBuildServerVersion().isV3()) {
+            if (getBuildServerVersion().isV3()) {
                 updateResult = getBuild2010Helper().updateBuildDefinitions(toUpdate);
             } else {
                 updateResult = getBuildService().updateBuildDefinitions(toUpdate);
@@ -1872,9 +1851,7 @@ public class BuildServer implements IBuildServer {
         final String[] buildControllerUris,
         final String[] propertyNameFilters,
         final boolean includeAgents) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queryBuildControllersByUri(buildControllerUris, includeAgents).getControllers();
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().queryBuildControllersByUri(buildControllerUris, includeAgents).getControllers();
         } else {
             return getAdministrationService().queryBuildControllersByUri(
@@ -1909,9 +1886,7 @@ public class BuildServer implements IBuildServer {
     // specifications.</returns>
     @Override
     public IBuildControllerQueryResult[] queryBuildControllers(final IBuildControllerSpec[] buildControllerSpecs) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queryBuildControllers(buildControllerSpecs);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().queryBuildControllers(buildControllerSpecs);
         } else {
             return getAdministrationService().queryBuildControllers(buildControllerSpecs);
@@ -2121,9 +2096,7 @@ public class BuildServer implements IBuildServer {
         final int[] queuedBuildIds,
         final String[] informationTypes,
         final QueryOptions queryOptions) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queryQueuedBuildsById(queuedBuildIds, queryOptions).getQueuedBuilds();
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().queryQueuedBuildsById(queuedBuildIds, queryOptions).getQueuedBuilds();
         } else {
             return getBuildQueueService().queryBuildsById(
@@ -2156,9 +2129,7 @@ public class BuildServer implements IBuildServer {
     // specifications.</returns>
     @Override
     public IQueuedBuildQueryResult[] queryQueuedBuilds(final IQueuedBuildSpec[] buildQueueSpecs) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queryQueuedBuilds(buildQueueSpecs);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().queryQueuedBuilds(buildQueueSpecs);
         } else {
             return getBuildQueueService().queryBuilds(buildQueueSpecs);
@@ -2241,9 +2212,7 @@ public class BuildServer implements IBuildServer {
             updateOptions[i] = ((QueuedBuild) queuedBuilds[i]).getUpdateOptions();
         }
 
-        if (getBuildServerVersion().isV2()) {
-            result = getBuild2008Helper().updateQueuedBuilds(updateOptions);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             result = getBuild2010Helper().updateQueuedBuilds(updateOptions);
         } else {
             result = getBuildQueueService().updateBuilds(updateOptions).getQueuedBuilds();
@@ -2303,13 +2272,9 @@ public class BuildServer implements IBuildServer {
     // / <returns>The queued build.</returns>
     @Override
     public IQueuedBuild queueBuild(final IBuildRequest request, final QueueOptions options) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().queueBuild((BuildRequest) request, options);
-        } else {
-            return queueBuild(new IBuildRequest[] {
-                (BuildRequest) request
-            }, options)[0];
-        }
+        return queueBuild(new IBuildRequest[] {
+            (BuildRequest) request
+        }, options)[0];
     }
 
     @Override
@@ -2403,9 +2368,7 @@ public class BuildServer implements IBuildServer {
             return;
         }
 
-        if (getBuildServerVersion().isV2()) {
-            getBuild2008Helper().stopBuilds(uris);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             getBuild2010Helper().stopBuilds(uris);
         } else {
             getBuildService().stopBuilds(uris);
@@ -2446,9 +2409,7 @@ public class BuildServer implements IBuildServer {
             return;
         }
 
-        if (getBuildServerVersion().isV2()) {
-            getBuild2008Helper().cancelBuilds(ids);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             getBuild2010Helper().cancelBuilds(ids);
         } else {
             getBuildQueueService().cancelBuilds(ids);
@@ -2464,9 +2425,7 @@ public class BuildServer implements IBuildServer {
 
     @Override
     public void addBuildQuality(final String teamProject, final String[] qualities) {
-        if (getBuildServerVersion().isV2()) {
-            getBuild2008Helper().addBuildQualities(teamProject, qualities);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             getBuild2010Helper().addBuildQualities(teamProject, qualities);
         } else {
             getBuildService().addBuildQualities(teamProject, qualities);
@@ -2482,9 +2441,7 @@ public class BuildServer implements IBuildServer {
 
     @Override
     public void deleteBuildQuality(final String teamProject, final String[] qualities) {
-        if (getBuildServerVersion().isV2()) {
-            getBuild2008Helper().deleteBuildQualities(teamProject, qualities);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             getBuild2010Helper().deleteBuildQualities(teamProject, qualities);
         } else {
             getBuildService().deleteBuildQualities(teamProject, qualities);
@@ -2493,9 +2450,7 @@ public class BuildServer implements IBuildServer {
 
     @Override
     public String[] getBuildQualities(final String teamProject) {
-        if (getBuildServerVersion().isV2()) {
-            return getBuild2008Helper().getBuildQualities(teamProject);
-        } else if (getBuildServerVersion().isV3()) {
+        if (getBuildServerVersion().isV3()) {
             return getBuild2010Helper().getBuildQualities(teamProject);
         } else {
             return getBuildService().getBuildQualities(teamProject);
@@ -2647,34 +2602,23 @@ public class BuildServer implements IBuildServer {
     @Override
     @SuppressWarnings("rawtypes")
     public Object getEnumValue(final Class enumType, final String displayText, final Object defaultValue) {
-        if (Agent2008Status.class.equals(enumType)) {
-            if (Messages.getString("BuildClient.Agent2008StatusEnabled").equals(displayText)) //$NON-NLS-1$
+        if (AgentStatus.class.equals(enumType)) {
+            if (Messages.getString("BuildClient.AgentStatusAvailable").equals(displayText)) //$NON-NLS-1$
             {
-                return Agent2008Status.ENABLED;
+                return AgentStatus.AVAILABLE;
             }
-            if (Messages.getString("BuildClient.Agent2008StatusDisabled").equals(displayText)) //$NON-NLS-1$
+            if (Messages.getString("BuildClient.AgentStatusUnavailable").equals(displayText)) //$NON-NLS-1$
             {
-                return Agent2008Status.DISABLED;
+                return AgentStatus.UNAVAILABLE;
             }
-            if (Messages.getString("BuildClient.Agent2008StatusUnreachable").equals(displayText)) //$NON-NLS-1$
+            if (Messages.getString("BuildClient.AgentStatusOffline").equals(displayText)) //$NON-NLS-1$
             {
-                return Agent2008Status.UNREACHABLE;
-            }
-            if (Messages.getString("BuildClient.Agent2008StatusInitializing").equals(displayText)) //$NON-NLS-1$
-            {
-                return Agent2008Status.INITIALIZING;
+                return AgentStatus.OFFLINE;
             }
             return defaultValue;
         }
 
         return defaultValue;
-    }
-
-    public Build2008Helper getBuild2008Helper() {
-        if (build2008Helper == null) {
-            build2008Helper = new Build2008Helper(this);
-        }
-        return build2008Helper;
     }
 
     public Build2010Helper getBuild2010Helper() {

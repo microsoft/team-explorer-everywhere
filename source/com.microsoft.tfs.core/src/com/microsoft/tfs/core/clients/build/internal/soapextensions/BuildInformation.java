@@ -168,9 +168,7 @@ public class BuildInformation implements IBuildInformation {
             final BuildServer buildServer = (BuildServer) build.getBuildServer();
             final InformationChangeRequest[] changes = requests.toArray(new InformationChangeRequest[requests.size()]);
 
-            if (buildServer.getBuildServerVersion().isV2()) {
-                buildServer.getBuild2008Helper().updateBuildInformation(changes);
-            } else if (buildServer.getBuildServerVersion().isV3()) {
+            if (buildServer.getBuildServerVersion().isV3()) {
                 buildServer.getBuild2010Helper().updateBuildInformation(changes);
             } else {
                 buildServer.getBuildService().updateBuildInformation(changes);

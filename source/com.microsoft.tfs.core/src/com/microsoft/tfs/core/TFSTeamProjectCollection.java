@@ -33,7 +33,6 @@ import com.microsoft.tfs.core.clients.versioncontrol.WebServiceLevel;
 import com.microsoft.tfs.core.clients.workitem.WorkItemClient;
 import com.microsoft.tfs.core.config.ConnectionAdvisor;
 import com.microsoft.tfs.core.config.DefaultConnectionAdvisor;
-import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.GUID;
@@ -162,36 +161,9 @@ public class TFSTeamProjectCollection extends TFSConnection {
                          * PreFrameworkServerDataProvider, so we can talk with
                          * old servers.
                          */
-                        final PreFrameworkServerDataProvider tempPreFrameworkProvider =
-                            new PreFrameworkServerDataProvider(this);
 
-                        /*
-                         * Query for the location service (a TFS 2010
-                         * Framework-era service).
-                         */
-                        final String locationServiceLocation = tempPreFrameworkProvider.locationForCurrentConnection(
-                            ServiceInterfaceNames.LOCATION,
-                            LocationServiceConstants.SELF_REFERENCE_LOCATION_SERVICE_IDENTIFIER);
-
-                        /*
-                         * If the Location service was not found, the server is
-                         * a pre-framework server (< 2010), so use that kind of
-                         * provider. Otherwise, use the Framework provider and
-                         * connect it immediately.
-                         */
-                        if (locationServiceLocation == null) {
-                            log.error(
-                                MessageFormat.format(
-                                    "You cannot connect to {0} because it is running a version of Team Foundation Server that is not supported by your version of Visual Studio. Upgrade your server to Team Foundation Server 2010 (or a newer version), or use Visual Studio 2010, Visual Studio 2012 or Visual Studio 2015.", //$NON-NLS-1$
-                                    getBaseURI()));
-
-                            throw new NotSupportedException(MessageFormat.format(
-                                Messages.getString("TFSTeamProjectCollection.NotSupportedTfsVersionFormat"), //$NON-NLS-1$
-                                getBaseURI()));
-                        } else {
-                            tempFrameworkProvider.connect(ConnectOptions.INCLUDE_SERVICES);
-                            serverDataProvider = tempFrameworkProvider;
-                        }
+                        tempFrameworkProvider.connect(ConnectOptions.INCLUDE_SERVICES);
+                        serverDataProvider = tempFrameworkProvider;
                     }
 
                 } catch (final RuntimeException e) {

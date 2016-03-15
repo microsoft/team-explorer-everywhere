@@ -16,7 +16,6 @@ import com.microsoft.tfs.core.clients.build.IBuildServer;
 import com.microsoft.tfs.core.clients.build.IBuildServiceHost;
 import com.microsoft.tfs.core.clients.build.flags.BuildControllerUpdate;
 import com.microsoft.tfs.core.clients.build.internal.utils.BuildValidation;
-import com.microsoft.tfs.core.clients.build.soapextensions.Agent2008Status;
 import com.microsoft.tfs.core.clients.build.soapextensions.ControllerStatus;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
@@ -88,33 +87,6 @@ public class BuildController extends WebServiceObjectWrapper implements IBuildCo
         _o.setTags(controller2010.getTags());
         _o.setUri(controller2010.getURI());
         _o.setUrl(controller2010.getURL());
-
-        afterDeserialize();
-    }
-
-    /**
-     * This constructor is for V2 compatibility and should not be used
-     * otherwise.
-     *
-     *
-     * @param buildServer
-     * @param agent2008
-     */
-    public BuildController(final IBuildServer buildServer, final BuildAgent2008 agent2008) {
-        this(buildServer);
-
-        final _BuildController _o = getWebServiceObject();
-
-        _o.setDescription(agent2008.getDescription());
-        // Using the full path of the agent as the controller name so the user
-        // doesn't see duplicates.
-        _o.setName(agent2008.getFullPath());
-        _o.setQueueCount(agent2008.getQueueCount());
-        _o.setStatus(TFS2008Helper.convert(agent2008.getStatus()).getWebServiceObject());
-        _o.setEnabled(agent2008.getStatus() != Agent2008Status.DISABLED);
-        _o.setServiceHostUri(agent2008.getURI());
-        _o.setStatusMessage(agent2008.getStatusMessage());
-        _o.setUri(agent2008.getURI());
 
         afterDeserialize();
     }
@@ -415,10 +387,12 @@ public class BuildController extends WebServiceObjectWrapper implements IBuildCo
     @Override
     public void refresh(final boolean refreshAgentList) {
         if (getURI() != null) {
-            copy(serviceHost.getBuildServer().getBuildController(
-                getURI(),
-                BuildConstants.NO_PROPERTY_NAMES,
-                refreshAgentList), refreshAgentList);
+            copy(
+                serviceHost.getBuildServer().getBuildController(
+                    getURI(),
+                    BuildConstants.NO_PROPERTY_NAMES,
+                    refreshAgentList),
+                refreshAgentList);
         }
     }
 

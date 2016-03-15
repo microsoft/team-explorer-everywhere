@@ -46,16 +46,6 @@ public class BuildServiceHost extends WebServiceObjectWrapper implements IBuildS
         lastSnapshot = getSnapshot();
     }
 
-    public BuildServiceHost(final IBuildServer buildServer, final BuildAgent2008 agent2008) {
-        this(buildServer);
-
-        setName(agent2008.getMachineName());
-        setRequireClientCertificates(false);
-        setURI(agent2008.getURI());
-
-        lastSnapshot = getSnapshot();
-    }
-
     public BuildServiceHost(
         final IBuildServer buildServer,
         final String uri,

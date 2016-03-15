@@ -4,7 +4,6 @@
 package com.microsoft.tfs.core.clients.framework;
 
 import com.microsoft.tfs.core.FrameworkServerDataProvider;
-import com.microsoft.tfs.core.PreFrameworkServerDataProvider;
 import com.microsoft.tfs.core.ServerCapabilities;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.clients.framework.location.ConnectOptions;
@@ -14,8 +13,8 @@ import com.microsoft.tfs.util.GUID;
 
 /**
  * Provides information about the server a {@link TFSConnection} is connected
- * to. An abstraction of server identification; implementations exist for
- * pre-TFS 2010 and post-TFS 2010 services which provide the actual data.
+ * to. An abstraction of server identification; implementations exist for TFS
+ * 2010 and later services which provide the actual data.
  *
  * @see FrameworkServerDataProvider
  * @see PreFrameworkServerDataProvider

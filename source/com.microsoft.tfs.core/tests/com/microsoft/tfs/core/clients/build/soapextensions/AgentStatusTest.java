@@ -8,8 +8,14 @@ import junit.framework.TestCase;
 public class AgentStatusTest extends TestCase {
 
     public void testGetAgentStatus() {
-        Agent2008Status.ENABLED.getWebServiceObject();
-        assertEquals("Enabled", Agent2008Status.ENABLED.toString()); //$NON-NLS-1$
+        AgentStatus.AVAILABLE.getWebServiceObject();
+        assertEquals("Available", AgentStatus.AVAILABLE.toString()); //$NON-NLS-1$
+
+        AgentStatus.UNAVAILABLE.getWebServiceObject();
+        assertEquals("Unavailable", AgentStatus.UNAVAILABLE.toString()); //$NON-NLS-1$
+
+        AgentStatus.OFFLINE.getWebServiceObject();
+        assertEquals("Offline", AgentStatus.OFFLINE.toString()); //$NON-NLS-1$
     }
 
 }

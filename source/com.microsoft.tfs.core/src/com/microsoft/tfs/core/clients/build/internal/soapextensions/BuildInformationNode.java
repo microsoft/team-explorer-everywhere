@@ -248,16 +248,11 @@ public class BuildInformationNode extends WebServiceObjectWrapper
             request.setBuildURI(build.getURI());
             request.setNodeID(getID());
 
-            if (build.getBuildServer().getBuildServerVersion().isV2()) {
-                build.getInternalBuildServer().getBuild2008Helper().updateBuildInformation(
-                    new InformationChangeRequest[] {
-                        request
-                });
-            } else if (build.getBuildServer().getBuildServerVersion().isV3()) {
+            if (build.getBuildServer().getBuildServerVersion().isV3()) {
                 build.getInternalBuildServer().getBuild2010Helper().updateBuildInformation(
                     new InformationChangeRequest[] {
                         request
-                });
+                    });
             } else {
                 build.getInternalBuildServer().getBuildService().updateBuildInformation(new InformationChangeRequest[] {
                     request

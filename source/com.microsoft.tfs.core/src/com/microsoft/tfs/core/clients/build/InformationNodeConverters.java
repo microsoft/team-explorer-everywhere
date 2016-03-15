@@ -88,9 +88,7 @@ public class InformationNodeConverters {
             final InformationChangeRequest[] requestsArray = new InformationChangeRequest[requests.size()];
             final BuildServer buildServer = (BuildServer) build.getBuildServer();
 
-            if (buildServer.getBuildServerVersion().isV2()) {
-                outNodes = buildServer.getBuild2008Helper().updateBuildInformation(requests.toArray(requestsArray));
-            } else if (buildServer.getBuildServerVersion().isV3()) {
+            if (buildServer.getBuildServerVersion().isV3()) {
                 outNodes = buildServer.getBuild2010Helper().updateBuildInformation(requests.toArray(requestsArray));
             } else {
                 outNodes = buildServer.getBuildService().updateBuildInformation(requests.toArray(requestsArray));

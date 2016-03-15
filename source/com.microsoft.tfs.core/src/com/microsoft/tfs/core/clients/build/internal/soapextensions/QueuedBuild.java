@@ -26,8 +26,8 @@ import com.microsoft.tfs.core.clients.build.soapextensions.QueuePriority;
 import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.GUID.GUIDStringFormat;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.datetime.DotNETDate;
 
 import ms.tfs.build.buildservice._04._QueuedBuild;
@@ -95,39 +95,6 @@ public class QueuedBuild extends WebServiceObjectWrapper implements IQueuedBuild
         qb.setShelvesetName(build2010.getShelvesetName());
         qb.setStatus(TFS2010Helper.convert(build2010.getStatus()).getWebServiceObject());
         qb.setTeamProject(build2010.getTeamProject());
-
-        afterDeserialize();
-    }
-
-    /**
-     * This constructor is for V2 compatibility and should not be used
-     * otherwise.
-     *
-     *
-     * @param buildServer
-     * @param build2008
-     */
-    public QueuedBuild(final BuildServer buildServer, final QueuedBuild2008 build2008) {
-        this(buildServer);
-
-        setBuildControllerURI(build2008.getBuildAgentURI());
-        setBuildDefinitionURI(build2008.getBuildDefinitionURI());
-        getWebServiceObject().setId(build2008.getID());
-        setPriority(TFS2010Helper.convert(build2008.getPriority()));
-        setQueuePosition(build2008.getQueuePosition());
-        getWebServiceObject().setQueueTime(build2008.getQueueTime());
-        getWebServiceObject().setRequestedBy(build2008.getRequestedBy());
-        getWebServiceObject().setRequestedFor(build2008.getRequestedFor());
-        setStatus(TFS2010Helper.convert(build2008.getStatus()));
-
-        final BuildDetail build = TFS2008Helper.convert(buildServer, build2008.getBuild());
-        if (build != null) {
-            this.build = build;
-            this.allBuilds.add(this.build);
-            getWebServiceObject().setBuildUris(new String[] {
-                this.build.getURI()
-            });
-        }
 
         afterDeserialize();
     }
@@ -478,11 +445,7 @@ public class QueuedBuild extends WebServiceObjectWrapper implements IQueuedBuild
     @Override
     public void refresh(final QueryOptions queryOptions) {
         BuildQueueQueryResult result;
-        if (buildServer.getBuildServerVersion().isV2()) {
-            result = buildServer.getBuild2008Helper().queryQueuedBuildsById(new int[] {
-                this.getID()
-            }, queryOptions);
-        } else if (buildServer.getBuildServerVersion().isV3()) {
+        if (buildServer.getBuildServerVersion().isV3()) {
             result = buildServer.getBuild2010Helper().queryQueuedBuildsById(new int[] {
                 this.getID()
             }, queryOptions);
@@ -554,11 +517,7 @@ public class QueuedBuild extends WebServiceObjectWrapper implements IQueuedBuild
 
             IQueuedBuild[] results;
             if (currentSnapshot.getFields() != QueuedBuildUpdate.NONE) {
-                if (buildServer.getBuildServerVersion().isV2()) {
-                    results = buildServer.getBuild2008Helper().updateQueuedBuilds(new QueuedBuildUpdateOptions[] {
-                        currentSnapshot
-                    });
-                } else if (buildServer.getBuildServerVersion().isV3()) {
+                if (buildServer.getBuildServerVersion().isV3()) {
                     results = buildServer.getBuild2010Helper().updateQueuedBuilds(new QueuedBuildUpdateOptions[] {
                         currentSnapshot
                     });
