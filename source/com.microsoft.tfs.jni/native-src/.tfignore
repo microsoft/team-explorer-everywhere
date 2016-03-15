@@ -1,8 +1,0 @@
-# Native code build process.
-autobuild.*
-
-# Native code build.sh test logs
-test.log
-
-# Unix can run valgrind; ignore these
-val/

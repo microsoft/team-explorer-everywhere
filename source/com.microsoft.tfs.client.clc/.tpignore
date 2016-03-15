@@ -1,5 +1,0 @@
-# Ignore LyX emergency backups
-.*\.lyx\.emergency
-
-# Ignore vi swap.
-.*\.swp
