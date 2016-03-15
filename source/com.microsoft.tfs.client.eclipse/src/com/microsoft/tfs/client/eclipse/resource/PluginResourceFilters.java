@@ -163,7 +163,7 @@ public abstract class PluginResourceFilters {
         new Builder(CompositeResourceFilterType.ONE_MUST_ACCEPT).addFilter(IN_REPOSITORY_FILTER).addFilter(
             new HasPendingChangeTypeFilter(new ChangeType[] {
                 ChangeType.BRANCH
-    }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).build();
+            }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).build();
 
     /**
      * Accepts any resource which has any pending change on it.
@@ -179,7 +179,7 @@ public abstract class PluginResourceFilters {
         new Builder(CompositeResourceFilterType.ALL_MUST_ACCEPT).addFilter(STANDARD_FILTER).addFilter(
             new HasPendingChangeTypeFilter(new ChangeType[] {
                 ChangeType.LOCK
-    }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).build();
+            }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).build();
 
     /**
      * Accepts any resource which does not have an add pending change directly
@@ -189,7 +189,7 @@ public abstract class PluginResourceFilters {
         new Builder(CompositeResourceFilterType.ALL_MUST_ACCEPT).addFilter(IN_REPOSITORY_FILTER).addFilter(
             new HasNoPendingChangeTypeFilter(new ChangeType[] {
                 ChangeType.ADD
-    }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).build();
+            }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).build();
 
     /**
      * Accepts any resource which does not have an add or edit pending change
@@ -202,7 +202,7 @@ public abstract class PluginResourceFilters {
                 new HasNoPendingChangeTypeFilter(new ChangeType[] {
                     ChangeType.ADD,
                     ChangeType.EDIT
-    }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).addFilter(new ResourceExistsFilter()).build();
+                }, DEFAULT_RESOURCE_UNAVAILABLE_POLICY, false)).addFilter(new ResourceExistsFilter()).build();
 
     /**
      * Accepts any resource that is in the repository *or* has remote changes in
@@ -224,7 +224,7 @@ public abstract class PluginResourceFilters {
         new InLocalWorkspaceFilter(RepositoryUnavailablePolicy.REJECT_RESOURCE);
 
     /**
-     * Accepts any resource that is in a TFS 2005-2012 server workspace.
+     * Accepts any resource that is in a TFS server workspace.
      */
     public static final ResourceFilter IN_SERVER_WORKSPACE_FILTER =
         ResourceFilters.getInverse(IN_LOCAL_WORKSPACE_FILTER);

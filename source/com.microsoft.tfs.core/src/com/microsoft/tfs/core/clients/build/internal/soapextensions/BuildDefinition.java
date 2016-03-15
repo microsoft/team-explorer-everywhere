@@ -146,10 +146,6 @@ public class BuildDefinition extends WebServiceObjectWrapper implements IBuildDe
         setURI(definition.getURI());
         setWorkspace(TFS2010Helper.convert(definition.getWorkspaceTemplate()));
 
-        if (buildServer.getBuildServerVersion().isV2()) {
-            configurationFolderURI = definition.getConfigurationFolderURI();
-        }
-
         afterDeserialize();
     }
 
@@ -449,36 +445,6 @@ public class BuildDefinition extends WebServiceObjectWrapper implements IBuildDe
                     new RetentionPolicy(this, BuildReason.VALIDATE_SHELVESET, BuildStatus.STOPPED, 1, options));
                 retentionPolicyList.add(
                     new RetentionPolicy(this, BuildReason.VALIDATE_SHELVESET, BuildStatus.SUCCEEDED, 10, options));
-            } else if (getBuildServer().getBuildServerVersion().isV2()) {
-                // Orcas servers only support retention policies by status.
-                retentionPolicyList.add(
-                    new RetentionPolicy(
-                        this,
-                        BuildReason.ALL,
-                        BuildStatus.FAILED,
-                        Integer.MAX_VALUE,
-                        DeleteOptions.ALL));
-                retentionPolicyList.add(
-                    new RetentionPolicy(
-                        this,
-                        BuildReason.ALL,
-                        BuildStatus.PARTIALLY_SUCCEEDED,
-                        Integer.MAX_VALUE,
-                        DeleteOptions.ALL));
-                retentionPolicyList.add(
-                    new RetentionPolicy(
-                        this,
-                        BuildReason.ALL,
-                        BuildStatus.STOPPED,
-                        Integer.MAX_VALUE,
-                        DeleteOptions.ALL));
-                retentionPolicyList.add(
-                    new RetentionPolicy(
-                        this,
-                        BuildReason.ALL,
-                        BuildStatus.SUCCEEDED,
-                        Integer.MAX_VALUE,
-                        DeleteOptions.ALL));
             }
         }
 

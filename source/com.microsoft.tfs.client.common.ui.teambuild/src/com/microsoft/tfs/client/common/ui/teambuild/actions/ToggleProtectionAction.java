@@ -54,11 +54,6 @@ public class ToggleProtectionAction extends BuildDetailAction {
     protected void onSelectionChanged(final IAction action, final ISelection selection) {
         super.onSelectionChanged(action, selection);
         if (action.isEnabled()) {
-            if (getBuildServer().getBuildServerVersion().isV1()) {
-                action.setEnabled(false);
-                return;
-            }
-
             final IBuildDetail build = getSelectedBuildDetail();
             if (build != null) {
                 action.setChecked(build.isKeepForever());

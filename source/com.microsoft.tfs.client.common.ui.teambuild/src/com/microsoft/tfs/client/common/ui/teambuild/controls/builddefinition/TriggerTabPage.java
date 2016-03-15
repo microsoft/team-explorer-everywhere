@@ -77,8 +77,7 @@ public class TriggerTabPage extends BuildDefinitionTabPage {
 
         // Gated section
         getControl().getGatedButton().setSelection(ciType.equals(ContinuousIntegrationType.GATED));
-        if (!BuildSourceProviders.isTfVersionControl(getBuildDefinition().getDefaultSourceProvider())
-            || getBuildDefinition().getBuildServer().getBuildServerVersion().isV2()) {
+        if (!BuildSourceProviders.isTfVersionControl(getBuildDefinition().getDefaultSourceProvider())) {
             getControl().getGatedButton().setEnabled(false);
         }
 

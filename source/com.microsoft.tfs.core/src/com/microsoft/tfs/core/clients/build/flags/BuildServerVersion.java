@@ -12,16 +12,6 @@ import java.text.MessageFormat;
  */
 public class BuildServerVersion implements Comparable {
     /**
-     * TFS 2005 (Codenamed Whidbey)
-     */
-    public static final BuildServerVersion V1 = new BuildServerVersion(1);
-
-    /**
-     * TFS 2008 (Codenamed Orcas)
-     */
-    public static final BuildServerVersion V2 = new BuildServerVersion(2);
-
-    /**
      * TFS 2010 (Codenamed Rosario/Dev10)
      */
     public static final BuildServerVersion V3 = new BuildServerVersion(3);
@@ -65,14 +55,6 @@ public class BuildServerVersion implements Comparable {
 
     public int getVersion() {
         return version;
-    }
-
-    public boolean isV1() {
-        return version <= 1;
-    }
-
-    public boolean isV2() {
-        return version == 2;
     }
 
     public boolean isV3() {

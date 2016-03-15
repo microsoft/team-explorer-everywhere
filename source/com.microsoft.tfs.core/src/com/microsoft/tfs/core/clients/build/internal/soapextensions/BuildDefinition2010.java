@@ -3,17 +3,13 @@
 
 package com.microsoft.tfs.core.clients.build.internal.soapextensions;
 
-import java.util.Properties;
-
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.IRetentionPolicy;
 import com.microsoft.tfs.core.clients.build.ISchedule;
 import com.microsoft.tfs.core.clients.build.flags.BuildServerVersion;
 import com.microsoft.tfs.core.clients.build.flags.DefinitionQueueStatus;
-import com.microsoft.tfs.core.clients.build.internal.utils.XamlHelper;
 import com.microsoft.tfs.core.clients.build.soapextensions.ContinuousIntegrationType;
 import com.microsoft.tfs.core.internal.wrappers.WrapperUtils;
-import com.microsoft.tfs.util.StringUtil;
 
 import ms.tfs.build.buildservice._03._BuildDefinition;
 import ms.tfs.build.buildservice._03._ContinuousIntegrationType;
@@ -60,24 +56,8 @@ public class BuildDefinition2010 extends BuildGroupItem2010 {
         // name
         setFullPath(definition.getWebServiceObject().getFullPath());
 
-        if (version.isV2()) {
-            setDefaultBuildAgentURI(getBuildControllerURI());
-            if (!StringUtil.isNullOrEmpty(definition.getProcessParameters())) {
-                final Properties parameters = XamlHelper.loadPartial(definition.getProcessParameters());
-                final String key = "ConfigurationFolderPath"; //$NON-NLS-1$
-
-                if (parameters != null && parameters.containsKey(key)) {
-                    final String configurationFolderPath = (String) parameters.get(key);
-                    setConfigurationFolderURI(definition.getConfigurationFolderUri(configurationFolderPath));
-                }
-            } else if (definition.getConfigurationFolderPath() != null) {
-                setConfigurationFolderURI(
-                    definition.getConfigurationFolderUri(definition.getConfigurationFolderPath()));
-            }
-        } else if (version.isV3()) {
-            setProcess(TFS2010Helper.convert(definition.getProcess()));
-            setProcessParameters(definition.getProcessParameters());
-        }
+        setProcess(TFS2010Helper.convert(definition.getProcess()));
+        setProcessParameters(definition.getProcessParameters());
     }
 
     @Override

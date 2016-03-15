@@ -664,16 +664,6 @@
              id="com.microsoft.tfs.client.common.ui.teambuild.wizards.GitMavenBuildWizard"
              name="%createBuildConfigurationWizard.v2maven.name">
        </wizard>
-       <wizard
-             canFinishEarly="false"
-             class="com.microsoft.tfs.client.common.ui.teambuild.wizards.v1.ant.V1AntBuildWizard"
-             fromTFSVersion="1"
-             hasPages="true"
-             icon="icons/ant.gif"
-             id="com.microsoft.tfs.client.common.ui.teambuild.wizards.v1ant.V1AntBuildWizard"
-             name="%createBuildConfigurationWizard.v1ant.name"
-             toTFSVersion="1">
-       </wizard>
     </extension>
 
 

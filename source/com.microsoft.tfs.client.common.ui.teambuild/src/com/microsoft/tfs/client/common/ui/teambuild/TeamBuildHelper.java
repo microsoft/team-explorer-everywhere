@@ -91,9 +91,7 @@ public class TeamBuildHelper {
             if (editorPart instanceof BuildExplorer) {
                 final BuildExplorer buildExplorer = (BuildExplorer) editorPart;
                 buildExplorer.setBuildDefinition(buildDefinition);
-                if (!buildDefinition.getBuildServer().getBuildServerVersion().isV1()) {
-                    buildExplorer.setSelectedQueuedBuild(queuedBuild);
-                }
+                buildExplorer.setSelectedQueuedBuild(queuedBuild);
                 CodeMarkerDispatch.dispatch(CODEMARKER_OPEN_COMPLETE);
             }
         } catch (final PartInitException e) {

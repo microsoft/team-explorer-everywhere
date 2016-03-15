@@ -33,7 +33,6 @@ import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.ServerItemSource;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.WorkspaceItemSource;
 import com.microsoft.tfs.core.clients.versioncontrol.GetItemsOptions;
-import com.microsoft.tfs.core.clients.versioncontrol.WebServiceLevel;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.DeletedState;
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Item;
@@ -180,9 +179,10 @@ public class FindChangesetOptionsControl extends BaseControl {
 
         final HistoryInput.Builder builder =
             new HistoryInput.Builder(getShell(), repository, path, itemVersion, recursionType);
-        builder.setUserFilter(IdentityHelper.getUniqueNameIfCurrentUser(
-            repository.getConnection().getAuthorizedIdentity(),
-            getUsername()));
+        builder.setUserFilter(
+            IdentityHelper.getUniqueNameIfCurrentUser(
+                repository.getConnection().getAuthorizedIdentity(),
+                getUsername()));
         builder.setVersionFrom(range.getStartRange());
         builder.setVersionTo(range.getEndRange());
 
@@ -192,13 +192,11 @@ public class FindChangesetOptionsControl extends BaseControl {
          * our history table control isn't perfect.
          *
          * VS sets slot mode false always, because its history table control
-         * handles expansion along branches and renames for 2010 and item mode
-         * is the correct behavior for 2005 and 2008. TEE's history control
-         * shows too many rows for item mode in 2010 (it queries as slot mode),
-         * so do a simple switch on server version to work around this.
+         * handles expansion along branches and renames for 2010. TEE's history
+         * control shows too many rows for item mode in 2010 (it queries as slot
+         * mode), so do a simple switch to work around this.
          */
-        builder.setSlotMode(
-            repository.getVersionControlClient().getServiceLevel().getValue() >= WebServiceLevel.TFS_2010.getValue());
+        builder.setSlotMode(true);
 
         return builder.build();
     }

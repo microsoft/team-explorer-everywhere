@@ -158,9 +158,7 @@ public class BuildExplorer extends MultiPageEditorPart implements ConnectionSpec
             return;
         }
 
-        if (!buildServer.getBuildServerVersion().isV1()) {
-            createQueuedBuildPage();
-        }
+        createQueuedBuildPage();
         createCompletedBuildPage();
         updateTitle();
 

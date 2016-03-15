@@ -8,8 +8,6 @@ import org.apache.commons.logging.LogFactory;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 
 import com.microsoft.tfs.client.common.ui.teambuild.Messages;
 import com.microsoft.tfs.client.common.ui.teambuild.dialogs.BuildDefinitionDialog;
@@ -19,7 +17,6 @@ import com.microsoft.tfs.client.common.ui.teambuild.git.EGitHelpers;
 import com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.helpers.BuildHelpers;
 import com.microsoft.tfs.core.clients.build.BuildSourceProviders;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
-import com.microsoft.tfs.core.clients.build.IBuildDetail;
 import com.microsoft.tfs.core.clients.build.exceptions.BuildException;
 
 public class EditBuildDefinitionFromDetailsAction extends BuildDetailAction {
@@ -90,18 +87,4 @@ public class EditBuildDefinitionFromDetailsAction extends BuildDetailAction {
             MessageDialog.openError(getShell(), title, e.getLocalizedMessage());
         }
     }
-
-    @Override
-    protected void onSelectionChanged(final IAction action, final ISelection selection) {
-        super.onSelectionChanged(action, selection);
-        if (action.isEnabled()) {
-            if (action.isEnabled() && selection instanceof IStructuredSelection) {
-                final Object obj = ((IStructuredSelection) selection).getFirstElement();
-                if (obj instanceof IBuildDetail) {
-                    action.setEnabled(!((IBuildDetail) obj).getBuildServer().getBuildServerVersion().isV1());
-                }
-            }
-        }
-    }
-
 }

@@ -175,14 +175,6 @@ public class BuildStatusManager {
                 return;
             }
 
-            /*
-             * If the current server does not support queued builds at all (TFS
-             * 2005, V1 service), do no work here.
-             */
-            if (connection.getBuildServer().getBuildServerVersion().isV1()) {
-                return;
-            }
-
             /* A list of build changes to notify listeners for */
             final List<IQueuedBuild> watchAddedList = new ArrayList<IQueuedBuild>();
             final List<IQueuedBuild> watchRemovedList = new ArrayList<IQueuedBuild>();

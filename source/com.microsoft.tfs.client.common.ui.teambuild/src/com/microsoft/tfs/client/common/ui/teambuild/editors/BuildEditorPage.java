@@ -292,12 +292,6 @@ public class BuildEditorPage extends EditorPart implements ISelectionProvider {
         });
 
         getSite().setSelectionProvider(this);
-
-        if (buildServer.getBuildServerVersion().isV1()) {
-            dateFilterCombo.setText(Messages.getString("BuildEditorPage.AnyTimeChoice")); //$NON-NLS-1$
-            dateFilterCombo.setEnabled(false);
-            qualityFilterCombo.setEnabled(false);
-        }
     }
 
     protected void fillMenu(final IMenuManager menuMgr) {

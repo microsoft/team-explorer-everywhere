@@ -125,11 +125,7 @@ public class BuildServer implements IBuildServer {
             serverVersion = BuildServerVersion.V4;
         } else {
             buildService = registrationClient.getServiceInterface(ToolNames.TEAM_BUILD, ServiceInterfaceNames.BUILD_3);
-            if (buildService != null) {
-                serverVersion = BuildServerVersion.V3;
-            } else {
-                serverVersion = BuildServerVersion.V2;
-            }
+            serverVersion = BuildServerVersion.V3;
         }
 
         if (serverVersion.isLessThanV3() && (!isCompatibilityEnabled() || serverVersion.isLessThanV2())) {
@@ -1319,10 +1315,6 @@ public class BuildServer implements IBuildServer {
     // / </summary>
     @Override
     public void deleteBuildServiceHost(final String serviceHostUri) {
-        if (getBuildServerVersion().isV2()) {
-            throwMethodNotSupported("DeleteBuildServiceHost"); //$NON-NLS-1$
-        }
-
         if (getBuildServerVersion().isV3()) {
             getBuild2010Helper().deleteBuildServiceHost(serviceHostUri);
         } else {
@@ -1335,10 +1327,6 @@ public class BuildServer implements IBuildServer {
     // / </summary>
     @Override
     public IBuildServiceHost getBuildServiceHostByName(final String computer) {
-        if (getBuildServerVersion().isV2()) {
-            throwMethodNotSupported("GetBuildServiceHost"); //$NON-NLS-1$
-        }
-
         final IBuildServiceHost[] results = queryBuildServiceHosts(computer);
 
         if (results.length == 0) {
@@ -1355,10 +1343,6 @@ public class BuildServer implements IBuildServer {
     // / </summary>
     @Override
     public IBuildServiceHost getBuildServiceHostByURI(final String buildServiceHostUri) {
-        if (getBuildServerVersion().isV2()) {
-            throwMethodNotSupported("GetBuildServiceHost"); //$NON-NLS-1$
-        }
-
         final IBuildServiceHost[] results = queryBuildServiceHostsByURI(new String[] {
             buildServiceHostUri
         });
@@ -1408,10 +1392,6 @@ public class BuildServer implements IBuildServer {
     // / </summary>
     @Override
     public void saveBuildServiceHost(final IBuildServiceHost serviceHost) {
-        if (getBuildServerVersion().isV2()) {
-            throwMethodNotSupported("SaveBuildServiceHost"); //$NON-NLS-1$
-        }
-
         if (serviceHost.getURI() == null) {
             BuildServiceHost result;
 

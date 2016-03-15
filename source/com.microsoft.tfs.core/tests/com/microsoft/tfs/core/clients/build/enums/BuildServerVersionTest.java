@@ -10,35 +10,35 @@ import junit.framework.TestCase;
 public class BuildServerVersionTest extends TestCase {
 
     public void testCompareTo() {
-        assertTrue(BuildServerVersion.V1.compareTo(BuildServerVersion.V2) < 0);
-        assertTrue(BuildServerVersion.V1.compareTo(BuildServerVersion.V1) == 0);
-        assertTrue(BuildServerVersion.V2.compareTo(BuildServerVersion.V1) > 0);
+        assertTrue(BuildServerVersion.V3.compareTo(BuildServerVersion.V4) < 0);
+        assertTrue(BuildServerVersion.V3.compareTo(BuildServerVersion.V3) == 0);
+        assertTrue(BuildServerVersion.V4.compareTo(BuildServerVersion.V3) > 0);
     }
 
     public void testEqualsObject() {
-        assertFalse(BuildServerVersion.V1.equals(BuildServerVersion.V2));
-        assertFalse(BuildServerVersion.V2.equals(BuildServerVersion.V1));
-        assertTrue(BuildServerVersion.V1.equals(BuildServerVersion.V1));
-        assertTrue(BuildServerVersion.V2.equals(BuildServerVersion.V2));
+        assertFalse(BuildServerVersion.V3.equals(BuildServerVersion.V4));
+        assertFalse(BuildServerVersion.V4.equals(BuildServerVersion.V3));
+        assertTrue(BuildServerVersion.V3.equals(BuildServerVersion.V3));
+        assertTrue(BuildServerVersion.V4.equals(BuildServerVersion.V4));
     }
 
     public void testGetVersion() {
-        assertEquals(1, BuildServerVersion.V1.getVersion());
-        assertEquals(2, BuildServerVersion.V2.getVersion());
+        assertEquals(1, BuildServerVersion.V3.getVersion());
+        assertEquals(2, BuildServerVersion.V4.getVersion());
 
-        BuildServerVersion.V2.getVersion();
-        assertEquals(2, BuildServerVersion.V2.getVersion());
+        BuildServerVersion.V4.getVersion();
+        assertEquals(2, BuildServerVersion.V4.getVersion());
 
     }
 
-    public void testIsV1() {
-        assertTrue(BuildServerVersion.V1.isV1());
-        assertFalse(BuildServerVersion.V2.isV1());
+    public void testIsV3() {
+        assertTrue(BuildServerVersion.V3.isV3());
+        assertFalse(BuildServerVersion.V4.isV3());
     }
 
-    public void testIsV2() {
-        assertFalse(BuildServerVersion.V1.isV2());
-        assertTrue(BuildServerVersion.V2.isV2());
+    public void testIsV4() {
+        assertFalse(BuildServerVersion.V3.isV4());
+        assertTrue(BuildServerVersion.V4.isV4());
     }
 
 }

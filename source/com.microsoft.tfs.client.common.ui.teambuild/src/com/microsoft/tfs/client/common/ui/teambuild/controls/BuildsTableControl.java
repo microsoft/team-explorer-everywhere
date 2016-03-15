@@ -150,16 +150,10 @@ public class BuildsTableControl extends TableControl {
 
     public void loadBuildQualities() {
         // Setup build qualities editing
-        if (buildServer.getBuildServerVersion().isV1()) {
-            // TFS2005 Server does not allow empty string for build quality.
-            buildQualities = TeamBuildCache.getInstance(buildServer, teamProject).getBuildQualities(false);
-        } else {
-            // TFS2008 Allows empty string for build quality.
-            final String[] temp = TeamBuildCache.getInstance(buildServer, teamProject).getBuildQualities(false);
-            buildQualities = new String[temp.length + 1];
-            buildQualities[0] = ""; //$NON-NLS-1$
-            System.arraycopy(temp, 0, buildQualities, 1, temp.length);
-        }
+        final String[] temp = TeamBuildCache.getInstance(buildServer, teamProject).getBuildQualities(false);
+        buildQualities = new String[temp.length + 1];
+        buildQualities[0] = ""; //$NON-NLS-1$
+        System.arraycopy(temp, 0, buildQualities, 1, temp.length);
 
         if (qualityCellEditor != null) {
             qualityCellEditor.setItems(buildQualities);

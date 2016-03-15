@@ -359,14 +359,6 @@ public class QueueBuildDialog extends BaseDialog {
         GridDataBuilder.newInstance().fill().grab().hSpan(3).applyTo(commandLineArgs);
         ControlSize.setCharHeightHint(commandLineArgs, 2);
 
-        if (buildServer.getBuildServerVersion().isV1()) {
-            buildControllerCombo.setEnabled(false);
-            dropText.setEnabled(false);
-            priority.setEnabled(false);
-            position.setEnabled(false);
-            commandLineArgs.setEnabled(false);
-        }
-
         // populate drop downs.
         loadBuildControllers();
         loadQueuePriorities();
@@ -378,39 +370,35 @@ public class QueueBuildDialog extends BaseDialog {
     }
 
     protected void calculatePosition() {
-        if (!buildServer.getBuildServerVersion().isV1()) {
-            position.setText(Messages.getString("QueueBuildDialog.Recalculating")); //$NON-NLS-1$
-            final IBuildRequest request = getBuildRequest();
+        position.setText(Messages.getString("QueueBuildDialog.Recalculating")); //$NON-NLS-1$
+        final IBuildRequest request = getBuildRequest();
 
-            final String messageFormat = Messages.getString("QueueBuildDialog.CalculatingQueuePositionLabelTextFormat"); //$NON-NLS-1$
-            final String message = MessageFormat.format(messageFormat, getSelectedBuildDefinition().getName());
-            final Job populateJob = new Job(message) {
-                @Override
-                protected IStatus run(final IProgressMonitor monitor) {
-                    try {
-                        final IQueuedBuild queuedBuild = buildServer.queueBuild(request, QueueOptions.PREVIEW);
-                        Display.getDefault().asyncExec(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (!position.isDisposed()) {
-                                    position.setText(Integer.toString(queuedBuild.getQueuePosition()));
-                                }
+        final String messageFormat = Messages.getString("QueueBuildDialog.CalculatingQueuePositionLabelTextFormat"); //$NON-NLS-1$
+        final String message = MessageFormat.format(messageFormat, getSelectedBuildDefinition().getName());
+        final Job populateJob = new Job(message) {
+            @Override
+            protected IStatus run(final IProgressMonitor monitor) {
+                try {
+                    final IQueuedBuild queuedBuild = buildServer.queueBuild(request, QueueOptions.PREVIEW);
+                    Display.getDefault().asyncExec(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!position.isDisposed()) {
+                                position.setText(Integer.toString(queuedBuild.getQueuePosition()));
                             }
-                        });
-                    } catch (final Exception e) {
-                        /*
-                         * Suppress the internal error message box
-                         */
-                    }
-                    return Status.OK_STATUS;
+                        }
+                    });
+                } catch (final Exception e) {
+                    /*
+                     * Suppress the internal error message box
+                     */
                 }
-            };
-            populateJob.setUser(false);
-            populateJob.setPriority(Job.SHORT);
-            populateJob.schedule(100);
-        } else {
-            position.setText(""); //$NON-NLS-1$
-        }
+                return Status.OK_STATUS;
+            }
+        };
+        populateJob.setUser(false);
+        populateJob.setPriority(Job.SHORT);
+        populateJob.schedule(100);
     }
 
     @Override
@@ -481,9 +469,7 @@ public class QueueBuildDialog extends BaseDialog {
 
         request.setBuildController(getSelectedBuildController());
 
-        if (buildServer.getBuildServerVersion().isV2()) {
-            request.setProcessParameters(getSelectedCommandLine().trim());
-        } else if (getSelectedCommandLine() != null && getSelectedCommandLine().trim().length() > 0) {
+        if (getSelectedCommandLine() != null && getSelectedCommandLine().trim().length() > 0) {
             final Properties properties = new Properties();
             properties.setProperty("MSBuildArguments", getSelectedCommandLine()); //$NON-NLS-1$
             request.setProcessParameters(XamlHelper.save(properties));
@@ -575,8 +561,6 @@ public class QueueBuildDialog extends BaseDialog {
         descriptionText.setText(selectedBuildDefinition.getDescription() == null ? "" //$NON-NLS-1$
             : selectedBuildDefinition.getDescription());
 
-        // Note that drop location could be null if unable to parse the TFS2005
-        // build file.
         final String dropLocation = selectedBuildDefinition.getDefaultDropLocation();
         if (StringUtil.isNullOrEmpty(dropLocation)) {
             dropText.setText(Messages.getString("QueueBuildDialog.NoDropOptionText")); //$NON-NLS-1$
