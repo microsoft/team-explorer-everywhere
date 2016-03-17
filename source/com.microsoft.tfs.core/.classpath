@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="libs/applicationinsights-core/applicationinsights-core-1.0.4-SNAPSHOT.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/oauth2-useragent/oauth2-useragent-0.6.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/java-auth-core/java-auth-core-0.1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jackson-core-2.4.1/jackson-annotations-2.4.1.jar" sourcepath="libs_src/jackson-core-2.4.1/jackson-annotations-2.4.1-sources.jar">
@@ -36,7 +37,6 @@
 	<classpathentry kind="lib" path="libs/httpclient-4.3.1/httpclient-4.3.1.jar"/>
 	<classpathentry including="**/*.java" kind="src" path="rest_generated"/>
 	<classpathentry kind="src" path="rest_core"/>
-	<classpathentry kind="lib" path="libs/applicationinsights-core/applicationinsights-core-0.9.5.jar" sourcepath="C:/TEE/ApplicationInsights.Git/core/src/main"/>
 	<classpathentry kind="lib" path="libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
