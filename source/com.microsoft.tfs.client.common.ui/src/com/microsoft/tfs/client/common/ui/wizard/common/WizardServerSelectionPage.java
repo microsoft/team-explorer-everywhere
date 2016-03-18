@@ -44,6 +44,7 @@ import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
+import com.microsoft.tfs.util.Platform;
 import com.microsoft.visualstudio.services.account.AccountHttpClient;
 import com.microsoft.visualstudio.services.account.model.Account;
 import com.microsoft.visualstudio.services.account.model.Profile;
@@ -235,8 +236,8 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                  * dialog.) For hosted servers, use default NT credentials at
                  * all (to avoid the username/password dialog.)
                  */
-                return ServerURIUtils.isHosted(accountUrl) ? new DefaultNTCredentials()
-                    : new UsernamePasswordCredentials("", null); //$NON-NLS-1$
+                return ServerURIUtils.isHosted(accountUrl) || Platform.isCurrentPlatform(Platform.WINDOWS)
+                    ? new DefaultNTCredentials() : new UsernamePasswordCredentials("", null); //$NON-NLS-1$
             }
         }
     }
@@ -245,7 +246,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         final CredentialsManager credentialsManager =
             EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
 
-        if (credentials != null) {
+        if (credentials != null && !(credentials instanceof DefaultNTCredentials)) {
             log.debug("Save the new Cookie Credentials in the Eclipse secure storage for future sessions."); //$NON-NLS-1$
             credentialsManager.setCredentials(new CachedCredentials(accountUrl, credentials));
         } else {
