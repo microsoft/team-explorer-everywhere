@@ -540,7 +540,7 @@ public class WorkspacesControl extends BaseControl implements Validatable {
         /*
          * Compute a default name for the new workspace.
          */
-        final String defaultWorkspaceName = computeNewWorkspaceName(LocalHost.getShortName(), workspaces);
+        final String defaultWorkspaceName = Workspace.computeNewWorkspaceName(LocalHost.getShortName(), workspaces);
         final WorkspaceData workspaceData = new WorkspaceData(connection, defaultWorkspaceName);
 
         boolean keepGoing = true;
@@ -622,34 +622,6 @@ public class WorkspacesControl extends BaseControl implements Validatable {
         } finally {
             validator.resumeValidation();
         }
-    }
-
-    private static String computeNewWorkspaceName(final String baseName, final Workspace[] existingWorkspaces) {
-        /*
-         * Given a base name like "machinea", we are trying to compute a name
-         * that doesn't already exist in the exisstingWorkspaces array. If
-         * "machinea" is taken, we try "machinea_1", then "machinea_2", etc.
-         */
-
-        String candidateName = baseName;
-        boolean keepGoing = true;
-        int ix = 0;
-        while (keepGoing) {
-            boolean matched = false;
-            for (int i = 0; !matched && i < existingWorkspaces.length; i++) {
-                matched = existingWorkspaces[i].getName().equalsIgnoreCase(candidateName);
-                if (matched) {
-                    break;
-                }
-            }
-            if (!matched) {
-                keepGoing = false;
-            } else {
-                final String messageFormat = Messages.getString("WorkspacesControl.DefaultNewWorkspaceNameFormat"); //$NON-NLS-1$
-                candidateName = MessageFormat.format(messageFormat, baseName, Integer.toString(++ix));
-            }
-        }
-        return candidateName;
     }
 
     private static Preferences getPreferencesNode(final String viewDataKey, final TFSTeamProjectCollection connection) {
