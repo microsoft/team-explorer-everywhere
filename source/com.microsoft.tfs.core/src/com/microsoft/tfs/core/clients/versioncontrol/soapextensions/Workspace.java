@@ -295,7 +295,6 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
     public Workspace(final _Workspace workspace, final VersionControlClient client) {
         super(workspace);
 
-        Check.notNull(client, "client"); //$NON-NLS-1$
         this.client = client;
 
         final String displayName = workspace.getOwnerdisp();
@@ -8775,6 +8774,11 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
     }
 
     public static String computeNewWorkspaceName(final String baseName, final Workspace[] existingWorkspaces) {
+
+        if (existingWorkspaces == null || existingWorkspaces.length == 0) {
+            return baseName;
+        }
+
         /*
          * Given a base name like "machinea", we are trying to compute a name
          * that doesn't already exist in the exisstingWorkspaces array. If
