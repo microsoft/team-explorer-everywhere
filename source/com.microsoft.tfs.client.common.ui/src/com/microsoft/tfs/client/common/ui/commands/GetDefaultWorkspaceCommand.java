@@ -82,7 +82,7 @@ public class GetDefaultWorkspaceCommand extends TFSCommand {
         final Workspace[] workspaces = connection.getVersionControlClient().queryWorkspaces(
             null,
             VersionControlConstants.AUTHENTICATED_USER,
-            machineName);
+            null);
 
         checkForCancellation(progressMonitor);
 
@@ -100,27 +100,43 @@ public class GetDefaultWorkspaceCommand extends TFSCommand {
 
         /*
          * There were more than one workspace(s) on the server, try to use the
-         * last-used workspace.
+         * last-used workspace on this machine.
          */
         final String lastWorkspaceName = UIConnectionPersistence.getInstance().getLastUsedWorkspace(connection);
 
         if (workspace == null && lastWorkspaceName != null) {
-            workspace = findWorkspace(lastWorkspaceName, workspaces);
+            workspace = findWorkspace(lastWorkspaceName, machineName, workspaces);
         }
 
         /*
-         * There was no last-used workspace, try to find one with the same name
-         * as this machine name.
+         * There was no last-used workspace, try to find one with the default
+         * (i.e. machine) name on this machine.
          */
         if (workspace == null) {
-            workspace = findWorkspace(machineName, workspaces);
+            workspace = findWorkspace(machineName, machineName, workspaces);
         }
 
         /*
-         * Still no luck - just pick the first workspace - it's easy to change.
+         * Still no luck - just pick the first workspace on this machine - it's
+         * easy to change.
          */
         if (workspace == null) {
-            workspace = workspaces[0];
+            workspace = findWorkspace(null, machineName, workspaces);
+        }
+
+        /*
+         * Only remote workspaces are available. We have to create a new local
+         * one, but its name has to be unique
+         */
+        if (workspace == null) {
+            final String newWorkspaceName = Workspace.computeNewWorkspaceName(machineName, workspaces);
+            workspace = connection.getVersionControlClient().createWorkspace(
+                null,
+                newWorkspaceName,
+                null,
+                null,
+                null,
+                WorkspacePermissionProfile.getPrivateProfile());
         }
 
         checkForCancellation(progressMonitor);
@@ -132,17 +148,14 @@ public class GetDefaultWorkspaceCommand extends TFSCommand {
         return workspace;
     }
 
-    private Workspace findWorkspace(final String name, final Workspace[] workspaces) {
-        if (name == null || workspaces == null || workspaces.length < 1) {
-            return null;
-        }
-
-        for (int i = 0; i < workspaces.length; i++) {
-            if (workspaces[i].getName().equalsIgnoreCase(name)) {
-                return workspaces[i];
+    private Workspace findWorkspace(final String name, final String machineName, final Workspace[] workspaces) {
+        for (final Workspace workspace : workspaces) {
+            if (name == null || workspace.getName().equalsIgnoreCase(name)) {
+                if (machineName == null || workspace.getComputer().equalsIgnoreCase(machineName)) {
+                    return workspace;
+                }
             }
         }
-
         return null;
     }
 }

@@ -295,7 +295,6 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
     public Workspace(final _Workspace workspace, final VersionControlClient client) {
         super(workspace);
 
-        Check.notNull(client, "client"); //$NON-NLS-1$
         this.client = client;
 
         final String displayName = workspace.getOwnerdisp();
@@ -2813,9 +2812,11 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
                     new NonFatalErrorEvent(
                         EventSource.newFromHere(),
                         getClient(),
-                        new Exception(MessageFormat.format(
-                            Messages.getString("Workspace.OperationCompletedForRemoteWorkspaceButGetRequiredFormat"), //$NON-NLS-1$
-                            getDisplayName()))));
+                        new Exception(
+                            MessageFormat.format(
+                                Messages.getString(
+                                    "Workspace.OperationCompletedForRemoteWorkspaceButGetRequiredFormat"), //$NON-NLS-1$
+                                getDisplayName()))));
             }
 
             if (status == null) {
@@ -3909,10 +3910,11 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
 
         if (getClient().getServiceLevel().getValue() < WebServiceLevel.TFS_2012.getValue()) {
             if (hasPropertyChange(requests)) {
-                client.getEventEngine().fireNonFatalError(new NonFatalErrorEvent(
-                    EventSource.newFromHere(),
-                    this,
-                    new VersionControlException(Messages.getString("Workspace.PropertyNotSupportedText")))); //$NON-NLS-1$
+                client.getEventEngine().fireNonFatalError(
+                    new NonFatalErrorEvent(
+                        EventSource.newFromHere(),
+                        this,
+                        new VersionControlException(Messages.getString("Workspace.PropertyNotSupportedText")))); //$NON-NLS-1$
             }
         }
 
@@ -3989,7 +3991,7 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
                     requests[0].getRequestType(),
                     new GetOperation[][] {
                         operations
-                }, getOptions, false, onlineOperation.get(), changePendedFlags.get());
+                    }, getOptions, false, onlineOperation.get(), changePendedFlags.get());
 
                 // Return the number of operations that were successful.
                 ret = operations.length;
@@ -5868,8 +5870,8 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
 
         try {
             resolveConflicts(
-                new Conflict[] {
-                    conflict
+            new Conflict[] {
+                conflict
             },
                 itemPropertyFilters,
                 ResolveErrorOptions.THROW_ON_ERROR,
@@ -8769,5 +8771,38 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
         }
 
         return true;
+    }
+
+    public static String computeNewWorkspaceName(final String baseName, final Workspace[] existingWorkspaces) {
+
+        if (existingWorkspaces == null || existingWorkspaces.length == 0) {
+            return baseName;
+        }
+
+        /*
+         * Given a base name like "machinea", we are trying to compute a name
+         * that doesn't already exist in the exisstingWorkspaces array. If
+         * "machinea" is taken, we try "machinea_1", then "machinea_2", etc.
+         */
+
+        String candidateName = baseName;
+        boolean keepGoing = true;
+        int ix = 0;
+        while (keepGoing) {
+            boolean matched = false;
+            for (int i = 0; !matched && i < existingWorkspaces.length; i++) {
+                matched = existingWorkspaces[i].getName().equalsIgnoreCase(candidateName);
+                if (matched) {
+                    break;
+                }
+            }
+            if (!matched) {
+                keepGoing = false;
+            } else {
+                final String messageFormat = Messages.getString("Workspace.DefaultNewWorkspaceNameFormat"); //$NON-NLS-1$
+                candidateName = MessageFormat.format(messageFormat, baseName, Integer.toString(++ix));
+            }
+        }
+        return candidateName;
     }
 }
