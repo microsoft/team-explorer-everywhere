@@ -244,6 +244,15 @@ public class EclipseCredentialsManager implements CredentialsManager {
                 return true;
             } catch (final Exception e) {
                 log.error("Error writing credentials to the Eclipse secure store", e); //$NON-NLS-1$
+                final String nodePath = getNodePath(cachedCredentials.getURI());
+                try {
+                    if (preferences.nodeExists(nodePath)) {
+                        log.error("We'll remove the node " + nodePath + " in the credentials storage"); //$NON-NLS-1$ //$NON-NLS-2$
+                        preferences.remove(nodePath);
+                    }
+                } catch (final Exception ex) {
+                    log.error("Failed to remove the node", ex); //$NON-NLS-1$
+                }
                 return false;
             }
         } else {
