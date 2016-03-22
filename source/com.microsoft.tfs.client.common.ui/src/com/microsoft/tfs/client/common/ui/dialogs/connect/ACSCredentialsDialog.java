@@ -609,7 +609,7 @@ public class ACSCredentialsDialog extends CredentialsCompleteDialog {
             queryParameters.put("force", "1"); //$NON-NLS-1$ //$NON-NLS-2$
             queryParameters.put("compact", "1"); //$NON-NLS-1$ //$NON-NLS-2$
 
-            return URIUtils.addQueryParameters(URIUtils.newURI(URIUtils.VSTS_ROOT_SIGNIN_URL_STRING), queryParameters);
+            return URIUtils.addQueryParameters(URIUtils.newURI(URIUtils.TFS_REALM_URL_STRING), queryParameters);
         }
     }
 }

@@ -61,6 +61,7 @@ public class URIUtils {
     public static final String VSTS_ROOT_SIGNIN_URL_STRING = "https://app.vssps.visualstudio.com/_signin"; //$NON-NLS-1$
     public static final String VSTS_ROOT_SIGNOUT_URL_STRING = "https://app.vssps.visualstudio.com/_signout"; //$NON-NLS-1$
     public static final String VSTS_SUFFIX = ".visualstudio.com"; //$NON-NLS-1$
+    public static final String TFS_REALM_URL_STRING = "https://tfs.app.visualstudio.com"; //$NON-NLS-1$
 
     public static final URI VSTS_ROOT_URL = newURI(VSTS_ROOT_URL_STRING);
     public static final URI VSTS_ROOT_SIGNIN_URL = newURI(VSTS_ROOT_SIGNIN_URL_STRING);
