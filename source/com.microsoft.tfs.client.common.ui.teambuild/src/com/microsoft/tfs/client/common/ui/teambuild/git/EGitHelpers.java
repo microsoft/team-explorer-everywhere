@@ -15,7 +15,7 @@ public abstract class EGitHelpers extends GitHelpers {
         "com.microsoft.tfs.client.common.ui.teambuild.egit.dialogs.GitBuildDefinitionDialog"; //$NON-NLS-1$
 
     public static Object getGitBuildDefinitionDialog(final Shell shell, final IBuildDefinition buildDefinition) {
-        if (!isEGitInstalled(false)) {
+        if (!isEGitInstalled(true)) {
             return null;
         }
 

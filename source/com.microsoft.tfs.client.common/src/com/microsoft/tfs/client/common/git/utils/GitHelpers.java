@@ -30,7 +30,7 @@ public abstract class GitHelpers {
         } else if (activateEGit) {
             return activateBundle(egit_core) && activateEGitUI();
         } else {
-            return false;
+            return true;
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class GitHelpers {
         if (bundle == null) {
             return false;
         }
-        
+
         if ((bundle.getState() & Bundle.ACTIVE) == 0) {
             try {
                 bundle.start(Bundle.START_TRANSIENT);
@@ -57,7 +57,7 @@ public abstract class GitHelpers {
                 log.error("Error activating " + bundle.getSymbolicName(), e); //$NON-NLS-1$
             }
         }
-        
+
         return (bundle.getState() & Bundle.ACTIVE) != 0;
     }
 
