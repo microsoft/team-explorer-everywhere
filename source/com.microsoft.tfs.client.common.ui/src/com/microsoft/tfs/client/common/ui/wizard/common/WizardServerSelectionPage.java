@@ -130,8 +130,6 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 break;
             }
 
-            updateCredentials(URIUtils.VSTS_ROOT_URL, vstsCredentials);
-
             final TFSConnection vstsConnection =
                 new TFSTeamProjectCollection(URIUtils.VSTS_ROOT_URL, vstsCredentials, new UIClientConnectionAdvisor());
             final AccountHttpClient accountClient = new AccountHttpClient(vstsConnection);
