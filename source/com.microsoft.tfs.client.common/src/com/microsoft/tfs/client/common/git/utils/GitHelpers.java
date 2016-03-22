@@ -26,11 +26,23 @@ public abstract class GitHelpers {
         final Bundle egit_core = Platform.getBundle(EGIT_CORE_BUNDLE_ID);
 
         if (egit_core == null || egit_core.getVersion().getMajor() < 2) {
+            /*
+             * EGit plug-in is not installed or its version is too old.
+             */
             return false;
         } else if (activateEGit) {
+            /*
+             * EGit plug-in of required version is installed. We're going to use
+             * its functionality right now, so load it first.
+             */
             return activateBundle(egit_core) && activateEGitUI();
         } else {
-            return false;
+            /*
+             * EGit plug-in of required version is installed. We do not need its
+             * functionality right now. E.g. we check to display/hide our
+             * functionality that depends on the plug-in.
+             */
+            return true;
         }
     }
 
@@ -48,7 +60,7 @@ public abstract class GitHelpers {
         if (bundle == null) {
             return false;
         }
-        
+
         if ((bundle.getState() & Bundle.ACTIVE) == 0) {
             try {
                 bundle.start(Bundle.START_TRANSIENT);
@@ -57,7 +69,7 @@ public abstract class GitHelpers {
                 log.error("Error activating " + bundle.getSymbolicName(), e); //$NON-NLS-1$
             }
         }
-        
+
         return (bundle.getState() & Bundle.ACTIVE) != 0;
     }
 

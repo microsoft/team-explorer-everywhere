@@ -27,6 +27,7 @@ public abstract class TeamExplorerBaseNavigationLink implements ITeamExplorerNav
         final TeamExplorerNavigator navigator,
         final TeamExplorerNavigationItemConfig parentNavigationItem) {
 
+        onClick(shell, context, navigator, parentNavigationItem);
     }
 
     protected abstract void onClick(
