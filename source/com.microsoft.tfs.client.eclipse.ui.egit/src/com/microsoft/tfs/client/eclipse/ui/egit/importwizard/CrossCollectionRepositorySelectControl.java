@@ -103,7 +103,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
         GridDataBuilder.newInstance().grab().hHint(getVerticalSpacing() * 30).vIndent(
             getVerticalSpacing()).fill().applyTo(table);
 
-        Label parentDirectoryLabel = SWTUtil.createLabel(
+        final Label parentDirectoryLabel = SWTUtil.createLabel(
             this,
             Messages.getString("CrossCollectionRepositorySelectControl.ParentDirectoryLabelText")); //$NON-NLS-1$
         GridDataBuilder.newInstance().hGrab().vIndent(getVerticalSpacing()).hFill().applyTo(parentDirectoryLabel);
@@ -137,7 +137,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
         });
         GridDataBuilder.newInstance().hGrab().hFill().applyTo(container);
 
-        Label folderNameLabel = SWTUtil.createLabel(
+        final Label folderNameLabel = SWTUtil.createLabel(
             this,
             Messages.getString("CrossCollectionRepositorySelectControl.RepositoryFolderLabelText")); //$NON-NLS-1$
         GridDataBuilder.newInstance().hGrab().vIndent(getVerticalSpacing()).hFill().applyTo(folderNameLabel);
@@ -268,7 +268,7 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
 
         try {
             return variableManager.performStringSubstitution(source);
-        } catch (CoreException e) {
+        } catch (final CoreException e) {
             log.error("The source string '" + source + "' contains undefined variables", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
@@ -288,8 +288,9 @@ public class CrossCollectionRepositorySelectControl extends BaseControl {
         return table.getSelectedRepository();
     }
 
-    public void setSelectedRepository(CrossCollectionRepositoryInfo repository) {
+    public void setSelectedRepository(final CrossCollectionRepositoryInfo repository) {
         table.setSelectedElement(repository);
+        table.getTable().showSelection();
     }
 
     public String getWorkingDirectory() {
