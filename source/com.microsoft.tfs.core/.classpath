@@ -36,7 +36,7 @@
 	<classpathentry kind="lib" path="libs/httpclient-4.3.1/httpclient-4.3.1.jar"/>
 	<classpathentry including="**/*.java" kind="src" path="rest_generated"/>
 	<classpathentry kind="src" path="rest_core"/>
-	<classpathentry kind="lib" path="libs/applicationinsights-core/applicationinsights-core-0.9.5.jar"/>
+	<classpathentry kind="lib" path="libs/applicationinsights-core/applicationinsights-core-0.9.5.1.jar"/>
 	<classpathentry kind="lib" path="libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
