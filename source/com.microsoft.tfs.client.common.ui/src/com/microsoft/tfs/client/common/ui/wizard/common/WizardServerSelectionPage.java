@@ -31,6 +31,7 @@ import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectContr
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandFinishedCallbackFactory;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
+import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizard;
 import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizardPage;
 import com.microsoft.tfs.client.common.ui.tasks.ConnectToConfigurationServerTask;
 import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
@@ -39,7 +40,6 @@ import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
-import com.microsoft.tfs.core.httpclient.Cookie;
 import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
@@ -56,6 +56,8 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
     public static final String PAGE_NAME = "WizardServerSelectionPage"; //$NON-NLS-1$
 
     private static final Log log = LogFactory.getLog(WizardServerSelectionPage.class);
+
+    private static final int MAX_CREDENTIALS_RETRIES = 3;
 
     private ServerTypeSelectControl serverTypeSelectControl;
 
@@ -116,7 +118,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 return false;
             }
 
-            final TFSConnection connection = openAccount(serverURI, null, false);
+            final TFSConnection connection = openAccount(serverURI, null);
             setPageData(connection);
 
             return connection != null;
@@ -128,8 +130,8 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         final AtomicReference<Credentials> credentialsHolder) {
         Profile profile = null;
 
-        for (int retriesLeft = 3; retriesLeft > 0; retriesLeft--) {
-            final Credentials vstsCredentials = getVstsRootCredentials();
+        for (int retriesLeft = MAX_CREDENTIALS_RETRIES; retriesLeft > 0; retriesLeft--) {
+            final Credentials vstsCredentials = getVstsRootCredentials(retriesLeft == MAX_CREDENTIALS_RETRIES);
 
             if (vstsCredentials == null) {
                 log.info(" Credentials dialog has been cancelled by the user."); //$NON-NLS-1$
@@ -188,8 +190,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
                 try {
                     final URI uri = URIUtils.newURI(accountURI);
-                    final Credentials fixedCredentials = fixCredentials(uri, credentials);
-                    final TFSConnection configurationServer = openAccount(uri, fixedCredentials, true);
+                    final TFSConnection configurationServer = openAccount(uri, credentials);
                     if (configurationServer != null) {
                         configurationServers.add(configurationServer);
                     }
@@ -203,65 +204,49 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         return configurationServers;
     }
 
-    // This method fixes CookieCredentials to make sure the cookies match the
-    // domain of the URI.
-    // This allows the VSTS root cookies to be used by other URLs
-    private Credentials fixCredentials(final URI accountURI, final Credentials vstsCredentials) {
-        if (vstsCredentials instanceof CookieCredentials) {
-            final Cookie[] cookies = ((CookieCredentials) vstsCredentials).getCookies();
-            for (int i = 0; i < cookies.length; i++) {
-                final String domain = accountURI.getHost();
-                final Cookie oldCookie = cookies[i];
-                cookies[i] = new Cookie(
-                    domain,
-                    cookies[i].getName(),
-                    cookies[i].getValue(),
-                    cookies[i].getPath(),
-                    cookies[i].getExpiryDate(),
-                    cookies[i].getSecure());
-                cookies[i].setComment(oldCookie.getComment());
-                cookies[i].setDomainAttributeSpecified(oldCookie.isDomainAttributeSpecified());
-                cookies[i].setPathAttributeSpecified(oldCookie.isPathAttributeSpecified());
-                cookies[i].setVersion(oldCookie.getVersion());
-            }
-            return new CookieCredentials(cookies);
-        }
-        return vstsCredentials;
-    }
+    private Credentials getVstsRootCredentials(final boolean tryCurrentCredentials) {
+        final Credentials currentCredentials = tryCurrentCredentials ? getCurrentCredentials() : null;
 
-    private Credentials getVstsRootCredentials() {
-        final CredentialsManager credentialsManager =
-            EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
-        final CachedCredentials cachedCredentials = credentialsManager.getCredentials(URIUtils.VSTS_ROOT_URL);
-        final Credentials vstsCredentials;
-
-        if (cachedCredentials == null) {
+        if (currentCredentials == null || !(currentCredentials instanceof CookieCredentials)) {
             final UITransportAuthRunnable dialogRunnable = new UITransportFederatedAuthRunnable();
 
             log.debug("Prompt for credentials"); //$NON-NLS-1$
             UIHelpers.runOnUIThread(getShell(), false, dialogRunnable);
 
-            vstsCredentials = dialogRunnable.getCredentials();
+            final Credentials vstsCredentials = dialogRunnable.getCredentials();
             log.debug("The dialog returned cedentials: " //$NON-NLS-1$
                 + (vstsCredentials == null ? "null" : vstsCredentials.getClass().getName())); //$NON-NLS-1$
 
-            updateCredentials(URIUtils.VSTS_ROOT_URL, vstsCredentials);
+            return vstsCredentials;
         } else {
-            vstsCredentials = cachedCredentials.toCredentials();
+            return ((CookieCredentials) currentCredentials).setDomain(URIUtils.VSTS_ROOT_URL.getHost());
         }
-
-        return vstsCredentials;
     }
 
-    private Credentials getAccountCredentials(final URI accountUrl, final boolean useRootVstsCredentials) {
-
-        if (getExtendedWizard().hasPageData(Credentials.class)) {
-            return (Credentials) getExtendedWizard().getPageData(Credentials.class);
+    private Credentials getCurrentCredentials() {
+        final ExtendedWizard wizard = getExtendedWizard();
+        final TFSConnection connection;
+        if (wizard.hasPageData(TFSConnection.class)) {
+            connection = (TFSConnection) wizard.getPageData(TFSConnection.class);
+        } else if (wizard.hasPageData(TFSConnection[].class)) {
+            final TFSConnection[] connections = (TFSConnection[]) wizard.getPageData(TFSConnection[].class);
+            connection = connections.length > 0 ? connections[0] : null;
         } else {
+            connection = null;
+        }
+
+        if (connection != null) {
+            return connection.getCredentials();
+        } else {
+            return null;
+        }
+    }
+
+    private Credentials getAccountCredentials(final URI accountUrl, final Credentials proposedCredentials) {
+        if (proposedCredentials == null) {
             final CredentialsManager credentialsManager =
                 EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
-            final CachedCredentials cachedCredentials =
-                credentialsManager.getCredentials(accountUrl, useRootVstsCredentials);
+            final CachedCredentials cachedCredentials = credentialsManager.getCredentials(accountUrl);
 
             if (cachedCredentials != null) {
                 return cachedCredentials.toCredentials();
@@ -275,6 +260,10 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 return ServerURIUtils.isHosted(accountUrl) || Platform.isCurrentPlatform(Platform.WINDOWS)
                     ? new DefaultNTCredentials() : new UsernamePasswordCredentials("", null); //$NON-NLS-1$
             }
+        } else if (proposedCredentials instanceof CookieCredentials) {
+            return ((CookieCredentials) proposedCredentials).setDomain(accountUrl.getHost());
+        } else {
+            return proposedCredentials;
         }
     }
 
@@ -290,13 +279,9 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         }
     }
 
-    private TFSConnection openAccount(
-        final URI accountUrl,
-        final Credentials credentials,
-        final boolean useRootVstsCredentials) {
+    private TFSConnection openAccount(final URI accountUrl, final Credentials credentials) {
 
-        final Credentials accountCredentials =
-            credentials != null ? credentials : getAccountCredentials(accountUrl, useRootVstsCredentials);
+        final Credentials accountCredentials = getAccountCredentials(accountUrl, credentials);
 
         final ICommandExecutor noErrorDialogCommandExecutor = getCommandExecutor();
         noErrorDialogCommandExecutor.setCommandFinishedCallback(
@@ -370,4 +355,3 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         removePageData();
     }
 }
-

@@ -14,15 +14,12 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.microsoft.teamfoundation.sourcecontrol.webapi.GitHttpClient;
 import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
-import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
-import com.microsoft.tfs.core.httpclient.Cookie;
 import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
@@ -30,6 +27,7 @@ import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredenti
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.jni.helpers.LocalHost;
 import com.microsoft.tfs.util.StringUtil;
+import com.microsoft.visualstudio.services.account.AccountHttpClient;
 import com.microsoft.visualstudio.services.delegatedauthorization.DelegatedAuthorizationHttpClient;
 import com.microsoft.visualstudio.services.delegatedauthorization.model.SessionToken;
 
@@ -111,6 +109,18 @@ public abstract class CredentialsHelper {
         return false;
     }
 
+    public static boolean isCredentialsValid(final TFSConnection connection, final Credentials credentials) {
+        final URI baseURI = connection.getBaseURI();
+
+        final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
+            baseURI,
+            credentials,
+            new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
+        final AccountHttpClient client = new AccountHttpClient(rootConnection);
+
+        return client.checkConnection();
+    }
+
     public static boolean isAccountCodeAccessTokenValid(final TFSConnection connection) {
         if (connection.isHosted()) {
             final URI baseURI = connection.getBaseURI();
@@ -118,14 +128,7 @@ public abstract class CredentialsHelper {
 
             if (cachedCredentials != null && cachedCredentials.isPatCredentials()) {
                 final PatCredentials patCredentials = (PatCredentials) cachedCredentials.toCredentials();
-
-                final TFSTeamProjectCollection patBasedConnection = new TFSTeamProjectCollection(
-                    baseURI,
-                    PreemptiveUsernamePasswordCredentials.newFrom(patCredentials),
-                    new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
-                final GitHttpClient client = new GitHttpClient(patBasedConnection);
-
-                return client.checkConnection();
+                return isCredentialsValid(connection, PreemptiveUsernamePasswordCredentials.newFrom(patCredentials));
             }
         }
 
@@ -141,24 +144,12 @@ public abstract class CredentialsHelper {
     }
 
     public static Credentials getVstsRootCredentials(final TFSConnection connection) {
-        final CredentialsManager credentialsManager =
-            EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
-        final CachedCredentials cachedCredentials = credentialsManager.getCredentials(URIUtils.VSTS_ROOT_URL);
+        final Credentials currentCredentials = connection.getCredentials();
 
-        if (cachedCredentials != null) {
-            return cachedCredentials.toCredentials();
+        if (currentCredentials instanceof CookieCredentials) {
+            return ((CookieCredentials) currentCredentials).setDomain(URIUtils.VSTS_SUFFIX);
         } else {
-            final Credentials currentCredentials = connection.getCredentials();
-
-            if (currentCredentials instanceof CookieCredentials) {
-                final Cookie[] cookies = ((CookieCredentials) currentCredentials).getCookies();
-                for (Cookie cookie : cookies) {
-                    cookie.setDomain(URIUtils.VSTS_SUFFIX);
-                }
-                return new CookieCredentials(cookies);
-            } else {
-                return currentCredentials;
-            }
+            return currentCredentials;
         }
     }
 

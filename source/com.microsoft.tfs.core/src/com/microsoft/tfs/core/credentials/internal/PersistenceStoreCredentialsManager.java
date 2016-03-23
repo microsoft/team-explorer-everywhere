@@ -75,11 +75,6 @@ public class PersistenceStoreCredentialsManager implements CredentialsManager {
         return credentials.toArray(new CachedCredentials[credentials.size()]);
     }
 
-    @Override
-    public CachedCredentials getCredentials(URI serverURI, boolean useRootVstsCredentials) {
-        return getCredentials(serverURI);
-    }
-
     /**
      * {@inheritDoc}
      */

@@ -75,23 +75,6 @@ public interface CredentialsManager {
     CachedCredentials getCredentials(URI serverURI);
 
     /**
-     * Provides the credentials for the given {@link URI}. The given {@link URI}
-     * may be a TFS server, an HTTP proxy or a TFS proxy.
-     * <p>
-     * This method may return {@link CachedCredentials} that match only some
-     * parts of the given {@link URI} (instead of all parts).
-     *
-     * @param serverURI
-     *        The URI to connect to (never <code>null</code>)
-     * @param useRootVstsCredentials
-     *        Allow to use root VSTS credentials (i.e. credentials for
-     *        https://app.vssps.visualstudio.com) if the exact serverURI
-     *        credentials were not found.
-     * @return The credentials to connect with (never <code>null</code>)
-     */
-    CachedCredentials getCredentials(URI serverURI, boolean useRootVstsCredentials);
-
-    /**
      * Sets the credentials for the given {@link URI}. The given {@link URI} may
      * be a TFS server, an HTTP proxy or a TFS proxy.
      * <p>

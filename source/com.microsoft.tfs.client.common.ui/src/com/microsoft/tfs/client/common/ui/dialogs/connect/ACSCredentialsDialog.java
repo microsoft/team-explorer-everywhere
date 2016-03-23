@@ -604,12 +604,12 @@ public class ACSCredentialsDialog extends CredentialsCompleteDialog {
         @Override
         protected URI getSignInURI(final URI serverSigninURL) {
             final Map<String, String> queryParameters = new HashMap<String, String>();
-            queryParameters.put("realm", URIUtils.VSTS_ROOT_URL_STRING); //$NON-NLS-1$
+            queryParameters.put("realm", URIUtils.TFS_REALM_URL_STRING); //$NON-NLS-1$
             queryParameters.put("protocol", "javascriptnotify"); //$NON-NLS-1$ //$NON-NLS-2$
             queryParameters.put("force", "1"); //$NON-NLS-1$ //$NON-NLS-2$
             queryParameters.put("compact", "1"); //$NON-NLS-1$ //$NON-NLS-2$
 
-            return URIUtils.addQueryParameters(URIUtils.newURI(URIUtils.TFS_REALM_URL_STRING), queryParameters);
+            return URIUtils.addQueryParameters(URIUtils.newURI(URIUtils.VSTS_ROOT_SIGNIN_URL_STRING), queryParameters);
         }
     }
 }

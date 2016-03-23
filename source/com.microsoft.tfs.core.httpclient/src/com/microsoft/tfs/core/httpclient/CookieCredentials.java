@@ -3,7 +3,9 @@
 
 package com.microsoft.tfs.core.httpclient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Credentials that are sent as Cookie headers.
@@ -25,6 +27,38 @@ public class CookieCredentials extends Credentials {
         }
 
         this.cookies = cookies;
+    }
+
+    /*
+     * Clones the original {@link CookieCredentials} but replaces the included
+     * cookies' domain with the specified value.
+     */
+    public CookieCredentials setDomain(final String domain) {
+        final List<Cookie> newCookies = new ArrayList<Cookie>(cookies.length);
+
+        for (final Cookie cookie : cookies) {
+            final Cookie newCookie =
+                new Cookie(domain, cookie.getName(), cookie.getValue(), "/", null, cookie.getSecure());
+            /*
+             * Setting the following property to true makes cookies added to the
+             * HTTP headers contain the attribute $Path=/ and thus a semicolon
+             * between the cookie value and this attribute.
+             *
+             * This is a workaround for a bug in cookie processing on the server
+             * side: the cookie values has to be appended with a semicolon
+             * otherwise an error is reported either by .NET or TFS (not clear
+             * yet by which one exactly):
+             *
+             * "The input is not a valid Base-64 string as it contains a
+             * non-base 64 character, more than two padding characters, or an
+             * illegal character among the padding characters."
+             */
+            newCookie.setPathAttributeSpecified(true);
+
+            newCookies.add(newCookie);
+        }
+
+        return new CookieCredentials(newCookies.toArray(new Cookie[cookies.length]));
     }
 
     public Cookie[] getCookies() {
