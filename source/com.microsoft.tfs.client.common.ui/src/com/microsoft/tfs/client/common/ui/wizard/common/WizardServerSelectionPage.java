@@ -39,6 +39,8 @@ import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
+import com.microsoft.tfs.core.httpclient.Cookie;
+import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
@@ -99,9 +101,11 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         if (serverTypeSelectControl.isVstsSelected()) {
 
             final AtomicReference<AccountHttpClient> restClientHolder = new AtomicReference<AccountHttpClient>(null);
-            final Profile profile = getUserProfile(restClientHolder);
+            final AtomicReference<Credentials> credentialsHolder = new AtomicReference<Credentials>(null);
+            final Profile profile = getUserProfile(restClientHolder, credentialsHolder);
 
-            final List<TFSConnection> configurationServers = getConfigurationServers(profile, restClientHolder.get());
+            final List<TFSConnection> configurationServers =
+                getConfigurationServers(profile, credentialsHolder.get(), restClientHolder.get());
             setPageData(configurationServers);
 
             return configurationServers.size() > 0;
@@ -112,14 +116,16 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 return false;
             }
 
-            final TFSConnection connection = openAccount(serverURI, false);
+            final TFSConnection connection = openAccount(serverURI, null, false);
             setPageData(connection);
 
             return connection != null;
         }
     }
 
-    private Profile getUserProfile(final AtomicReference<AccountHttpClient> restClientHolder) {
+    private Profile getUserProfile(
+        final AtomicReference<AccountHttpClient> restClientHolder,
+        final AtomicReference<Credentials> credentialsHolder) {
         Profile profile = null;
 
         for (int retriesLeft = 3; retriesLeft > 0; retriesLeft--) {
@@ -137,6 +143,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
             try {
                 profile = accountClient.getMyProfile();
                 restClientHolder.set(accountClient);
+                credentialsHolder.set(vstsCredentials);
                 break;
             } catch (final Exception e) {
                 if (retriesLeft > 1 && (e instanceof VssResourceNotFoundException)) {
@@ -162,7 +169,10 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         return profile;
     }
 
-    private List<TFSConnection> getConfigurationServers(final Profile profile, final AccountHttpClient accountClient) {
+    private List<TFSConnection> getConfigurationServers(
+        final Profile profile,
+        final Credentials credentials,
+        final AccountHttpClient accountClient) {
         final List<TFSConnection> configurationServers = new ArrayList<TFSConnection>(100);
 
         if (profile != null) {
@@ -177,7 +187,9 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 final String accountURI = "https://" + account.getAccountName() + ".visualstudio.com"; //$NON-NLS-1$ //$NON-NLS-2$
 
                 try {
-                    final TFSConnection configurationServer = openAccount(URIUtils.newURI(accountURI), true);
+                    final URI uri = URIUtils.newURI(accountURI);
+                    final Credentials fixedCredentials = fixCredentials(uri, credentials);
+                    final TFSConnection configurationServer = openAccount(uri, fixedCredentials, true);
                     if (configurationServer != null) {
                         configurationServers.add(configurationServer);
                     }
@@ -189,6 +201,32 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         }
 
         return configurationServers;
+    }
+
+    // This method fixes CookieCredentials to make sure the cookies match the
+    // domain of the URI.
+    // This allows the VSTS root cookies to be used by other URLs
+    private Credentials fixCredentials(final URI accountURI, final Credentials vstsCredentials) {
+        if (vstsCredentials instanceof CookieCredentials) {
+            final Cookie[] cookies = ((CookieCredentials) vstsCredentials).getCookies();
+            for (int i = 0; i < cookies.length; i++) {
+                final String domain = accountURI.getHost();
+                final Cookie oldCookie = cookies[i];
+                cookies[i] = new Cookie(
+                    domain,
+                    cookies[i].getName(),
+                    cookies[i].getValue(),
+                    cookies[i].getPath(),
+                    cookies[i].getExpiryDate(),
+                    cookies[i].getSecure());
+                cookies[i].setComment(oldCookie.getComment());
+                cookies[i].setDomainAttributeSpecified(oldCookie.isDomainAttributeSpecified());
+                cookies[i].setPathAttributeSpecified(oldCookie.isPathAttributeSpecified());
+                cookies[i].setVersion(oldCookie.getVersion());
+            }
+            return new CookieCredentials(cookies);
+        }
+        return vstsCredentials;
     }
 
     private Credentials getVstsRootCredentials() {
@@ -252,8 +290,13 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         }
     }
 
-    private TFSConnection openAccount(final URI accountUrl, final boolean useRootVstsCredentials) {
-        final Credentials accountCredentials = getAccountCredentials(accountUrl, useRootVstsCredentials);
+    private TFSConnection openAccount(
+        final URI accountUrl,
+        final Credentials credentials,
+        final boolean useRootVstsCredentials) {
+
+        final Credentials accountCredentials =
+            credentials != null ? credentials : getAccountCredentials(accountUrl, useRootVstsCredentials);
 
         final ICommandExecutor noErrorDialogCommandExecutor = getCommandExecutor();
         noErrorDialogCommandExecutor.setCommandFinishedCallback(
@@ -327,3 +370,4 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         removePageData();
     }
 }
+
