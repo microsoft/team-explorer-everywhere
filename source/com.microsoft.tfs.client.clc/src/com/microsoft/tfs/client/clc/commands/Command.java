@@ -1553,11 +1553,12 @@ public abstract class Command
                 new UsernamePasswordCredentials(cachedCredentials.getUsername(), cachedCredentials.getPassword());
         } else {
             /*
-            * For TFS instance, validate will test whether Kerberos is available and the user
-            * has a ticket and prompt for username/pass/domain if not.
-            * 
-            * For VSTS instance, do interactive auth if allow prompt
-            */
+             * For TFS instance, validate will test whether Kerberos is
+             * available and the user has a ticket and prompt for
+             * username/pass/domain if not.
+             * 
+             * For VSTS instance, do interactive auth if allow prompt
+             */
             credentials = ServerURIUtils.isHosted(serverURI) ? null : new DefaultNTCredentials();
         }
 
@@ -1565,9 +1566,9 @@ public abstract class Command
          * This method checks the credentials we've read already, prompts if
          * allowed for missing ones, or lets defaults kick in.
          */
-        log.debug("credentialsManager.canWrite(): " + credentialsManager.canWrite());  //$NON-NLS-1$
-        log.debug("persistCredentials(): " + persistCredentials());; //$NON-NLS-1$
-        
+        log.debug("credentialsManager.canWrite(): " + credentialsManager.canWrite()); //$NON-NLS-1$
+        log.debug("persistCredentials(): " + persistCredentials()); //$NON-NLS-1$
+
         credentials =
             validateCredentials(serverURI, credentials, credentialsManager.canWrite() && persistCredentials());
 
@@ -1653,21 +1654,25 @@ public abstract class Command
              * Defensively create a DefaultNTCredentials so we do not throw NPE
              */
             credentials = new DefaultNTCredentials();
-           
+
             if (Prompt.interactiveLoginAllowed() && ServerURIUtils.isHosted(serverURI) && prompt) {
-                log.debug("Request against VisualStudio Team Services and credential is not available, try OAuth2 flow."); //$NON-NLS-1$
+                log.debug(
+                    "Request against VisualStudio Team Services and credential is not available, try OAuth2 flow."); //$NON-NLS-1$
                 /*
-                 * Interactive auth for team services when there is no cred presented
+                 * Interactive auth for team services when there is no cred
+                 * presented
                  */
-                final UsernamePasswordCredentials cred = Prompt.getCredentialsInteractively(display, persistCredentials);
+                final UsernamePasswordCredentials cred =
+                    Prompt.getCredentialsInteractively(serverURI, display, persistCredentials);
                 if (cred != null) {
                     log.debug("Retrieved a credential interactively from OAuth2 flow."); //$NON-NLS-1$
                     credentials = cred;
                 } else {
-                    log.debug("Failed to retrieve any credential, did user close the browser or JavaFx failed to load?"); //$NON-NLS-1$
+                    log.debug(
+                        "Failed to retrieve any credential, did user close the browser or JavaFx failed to load?"); //$NON-NLS-1$
                 }
-            } 
-            
+            }
+
         }
 
         if (credentials instanceof UsernamePasswordCredentials) {

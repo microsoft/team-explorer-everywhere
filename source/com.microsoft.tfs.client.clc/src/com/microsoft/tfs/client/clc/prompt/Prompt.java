@@ -45,7 +45,7 @@ import com.microsoft.tfs.util.Check;
 public final class Prompt {
 
     private static final Log log = LogFactory.getLog(Prompt.class);
-    
+
     /**
      * Constants for OAuth2 Interactive Browser logon flow
      */
@@ -198,7 +198,7 @@ public final class Prompt {
 
         return new UsernamePasswordCredentials(username, password);
     }
-    
+
     /**
      * Makes an {@link UsernamePasswordCredentials} from OAuth2 flow
      * 
@@ -206,21 +206,23 @@ public final class Prompt {
      * 
      * @param display
      *        the display to use (must not be <code>null</code>)
-     *        
-     * @param persistCredentials 
-     *       caller intend to persist the retrieved credential 
-     *        
+     * 
+     * @param persistCredentials
+     *        caller intend to persist the retrieved credential
+     * 
      * @return an {@link UsernamePasswordCredentials} object or
-     *         <code>null</code> if there was an error retrieving the credential 
-     *         from OAuth2 flow. (for example, user closed the browser, or is running
-     *         on a Java runtime that does not support JavaFx)
+     *         <code>null</code> if there was an error retrieving the credential
+     *         from OAuth2 flow. (for example, user closed the browser, or is
+     *         running on a Java runtime that does not support JavaFx)
      */
     public static UsernamePasswordCredentials getCredentialsInteractively(
-        final Display display, 
+        final URI serverURI,
+        final Display display,
         final boolean persistCredentials) {
         Check.notNull(display, "display"); //$NON-NLS-1$
-        
-        log.debug("Interactively retrieving credential based on oauth2 flow"); //$NON-NLS-1$
+        Check.notNull(serverURI, "serverURI"); //$NON-NLS-1$
+
+        log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
         final SecretStore<TokenPair> accessTokenStore = new InsecureInMemoryStore<TokenPair>();
         final SecretStore<Token> tokenStore = new InsecureInMemoryStore<Token>();
 
@@ -232,8 +234,7 @@ public final class Prompt {
             /*
              * If this credential is to be persisted, then let's create a PAT
              */
-            authenticator = new VstsPatAuthenticator(CLIENT_ID, REDIRECT_URL,
-                accessTokenStore, tokenStore);
+            authenticator = new VstsPatAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, tokenStore);
             options.patGenerationOptions.displayName = getPATDisplayName();
 
         } else {
@@ -241,24 +242,29 @@ public final class Prompt {
             /*
              * Not persisting this credential, simply create an oauth2 token
              */
-            authenticator = new OAuth2Authenticator(OAuth2Authenticator.MANAGEMENT_CORE_RESOURCE, CLIENT_ID,
-                URI.create(REDIRECT_URL), accessTokenStore);
+            authenticator = new OAuth2Authenticator(
+                OAuth2Authenticator.MANAGEMENT_CORE_RESOURCE,
+                CLIENT_ID,
+                URI.create(REDIRECT_URL),
+                accessTokenStore);
         }
 
         final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
 
         try {
-            final Credential tokenCreds = provider.getVstsGlobalCredentials(PromptBehavior.AUTO, options);
-            
-            return new UsernamePasswordCredentials(tokenCreds.Username, tokenCreds.Password);            
-            
+            final Credential tokenCreds = provider.getSpecificCredentialFor(serverURI, PromptBehavior.AUTO, options);
+
+            return new UsernamePasswordCredentials(tokenCreds.Username, tokenCreds.Password);
+
         } catch (final Exception e) {
             /*
-             *  Catching all exceptions because I do not want to stop the flow at all cases.  There are
-             *  always fallback mechanism that we should try.  Simply log the error.
-             *  
-             *  For example, oauth2-useragent will throw IllegalStateException if it could not find a suitable 
-             *  provider with clear error message, or AuthorizationException if we failed to login successfully.  
+             * Catching all exceptions because I do not want to stop the flow at
+             * all cases. There are always fallback mechanism that we should
+             * try. Simply log the error.
+             * 
+             * For example, oauth2-useragent will throw IllegalStateException if
+             * it could not find a suitable provider with clear error message,
+             * or AuthorizationException if we failed to login successfully.
              */
             log.debug(e.getMessage());
 
@@ -268,24 +274,24 @@ public final class Prompt {
         // Failed to get credential, return null
         return null;
     }
-    
+
     /**
-     * @return <code>true</code> by default
-     *         <code>false</code> if user explicitly disables browser interactive login 
+     * @return <code>true</code> by default <code>false</code> if user
+     *         explicitly disables browser interactive login
      */
     public static boolean interactiveLoginAllowed() {
         return !EnvironmentVariables.getBoolean(EnvironmentVariables.BYPASS_INTERACTIVE_BROWSER_LOGIN, false);
     }
-    
+
     private static String getPATDisplayName() {
         // following IntelliJ Plugin's format
         final String formatter = "TF from: %s on: %s"; //$NON-NLS-1$
         final String machineName = LocalHost.getShortName();
-        
+
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"); //$NON-NLS-1$
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); //$NON-NLS-1$
         final String time = dateFormat.format(new Date());
- 
+
         return String.format(formatter, machineName, time);
     }
 
