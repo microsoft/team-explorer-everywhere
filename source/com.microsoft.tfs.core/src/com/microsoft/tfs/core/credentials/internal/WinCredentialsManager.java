@@ -53,11 +53,6 @@ public class WinCredentialsManager implements CredentialsManager {
         return null;
     }
 
-    @Override
-    public CachedCredentials getCredentials(URI serverURI, boolean useRootVstsCredentials) {
-        return getCredentials(serverURI);
-    }
-
     /**
      * {@inheritDoc}
      */

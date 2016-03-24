@@ -121,6 +121,22 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canFlipToNextPage() {
+        if (super.canFlipToNextPage()) {
+            final CrossCollectionRepositoryInfo info = repositorySelectControl.getSelectedRepository();
+            final String workingDirectory = repositorySelectControl.getWorkingDirectory();
+
+            return info != null && !StringUtil.isNullOrEmpty(workingDirectory);
+
+        } else {
+            return false;
+        }
+    }
+
     @Override
     protected void clearList() {
         repos.clear();

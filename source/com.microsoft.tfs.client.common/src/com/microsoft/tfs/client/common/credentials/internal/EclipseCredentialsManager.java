@@ -26,7 +26,6 @@ import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.cookie.CookiePolicy;
 import com.microsoft.tfs.core.httpclient.cookie.CookieSpec;
 import com.microsoft.tfs.core.util.ServerURIUtils;
-import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.StringUtil;
 
@@ -86,13 +85,8 @@ public class EclipseCredentialsManager implements CredentialsManager {
     }
 
     @Override
-    public CachedCredentials getCredentials(URI serverURI) {
-        return getCredentials(serverURI, false);
-    }
-
-    @Override
-    public CachedCredentials getCredentials(final URI serverURI, boolean useRootVstsCredentials) {
-        final ISecurePreferences node = getSecureStorageNode(serverURI, useRootVstsCredentials);
+    public CachedCredentials getCredentials(final URI serverURI) {
+        final ISecurePreferences node = getSecureStorageNode(serverURI);
 
         if (node != null) {
 
@@ -107,23 +101,23 @@ public class EclipseCredentialsManager implements CredentialsManager {
                 /* Parse cookies according to RFC2109 */
                 final CookieSpec cookieParser = CookiePolicy.getCookieSpec(CookiePolicy.RFC_2109);
 
+                final String domain = serverURI.getHost();
+                int port = serverURI.getPort();
+                if (port < 0) {
+                    if ("https".equalsIgnoreCase(serverURI.getScheme())) //$NON-NLS-1$
+                    {
+                        port = 443;
+                    } else {
+                        port = 80;
+                    }
+                }
+
                 final String[] keys = node.keys();
                 final List<Cookie> fedAuthCookies = new ArrayList<Cookie>();
 
                 for (int k = 0; k < keys.length; k++) {
                     if (keys[k].startsWith(COOKIE_PREFIX)) {
                         final String cookieValue = node.get(keys[k], ""); //$NON-NLS-1$
-
-                        final String domain = serverURI.getHost();
-                        int port = serverURI.getPort();
-                        if (port < 0) {
-                            if ("https".equalsIgnoreCase(serverURI.getScheme())) //$NON-NLS-1$
-                            {
-                                port = 443;
-                            } else {
-                                port = 80;
-                            }
-                        }
 
                         try {
                             final Cookie[] cookies = cookieParser.parse(domain, port, "/", true, cookieValue); //$NON-NLS-1$
@@ -183,7 +177,7 @@ public class EclipseCredentialsManager implements CredentialsManager {
         }
     }
 
-    private ISecurePreferences getSecureStorageNode(final URI serverURI, boolean useRootVstsCredentials) {
+    private ISecurePreferences getSecureStorageNode(final URI serverURI) {
         final String nodePath = getNodePath(serverURI);
 
         if (preferences.nodeExists(nodePath)) {
@@ -192,18 +186,6 @@ public class EclipseCredentialsManager implements CredentialsManager {
                 + " found in the Eclipse secure storage node " //$NON-NLS-1$
                 + nodePath);
             return preferences.node(nodePath);
-        }
-
-        if (useRootVstsCredentials) {
-            final String vstsNodePath = getNodePath(URIUtils.VSTS_ROOT_URL);
-
-            if (preferences.nodeExists(vstsNodePath)) {
-                log.debug("Saved credentials for " //$NON-NLS-1$
-                    + serverURI.toString()
-                    + " found in the Eclipse secure storage node " //$NON-NLS-1$
-                    + vstsNodePath);
-                return preferences.node(vstsNodePath);
-            }
         }
 
         return null;

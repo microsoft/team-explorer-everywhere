@@ -66,6 +66,7 @@ public abstract class VssHttpClientBase {
     protected final static String APPLICATION_GZIP = "application/gzip"; //$NON-NLS-1$
 
     private final static String OPTIONS_RELATIVE_PATH = "_apis"; //$NON-NLS-1$
+    private final static String CONNECTION_DATA_RELATIVE_PATH = "_apis/connectiondata"; //$NON-NLS-1$
     private final static String AREA_PARAMETER_NAME = "area"; //$NON-NLS-1$
     private final static String RESOURCE_PARAMETER_NAME = "resource"; //$NON-NLS-1$
     private final static String ROUTE_TEMPLATE_SEPARATOR = "/"; //$NON-NLS-1$
@@ -141,14 +142,34 @@ public abstract class VssHttpClientBase {
     }
 
     public boolean checkConnection() {
+        log.debug("Checking REST client connection"); //$NON-NLS-1$
+
+        final URI connectionDataTarget = URIUtils.resolve(baseUrl, CONNECTION_DATA_RELATIVE_PATH);
+        final HttpMethodBase request = createHttpMethod(HttpMethod.GET, connectionDataTarget);
+        request.setFollowRedirects(true);
+
         try {
-            log.debug("Checking REST client connection"); //$NON-NLS-1$
-            resourceLocations = loadLocations();
+            request.setRequestHeader(VssHttpHeaders.ACCEPT, APPLICATION_JSON_TYPE);
+            final int statusCode = httpClient.executeMethod(request);
+
+            if (HttpStatus.isSuccessFamily(statusCode)) {
+                final byte[] input = request.getResponseBody();
+
+                if (input != null && input.length > 0) {
+                    return true;
+                }
+            } else {
+                throw new HttpException(HttpStatus.getStatusText(statusCode));
+            }
         } catch (final Exception e) {
             log.error("Connection check failed. Probably the used PAT has expired or has been revoked.", e); //$NON-NLS-1$
+            log.error(e.getMessage(), e);
+            lastException = e;
+        } finally {
+            request.releaseConnection();
         }
 
-        return resourceLocations != null;
+        return false;
     }
 
     private ApiResourceLocationCollection loadLocations() {
