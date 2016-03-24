@@ -176,7 +176,7 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
              * If we are making request against hosted services, attempt to
              * recreate the oauth2 token or pat.
              */
-            newCredentials = Prompt.getCredentialsInteractively(display, persistCredentials);
+            newCredentials = Prompt.getCredentialsInteractively(service.getEndpoint(), display, persistCredentials);
         }
 
         if (newCredentials == null) {

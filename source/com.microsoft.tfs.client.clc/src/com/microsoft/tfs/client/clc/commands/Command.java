@@ -1663,7 +1663,7 @@ public abstract class Command
                  * presented
                  */
                 final UsernamePasswordCredentials cred =
-                    Prompt.getCredentialsInteractively(display, persistCredentials);
+                    Prompt.getCredentialsInteractively(serverURI, display, persistCredentials);
                 if (cred != null) {
                     log.debug("Retrieved a credential interactively from OAuth2 flow."); //$NON-NLS-1$
                     credentials = cred;

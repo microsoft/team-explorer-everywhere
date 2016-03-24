@@ -216,11 +216,13 @@ public final class Prompt {
      *         running on a Java runtime that does not support JavaFx)
      */
     public static UsernamePasswordCredentials getCredentialsInteractively(
+        final URI serverURI,
         final Display display,
         final boolean persistCredentials) {
         Check.notNull(display, "display"); //$NON-NLS-1$
+        Check.notNull(serverURI, "serverURI"); //$NON-NLS-1$
 
-        log.debug("Interactively retrieving credential based on oauth2 flow"); //$NON-NLS-1$
+        log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
         final SecretStore<TokenPair> accessTokenStore = new InsecureInMemoryStore<TokenPair>();
         final SecretStore<Token> tokenStore = new InsecureInMemoryStore<Token>();
 
@@ -250,7 +252,7 @@ public final class Prompt {
         final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
 
         try {
-            final Credential tokenCreds = provider.getVstsGlobalCredentials(PromptBehavior.AUTO, options);
+            final Credential tokenCreds = provider.getSpecificCredentialFor(serverURI, PromptBehavior.AUTO, options);
 
             return new UsernamePasswordCredentials(tokenCreds.Username, tokenCreds.Password);
 
