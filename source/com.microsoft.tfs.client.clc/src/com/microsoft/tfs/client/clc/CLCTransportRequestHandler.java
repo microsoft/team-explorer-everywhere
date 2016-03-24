@@ -170,17 +170,18 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
         }
 
         // Prompt for all fields regardless of old credentials
-        UsernamePasswordCredentials newCredentials = null;  
+        UsernamePasswordCredentials newCredentials = null;
         if (Prompt.interactiveLoginAllowed() && ServerURIUtils.isHosted(service.getEndpoint())) {
             /*
-             * If we are making request against hosted services, attempt to recreate the oauth2 token 
-             * or pat. 
+             * If we are making request against hosted services, attempt to
+             * recreate the oauth2 token or pat.
              */
             newCredentials = Prompt.getCredentialsInteractively(display, persistCredentials);
         }
-        
+
         if (newCredentials == null) {
-            // If there is no creds for team services, then prompt (could be domain creds for TFS, or basic auth for VSTS)
+            // If there is no creds for team services, then prompt (could be
+            // domain creds for TFS, or basic auth for VSTS)
             newCredentials = Prompt.getCredentials(display, input, null, null);
         }
 
