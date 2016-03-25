@@ -22,7 +22,20 @@ public class JSONEncoderEncodeObjectTest extends TestCase {
         assertEquals("{\"abc\":\"def\"}", JSONEncoder.encodeObject(o)); //$NON-NLS-1$
 
         o.put(" x ", " y "); //$NON-NLS-1$//$NON-NLS-2$
-        assertEquals("{\" x \":\" y \",\"abc\":\"def\"}", JSONEncoder.encodeObject(o)); //$NON-NLS-1$
+
+        final String[] expected = new String[] {
+            "{\" x \":\" y \",\"abc\":\"def\"}", //$NON-NLS-1$
+            "{\"abc\":\"def\",\" x \":\" y \"}" //$NON-NLS-1$
+        };
+        final String actual = JSONEncoder.encodeObject(o);
+
+        for (final String result : expected) {
+            if (result.equals(actual)) {
+                return;
+            }
+        }
+
+        fail();
     }
 
     public void testNullValue() {
