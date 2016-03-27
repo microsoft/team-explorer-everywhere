@@ -32,6 +32,13 @@ public class EmailAddressParserTest extends TestCase {
     }
 
     public void testEmailAddressGoodSpaces() {
+        final boolean result = parser.parse("\"Mark Twain\"@live.com"); //$NON-NLS-1$
+
+        assertEquals(true, result);
+        assertNull(parser.getErrorMessage());
+    }
+
+    public void testEmailAddressGoodQuotedSpaces() {
         final boolean result = parser.parse("\"Mark\\ Twain\"@live.com"); //$NON-NLS-1$
 
         assertEquals(true, result);
@@ -123,5 +130,42 @@ public class EmailAddressParserTest extends TestCase {
 
         final String actualMessage = parser.getErrorMessage();
         assertFalse(StringUtil.isNullOrEmpty(actualMessage));
+    }
+
+    public void testEmailAddressBadQuotePairInDotAtom() {
+        final boolean result = parser.parse("John\\.Doe@live.com."); //$NON-NLS-1$
+
+        assertEquals(false, result);
+        assertNotNull(parser.getErrorMessage());
+
+        final String actualMessage = parser.getErrorMessage();
+        assertFalse(StringUtil.isNullOrEmpty(actualMessage));
+    }
+
+    public void testEmailAddressBadQuotesAtInDotAtom() {
+        final boolean result = parser.parse("John\\@Doe@live.com."); //$NON-NLS-1$
+
+        assertEquals(false, result);
+        assertNotNull(parser.getErrorMessage());
+
+        final String actualMessage = parser.getErrorMessage();
+        assertFalse(StringUtil.isNullOrEmpty(actualMessage));
+    }
+
+    public void testEmailAddressBadMultipleQuoteStrings() {
+        final boolean result = parser.parse("\"John\\@Doe\"and\"Jain\\@Roe\"@live.com."); //$NON-NLS-1$
+
+        assertEquals(false, result);
+        assertNotNull(parser.getErrorMessage());
+
+        final String actualMessage = parser.getErrorMessage();
+        assertFalse(StringUtil.isNullOrEmpty(actualMessage));
+    }
+
+    public void testEmailAddressBadUnquotedinQuoteAt() {
+        final boolean result = parser.parse("\"Mark @ Twain\"@live.com"); //$NON-NLS-1$
+
+        assertEquals(false, result);
+        assertNotNull(parser.getErrorMessage());
     }
 }
