@@ -49,8 +49,8 @@ public final class Prompt {
     /**
      * Constants for OAuth2 Interactive Browser logon flow
      */
-    private static final String CLIENT_ID = "502ea21d-e545-4c66-9129-c352ec902969"; //$NON-NLS-1$
-    private static final String REDIRECT_URL = "https://xplatalm.com"; //$NON-NLS-1$
+    private static final String CLIENT_ID = "61d65f5a-6e3b-468b-af73-a033f5098c5c"; //$NON-NLS-1$
+    private static final String REDIRECT_URL = "https://msopentech.com"; //$NON-NLS-1$
 
     /**
      * Maps a {@link QuestionType} to a localized string for use in the prompt
