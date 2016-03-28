@@ -68,19 +68,40 @@ public class EmailAddressParser {
             return false;
         }
 
-        return parseLocalPart() && parseDomainPart();
+        if (parseLocalPart()) {
+            if (curChar == QUOTE) {
+                if (getRawChar() == EOL) {
+                    final String errorMessageFormat =
+                        Messages.getString("EmailAddressParser.UnexpectedEolInQuoteFormat"); //$NON-NLS-1$
+                    errorMessage = MessageFormat.format(errorMessageFormat, curChar, lastQuoteIdx + 1);
+                    return false;
+                }
+                ;
+            }
+
+            if (curRawChar == EOL) {
+                errorMessage = Messages.getString("EmailAddressParser.MissingDomainpart"); //$NON-NLS-1$
+                return false;
+            }
+
+            if (curRawChar != AT) {
+                final String errorMessageFormat = Messages.getString("EmailAddressParser.UnallowedCharacterFormat"); //$NON-NLS-1$
+                errorMessage = MessageFormat.format(errorMessageFormat, curRawChar, idx + 1);
+                return false;
+            }
+
+            return parseDomainPart();
+        }
+
+        return false;
     }
 
     private boolean parseLocalPart() {
-        if (emailAddress.length() == 0) {
-            return true;
-        }
-
-        if (emailAddress.length() > 256) {
-            errorMessage = Messages.getString("EmailAddressParser.AddressTooLong"); //$NON-NLS-1$
-            return false;
-        }
-
+        /*
+         * Some additional validation will be required after all quotes/escapes
+         * are handled. Let's collect the transformed local part in SB and check
+         * it before return.
+         */
         final StringBuilder sb = new StringBuilder(buff.length());
 
         do {
@@ -96,14 +117,14 @@ public class EmailAddressParser {
                 return false;
             }
 
+            if (curChar == QUOTE && idx == 0) {
+                inQuote = !inQuote;
+                lastQuoteIdx = idx;
+                continue;
+            }
+
             if (isEndOfLocalPart()) {
-                if (inQuote) {
-                    final String errorMessageFormat = Messages.getString("EmailAddressParser.UnquotedAtInQuoteFormat"); //$NON-NLS-1$
-                    errorMessage = MessageFormat.format(errorMessageFormat, idx + 1, lastQuoteIdx + 1);
-                    return false;
-                } else {
-                    break;
-                }
+                break;
             }
 
             if (idx > 64) {
@@ -116,15 +137,9 @@ public class EmailAddressParser {
                 continue;
             }
 
-            if (curChar == QUOTE) {
-                inQuote = !inQuote;
-                lastQuoteIdx = idx;
-                continue;
-            } else {
-                final String errorMessageFormat = Messages.getString("EmailAddressParser.UnallowedCharacterFormat"); //$NON-NLS-1$
-                errorMessage = MessageFormat.format(errorMessageFormat, curChar, idx + 1);
-                return false;
-            }
+            final String errorMessageFormat = Messages.getString("EmailAddressParser.UnallowedCharacterFormat"); //$NON-NLS-1$
+            errorMessage = MessageFormat.format(errorMessageFormat, curChar, idx + 1);
+            return false;
 
         } while (true);
 
@@ -152,9 +167,6 @@ public class EmailAddressParser {
     }
 
     private boolean parseDomainPart() {
-        if (emailAddress.length() == 0) {
-            return true;
-        }
 
         if (getRawChar() == EOL) {
             errorMessage = Messages.getString("EmailAddressParser.MissingDomainpart"); //$NON-NLS-1$
@@ -208,7 +220,7 @@ public class EmailAddressParser {
 
             for (char c : label.toCharArray()) {
                 if (!Character.isLetter(c) && !Character.isDigit(c) && c != HYPHEN) {
-                    errorMessage = Messages.getString("EmailAddressParser.WrongCaracterInSubdomain"); //$NON-NLS-1$
+                    errorMessage = Messages.getString("EmailAddressParser.WrongCharacterInSubdomain"); //$NON-NLS-1$
                     return false;
                 }
             }
@@ -239,7 +251,7 @@ public class EmailAddressParser {
             return curChar = EOL;
         }
 
-        if (curRawChar == BACKSLASH) {
+        if (curRawChar == BACKSLASH && inQuote) {
             return curChar = getRawChar();
         }
 
@@ -272,7 +284,15 @@ public class EmailAddressParser {
         return '0' <= c && c <= '9' || 'a' <= c && c <= 'z' || 'A' <= c && c <= 'Z';
     }
 
+    private boolean isQuotedChar() {
+        return prevRawChar == BACKSLASH;
+    }
+
     private boolean isEndOfLocalPart() {
-        return curChar == AT && (!inQuote || prevRawChar != BACKSLASH);
+        if (inQuote) {
+            return curChar == QUOTE && !isQuotedChar();
+        } else {
+            return curChar == AT && !isQuotedChar();
+        }
     }
 }
