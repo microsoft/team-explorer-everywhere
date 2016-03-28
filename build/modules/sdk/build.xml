@@ -90,7 +90,7 @@
                         src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-1.2.14.jar" />
             <zipfileset includes="**"
                         excludes="commons-logging.properties META-INF/MSFTSIG.RSA META-INF/MSFTSIG.SF"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/applicationinsights-core-0.9.5.1.jar" />
+                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/applicationinsights-core-1.0.4.jar" />
             <zipfileset includes="**"
                         excludes="META-INF/maven/**"
                         src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/annotation-detector-3.0.4.jar" />
