@@ -96,6 +96,69 @@ public class EmailAddressParser {
         return false;
     }
 
+    //@formatter:off
+    /*
+     * local-part = dot-atom / quoted-string / obs-local-part
+     * 
+     * dtext           = %d33-90 /  ; Printable US-ASCII 
+     *                   %d94-126 / ; characters not including
+     *                   obs-dtext  ; "[", "]", or "\"
+     * 
+     * atext           =   ALPHA / DIGIT /    ; Printable US-ASCII
+     *                     "!" / "#" /        ;  characters not including
+     *                     "$" / "%" /        ;  specials.  Used for atoms.
+     *                     "&" / "'" /
+     *                     "*" / "+" /
+     *                     "-" / "/" /
+     *                     "=" / "?" /
+     *                     "^" / "_" /
+     *                     "`" / "{" /
+     *                     "|" / "}" /
+     *                     "~"
+     *
+     * atom            =   [CFWS] 1*atext [CFWS]
+     *
+     * dot-atom-text   =   1*atext *("." 1*atext)
+     *
+     * dot-atom        =   [CFWS] dot-atom-text [CFWS]
+     *
+     * qtext           =   %d33 /             ; Printable US-ASCII
+     *                     %d35-91 /          ;  characters not including
+     *                     %d93-126 /         ;  "\" or the quote character
+     *                     obs-qtext
+     *
+     * qcontent        =   qtext / quoted-pair
+     *
+     * quoted-string   =   [CFWS]
+     *                     DQUOTE *([FWS] qcontent) [FWS] DQUOTE
+     *                     [CFWS]
+     *
+     * FWS             =   ([*WSP CRLF] 1*WSP) /  obs-FWS  ; Folding white space
+     *
+     * ctext           =   %d33-39 /          ; Printable US-ASCII
+     *                     %d42-91 /          ;  characters not including
+     *                     %d93-126 /         ;  "(", ")", or "\"
+     *                     obs-ctext
+     *
+     * ccontent        =   ctext / quoted-pair / comment
+     *
+     * comment         =   "(" *([FWS] ccontent) [FWS] ")"
+     *
+     * CFWS            =   (1*([FWS] comment) [FWS]) / FWS
+     *
+     * quoted-pair     =   ("\" (VCHAR / WSP)) / obs-qp
+     * 
+     * VCHAR           =  %x21-7E ; visible (printing) characters
+     *
+     * WSP             =  SP / HTAB ; white space
+     *
+     * HTAB            =  %x09; horizontal tab
+     *
+     * SP              =  %x20
+     * 
+     * CRLF            =  %d13.10
+     */
+    //@formatter:on
     private boolean parseLocalPart() {
         /*
          * Some additional validation will be required after all quotes/escapes
