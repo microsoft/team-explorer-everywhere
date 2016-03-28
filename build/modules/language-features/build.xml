@@ -46,7 +46,7 @@
 		<attribute name="country" />
 
 		<sequential>
-			<fragmerge archiveroot="${dir.global.build.source}/translations"
+			<fragmerge archiveroot="${dir.global.build.translations}"
 			           archivelanguage="@{language}"
 			           archivecountry="@{country}"
 			           project="@{id.plugin}"
