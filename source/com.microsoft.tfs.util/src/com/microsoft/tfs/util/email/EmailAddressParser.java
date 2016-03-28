@@ -220,7 +220,7 @@ public class EmailAddressParser {
 
             for (char c : label.toCharArray()) {
                 if (!Character.isLetter(c) && !Character.isDigit(c) && c != HYPHEN) {
-                    errorMessage = Messages.getString("EmailAddressParser.WrongCaracterInSubdomain"); //$NON-NLS-1$
+                    errorMessage = Messages.getString("EmailAddressParser.WrongCharacterInSubdomain"); //$NON-NLS-1$
                     return false;
                 }
             }

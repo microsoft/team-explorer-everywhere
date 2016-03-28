@@ -217,7 +217,7 @@ public class FeedbackDialog extends BaseDialog {
         protected IValidity computeValidity(String text) {
             if (emailErrorMessageLabel == null) {
                 /*
-                 * Nao all controls are created yet.
+                 * Not all controls are created yet.
                  */
                 return Validity.VALID;
             }
