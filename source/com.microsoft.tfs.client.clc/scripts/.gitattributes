@@ -1,0 +1,5 @@
+# Maintain LF-only line endings on clc-launcher despite other Git configuration.
+# This allows the LF-only line endings to be maintained through Windows-based build processes
+# so that the script can still run on Linux and Mac where the LF-only line endings are required
+# for execution.
+clc-launcher text eol=lf
