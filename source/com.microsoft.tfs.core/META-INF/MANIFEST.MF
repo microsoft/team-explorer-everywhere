@@ -21,7 +21,7 @@ Bundle-ClassPath: com.microsoft.tfs.core.jar,
  libs/jackson-core-2.4.1/jackson-databind-2.4.1.jar,
  libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar,
  libs/java-auth-core/java-auth-core-0.1.0.jar,
- libs/oauth2-useragent/oauth2-useragent-0.6.0.jar
+ libs/oauth2-useragent/oauth2-useragent-0.7.1.jar
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
 Export-Package: .,
