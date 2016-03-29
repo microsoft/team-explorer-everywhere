@@ -1,0 +1,6 @@
+# Maintain LF-only line endings on tfdev and witdev despite other Git configuration.
+# This allows the LF-only line endings to be maintained through Windows-based build processes
+# so that the script can still run on Linux and Mac where the LF-only line endings are required
+# for execution.
+tfdev  text eol=lf
+witdev text eol=lf
