@@ -157,7 +157,7 @@ public abstract class CredentialsHelper {
         final TFSConnection vstsConnection = new TFSTeamProjectCollection(
             URIUtils.VSTS_ROOT_URL,
             getVstsRootCredentials(connection),
-            new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
+            connection.getConnectionAdvisor());
 
         return vstsConnection;
     }
