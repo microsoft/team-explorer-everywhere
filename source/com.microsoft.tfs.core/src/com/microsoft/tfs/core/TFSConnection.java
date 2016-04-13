@@ -1375,7 +1375,7 @@ public abstract class TFSConnection implements Closable {
         return instanceData.getCredentialsHolder();
     }
 
-    protected ConnectionAdvisor getConnectionAdvisor() {
+    public ConnectionAdvisor getConnectionAdvisor() {
         checkNotClosed();
         return advisor;
     }
