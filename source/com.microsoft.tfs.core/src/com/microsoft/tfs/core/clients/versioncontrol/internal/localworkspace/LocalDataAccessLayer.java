@@ -4277,7 +4277,7 @@ public class LocalDataAccessLayer {
                 } else if (file.exists()) {
                     // Fetch the last modified time from the disk.
                     final FileSystemAttributes attrs = FileSystemUtils.getInstance().getAttributes(file);
-                    if (attrs != null) {
+                    if (attrs != null && attrs.getModificationTime() != null) {
                         lvEntry.setLastModifiedTime(attrs.getModificationTime().getWindowsFilesystemTime());
                     }
                 }
