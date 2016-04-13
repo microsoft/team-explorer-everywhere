@@ -8,6 +8,7 @@ import com.microsoft.tfs.core.clients.build.IFailure;
 import com.microsoft.tfs.core.internal.wrappers.WebServiceObjectWrapper;
 
 import ms.tfs.build.buildservice._04._BuildDeletionResult;
+import ms.tfs.build.buildservice._04._Failure;
 
 public class BuildDeletionResult extends WebServiceObjectWrapper implements IBuildDeletionResult {
     private BuildDeletionResult() {
@@ -46,22 +47,22 @@ public class BuildDeletionResult extends WebServiceObjectWrapper implements IBui
 
     @Override
     public IFailure getLabelFailure() {
-        return new Failure(getWebServiceObject().getLabelFailure());
+        return wrapFailure(getWebServiceObject().getLabelFailure());
     }
 
     @Override
     public IFailure getTestResultFailure() {
-        return new Failure(getWebServiceObject().getTestResultFailure());
+        return wrapFailure(getWebServiceObject().getTestResultFailure());
     }
 
     @Override
     public IFailure getDropLocationFailure() {
-        return new Failure(getWebServiceObject().getDropLocationFailure());
+        return wrapFailure(getWebServiceObject().getDropLocationFailure());
     }
 
     @Override
     public IFailure getSymbolsFailure() {
-        return new Failure(getWebServiceObject().getSymbolsFailure());
+        return wrapFailure(getWebServiceObject().getSymbolsFailure());
     }
 
     @Override
@@ -71,5 +72,12 @@ public class BuildDeletionResult extends WebServiceObjectWrapper implements IBui
             && r.getLabelFailure() == null
             && r.getTestResultFailure() == null
             && r.getSymbolsFailure() == null;
+    }
+
+    private Failure wrapFailure(final _Failure _failure) {
+        if (_failure == null) {
+            return null;
+        }
+        return new Failure(_failure);
     }
 }
