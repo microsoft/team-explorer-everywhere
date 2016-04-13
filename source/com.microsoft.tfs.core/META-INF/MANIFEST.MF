@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.core;singleton:=true
-Bundle-Version: 14.0.3.qualifier
+Bundle-Version: 14.0.4.qualifier
 Bundle-ClassPath: com.microsoft.tfs.core.jar,
  libs/hsqldb-1.8.0.10-ebcdic/hsqldb.jar,
  libs/xerces-2.8.0/xercesImpl.jar,
