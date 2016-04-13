@@ -3639,13 +3639,6 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
                     final ItemSpec spec = new ItemSpec(path, RecursionType.NONE);
                     itemSpecs.add(spec);
 
-                    final PathTranslation t = translateLocalPathToServerPath(path);
-                    t.getOriginalPath();
-                    String serverPath = t.getTranslatedPath();
-                    if (serverPath == null) {
-                        serverPath = StringUtil.EMPTY;
-                    }
-
                     final ChangeRequest cr =
                         new ChangeRequest(spec, null, RequestType.ADD, itemType, codePage, lockLevel, 0, null, true);
 
