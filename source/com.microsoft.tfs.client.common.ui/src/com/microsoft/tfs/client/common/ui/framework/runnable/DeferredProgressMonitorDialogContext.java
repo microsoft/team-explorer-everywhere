@@ -222,8 +222,10 @@ public class DeferredProgressMonitorDialogContext implements IRunnableContext {
     private static void setUserInterfaceActive(final boolean active) {
         final IWorkbench workbench = PlatformUI.getWorkbench();
         final Shell[] shells = workbench.getDisplay().getShells();
-        for (int i = 0; i < shells.length; i++) {
-            shells[i].setEnabled(active);
+        for (final Shell shell : shells) {
+            if (!shell.isDisposed()) {
+                shell.setEnabled(active);
+            }
         }
     }
 
