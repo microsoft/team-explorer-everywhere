@@ -153,7 +153,7 @@ public class LocalItemExclusionEvaluator {
         String currentItem = LocalPath.getParent(startLocalItem);
         String itemParent;
 
-        if (!LocalPath.equals(currentItem, startLocalItem)) {
+        if (currentItem != null && !LocalPath.equals(currentItem, startLocalItem)) {
             while (LocalPath.isChild(startLocalItemWorkspaceRoot, currentItem)) {
                 final IgnoreFile ignoreFile = IgnoreFile.load(currentItem);
 
@@ -167,7 +167,8 @@ public class LocalItemExclusionEvaluator {
 
                 itemParent = LocalPath.getParent(currentItem);
 
-                if (LocalPath.equals(itemParent, currentItem)) {
+                // It turned out that LocalPath.getParent might return null.
+                if (currentItem == null || LocalPath.equals(itemParent, currentItem)) {
                     break;
                 }
 
