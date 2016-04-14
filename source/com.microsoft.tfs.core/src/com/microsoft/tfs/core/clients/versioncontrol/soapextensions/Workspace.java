@@ -6930,8 +6930,18 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
          */
         final Workspace ws = getClient().getRepositoryWorkspace(getName(), getOwnerName());
 
-        // Runtime cache should be updating this object, not returning another
-        Check.isTrue(ws == this, "Runtime cache returned non-this object"); //$NON-NLS-1$
+        if (ws != this) {
+            // Runtime cache should be updating this object, not returning
+            // another. However we shouldn't throw an exception in the
+            // production mode.
+            log.debug("Runtime workspace cache returned a different object after this workspace refresh."); //$NON-NLS-1$
+            log.debug("    this.name  = " + getName()); //$NON-NLS-1$
+            log.debug("    this.owner = " + getOwnerName()); //$NON-NLS-1$
+            log.debug("      ws.name  = " + ws.getName()); //$NON-NLS-1$
+            log.debug("      ws.owner = " + ws.getOwnerName()); //$NON-NLS-1$
+            log.debug("    user.name  = " + getClient().getConnection().getAuthenticatedIdentity().getDisplayName()); //$NON-NLS-1$
+            log.debug("                 " + getClient().getConnection().getAuthenticatedIdentity().getUniqueName()); //$NON-NLS-1$
+        }
     }
 
     /**
