@@ -43,6 +43,7 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
     private final boolean loginOptionSpecified;
     private final boolean persistCredentials;
     private final boolean usePersistanceCredentialsManager;
+    private final boolean prompt;
 
     /**
      * When the user provides new credentials to retry a failed request, the
@@ -68,11 +69,14 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
      *        the command line (prints a message instead of prompting),
      *        <code>false</code> if the option was not set
      * @param persistCredentials
-     *        if <code>true</code> new credentials gathered by prompting are are
+     *        if <code>true</code> new credentials gathered by prompting are
      *        saved immediately, if <code>false</code> they are not saved
      *
      * @param usePersistanceCredentialsManager
      *        if <code>true</code> PersistanceCredentialsManager may be used
+     *
+     * @param prompt
+     *        if <code>true</code> allow prompting
      */
     public CLCTransportRequestHandler(
         final ConnectionInstanceData connectionInstanceData,
@@ -81,7 +85,8 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
         final Input input,
         final boolean loginOptionSpecified,
         final boolean persistCredentials,
-        final boolean usePersistanceCredentialsManager) {
+        final boolean usePersistanceCredentialsManager,
+        final boolean prompt) {
         super(connectionInstanceData, clientFactory);
 
         this.display = display;
@@ -89,6 +94,7 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
         this.loginOptionSpecified = loginOptionSpecified;
         this.persistCredentials = persistCredentials;
         this.usePersistanceCredentialsManager = usePersistanceCredentialsManager;
+        this.prompt = prompt;
     }
 
     /**
@@ -171,7 +177,7 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
 
         // Prompt for all fields regardless of old credentials
         UsernamePasswordCredentials newCredentials = null;
-        if (Prompt.interactiveLoginAllowed() && ServerURIUtils.isHosted(service.getEndpoint())) {
+        if (Prompt.interactiveLoginAllowed() && ServerURIUtils.isHosted(service.getEndpoint()) && prompt) {
             /*
              * If we are making request against hosted services, attempt to
              * recreate the oauth2 token or pat.
@@ -179,7 +185,7 @@ public class CLCTransportRequestHandler extends DefaultTransportRequestHandler {
             newCredentials = Prompt.getCredentialsInteractively(service.getEndpoint(), display, persistCredentials);
         }
 
-        if (newCredentials == null) {
+        if (newCredentials == null && prompt) {
             // If there is no creds for team services, then prompt (could be
             // domain creds for TFS, or basic auth for VSTS)
             newCredentials = Prompt.getCredentials(display, input, null, null);
