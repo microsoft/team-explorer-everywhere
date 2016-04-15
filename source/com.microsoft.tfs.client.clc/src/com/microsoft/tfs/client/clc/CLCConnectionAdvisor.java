@@ -8,6 +8,7 @@ import java.util.TimeZone;
 
 import com.microsoft.tfs.client.clc.commands.Command;
 import com.microsoft.tfs.client.clc.options.shared.OptionLogin;
+import com.microsoft.tfs.client.clc.vc.options.OptionNoPrompt;
 import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
 import com.microsoft.tfs.core.config.ConnectionInstanceData;
 import com.microsoft.tfs.core.config.DefaultConnectionAdvisor;
@@ -72,7 +73,8 @@ public class CLCConnectionAdvisor extends CommonClientConnectionAdvisor {
                 command.getInput(),
                 command.findOptionType(OptionLogin.class) != null,
                 command.persistCredentials(),
-                command.usePersistanceCredentialsManager()));
+                command.usePersistanceCredentialsManager(),
+                command.findOptionType(OptionNoPrompt.class) == null));
     }
 
     @Override
