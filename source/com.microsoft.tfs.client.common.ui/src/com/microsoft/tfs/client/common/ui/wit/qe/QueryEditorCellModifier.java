@@ -495,6 +495,11 @@ public class QueryEditorCellModifier implements ICellModifier {
                         || CoreFieldReferenceNames.AUTHORIZED_AS.equals(refName)) {
                         list.add(WIQLOperators.getLocalizedOperator(WIQLOperators.MACRO_ME));
                     }
+                } else if (FieldType.BOOLEAN == type) {
+                    if (list.size() == 0) {
+                        list.add(Messages.getString("QueryEditorCellModifier.FalseValue")); //$NON-NLS-1$
+                        list.add(Messages.getString("QueryEditorCellModifier.TrueValue")); //$NON-NLS-1$
+                    }
                 }
             }
         }
