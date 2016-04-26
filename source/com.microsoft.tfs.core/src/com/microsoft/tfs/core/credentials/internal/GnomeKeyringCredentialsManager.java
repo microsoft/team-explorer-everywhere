@@ -17,18 +17,18 @@ import com.microsoft.tfs.util.StringUtil;
 
 public class GnomeKeyringCredentialsManager implements CredentialsManager {
 
-    private final GnomeKeyringBackedCredentialStore gnomeKeyringStore;
+    private final static GnomeKeyringBackedCredentialStore gnomeKeyringStore;
 
-    public static boolean isGnomeKeyringSupported() {
-        return GnomeKeyringBackedCredentialStore.isGnomeKeyringSupported();
-    }
-
-    public GnomeKeyringCredentialsManager() {
-        if (isGnomeKeyringSupported()) {
+    static {
+        if (GnomeKeyringBackedCredentialStore.isGnomeKeyringSupported()) {
             gnomeKeyringStore = new GnomeKeyringBackedCredentialStore();
         } else {
             gnomeKeyringStore = null;
         }
+    }
+
+    public static boolean isGnomeKeyringSupported() {
+        return gnomeKeyringStore != null;
     }
 
     /**
@@ -92,6 +92,10 @@ public class GnomeKeyringCredentialsManager implements CredentialsManager {
         Check.notNull(cachedCredentials, "cachedCredentials"); //$NON-NLS-1$
         Check.notNull(cachedCredentials.getURI(), "cachedCredentials.getURI()"); //$NON-NLS-1$
 
+        if (gnomeKeyringStore == null) {
+            return false;
+        }
+
         // Reduce to scheme, host, port
         final URI serverURI = URIUtils.removePathAndQueryParts(cachedCredentials.getURI());
         cachedCredentials =
@@ -119,6 +123,10 @@ public class GnomeKeyringCredentialsManager implements CredentialsManager {
     @Override
     public boolean removeCredentials(final URI uri) {
         Check.notNull(uri, "uri"); //$NON-NLS-1$
+
+        if (gnomeKeyringStore == null) {
+            return false;
+        }
 
         // Reduce to scheme, host, port
         final URI serverURI = URIUtils.removePathAndQueryParts(uri);
