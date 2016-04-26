@@ -23,11 +23,11 @@ import com.microsoft.alm.auth.Authenticator;
 import com.microsoft.alm.auth.PromptBehavior;
 import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
 import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
-import com.microsoft.alm.auth.secret.Credential;
-import com.microsoft.alm.auth.secret.Token;
-import com.microsoft.alm.auth.secret.TokenPair;
 import com.microsoft.alm.provider.Options;
 import com.microsoft.alm.provider.UserPasswordCredentialProvider;
+import com.microsoft.alm.secret.Credential;
+import com.microsoft.alm.secret.Token;
+import com.microsoft.alm.secret.TokenPair;
 import com.microsoft.alm.storage.InsecureInMemoryStore;
 import com.microsoft.alm.storage.SecretStore;
 import com.microsoft.tfs.client.clc.EnvironmentVariables;
@@ -242,17 +242,13 @@ public final class Prompt {
             /*
              * Not persisting this credential, simply create an oauth2 token
              */
-            authenticator = new OAuth2Authenticator(
-                OAuth2Authenticator.MANAGEMENT_CORE_RESOURCE,
-                CLIENT_ID,
-                URI.create(REDIRECT_URL),
-                accessTokenStore);
+            authenticator = OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore);
         }
 
         final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
 
         try {
-            final Credential tokenCreds = provider.getSpecificCredentialFor(serverURI, PromptBehavior.AUTO, options);
+            final Credential tokenCreds = provider.getCredentialFor(serverURI, PromptBehavior.AUTO, options);
 
             return new UsernamePasswordCredentials(tokenCreds.Username, tokenCreds.Password);
 

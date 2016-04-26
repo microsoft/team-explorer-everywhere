@@ -5,6 +5,7 @@ package com.microsoft.tfs.core.credentials;
 
 import com.microsoft.tfs.core.config.ConnectionAdvisor;
 import com.microsoft.tfs.core.config.persistence.PersistenceStoreProvider;
+import com.microsoft.tfs.core.credentials.internal.GnomeKeyringCredentialsManager;
 import com.microsoft.tfs.core.credentials.internal.KeychainCredentialsManager;
 import com.microsoft.tfs.core.credentials.internal.PersistenceStoreCredentialsManager;
 import com.microsoft.tfs.core.credentials.internal.WinCredentialsManager;
@@ -77,17 +78,23 @@ public class CredentialsManagerFactory {
             return new WinCredentialsManager();
         }
 
-        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+        if (Platform.isCurrentPlatform(Platform.MAC_OS_X) && !usePersistanceCredentialsManager) {
             /*
              * Mac OS uses Keychain for credential storage by default unless the
              * user specifies using PersistanceStoreCredentialsManager
              */
-            if (usePersistanceCredentialsManager) {
-                return new PersistenceStoreCredentialsManager(persistenceProvider.getConfigurationPersistenceStore());
-            } else {
+            return new KeychainCredentialsManager();
+        }
 
-                return new KeychainCredentialsManager();
-            }
+        if (Platform.isCurrentPlatform(Platform.LINUX)
+            && !usePersistanceCredentialsManager
+            && GnomeKeyringCredentialsManager.isGnomeKeyringSupported()) {
+
+            /*
+             * Linux uses gnome-keyring if it's available unless the user
+             * specifies using PersistanceStoreCredentialsManager
+             */
+            return new GnomeKeyringCredentialsManager();
         }
 
         return new PersistenceStoreCredentialsManager(persistenceProvider.getConfigurationPersistenceStore());
