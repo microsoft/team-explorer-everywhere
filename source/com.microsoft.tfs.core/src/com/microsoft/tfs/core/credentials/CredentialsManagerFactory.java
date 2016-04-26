@@ -5,6 +5,7 @@ package com.microsoft.tfs.core.credentials;
 
 import com.microsoft.tfs.core.config.ConnectionAdvisor;
 import com.microsoft.tfs.core.config.persistence.PersistenceStoreProvider;
+import com.microsoft.tfs.core.credentials.internal.GnomeKeyringCredentialsManager;
 import com.microsoft.tfs.core.credentials.internal.KeychainCredentialsManager;
 import com.microsoft.tfs.core.credentials.internal.PersistenceStoreCredentialsManager;
 import com.microsoft.tfs.core.credentials.internal.WinCredentialsManager;
@@ -87,6 +88,20 @@ public class CredentialsManagerFactory {
             } else {
 
                 return new KeychainCredentialsManager();
+            }
+        }
+
+        if (Platform.isCurrentPlatform(Platform.LINUX)) {
+            /*
+             * Linux uses gnome-keyring if it's available unless the user
+             * specifies using PersistanceStoreCredentialsManager
+             */
+            if (usePersistanceCredentialsManager) {
+                return new PersistenceStoreCredentialsManager(persistenceProvider.getConfigurationPersistenceStore());
+            } else {
+                if (GnomeKeyringCredentialsManager.isGnomeKeyringSupported()) {
+                    return new GnomeKeyringCredentialsManager();
+                }
             }
         }
 
