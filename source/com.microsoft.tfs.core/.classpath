@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="libs/oauth2-useragent/oauth2-useragent-0.7.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-core/java-auth-core-0.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/java-auth-common-0.1.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/java-auth-core-0.1.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/java-auth-providers-0.1.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/java-auth-storages-0.1.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/azure-interactive-login/aad-interactive-auth-1.0.1-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/slf4j/slf4j-api-1.7.19.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/slf4j/slf4j-log4j12-1.7.19.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/oauth2-useragent/oauth2-useragent-0.8.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jna/jna-4.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jna/jna-platform-4.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jackson-core-2.4.1/jackson-annotations-2.4.1.jar" sourcepath="libs_src/jackson-core-2.4.1/jackson-annotations-2.4.1-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/com.microsoft.tfs.core/libs_src/jackson-core-2.4.1/jackson-annotations-2.4.1-javadoc.jar!/"/>
