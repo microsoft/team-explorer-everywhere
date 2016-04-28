@@ -92,7 +92,7 @@ public class ImportGitRepository extends ImportItemBase implements Comparable<Im
                 branches[idx] = name;
                 refs[idx] = fullName;
 
-                if (name.equals(gitRepositoryJson.getDefaultBranch())) {
+                if (fullName.equals(gitRepositoryJson.getDefaultBranch())) {
                     defaultBranch = name;
                     defaultRef = fullName;
                 }
