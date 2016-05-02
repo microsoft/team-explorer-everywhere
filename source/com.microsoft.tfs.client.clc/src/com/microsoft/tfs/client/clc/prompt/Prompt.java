@@ -247,24 +247,23 @@ public final class Prompt {
 
         final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
 
-        try {
-            final Credential tokenCreds = provider.getCredentialFor(serverURI, PromptBehavior.AUTO, options);
+        final Credential tokenCreds = provider.getCredentialFor(serverURI, PromptBehavior.AUTO, options);
 
+        if (tokenCreds != null && tokenCreds.Username != null && tokenCreds.Password != null) {
             return new UsernamePasswordCredentials(tokenCreds.Username, tokenCreds.Password);
+        } else {
+            log.warn(
+                "Failed to authenticate interactively with web browser. This requires either JavaFX or SWT based web browser control:"); //$NON-NLS-1$
+            log.warn(
+                "   1. JavaFX web browser control is only supported on Oracle Java SE 7 update 6 or higher, Oracle Java SE 8, or OpenJDK 8 runtime " //$NON-NLS-1$
+                    + "(Please note you may need to compile OpenJFX project yourself)."); //$NON-NLS-1$
+            log.warn(
+                "   2. To launch SWT browser with a specific XULRunner, please set the value of java system property 'org.eclipse.swt.browser.XULRunnerPath' " //$NON-NLS-1$
+                    + "to the full path of the specific XULRUnner."); //$NON-NLS-1$
 
-        } catch (final Exception e) {
-            /*
-             * Catching all exceptions because I do not want to stop the flow at
-             * all cases. There are always fallback mechanism that we should
-             * try. Simply log the error.
-             * 
-             * For example, oauth2-useragent will throw IllegalStateException if
-             * it could not find a suitable provider with clear error message,
-             * or AuthorizationException if we failed to login successfully.
-             */
-            log.debug(e.getMessage());
-
-            display.printLine(Messages.getString("Command.InteractiveAuthenticationFailed")); //$NON-NLS-1$
+            display.printLine(MessageFormat.format(
+                Messages.getString("Command.InteractiveAuthenticationFailed"), //$NON-NLS-1$
+                EnvironmentVariables.BYPASS_INTERACTIVE_BROWSER_LOGIN));
         }
 
         // Failed to get credential, return null
