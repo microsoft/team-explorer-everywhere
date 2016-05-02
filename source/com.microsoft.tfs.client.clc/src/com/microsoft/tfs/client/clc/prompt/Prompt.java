@@ -252,14 +252,9 @@ public final class Prompt {
         if (tokenCreds != null && tokenCreds.Username != null && tokenCreds.Password != null) {
             return new UsernamePasswordCredentials(tokenCreds.Username, tokenCreds.Password);
         } else {
-            log.warn(
-                "Failed to authenticate interactively with web browser. This requires either JavaFX or SWT based web browser control:"); //$NON-NLS-1$
-            log.warn(
-                "   1. JavaFX web browser control is only supported on Oracle Java SE 7 update 6 or higher, Oracle Java SE 8, or OpenJDK 8 runtime " //$NON-NLS-1$
-                    + "(Please note you may need to compile OpenJFX project yourself)."); //$NON-NLS-1$
-            log.warn(
-                "   2. To launch SWT browser with a specific XULRunner, please set the value of java system property 'org.eclipse.swt.browser.XULRunnerPath' " //$NON-NLS-1$
-                    + "to the full path of the specific XULRUnner."); //$NON-NLS-1$
+            log.warn(Messages.getString("Command.InteractiveAuthenticationFailedDetailedLog1")); //$NON-NLS-1$
+            log.warn(Messages.getString("Command.InteractiveAuthenticationFailedDetailedLog2")); //$NON-NLS-1$
+            log.warn(Messages.getString("Command.InteractiveAuthenticationFailedDetailedLog3")); //$NON-NLS-1$
 
             display.printLine(MessageFormat.format(
                 Messages.getString("Command.InteractiveAuthenticationFailed"), //$NON-NLS-1$
