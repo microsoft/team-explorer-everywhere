@@ -247,24 +247,18 @@ public final class Prompt {
 
         final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
 
-        try {
-            final Credential tokenCreds = provider.getCredentialFor(serverURI, PromptBehavior.AUTO, options);
+        final Credential tokenCreds = provider.getCredentialFor(serverURI, PromptBehavior.AUTO, options);
 
+        if (tokenCreds != null && tokenCreds.Username != null && tokenCreds.Password != null) {
             return new UsernamePasswordCredentials(tokenCreds.Username, tokenCreds.Password);
+        } else {
+            log.warn(Messages.getString("Command.InteractiveAuthenticationFailedDetailedLog1")); //$NON-NLS-1$
+            log.warn(Messages.getString("Command.InteractiveAuthenticationFailedDetailedLog2")); //$NON-NLS-1$
+            log.warn(Messages.getString("Command.InteractiveAuthenticationFailedDetailedLog3")); //$NON-NLS-1$
 
-        } catch (final Exception e) {
-            /*
-             * Catching all exceptions because I do not want to stop the flow at
-             * all cases. There are always fallback mechanism that we should
-             * try. Simply log the error.
-             * 
-             * For example, oauth2-useragent will throw IllegalStateException if
-             * it could not find a suitable provider with clear error message,
-             * or AuthorizationException if we failed to login successfully.
-             */
-            log.debug(e.getMessage());
-
-            display.printLine(Messages.getString("Command.InteractiveAuthenticationFailed")); //$NON-NLS-1$
+            display.printLine(MessageFormat.format(
+                Messages.getString("Command.InteractiveAuthenticationFailed"), //$NON-NLS-1$
+                EnvironmentVariables.BYPASS_INTERACTIVE_BROWSER_LOGIN));
         }
 
         // Failed to get credential, return null
