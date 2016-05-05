@@ -159,11 +159,7 @@ public class JsonHelper {
 
     public static String serializeRequestToString(final Object entity) {
         try {
-            if (List.class.isInstance(entity)) {
-                return objectMapper.writeValueAsString(VssJsonCollectionWrapper.newInstance((List<?>) entity));
-            } else {
-                return objectMapper.writeValueAsString(entity);
-            }
+            return objectMapper.writeValueAsString(entity);
         } catch (final IOException e) {
             log.error(e.getMessage(), e);
             throw new IllegalArgumentException(
