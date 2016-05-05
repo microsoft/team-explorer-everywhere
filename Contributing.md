@@ -11,15 +11,15 @@ Interested in contributing to the team-explorer-everywhere project? There are pl
 
 ## Build and Run with Eclipse
 ### Tools
-Install Eclipse Mars.2 Release (4.5.2) for RCP and RAP Developers or later.
-
-### Java Requirements
-We use JavaSE-1.6 as the minimal supported Java execution environment. 
-Depending on the Eclipse version you use you might have to install a later JDK version.
-
-For Eclipse Mars install JDK 8 or later. You can find the JDK downloads on Oracle's web site at 
+Before installing Eclipse, you must install the JDK.  For Eclipse Mars, install **JDK 8** or later. You can find the JDK downloads on Oracle's web site at 
 [Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 Find older versions in [Previous Releases](http://www.oracle.com/technetwork/java/javase/archive-139210.html).
+
+Install **Eclipse Mars.2 Release (4.5.2) for RCP and RAP Developers** or later.
+
+### Java Requirements
+For debugging, we use JavaSE-1.6 as the minimal supported Java execution environment.
+Depending on the Eclipse version you use you might have to install a later JDK version.
 
 ### Eclipse IDE Configuration
 In a new empty Eclipse workspace open the Preferences dialog using Window -> Preferences menu option.
@@ -88,7 +88,6 @@ In a new empty Eclipse workspace open the Preferences dialog using Window -> Pre
     - Click the `Apply` button.
 
 ### Importing Projects
-   
 1. Open Git Import Wizard using `File` -> `Import` -> `Git` ->`Projects from Git`.
 1. Select `Existing local repository`, click the `Add` button.
 1. Using the `Browse` button, navigate to  and your local copy of the team-explorer-everywhere repository, select it, and click the `Finish` button.
@@ -98,7 +97,6 @@ In a new empty Eclipse workspace open the Preferences dialog using Window -> Pre
 1. Make sure that all `com.microsoft.tfs.*` project are selected and click the `Finish` button.
 
 #### Dependencies
-
 To install dependencies
 * Open the `com.mictosoft.tfs.client.eclipse.target' project.
 * Select the `<version>.target` file that matches to your Eclipse platform target version. 
@@ -125,11 +123,12 @@ git config core.safecrlf true
  ```
 
 ## Testing
-
 1. ...
 
 ## Debugging
 ### Creating Runtime Configurations
+1. Ensure you have the Eclipse Plug-in Development Environment installed.
+  * If not, on Windows, choose Help, "Install New Software...", under "Work with:" choose "The Eclipse Project Updates" and then select "Eclipse Plugin Development Tools".
 1. Create a "Plugin" configuration to run/debug the plugin code.
   * Open the Debug Configurations window using `Run` -> `Debug Configurations`
   * Create a new Eclipse Application configuration:
