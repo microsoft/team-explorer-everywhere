@@ -111,18 +111,18 @@ make sure the desired target is selected.
 
 ## Code Styles
 A few styles we follow:
-1. No tabs in source code. All tabs should be expanded to 4 spaces.
-1. No imports with "*".
-1. The attribute `final` should be used whereever it's possible. 
-1. All Java source files must have the following two lines at the top:
-```
+ 1. No tabs in source code. All tabs should be expanded to 4 spaces.
+ 1. No imports with "*".
+ 1. The attribute `final` should be used whereever it's possible. 
+ 1. All Java source files must have the following two lines at the top:
+ ```
  // Copyright (c) Microsoft. All rights reserved.
  // Licensed under the MIT license. See License.txt in the project root.
-```
-1. We keep LF line-ending on the server. Please set the `core.safecrlf` git config property to true.
-```
+ ```
+ 1. We keep LF line-ending on the server. Please set the `core.safecrlf` git config property to true.
+ ```
 git config core.safecrlf true
-```
+ ```
 
 ## Testing
 
