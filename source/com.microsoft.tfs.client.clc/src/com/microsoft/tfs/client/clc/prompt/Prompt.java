@@ -257,7 +257,7 @@ public final class Prompt {
             log.warn(Messages.getString("Command.InteractiveAuthenticationFailedDetailedLog3")); //$NON-NLS-1$
 
             display.printLine(MessageFormat.format(
-                Messages.getString("Command.InteractiveAuthenticationFailed"), //$NON-NLS-1$
+                Messages.getString("Command.InteractiveAuthenticationFailedFormat"), //$NON-NLS-1$
                 EnvironmentVariables.BYPASS_INTERACTIVE_BROWSER_LOGIN));
         }
 
