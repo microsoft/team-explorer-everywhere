@@ -7,19 +7,18 @@ import java.text.MessageFormat;
 
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.HttpMethod;
-import com.microsoft.tfs.core.httpclient.HttpState;
-import com.microsoft.tfs.core.httpclient.WRAPCredentials;
+import com.microsoft.tfs.core.httpclient.JwtCredentials;
 
-public class WRAPAuthScheme extends AuthorizationHeaderScheme {
+public class JwtAuthScheme extends AuthorizationHeaderScheme {
     private boolean complete;
 
-    public WRAPAuthScheme() {
+    public JwtAuthScheme() {
         complete = false;
     }
 
     @Override
     public boolean supportsCredentials(final Credentials credentials) {
-        return credentials instanceof WRAPCredentials;
+        return credentials instanceof JwtCredentials;
     }
 
     @Override
@@ -29,7 +28,7 @@ public class WRAPAuthScheme extends AuthorizationHeaderScheme {
 
     @Override
     public String getSchemeName() {
-        return "WRAP";
+        return "Bearer";
     }
 
     @Override
@@ -50,15 +49,6 @@ public class WRAPAuthScheme extends AuthorizationHeaderScheme {
     @Override
     protected String authenticate(final AuthScope authScope, final Credentials credentials, final HttpMethod method)
         throws AuthenticationException {
-        return MessageFormat.format("WRAP access_token=\"{0}\"", ((WRAPCredentials) credentials).getAccessToken());
-    }
-
-    @Override
-    public void authenticateProxy(
-        final AuthScope authScope,
-        final Credentials credentials,
-        final HttpState state,
-        final HttpMethod method) throws AuthenticationException {
-        throw new AuthenticationException("WRAP credentials are not available for proxy authentication"); //$NON-NLS-1$
+        return MessageFormat.format("Bearer {0}", ((JwtCredentials) credentials).getAccessToken());
     }
 }

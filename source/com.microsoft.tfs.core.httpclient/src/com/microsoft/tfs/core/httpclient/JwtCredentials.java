@@ -3,10 +3,10 @@
 
 package com.microsoft.tfs.core.httpclient;
 
-public class WRAPCredentials extends Credentials {
+public class JwtCredentials extends Credentials {
     private final String accessToken;
 
-    public WRAPCredentials(final String accessToken) {
+    public JwtCredentials(final String accessToken) {
         if (accessToken == null) {
             throw new IllegalArgumentException("Access token may not be null");
         }
@@ -20,7 +20,7 @@ public class WRAPCredentials extends Credentials {
 
     @Override
     public String toString() {
-        return "(OAuth WRAP Credentials)";
+        return "(OAuth JWT Credentials)";
     }
 
     @Override
@@ -38,11 +38,11 @@ public class WRAPCredentials extends Credentials {
             return true;
         }
 
-        if (!(o instanceof WRAPCredentials)) {
+        if (!(o instanceof JwtCredentials)) {
             return false;
         }
 
-        final WRAPCredentials other = (WRAPCredentials) o;
+        final JwtCredentials other = (JwtCredentials) o;
 
         return this.accessToken.equals(other.accessToken);
     }

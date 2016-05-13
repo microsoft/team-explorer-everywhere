@@ -45,7 +45,7 @@ import com.microsoft.tfs.core.httpclient.Credentials;
 public class AuthState {
     public static final Class[] preemptiveAuthSchemes = new Class[] {
         CookieAuthScheme.class,
-        WRAPAuthScheme.class,
+        JwtAuthScheme.class,
         PreemptiveBasicScheme.class
     };
 

@@ -15,7 +15,7 @@ import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
-import com.microsoft.tfs.core.httpclient.WRAPCredentials;
+import com.microsoft.tfs.core.httpclient.JwtCredentials;
 import com.microsoft.tfs.core.util.TFSUser;
 import com.microsoft.tfs.core.util.UserNameUtil;
 import com.microsoft.tfs.core.ws.runtime.exceptions.UnauthorizedException;
@@ -83,7 +83,7 @@ public class TFSUnauthorizedException extends TECoreException {
                 Messages.getString("TFSUnauthorizedException.AccessDeniedAuthenticatingUsingFederatedCredentialsFormat"), //$NON-NLS-1$
                 //@formatter:on
                 displayURIString);
-        } else if (credentials instanceof WRAPCredentials) {
+        } else if (credentials instanceof JwtCredentials) {
             return MessageFormat.format(
                 Messages.getString("TFSUnauthorizedException.AccessDeniedAuthenticatingUsingServiceCredentialsFormat"), //$NON-NLS-1$
                 displayURIString);
