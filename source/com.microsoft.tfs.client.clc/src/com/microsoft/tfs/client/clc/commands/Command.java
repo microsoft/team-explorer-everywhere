@@ -113,6 +113,7 @@ import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.credentials.CredentialsManagerFactory;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
+import com.microsoft.tfs.core.httpclient.JwtCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.pendingcheckin.CheckinNoteFailure;
 import com.microsoft.tfs.core.util.CredentialsUtils;
@@ -946,9 +947,9 @@ public abstract class Command
     protected final WorkspaceInfo determineCachedWorkspace(
         final String[] pathFreeArguments,
         final boolean ignoreWorkspaceOptionValue)
-            throws CannotFindWorkspaceException,
-                InvalidOptionValueException,
-                InvalidOptionException {
+        throws CannotFindWorkspaceException,
+            InvalidOptionValueException,
+            InvalidOptionException {
         WorkspaceInfo cachedWorkspace = null;
 
         /*
@@ -1298,10 +1299,10 @@ public abstract class Command
     protected final TFSTeamProjectCollection createConnection(
         final String[] pathFreeArguments,
         final boolean ignoreWorkspaceDetectionFailure)
-            throws ArgumentException,
-                MalformedURLException,
-                CLCException,
-                LicenseException {
+        throws ArgumentException,
+            MalformedURLException,
+            CLCException,
+            LicenseException {
         return createConnection(null, pathFreeArguments, ignoreWorkspaceDetectionFailure, false);
     }
 
@@ -1350,10 +1351,10 @@ public abstract class Command
     protected final TFSTeamProjectCollection createConnection(
         final boolean ignoreWorkspaceAutoDetectionFailure,
         final boolean ignoreWorkspaceOptionValue)
-            throws ArgumentException,
-                MalformedURLException,
-                CLCException,
-                LicenseException {
+        throws ArgumentException,
+            MalformedURLException,
+            CLCException,
+            LicenseException {
         return createConnection(null, null, ignoreWorkspaceAutoDetectionFailure, ignoreWorkspaceOptionValue);
     }
 
@@ -1406,10 +1407,10 @@ public abstract class Command
         final String[] pathFreeArguments,
         final boolean ignoreWorkspaceAutoDetectionFailure,
         final boolean ignoreWorkspaceOptionValue)
-            throws ArgumentException,
-                MalformedURLException,
-                CLCException,
-                LicenseException {
+        throws ArgumentException,
+            MalformedURLException,
+            CLCException,
+            LicenseException {
         return createConnection(
             null,
             pathFreeArguments,
@@ -1472,10 +1473,10 @@ public abstract class Command
         final String[] pathFreeArguments,
         final boolean ignoreWorkspaceAutoDetectionFailure,
         final boolean ignoreWorkspaceOptionValue)
-            throws ArgumentException,
-                MalformedURLException,
-                CLCException,
-                LicenseException {
+        throws ArgumentException,
+            MalformedURLException,
+            CLCException,
+            LicenseException {
         Option o = null;
 
         /* Test for EULA acceptance / product id installation */
@@ -1539,8 +1540,9 @@ public abstract class Command
         final CachedCredentials cachedCredentials = credentialsManager.getCredentials(serverURI);
 
         if ((o = findOptionType(OptionLogin.class)) != null) {
-            credentials =
-                new UsernamePasswordCredentials(((OptionLogin) o).getUsername(), ((OptionLogin) o).getPassword());
+            credentials = ((OptionLogin) o).getType() == OptionLogin.LoginType.USERNAME_PASSWORD
+                ? new UsernamePasswordCredentials(((OptionLogin) o).getUsername(), ((OptionLogin) o).getPassword())
+                : new JwtCredentials(((OptionLogin) o).getToken());
         }
         /*
          * If the user has saved a username (regardless of whether they have a
@@ -1675,7 +1677,9 @@ public abstract class Command
 
         }
 
-        if (credentials instanceof UsernamePasswordCredentials) {
+        if (credentials instanceof JwtCredentials) {
+            return credentials;
+        } else if (credentials instanceof UsernamePasswordCredentials) {
             username = ((UsernamePasswordCredentials) credentials).getUsername();
             password = ((UsernamePasswordCredentials) credentials).getPassword();
         } else if (credentials instanceof DefaultNTCredentials) {

@@ -103,9 +103,9 @@ import com.microsoft.tfs.client.clc.vc.options.OptionVersion;
 import com.microsoft.tfs.client.clc.vc.options.OptionWorkspace;
 
 /**
- *         Contains all known options.
+ * Contains all known options.
  *
- *         This class is thread-safe.
+ * This class is thread-safe.
  */
 public class VersionControlOptions extends OptionsMap {
     public VersionControlOptions() {
@@ -266,7 +266,8 @@ public class VersionControlOptions extends OptionsMap {
         });
         putOption(OptionLogin.class, new String[] {
             "login", //$NON-NLS-1$
-            "y" //$NON-NLS-1$
+            "y", //$NON-NLS-1$
+            "jwt" //$NON-NLS-1$
         });
         putOption(OptionMap.class, new String[] {
             "map" //$NON-NLS-1$
