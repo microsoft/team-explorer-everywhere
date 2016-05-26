@@ -101,7 +101,7 @@ public class DefaultConnectionAdvisor implements ConnectionAdvisor {
      * <p>
      * Returns a {@link DefaultWebServiceFactory} that uses the {@link Locale}
      * returned by {@link #getLocale(ConnectionInstanceData)} and a
-     * {@link DefaultTransportRequestHandler}, which can only fetch OAuth WRAP
+     * {@link DefaultTransportRequestHandler}, which can only fetch OAuth JWT
      * credentials for the {@link TFSConnection} in use. Derived classes that
      * want different federated authentication behavior, but keep the other
      * {@link DefaultWebServiceFactory} behavior, can return a

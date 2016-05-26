@@ -27,7 +27,6 @@ import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManagerFactory;
-import com.microsoft.tfs.core.exceptions.ACSUnauthorizedException;
 import com.microsoft.tfs.core.exceptions.TFSUnauthorizedException;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
@@ -143,9 +142,7 @@ public abstract class ConnectTask extends BaseTask {
                     ? ((TeamExplorerStatus) status).getTeamExplorerException() : null;
 
                 /* On unauthorized exceptions, prompt for the password again */
-                if (exception != null
-                    && (exception instanceof TFSUnauthorizedException
-                        || exception instanceof ACSUnauthorizedException)) {
+                if (exception != null && (exception instanceof TFSUnauthorizedException)) {
                     final CredentialsDialog credentialsDialog = new CredentialsDialog(getShell(), serverURI);
                     credentialsDialog.setErrorMessage(exception.getLocalizedMessage());
                     credentialsDialog.setCredentials(credentials);

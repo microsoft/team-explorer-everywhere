@@ -23,10 +23,10 @@ import com.microsoft.tfs.core.httpclient.HttpClient;
 import com.microsoft.tfs.core.httpclient.HttpConnectionManager;
 import com.microsoft.tfs.core.httpclient.HttpMethod;
 import com.microsoft.tfs.core.httpclient.HttpState;
+import com.microsoft.tfs.core.httpclient.JwtCredentials;
 import com.microsoft.tfs.core.httpclient.MultiThreadedHttpConnectionManager;
 import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
-import com.microsoft.tfs.core.httpclient.WRAPCredentials;
 import com.microsoft.tfs.core.httpclient.auth.AuthScope;
 import com.microsoft.tfs.core.httpclient.params.HttpClientParams;
 import com.microsoft.tfs.core.httpclient.params.HttpConnectionManagerParams;
@@ -165,8 +165,8 @@ public class DefaultHTTPClientFactory implements ConfigurableHTTPClientFactory {
                     ((UsernamePasswordCredentials) credentials).getUsername()));
             } else if (credentials instanceof CookieCredentials) {
                 configurationMessage.append(", authenticating with ACS token"); //$NON-NLS-1$
-            } else if (credentials instanceof WRAPCredentials) {
-                configurationMessage.append(", authenticating with WRAP token"); //$NON-NLS-1$
+            } else if (credentials instanceof JwtCredentials) {
+                configurationMessage.append(", authenticating with JWT token"); //$NON-NLS-1$
             }
         }
 
@@ -466,14 +466,14 @@ public class DefaultHTTPClientFactory implements ConfigurableHTTPClientFactory {
         }
 
         /*
-         * Only do preemptive authentication for Cookie and WRAP Credentials and
+         * Only do preemptive authentication for Cookie and JWT Credentials and
          * special PreemptiveUsernamePasswordCredentials. These credentials may
          * be set on the HttpClient in response to federated authentication
          * challenges later.
          */
         httpClient.getParams().setPreemptiveAuthenticationTypes(new Class[] {
             CookieCredentials.class,
-            WRAPCredentials.class,
+            JwtCredentials.class,
             PreemptiveUsernamePasswordCredentials.class
         });
     }

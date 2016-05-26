@@ -50,9 +50,9 @@ import com.microsoft.tfs.client.clc.wit.options.OptionUpdate;
 import com.microsoft.tfs.client.clc.wit.options.OptionWorkItemID;
 
 /**
- *         Contains all known options.
+ * Contains all known options.
  *
- *         This class is thread-safe.
+ * This class is thread-safe.
  */
 public class WorkItemOptions extends OptionsMap {
     public WorkItemOptions() {
@@ -123,7 +123,8 @@ public class WorkItemOptions extends OptionsMap {
         });
         putOption(OptionLogin.class, new String[] {
             "login", //$NON-NLS-1$
-            "y" //$NON-NLS-1$
+            "y", //$NON-NLS-1$
+            "jwt" //$NON-NLS-1$
         });
         putOption(OptionNew.class, new String[] {
             "new" //$NON-NLS-1$
