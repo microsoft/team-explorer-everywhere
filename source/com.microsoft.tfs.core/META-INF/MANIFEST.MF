@@ -26,10 +26,10 @@ Bundle-ClassPath: com.microsoft.tfs.core.jar,
  libs/slf4j/slf4j-api-1.7.19.jar,
  libs/slf4j/slf4j-log4j12-1.7.19.jar,
  libs/azure-interactive-login/aad-interactive-auth-1.0.1-SNAPSHOT.jar,
- libs/java-auth-lib/java-auth-core-0.1.5.jar,
- libs/java-auth-lib/java-auth-providers-0.1.5.jar,
- libs/java-auth-lib/java-auth-common-0.1.6-SNAPSHOT.jar,
- libs/java-auth-lib/java-auth-storages-0.1.6-SNAPSHOT.jar
+ libs/java-auth-lib/auth-common-0.1.9.jar,
+ libs/java-auth-lib/auth-core-0.1.9.jar,
+ libs/java-auth-lib/auth-providers-0.1.9.jar,
+ libs/java-auth-lib/auth-secure-storage-0.1.9.jar
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
 Export-Package: .,
