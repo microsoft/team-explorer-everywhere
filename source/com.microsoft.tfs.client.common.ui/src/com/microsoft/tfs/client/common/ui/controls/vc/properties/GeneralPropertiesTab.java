@@ -255,8 +255,13 @@ public class GeneralPropertiesTab implements PropertiesTab {
         if (repository != null && item != null) {
             localPath = item.getLocalPath();
 
-            serverNameValue.setText(item.getExtendedItem().getSourceServerItem());
-            serverVersionValue.setText(String.valueOf(item.getRemoteVersion()));
+            if (item.getExtendedItem() != null) {
+                serverNameValue.setText(item.getExtendedItem().getSourceServerItem());
+                serverVersionValue.setText(String.valueOf(item.getRemoteVersion()));
+            } else {
+                serverNameValue.setText(""); //$NON-NLS-1$
+                serverVersionValue.setText("0"); //$NON-NLS-1$
+            }
 
             if (item.getLocalPath() != null) {
                 localNameValue.setText(item.getLocalPath());
@@ -391,7 +396,7 @@ public class GeneralPropertiesTab implements PropertiesTab {
             final ChangeUnixExecutablePropertyTask task =
                 new ChangeUnixExecutablePropertyTask(generalControl.getShell(), repository, new String[] {
                     localPath
-            }, newExecutable, LockLevel.UNCHANGED, PendChangesOptions.NONE);
+                }, newExecutable, LockLevel.UNCHANGED, PendChangesOptions.NONE);
 
             if (!task.run().isOK()) {
                 return false;
