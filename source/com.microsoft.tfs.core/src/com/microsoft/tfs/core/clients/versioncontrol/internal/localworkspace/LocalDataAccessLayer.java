@@ -4288,13 +4288,13 @@ public class LocalDataAccessLayer {
                 // If we did, remove it from the set of displaced baselines.
                 displacedBaselines.remove(lvEntry.getBaselineFileGUID());
             } else if (VersionControlConstants.ENCODING_FOLDER != lvEntry.getEncoding() &&
-                // If the item is uncommitted, we don't need to download a
-                // baseline
-                // for it, unless EnsureUpdatesFullyPopulated has already
-                // stuffed a
-                // download URL into the update for us (for example on a branch,
-                // edit)
-            (0 != lvEntry.getVersion() || null != update.getDownloadURL())) {
+            // If the item is uncommitted, we don't need to download a
+            // baseline
+            // for it, unless EnsureUpdatesFullyPopulated has already
+            // stuffed a
+            // download URL into the update for us (for example on a branch,
+            // edit)
+                (0 != lvEntry.getVersion() || null != update.getDownloadURL())) {
                 // We're about to save out a local version entry with no
                 // baseline file GUID!
 
@@ -4764,7 +4764,7 @@ public class LocalDataAccessLayer {
     private static String mapServerItem(final String serverItem, final Map<String, String> projectRenames) {
         final String teamProjectName = ServerPath.getTeamProjectName(serverItem);
 
-        if (!projectRenames.containsKey(teamProjectName)) {
+        if (StringUtil.isNullOrEmpty(teamProjectName) || !projectRenames.containsKey(teamProjectName)) {
             return serverItem;
         } else {
             final String newTeamProjectName = projectRenames.get(teamProjectName);
