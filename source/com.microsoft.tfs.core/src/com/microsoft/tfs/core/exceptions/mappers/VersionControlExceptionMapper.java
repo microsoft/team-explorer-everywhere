@@ -8,6 +8,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.microsoft.tfs.core.clients.versioncontrol.exceptions.ActionDeniedBySubscriberException;
+import com.microsoft.tfs.core.clients.versioncontrol.exceptions.PathTooLongException;
 import com.microsoft.tfs.core.clients.versioncontrol.exceptions.ReconcileBlockedByProjectRenameException;
 import com.microsoft.tfs.core.clients.versioncontrol.exceptions.ResourceAccessException;
 import com.microsoft.tfs.core.clients.versioncontrol.exceptions.TeamFoundationServerExceptionProperties;
@@ -63,6 +64,10 @@ public final class VersionControlExceptionMapper extends TECoreExceptionMapper {
             } else if (subCode.equals("ReconcileBlockedByProjectRenameException")) //$NON-NLS-1$
             {
                 newException = new ReconcileBlockedByProjectRenameException(soapFault.getMessage(), soapFault);
+            } else if (subCode.equals("PathTooLongException")) //$NON-NLS-1$
+            {
+                newException = new VersionControlException(
+                    new PathTooLongException(detailNode.getAttributes().getNamedItem("ExceptionMessage").toString())); //$NON-NLS-1$
             }
 
             if (newException != null) {

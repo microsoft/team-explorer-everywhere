@@ -56,7 +56,7 @@ public abstract class VersionControlConstants {
     /**
      * Maximum length of a local path including drive letter and separators
      */
-    public final static int MAX_LOCAL_PATH_SIZE = 399;
+    public final static int MAX_LOCAL_PATH_SIZE = 259;
 
     /**
      * The maximum length in characters of any single path component in a local
