@@ -46,6 +46,7 @@ import com.microsoft.tfs.client.common.ui.vc.serveritem.ServerItemLabelProvider;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.ServerItemType;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerItem;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.VersionedItemSource;
+import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
 import com.microsoft.tfs.client.eclipse.ui.Messages;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderCollection;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportFolderValidation;
@@ -400,7 +401,13 @@ public class TfsImportWizardTreePage extends ExtendedWizardPage {
         options = (ImportOptions) wizard.getPageData(ImportOptions.class);
         connection = (TFSTeamProjectCollection) wizard.getPageData(TFSTeamProjectCollection.class);
 
-        final List<ProjectInfo> projects = wizard.getInitialTeamProjectList();
+        final List<ProjectInfo> projects;
+
+        if (wizard.hasPageData(ConnectWizard.SELECTED_TEAM_PROJECTS)) {
+            projects = Arrays.asList((ProjectInfo[]) wizard.getPageData(ConnectWizard.SELECTED_TEAM_PROJECTS));
+        } else {
+            projects = wizard.getInitialTeamProjectList();
+        }
 
         itemSource = new VersionedItemSource(connection, projects.toArray(new ProjectInfo[projects.size()]));
         itemSource.setCommandExecutor(getCommandExecutor());
