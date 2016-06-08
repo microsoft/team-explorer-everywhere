@@ -14,6 +14,9 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.microsoft.tfs.core.Messages;
 import com.microsoft.tfs.core.clients.versioncontrol.exceptions.InvalidPendingChangeTableException;
 import com.microsoft.tfs.core.clients.versioncontrol.exceptions.WorkspaceVersionTableException;
@@ -31,6 +34,8 @@ import com.microsoft.tfs.core.clients.versioncontrol.sparsetree.SparseTree.Modif
 import com.microsoft.tfs.util.Check;
 
 public class WorkspaceVersionTable extends LocalMetadataTable {
+    private static final Log log = LogFactory.getLog(WorkspaceVersionTable.class);
+
     private static final short MAGIC = (short) 0xa7cc;
     private static final int SCHEMA_VERSION_2 = 2;
 
@@ -203,9 +208,9 @@ public class WorkspaceVersionTable extends LocalMetadataTable {
         }
 
         pendingReconcileCount += removedItems.size();
-        Check.isTrue(
-            pendingReconcileCount == this.pendingReconcileCount,
-            "pendingReconcileCount == this.pendingReconcileCount"); //$NON-NLS-1$
+        if (pendingReconcileCount != this.pendingReconcileCount) {
+            log.error(new Exception("Unexpected pendingReconcileCount != this.pendingReconcileCount")); //$NON-NLS-1$
+        }
 
         // Write the number of rows.
         bw.write(count + removedItems.size());
