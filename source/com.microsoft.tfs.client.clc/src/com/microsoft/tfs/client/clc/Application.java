@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,8 +48,8 @@ import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
 /**
- *         The entry point for the command-line client. Instances of this class
- *         should not be used by multiple threads.
+ * The entry point for the command-line client. Instances of this class should
+ * not be used by multiple threads.
  */
 public abstract class Application implements AbstractConsoleApplication {
     private static final Log log = LogFactory.getLog(Application.class);
@@ -250,7 +251,9 @@ public abstract class Application implements AbstractConsoleApplication {
              * Parse all the args into a command, its options, and free
              * arguments.
              */
-            c = parseTokens(args, options, freeArguments);
+
+            AtomicReference<Exception> outException = new AtomicReference<Exception>();
+            c = parseTokens(args, options, freeArguments, outException);
 
             /*
              * Set the display on the command as soon as possible, so it can
@@ -277,13 +280,19 @@ public abstract class Application implements AbstractConsoleApplication {
                 }
             }
 
-            if (tokens.length == 0 || c == null || foundHelpOption) {
+            final boolean invalidCommandArguments = outException.get() != null;
+
+            if (tokens.length == 0 || c == null || foundHelpOption || invalidCommandArguments) {
+                if (invalidCommandArguments) {
+                    final String messageFormat = Messages.getString("Application.AnArgumentErrorOccurredFormat"); //$NON-NLS-1$
+                    final String message =
+                        MessageFormat.format(messageFormat, outException.get().getLocalizedMessage());
+                    display.printErrorLine(message);
+                }
+
                 Help.show(c, display);
 
-                /*
-                 * Always exit with success to match Microsoft's CLC.
-                 */
-                return ExitCode.SUCCESS;
+                return invalidCommandArguments ? ExitCode.FAILURE : ExitCode.SUCCESS;
             }
 
             c.setOptions(options.toArray(new Option[0]), commandsMap.getGlobalOptions());
@@ -318,6 +327,8 @@ public abstract class Application implements AbstractConsoleApplication {
             final String messageFormat = Messages.getString("Application.AnArgumentErrorOccurredFormat"); //$NON-NLS-1$
             final String message = MessageFormat.format(messageFormat, e.getLocalizedMessage());
             display.printErrorLine(message);
+
+            Help.show(c, display);
 
             ret = ExitCode.FAILURE;
         } catch (final IllegalArgumentException e) {
@@ -445,10 +456,8 @@ public abstract class Application implements AbstractConsoleApplication {
     private Command parseTokens(
         final String[] tokens,
         final ArrayList<Option> foundOptions,
-        final ArrayList<String> foundFreeArguments)
-            throws UnknownOptionException,
-                UnknownCommandException,
-                InvalidOptionValueException {
+        final ArrayList<String> foundFreeArguments,
+        final AtomicReference<Exception> outException) {
         Command c = null;
 
         for (int i = 0; i < tokens.length; i++) {
@@ -472,10 +481,18 @@ public abstract class Application implements AbstractConsoleApplication {
             }
 
             if (startsWithOptionCharacter) {
-                final Option o = optionsMap.findOption(token);
+                final Option o;
+
+                try {
+                    o = optionsMap.findOption(token);
+                } catch (InvalidOptionValueException e) {
+                    outException.set(e);
+                    break;
+                }
 
                 if (o == null) {
-                    throw new UnknownOptionException(token);
+                    outException.set(new UnknownOptionException(token));
+                    break;
                 }
 
                 foundOptions.add(o);
@@ -490,7 +507,8 @@ public abstract class Application implements AbstractConsoleApplication {
                 final Command possibleCommand = commandsMap.findCommand(token);
 
                 if (possibleCommand == null) {
-                    throw new UnknownCommandException(token);
+                    outException.set(new UnknownCommandException(token));
+                    break;
                 }
 
                 c = possibleCommand;
