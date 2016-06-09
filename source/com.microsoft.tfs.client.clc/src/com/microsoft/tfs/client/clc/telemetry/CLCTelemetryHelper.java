@@ -31,7 +31,9 @@ public class CLCTelemetryHelper extends TfsTelemetryHelper {
             TfsTelemetryConstants.CLC_EVENT_PROPERTY_IS_SUCCESS,
             Boolean.toString(retCode == ExitCode.SUCCESS));
 
-        addContextProperties(properties, command.getCollection());
+        if (command != null) {
+            addContextProperties(properties, command.getCollection());
+        }
 
         sendEvent(eventName, properties);
     }
