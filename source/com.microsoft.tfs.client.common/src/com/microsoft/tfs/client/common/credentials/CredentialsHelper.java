@@ -14,6 +14,20 @@ import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.microsoft.alm.auth.Authenticator;
+import com.microsoft.alm.auth.PromptBehavior;
+import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
+import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
+import com.microsoft.alm.provider.Options;
+import com.microsoft.alm.provider.UserPasswordCredentialProvider;
+import com.microsoft.alm.secret.Credential;
+import com.microsoft.alm.secret.Token;
+import com.microsoft.alm.secret.TokenPair;
+import com.microsoft.alm.secret.TokenType;
+import com.microsoft.alm.secret.VsoTokenScope;
+import com.microsoft.alm.storage.InsecureInMemoryStore;
+import com.microsoft.alm.storage.SecretStore;
+import com.microsoft.tfs.client.common.Messages;
 import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
@@ -40,8 +54,16 @@ import com.microsoft.visualstudio.services.delegatedauthorization.model.SessionT
 public abstract class CredentialsHelper {
     private static final Log log = LogFactory.getLog(CredentialsHelper.class);
 
+    /**
+     * Constants for OAuth2 Interactive Browser logon flow
+     */
+    private static final String CLIENT_ID = "97877f11-0fc6-4aee-b1ff-febb0519dd00"; //$NON-NLS-1$
+    private static final String REDIRECT_URL = "https://java.visualstudio.com"; //$NON-NLS-1$
+
     private static CredentialsManager gitCredentialsManager =
         EclipseCredentialsManagerFactory.getGitCredentialsManager();
+    final static SecretStore<TokenPair> accessTokenStore = new InsecureInMemoryStore<TokenPair>();
+    final static SecretStore<Token> tokenStore = new EclipseTokenStore();
 
     public static void createAccountCodeAccessToken(final TFSConnection connection) {
         if (connection.isHosted() && !hasAccountCodeAccessToken(connection)) {
@@ -160,5 +182,104 @@ public abstract class CredentialsHelper {
             connection.getConnectionAdvisor());
 
         return vstsConnection;
+    }
+
+    public static PatCredentials getOAuthCredentials(final URI serverURI) {
+        final Authenticator authenticator;
+        final Options options = Options.getDefaultOptions();
+        options.patGenerationOptions.displayName = PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT;
+        options.patGenerationOptions.tokenScope = VsoTokenScope.AllScopes;
+
+        if (serverURI != null) {
+            log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
+            log.debug("Trying to persist credential, generating a PAT"); //$NON-NLS-1$
+
+            /*
+             * If this credential is to be persisted, then let's create a PAT
+             */
+            authenticator = new VstsPatAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, tokenStore);
+        } else {
+            log.debug("Interactively retrieving credential based on oauth2 flow for VSTS"); //$NON-NLS-1$
+            log.debug("Do not try to persist, generating oauth2 token."); //$NON-NLS-1$
+
+            /*
+             * Not persisting this credential, simply create an oauth2 token
+             */
+            authenticator = OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore);
+        }
+
+        final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
+
+        Credential tokenCreds;
+
+        tokenCreds = provider.getCredentialFor(
+            serverURI != null ? serverURI : URIUtils.VSTS_ROOT_URL,
+            PromptBehavior.AUTO,
+            options);
+
+        if (tokenCreds == null) {
+            // OAuth2 token is probably expired. Remove it from the internal
+            // memory store...
+            accessTokenStore.delete("OAuth2:" + URIUtils.VSTS_ROOT_URL_STRING); //$NON-NLS-1$
+
+            // ... and try again.
+            tokenCreds = provider.getCredentialFor(
+                serverURI != null ? serverURI : URIUtils.VSTS_ROOT_URL,
+                PromptBehavior.AUTO,
+                options);
+        }
+
+        if (tokenCreds != null && tokenCreds.Username != null && tokenCreds.Password != null) {
+            return new PatCredentials(tokenCreds.Password);
+        } else {
+            log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog1")); //$NON-NLS-1$
+            log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog2")); //$NON-NLS-1$
+            log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog3")); //$NON-NLS-1$
+        }
+        // Failed to get credential, return null
+        return null;
+    }
+
+    private static class EclipseTokenStore implements SecretStore<Token> {
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean add(String key, Token token) {
+            final URI serverURI = URIUtils.newURI(key.split(":", 2)[1]); //$NON-NLS-1$
+            return gitCredentialsManager.setCredentials(new CachedCredentials(serverURI, token.Value));
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean delete(String key) {
+            final URI serverURI = URIUtils.newURI(key.split(":", 2)[1]); //$NON-NLS-1$
+            return gitCredentialsManager.removeCredentials(serverURI);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Token get(String key) {
+            final URI serverURI = URIUtils.newURI(key.split(":", 2)[1]); //$NON-NLS-1$
+            CachedCredentials cachedCredentials = gitCredentialsManager.getCredentials(serverURI);
+            if (cachedCredentials != null) {
+                return new Token(cachedCredentials.getPassword(), TokenType.Access);
+            } else {
+                return null;
+            }
+
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean isSecure() {
+            return true;
+        }
     }
 }

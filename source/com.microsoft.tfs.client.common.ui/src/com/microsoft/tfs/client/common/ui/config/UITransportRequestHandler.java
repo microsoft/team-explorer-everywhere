@@ -15,6 +15,7 @@ import org.eclipse.swt.browser.Browser;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.core.config.ConnectionInstanceData;
+import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.core.config.auth.DefaultTransportRequestHandler;
 import com.microsoft.tfs.core.config.httpclient.ConfigurableHTTPClientFactory;
 import com.microsoft.tfs.core.config.httpclient.DefaultHTTPClientFactory;
@@ -30,6 +31,7 @@ import com.microsoft.tfs.core.httpclient.HttpClient;
 import com.microsoft.tfs.core.httpclient.URI;
 import com.microsoft.tfs.core.httpclient.URIException;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
+import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.core.httpclient.cookie.CookiePolicy;
 import com.microsoft.tfs.core.httpclient.cookie.CookieSpec;
 import com.microsoft.tfs.core.ws.runtime.client.SOAPRequest;
@@ -252,29 +254,51 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
 
         /*
          * For a federated authentication exception, always raise the login to
-         * ACS dialog.
+         * ACS or OAuth credentials dialog.
          */
         if (exception instanceof FederatedAuthException) {
             log.debug(" FederatedAuthException has been raised."); //$NON-NLS-1$
 
             cleanupSavedCredentials(service.getClient());
 
-            dialogRunnable = new UITransportFederatedFallbackAuthRunnable(
-                connectionInstanceData.getServerURI(),
-                connectionInstanceData.getCredentials(),
-                (FederatedAuthException) exception);
+            if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, false)) {
+                dialogRunnable = new UITransportOAuthRunnable(connectionInstanceData.getServerURI());
+            } else {
+                dialogRunnable = new UITransportFederatedFallbackAuthRunnable(
+                    connectionInstanceData.getServerURI(),
+                    connectionInstanceData.getCredentials(),
+                    (FederatedAuthException) exception);
+            }
         }
         /*
-         * For failed username/password credentials, raise the UI dialog if the
-         * service recommends prompting.
+         * For failed username/password or PAT credentials, raise the UI dialog
+         * if the service recommends prompting. The SharePoint and Reports
+         * services seems to be the only ones that do not recommend.
          */
         else if (exception instanceof UnauthorizedException && service.isPromptForCredentials()) {
             log.debug(" UnauthorizedException has been raised."); //$NON-NLS-1$
-            dialogRunnable = new UITransportUsernamePasswordAuthRunnable(
-                connectionInstanceData.getServerURI(),
-                connectionInstanceData.getCredentials(),
-                (UnauthorizedException) exception);
-        } else if (exception instanceof FederatedAuthFailedException) {
+
+            if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, false)
+                && isPatCredentials(connectionInstanceData.getCredentials())) {
+                // PAT token is probably expired. Remove it from the Eclipse
+                // secure storage and retry.
+                final CredentialsManager credentialsManager =
+                    EclipseCredentialsManagerFactory.getGitCredentialsManager();
+                credentialsManager.removeCredentials(connectionInstanceData.getServerURI());
+                dialogRunnable = new UITransportOAuthRunnable(connectionInstanceData.getServerURI());
+            } else {
+                dialogRunnable = new UITransportUsernamePasswordAuthRunnable(
+                    connectionInstanceData.getServerURI(),
+                    connectionInstanceData.getCredentials(),
+                    (UnauthorizedException) exception);
+            }
+        }
+        /*
+         * The Cookie Credentials used are incorrect. They are either corrupted
+         * in Eclipse secure storage or expired. Cleanup the storage and retry
+         * from scratch.
+         */
+        else if (exception instanceof FederatedAuthFailedException) {
             cleanupSavedCredentials(service.getClient());
             return Status.CONTINUE;
         } else {
@@ -284,6 +308,7 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
 
         log.debug(" Prompt for credentials"); //$NON-NLS-1$
         final Credentials credentials = getCredentials(dialogRunnable);
+
         log.debug(
             " The dialog returned cedentials: " + (credentials == null ? "null" : credentials.getClass().getName())); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -294,17 +319,27 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
         }
 
         // Apply the credentials data to the existing client.
-        log.debug("Apply the new Cookie Credentials to the existing client."); //$NON-NLS-1$
+        log.debug("Apply the new credentials to the existing client."); //$NON-NLS-1$
         connectionInstanceData.setCredentials(credentials);
 
-        log.debug(
-            " Save the new Cookie Credentials to the existing Client Factory for future clients in this session."); //$NON-NLS-1$
+        log.debug(" Save the new credentials to the existing Client Factory for future clients in this session."); //$NON-NLS-1$
         getClientFactory().configureClientCredentials(
             service.getClient(),
             service.getClient().getState(),
             connectionInstanceData);
 
         return Status.COMPLETE;
+    }
+
+    private boolean isPatCredentials(Credentials credentials) {
+        if (credentials == null) {
+            return false;
+        } else if (!(credentials instanceof UsernamePasswordCredentials)) {
+            return false;
+        } else {
+            final String userName = ((UsernamePasswordCredentials) credentials).getUsername();
+            return PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT.equals(userName);
+        }
     }
 
     private void cleanupSavedCredentials(final HttpClient client) {

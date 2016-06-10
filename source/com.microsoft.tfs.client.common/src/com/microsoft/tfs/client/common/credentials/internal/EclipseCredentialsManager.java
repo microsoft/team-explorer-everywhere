@@ -25,7 +25,6 @@ import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.cookie.CookiePolicy;
 import com.microsoft.tfs.core.httpclient.cookie.CookieSpec;
-import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.StringUtil;
 
@@ -169,9 +168,6 @@ public class EclipseCredentialsManager implements CredentialsManager {
 
         if (persistenceProvider == null) {
             return null;
-        } else if (ServerURIUtils.isHosted(serverURI)) {
-            // not use basic auth for hosted server
-            return null;
         } else {
             return getPlatformCredentialsManager().getCredentials(serverURI);
         }
@@ -253,7 +249,7 @@ public class EclipseCredentialsManager implements CredentialsManager {
             node.removeNode();
             return true;
         } else {
-            return false;
+            return getPlatformCredentialsManager().removeCredentials(uri);
         }
     }
 

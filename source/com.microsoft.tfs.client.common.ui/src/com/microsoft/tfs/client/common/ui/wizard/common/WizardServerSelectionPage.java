@@ -18,6 +18,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
 import com.microsoft.tfs.client.common.ui.Messages;
@@ -37,12 +38,14 @@ import com.microsoft.tfs.client.common.ui.tasks.ConnectToConfigurationServerTask
 import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
+import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
+import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
@@ -205,6 +208,10 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
     }
 
     private Credentials getVstsRootCredentials(final boolean tryCurrentCredentials) {
+        if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, false)) {
+            return PreemptiveUsernamePasswordCredentials.newFrom(CredentialsHelper.getOAuthCredentials(null));
+        }
+
         final Credentials currentCredentials = tryCurrentCredentials ? getCurrentCredentials() : null;
 
         if (currentCredentials == null || !(currentCredentials instanceof CookieCredentials)) {
