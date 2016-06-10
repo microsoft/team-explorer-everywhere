@@ -38,7 +38,9 @@ public class TfsImportWizard extends ImportWizard {
         final IWizardPage nextConnectionPage = getNextConnectionPage();
 
         if (nextConnectionPage != null) {
-            return nextConnectionPage;
+            if (!nextConnectionPage.getName().equals(getSelectionPageName()) || !skipCrossSelectionPage()) {
+                return nextConnectionPage;
+            }
         }
 
         if (!hasPageData(Workspace.class)) {
@@ -54,6 +56,11 @@ public class TfsImportWizard extends ImportWizard {
         }
 
         return null;
+    }
+
+    private boolean skipCrossSelectionPage() {
+        ImportOptions options = (ImportOptions) getPageData(ImportOptions.class);
+        return options.getImportFolders().length > 0;
     }
 
     @Override
