@@ -48,8 +48,10 @@ public abstract class TfsTelemetryInstrumentationInfo {
     private static boolean isDeveloperMode;
 
     static {
-        final InputStream in =
-            TfsTelemetryInstrumentationInfo.class.getResourceAsStream(TELEMETRY_INSTRUMENTATION_PROPERTIES_RESOURCE);
+        // final InputStream in =
+        // TfsTelemetryInstrumentationInfo.class.getResourceAsStream(TELEMETRY_INSTRUMENTATION_PROPERTIES_RESOURCE);
+        // Now we always use AI telemetry in the production mode.
+        final InputStream in = null;
         initialize(in);
     }
 
@@ -94,10 +96,6 @@ public abstract class TfsTelemetryInstrumentationInfo {
                     // suppressing exception
                 }
             }
-        } else {
-            log.warn(MessageFormat.format(
-                "Unable to locate property resource {0}", //$NON-NLS-1$
-                TELEMETRY_INSTRUMENTATION_PROPERTIES_RESOURCE));
         }
     }
 
