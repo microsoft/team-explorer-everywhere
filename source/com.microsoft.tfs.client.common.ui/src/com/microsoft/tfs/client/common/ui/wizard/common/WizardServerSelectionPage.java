@@ -45,7 +45,7 @@ import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
-import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
+import com.microsoft.tfs.core.httpclient.JwtCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
@@ -193,7 +193,8 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
                 try {
                     final URI uri = URIUtils.newURI(accountURI);
-                    final TFSConnection configurationServer = openAccount(uri, credentials);
+                    final TFSConnection configurationServer =
+                        openAccount(uri, CredentialsHelper.getOAuthCredentials(uri));
                     if (configurationServer != null) {
                         configurationServers.add(configurationServer);
                     }
@@ -208,8 +209,17 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
     }
 
     private Credentials getVstsRootCredentials(final boolean tryCurrentCredentials) {
+        final Credentials vstsCredentials;
+
         if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, false)) {
-            return PreemptiveUsernamePasswordCredentials.newFrom(CredentialsHelper.getOAuthCredentials(null));
+
+            vstsCredentials = CredentialsHelper.getOAuthCredentials(null);
+
+            if (vstsCredentials != null && (vstsCredentials instanceof JwtCredentials)) {
+                return vstsCredentials;
+            } else {
+                return null;
+            }
         }
 
         final Credentials currentCredentials = tryCurrentCredentials ? getCurrentCredentials() : null;
@@ -220,7 +230,8 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
             log.debug("Prompt for credentials"); //$NON-NLS-1$
             UIHelpers.runOnUIThread(getShell(), false, dialogRunnable);
 
-            final Credentials vstsCredentials = dialogRunnable.getCredentials();
+            vstsCredentials = dialogRunnable.getCredentials();
+
             log.debug("The dialog returned cedentials: " //$NON-NLS-1$
                 + (vstsCredentials == null ? "null" : vstsCredentials.getClass().getName())); //$NON-NLS-1$
 

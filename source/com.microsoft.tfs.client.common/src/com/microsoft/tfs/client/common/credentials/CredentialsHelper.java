@@ -18,9 +18,6 @@ import com.microsoft.alm.auth.Authenticator;
 import com.microsoft.alm.auth.PromptBehavior;
 import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
 import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
-import com.microsoft.alm.provider.Options;
-import com.microsoft.alm.provider.UserPasswordCredentialProvider;
-import com.microsoft.alm.secret.Credential;
 import com.microsoft.alm.secret.Token;
 import com.microsoft.alm.secret.TokenPair;
 import com.microsoft.alm.secret.TokenType;
@@ -36,6 +33,7 @@ import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
+import com.microsoft.tfs.core.httpclient.JwtCredentials;
 import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.core.util.URIUtils;
@@ -136,16 +134,6 @@ public abstract class CredentialsHelper {
         return isCredentialsValid(baseURI, credentials);
     }
 
-    public static boolean isCredentialsValid(URI baseURI, Credentials credentials) {
-        final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
-            baseURI,
-            credentials,
-            new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
-        final AccountHttpClient client = new AccountHttpClient(rootConnection);
-
-        return client.checkConnection();
-    }
-
     public static boolean isAccountCodeAccessTokenValid(final TFSConnection connection) {
         if (connection.isHosted()) {
             final URI baseURI = connection.getBaseURI();
@@ -158,12 +146,6 @@ public abstract class CredentialsHelper {
         }
 
         return false;
-    }
-
-    public static boolean isOAuth2TokenValid(final String token) {
-        final URI baseURI = URIUtils.VSTS_ROOT_URL;
-        final PatCredentials patCredentials = new PatCredentials(token);
-        return isCredentialsValid(baseURI, PreemptiveUsernamePasswordCredentials.newFrom(patCredentials));
     }
 
     public static UUID getAccountId(final TFSConnection connection) {
@@ -193,61 +175,98 @@ public abstract class CredentialsHelper {
         return vstsConnection;
     }
 
-    public static PatCredentials getOAuthCredentials(final URI serverURI) {
-        final Authenticator authenticator;
-        final Options options = Options.getDefaultOptions();
-        options.patGenerationOptions.displayName = PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT;
-        options.patGenerationOptions.tokenScope = VsoTokenScope.AllScopes;
-
+    public static Credentials getOAuthCredentials(final URI serverURI) {
         removeStaleOAuth2Token();
+
+        final Authenticator authenticator;
+        final Token token;
 
         if (serverURI != null) {
             log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
             log.debug("Trying to persist credential, generating a PAT"); //$NON-NLS-1$
 
-            /*
-             * If this credential is to be persisted, then let's create a PAT
-             */
             authenticator = new VstsPatAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, tokenStore);
+
+            final String tokenKey =
+                authenticator.getUriToKeyConversion().convert(serverURI, authenticator.getAuthType());
+            removeStalePersonalAccessToken(tokenKey, serverURI);
+
+            token = authenticator.getPersonalAccessToken(
+                serverURI,
+                VsoTokenScope.AllScopes,
+                PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT,
+                PromptBehavior.AUTO);
         } else {
             log.debug("Interactively retrieving credential based on oauth2 flow for VSTS"); //$NON-NLS-1$
             log.debug("Do not try to persist, generating oauth2 token."); //$NON-NLS-1$
 
-            /*
-             * Not persisting this credential, simply create an oauth2 token
-             */
             authenticator = OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore);
+
+            final TokenPair tokenPair = authenticator.getOAuth2TokenPair();
+            token = tokenPair != null ? tokenPair.AccessToken : null;
         }
 
-        final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
-
-        Credential tokenCreds;
-
-        tokenCreds = provider.getCredentialFor(
-            serverURI != null ? serverURI : URIUtils.VSTS_ROOT_URL,
-            PromptBehavior.AUTO,
-            options);
-
-        if (tokenCreds != null && tokenCreds.Username != null && tokenCreds.Password != null) {
-            return new PatCredentials(tokenCreds.Password);
-        } else {
-            log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog1")); //$NON-NLS-1$
-            log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog2")); //$NON-NLS-1$
-            log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog3")); //$NON-NLS-1$
+        if (token != null && token.Type != null && !StringUtil.isNullOrEmpty(token.Value)) {
+            switch (token.Type) {
+                case Personal:
+                    return new PatCredentials(token.Value);
+                case Access:
+                    return new JwtCredentials(token.Value);
+            }
         }
+
+        log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog1")); //$NON-NLS-1$
+        log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog2")); //$NON-NLS-1$
+        log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog3")); //$NON-NLS-1$
+
         // Failed to get credential, return null
         return null;
     }
 
     private static void removeStaleOAuth2Token() {
-        final String tokenKey = "OAuth2:" + URIUtils.VSTS_ROOT_URL_STRING; //$NON-NLS-1$
-        final TokenPair oauth2TokenPair = accessTokenStore.get(tokenKey);
-        final String token =
-            oauth2TokenPair != null && oauth2TokenPair.AccessToken != null ? oauth2TokenPair.AccessToken.Value : null;
+        final Authenticator authenticator =
+            OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore);
 
-        if (!StringUtil.isNullOrEmpty(token) && !isOAuth2TokenValid(token)) {
-            accessTokenStore.delete(tokenKey);
+        final String tokenKey =
+            authenticator.getUriToKeyConversion().convert(URIUtils.VSTS_ROOT_URL, authenticator.getAuthType());
+        final TokenPair oauth2TokenPair = accessTokenStore.get(tokenKey);
+
+        if (oauth2TokenPair != null && oauth2TokenPair.AccessToken != null) {
+            final String token = oauth2TokenPair.AccessToken.Value;
+
+            if (!StringUtil.isNullOrEmpty(token) && !isOAuth2TokenValid(token)) {
+                accessTokenStore.delete(tokenKey);
+            }
         }
+    }
+
+    private static void removeStalePersonalAccessToken(final String tokenKey, final URI serverURI) {
+        final Token token = tokenStore.get(tokenKey);
+
+        if (token != null && !StringUtil.isNullOrEmpty(token.Value) && !isAccessTokenValid(token.Value, serverURI)) {
+            tokenStore.delete(tokenKey);
+        }
+    }
+
+    private static boolean isOAuth2TokenValid(final String token) {
+        final URI serverURI = URIUtils.VSTS_ROOT_URL;
+        final JwtCredentials credentials = new JwtCredentials(token);
+        return isCredentialsValid(serverURI, credentials);
+    }
+
+    private static boolean isAccessTokenValid(String token, URI serverURI) {
+        final PatCredentials patCredentials = new PatCredentials(token);
+        return isCredentialsValid(serverURI, PreemptiveUsernamePasswordCredentials.newFrom(patCredentials));
+    }
+
+    private static boolean isCredentialsValid(URI baseURI, Credentials credentials) {
+        final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
+            baseURI,
+            credentials,
+            new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
+        final AccountHttpClient client = new AccountHttpClient(rootConnection);
+
+        return client.checkConnection();
     }
 
     private static class EclipseTokenStore implements SecretStore<Token> {
