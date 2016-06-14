@@ -5,8 +5,6 @@ package com.microsoft.tfs.client.common.credentials;
 
 import java.net.URI;
 import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -65,14 +63,7 @@ public abstract class CredentialsHelper {
 
     public static void createAccountCodeAccessToken(final TFSConnection connection) {
         if (connection.isHosted() && !hasAccountCodeAccessToken(connection)) {
-            final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"); //$NON-NLS-1$
-            dateFormat.setTimeZone(TimeZone.getTimeZone("UTC")); //$NON-NLS-1$
-
-            final String tokenDisplayName = MessageFormat.format(
-                PatCredentials.TOKEN_DESCRIPTION,
-                connection.getAuthorizedAccountName(),
-                LocalHost.getShortName(),
-                dateFormat.format(new Date()));
+            final String tokenDisplayName = getAccessTokenDescription(connection.getBaseURI().toString());
 
             final TFSConnection vstsConnection = getVstsRootConnection(connection);
             final DelegatedAuthorizationHttpClient authorizationClient =
@@ -194,7 +185,7 @@ public abstract class CredentialsHelper {
             token = authenticator.getPersonalAccessToken(
                 serverURI,
                 VsoTokenScope.AllScopes,
-                PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT,
+                getAccessTokenDescription(serverURI.toString()),
                 PromptBehavior.AUTO);
         } else {
             log.debug("Interactively retrieving credential based on oauth2 flow for VSTS"); //$NON-NLS-1$
@@ -267,6 +258,13 @@ public abstract class CredentialsHelper {
         final AccountHttpClient client = new AccountHttpClient(rootConnection);
 
         return client.checkConnection();
+    }
+
+    private static String getAccessTokenDescription(final String uri) {
+        final String tokenDescription =
+            MessageFormat.format(PatCredentials.TOKEN_DESCRIPTION, uri, LocalHost.getShortName());
+
+        return tokenDescription;
     }
 
     private static class EclipseTokenStore implements SecretStore<Token> {
