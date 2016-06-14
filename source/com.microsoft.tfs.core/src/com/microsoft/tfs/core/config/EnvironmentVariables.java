@@ -232,8 +232,7 @@ public abstract class EnvironmentVariables {
             return defaultValue;
         } else {
             return !value.equalsIgnoreCase("FALSE") //$NON-NLS-1$
-                &&
-                !value.equalsIgnoreCase("NO") //$NON-NLS-1$
+                && !value.equalsIgnoreCase("NO") //$NON-NLS-1$
                 && !value.equalsIgnoreCase("N"); //$NON-NLS-1$
         }
     }
