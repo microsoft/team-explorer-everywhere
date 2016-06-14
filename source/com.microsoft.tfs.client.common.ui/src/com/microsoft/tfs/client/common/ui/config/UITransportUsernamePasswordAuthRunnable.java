@@ -63,7 +63,8 @@ public class UITransportUsernamePasswordAuthRunnable extends UITransportAuthRunn
                 public void credentialsComplete() {
                     if (credentialsDialog.getReturnCode() == IDialogConstants.OK_ID
                         && credentialsDialog.isSavePasswordChecked()) {
-                        credentialsManager.setCredentials(new CachedCredentials(serverURI, credentials));
+                        credentialsManager.setCredentials(
+                            new CachedCredentials(serverURI, credentialsDialog.getCredentials()));
                     }
                 }
             });

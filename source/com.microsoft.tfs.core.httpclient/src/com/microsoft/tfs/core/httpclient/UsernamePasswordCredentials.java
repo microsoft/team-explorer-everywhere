@@ -164,7 +164,7 @@ public class UsernamePasswordCredentials extends Credentials {
 
     public static class PatCredentials extends UsernamePasswordCredentials {
         public static final String USERNAME_FOR_CODE_ACCESS_PAT = "_VSTS_Code_Access_Token_"; //$NON-NLS-1$
-        public static final String TOKEN_DESCRIPTION = "Team Explorer Everywhere Eclipse Plugin: {0} from: {1} on: {2}"; //$NON-NLS-1$
+        public static final String TOKEN_DESCRIPTION = "TEE: {0} on: {1}"; //$NON-NLS-1$
 
         public PatCredentials(final String pat) {
             super(USERNAME_FOR_CODE_ACCESS_PAT, pat == null ? StringUtil.EMPTY : pat);

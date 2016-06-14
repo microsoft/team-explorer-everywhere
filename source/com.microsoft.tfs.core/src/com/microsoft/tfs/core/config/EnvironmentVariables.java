@@ -54,6 +54,12 @@ public abstract class EnvironmentVariables {
     public static final String USE_LEGACY_MSA = "TF_USE_LEGACY_MSA"; //$NON-NLS-1$
 
     /**
+     * When set to any "true-ish" value the new OAuth authentication dialog will
+     * be used.
+     */
+    public static final String USE_OAUTH_LIBRARY = "TF_USE_OAUTH_LIBRARY"; //$NON-NLS-1$
+
+    /**
      * When set to an integer positive value defines the maximum size of a file
      * portion during chunked file upload. The value may be specified either -
      * in bytes (e.g 12345678), or - in kilobytes (e.g. 1234K or 1234k), or - in
@@ -225,8 +231,8 @@ public abstract class EnvironmentVariables {
         if (StringUtil.isNullOrEmpty(value)) {
             return defaultValue;
         } else {
-            return !value.equalsIgnoreCase("FALSE") && //$NON-NLS-1$
-                !value.equalsIgnoreCase("NO") //$NON-NLS-1$
+            return !value.equalsIgnoreCase("FALSE") //$NON-NLS-1$
+                && !value.equalsIgnoreCase("NO") //$NON-NLS-1$
                 && !value.equalsIgnoreCase("N"); //$NON-NLS-1$
         }
     }
