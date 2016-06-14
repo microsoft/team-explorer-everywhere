@@ -96,10 +96,6 @@ public abstract class TfsTelemetryInstrumentationInfo {
                     // suppressing exception
                 }
             }
-        } else {
-            log.warn(MessageFormat.format(
-                "Unable to locate property resource {0}", //$NON-NLS-1$
-                TELEMETRY_INSTRUMENTATION_PROPERTIES_RESOURCE));
         }
     }
 
