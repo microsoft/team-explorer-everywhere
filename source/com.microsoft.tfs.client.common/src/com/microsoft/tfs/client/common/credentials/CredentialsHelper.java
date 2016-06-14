@@ -133,7 +133,10 @@ public abstract class CredentialsHelper {
 
     public static boolean isCredentialsValid(final TFSConnection connection, final Credentials credentials) {
         final URI baseURI = connection.getBaseURI();
+        return isCredentialsValid(baseURI, credentials);
+    }
 
+    public static boolean isCredentialsValid(URI baseURI, Credentials credentials) {
         final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
             baseURI,
             credentials,
@@ -155,6 +158,12 @@ public abstract class CredentialsHelper {
         }
 
         return false;
+    }
+
+    public static boolean isOAuth2TokenValid(final String token) {
+        final URI baseURI = URIUtils.VSTS_ROOT_URL;
+        final PatCredentials patCredentials = new PatCredentials(token);
+        return isCredentialsValid(baseURI, PreemptiveUsernamePasswordCredentials.newFrom(patCredentials));
     }
 
     public static UUID getAccountId(final TFSConnection connection) {
@@ -190,6 +199,8 @@ public abstract class CredentialsHelper {
         options.patGenerationOptions.displayName = PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT;
         options.patGenerationOptions.tokenScope = VsoTokenScope.AllScopes;
 
+        removeStaleOAuth2Token();
+
         if (serverURI != null) {
             log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
             log.debug("Trying to persist credential, generating a PAT"); //$NON-NLS-1$
@@ -217,18 +228,6 @@ public abstract class CredentialsHelper {
             PromptBehavior.AUTO,
             options);
 
-        if (tokenCreds == null) {
-            // OAuth2 token is probably expired. Remove it from the internal
-            // memory store...
-            accessTokenStore.delete("OAuth2:" + URIUtils.VSTS_ROOT_URL_STRING); //$NON-NLS-1$
-
-            // ... and try again.
-            tokenCreds = provider.getCredentialFor(
-                serverURI != null ? serverURI : URIUtils.VSTS_ROOT_URL,
-                PromptBehavior.AUTO,
-                options);
-        }
-
         if (tokenCreds != null && tokenCreds.Username != null && tokenCreds.Password != null) {
             return new PatCredentials(tokenCreds.Password);
         } else {
@@ -238,6 +237,17 @@ public abstract class CredentialsHelper {
         }
         // Failed to get credential, return null
         return null;
+    }
+
+    private static void removeStaleOAuth2Token() {
+        final String tokenKey = "OAuth2:" + URIUtils.VSTS_ROOT_URL_STRING; //$NON-NLS-1$
+        final TokenPair oauth2TokenPair = accessTokenStore.get(tokenKey);
+        final String token =
+            oauth2TokenPair != null && oauth2TokenPair.AccessToken != null ? oauth2TokenPair.AccessToken.Value : null;
+
+        if (!StringUtil.isNullOrEmpty(token) && !isOAuth2TokenValid(token)) {
+            accessTokenStore.delete(tokenKey);
+        }
     }
 
     private static class EclipseTokenStore implements SecretStore<Token> {
@@ -267,7 +277,7 @@ public abstract class CredentialsHelper {
             final URI serverURI = URIUtils.newURI(key.split(":", 2)[1]); //$NON-NLS-1$
             CachedCredentials cachedCredentials = gitCredentialsManager.getCredentials(serverURI);
             if (cachedCredentials != null) {
-                return new Token(cachedCredentials.getPassword(), TokenType.Access);
+                return new Token(cachedCredentials.getPassword(), TokenType.Personal);
             } else {
                 return null;
             }
