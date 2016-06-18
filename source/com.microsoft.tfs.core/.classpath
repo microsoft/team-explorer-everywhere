@@ -27,11 +27,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="lib" path="libs/hsqldb-1.8.0.10-ebcdic/hsqldb.jar"/>
-	<classpathentry kind="lib" path="libs/xerces-2.8.0/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="libs/xerces-2.8.0/xml-apis.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/com.microsoft.tfs.core.ws.runtime/lib/woodstox-asl-4.0.3/stax-api-1.0.1.jar" sourcepath="/com.microsoft.tfs.core.ws.runtime/libsrc/woodstox-asl-4.0.3/stax-api-src-1.0.1.jar"/>
 	<classpathentry kind="lib" path="libs/commons-codec-1.6/commons-codec-1.6.jar" sourcepath="libs_src/commons-codec-1.6/commons-codec-1.6-sources.jar"/>
 	<classpathentry kind="lib" path="libs/commons-io-2.4/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="libs/commons-lang3-3.1/commons-lang3-3.1.jar"/>

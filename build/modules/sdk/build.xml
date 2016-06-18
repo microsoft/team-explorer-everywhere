@@ -38,7 +38,6 @@
         <copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" flatten="true">
             <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient" includes="**/*.jar" />
             <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging/lib" includes="**/*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws.runtime/lib" includes="**/*.jar" />
         </copy>
 
         <!-- copy native libraries -->
@@ -126,25 +125,6 @@
             <zipfileset includes="**"
                         excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
                         src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-logging-1.1.3.jar" />
-            
-        	<!-- 
-        	    BIG DEAL: Exclude QName, NamespaceContext, and XMLConstants because they conflict 
-        	    with Xerces's versions and duplicates break JAR signing.  Xerces's XMLConstants
-        	    has additional constants, so prefer it; others have identical interfaces.
-        	-->
-        	<zipfileset includes="**" 
-        	            excludes="javax/xml/XMLConstants.class javax/xml/namespace/NamespaceContext.class javax/xml/namespace/QName.class"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/stax-api-1.0.1.jar" />
-            
-        	<zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/stax2-api-3.0.1.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/ASL2.0 META-INF/LICENSE META-INF/NOTICE"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/woodstox-core-asl-4.0.3.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/xercesImpl.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/xml-apis.jar" />
         </jar>
 
         <echo message="[TFSBuildStep] SDK: Generating Javadoc" />

@@ -95,7 +95,7 @@ public class WIQDocument {
          * parser does not support JAXP 1.2, which we need for XMLSchema
          * validation.
          */
-        final DocumentBuilderFactory factory = new org.apache.xerces.jaxp.DocumentBuilderFactoryImpl();
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         final InputStream schemaStream = WIQDocument.class.getResourceAsStream(XML_SCHEMA_RESOURCE_NAME);
 
