@@ -11,6 +11,7 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
 import com.microsoft.tfs.util.Check;
+import com.microsoft.tfs.util.StringUtil;
 
 public abstract class StaxUtils {
     /**
@@ -107,11 +108,16 @@ public abstract class StaxUtils {
 
                     final int attributeCount = reader.getAttributeCount();
                     for (int i = 0; i < attributeCount; i++) {
+                        final String prefix = reader.getAttributePrefix(i);
+                        final String nameSpace = reader.getAttributeNamespace(i);
+                        final String localName = reader.getAttributeLocalName(i);
+                        final String value = reader.getAttributeValue(i);
+
                         writer.writeAttribute(
-                            reader.getAttributePrefix(i),
-                            reader.getAttributeNamespace(i),
-                            reader.getAttributeLocalName(i),
-                            reader.getAttributeValue(i));
+                            StringUtil.isNullOrEmpty(prefix) ? StringUtil.EMPTY : prefix,
+                            StringUtil.isNullOrEmpty(nameSpace) ? StringUtil.EMPTY : nameSpace,
+                            StringUtil.isNullOrEmpty(localName) ? StringUtil.EMPTY : localName,
+                            StringUtil.isNullOrEmpty(value) ? StringUtil.EMPTY : value);
                     }
 
                     /*

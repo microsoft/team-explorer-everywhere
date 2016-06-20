@@ -770,4 +770,23 @@ public abstract class StringUtil {
     public static String pad(final Number n, final int width) {
         return pad(n, width, ' ');
     }
+
+    public static int toInt(final String s) {
+        final int number;
+        switch (s.charAt(s.length() - 1)) {
+            case 'K':
+            case 'k':
+                number = Integer.parseInt(s.substring(0, s.length() - 1).trim()) * 1024;
+                break;
+            case 'M':
+            case 'm':
+                number = Integer.parseInt(s.substring(0, s.length() - 1).trim()) * 1024 * 1024;
+                break;
+            default:
+                number = Integer.parseInt(s.trim());
+        }
+
+        return number;
+
+    }
 }

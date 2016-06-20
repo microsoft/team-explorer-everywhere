@@ -204,6 +204,45 @@ public class StringUtilTest extends TestCase {
         }, actual);
     }
 
+    public void testToIntConversion() {
+        int actual;
+
+        actual = StringUtil.toInt("1"); //$NON-NLS-1$
+        assertEquals(actual, 1);
+
+        actual = StringUtil.toInt("-2"); //$NON-NLS-1$
+        assertEquals(actual, -2);
+
+        actual = StringUtil.toInt("3K"); //$NON-NLS-1$
+        assertEquals(actual, 3 * 1024);
+
+        actual = StringUtil.toInt("4 K"); //$NON-NLS-1$
+        assertEquals(actual, 4 * 1024);
+
+        actual = StringUtil.toInt("5k"); //$NON-NLS-1$
+        assertEquals(actual, 5 * 1024);
+
+        actual = StringUtil.toInt(" 6  k"); //$NON-NLS-1$
+        assertEquals(actual, 6 * 1024);
+
+        actual = StringUtil.toInt("7M"); //$NON-NLS-1$
+        assertEquals(actual, 7 * 1024 * 1024);
+
+        actual = StringUtil.toInt("8 M"); //$NON-NLS-1$
+        assertEquals(actual, 8 * 1024 * 1024);
+    }
+
+    public void testToIntConversionThrowsException() {
+        try {
+            int actual = StringUtil.toInt("1H"); //$NON-NLS-1$
+        } catch (final Exception e) {
+            assertTrue("NumberFormatException expected", e instanceof NumberFormatException); //$NON-NLS-1$
+            return;
+        }
+
+        fail("NumberFormatException expected"); //$NON-NLS-1$
+    }
+
     // --- Private Test Helpers --- //
 
     /**

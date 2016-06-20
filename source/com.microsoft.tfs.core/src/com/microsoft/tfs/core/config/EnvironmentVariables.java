@@ -199,28 +199,14 @@ public abstract class EnvironmentVariables {
             return defaultValue;
         } else {
             try {
-                final int number;
-                switch (value.charAt(value.length() - 1)) {
-                    case 'K':
-                    case 'k':
-                        number = Integer.parseInt(value.substring(0, value.length() - 1)) * 1024;
-                        break;
-                    case 'M':
-                    case 'm':
-                        number = Integer.parseInt(value.substring(0, value.length() - 1)) * 1024 * 1024;
-                        break;
-                    default:
-                        number = Integer.parseInt(value);
-
-                }
-
+                final int number = StringUtil.toInt(value);
                 return number;
             } catch (final NumberFormatException e) {
                 final String message =
                     MessageFormat.format("Incorrect value of the environment variable {0} = {1}", variableName, value); //$NON-NLS-1$
                 logger.error(message, e);
 
-                return Integer.MIN_VALUE;
+                return defaultValue;
             }
         }
     }

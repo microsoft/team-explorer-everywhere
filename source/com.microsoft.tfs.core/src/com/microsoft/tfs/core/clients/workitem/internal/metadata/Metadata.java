@@ -44,6 +44,7 @@ import com.microsoft.tfs.core.internal.db.ResultHandler;
 import com.microsoft.tfs.core.ws.runtime.types.AnyContentType;
 import com.microsoft.tfs.core.ws.runtime.types.DOMAnyContentType;
 import com.microsoft.tfs.core.ws.runtime.types.StaxAnyContentType;
+import com.microsoft.tfs.util.Closable;
 
 import ms.tfs.workitemtracking.clientservices._03._ClientService2Soap;
 import ms.tfs.workitemtracking.clientservices._03._ClientService2Soap_GetMetadataEx2Response;
@@ -408,6 +409,10 @@ public class Metadata implements IMetadata, IMetadataUpdateHandler {
                         tableNames.add(handler.getTableName());
                     }
                 }
+
+                if (i instanceof Closable) {
+                    ((Closable) i).close();
+                }
             }
         });
 
@@ -615,12 +620,12 @@ public class Metadata implements IMetadata, IMetadataUpdateHandler {
                 public void performTask(final DBConnection connection) {
                     connection.createStatement("select distinct ParentID from ConstantSets").executeQuery( //$NON-NLS-1$
                         new ResultHandler() {
-                        @Override
-                        public void handleRow(final ResultSet rset) throws SQLException {
-                            final int constId = rset.getInt(1);
-                            distinctConstantSetIds.add(new Integer(constId));
-                        }
-                    });
+                            @Override
+                            public void handleRow(final ResultSet rset) throws SQLException {
+                                final int constId = rset.getInt(1);
+                                distinctConstantSetIds.add(new Integer(constId));
+                            }
+                        });
                 }
             });
 
