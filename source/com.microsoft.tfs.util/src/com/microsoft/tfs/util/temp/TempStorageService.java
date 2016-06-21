@@ -523,7 +523,9 @@ public final class TempStorageService {
 
         cleanUpItemInternal(tempItem);
 
-        cleanUpItems.remove(item);
+        if (!item.exists()) {
+            cleanUpItems.remove(item);
+        }
     }
 
     /**

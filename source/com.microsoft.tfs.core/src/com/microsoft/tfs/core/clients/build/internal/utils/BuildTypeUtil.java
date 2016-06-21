@@ -90,10 +90,7 @@ public class BuildTypeUtil {
         final FileEncoding encoding) throws IOException {
         final BasicBuildTypeParseHandler handler = new BasicBuildTypeParseHandler(buildTypeName);
 
-        // Hard code use of Xerces parser because it is better able to handle
-        // BOM then some platforms default parser (i.e. Sun uses Crimson in
-        // JDK1.4)
-        final SAXParserFactory factory = new org.apache.xerces.jaxp.SAXParserFactoryImpl();
+        final SAXParserFactory factory = SAXParserFactory.newInstance();
 
         try {
             final SAXParser saxParser = factory.newSAXParser();

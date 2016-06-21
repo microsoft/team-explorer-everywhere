@@ -127,7 +127,6 @@
 			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core/libs" includes="**/*.jar" />
 			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.httpclient/libs" includes="**/*.jar" />
 			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.logging/lib" includes="**/*.jar" />
-			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.ws.runtime/lib" includes="**/*.jar" />
 		</copy>
 
 		<!-- copy plugin jars -->

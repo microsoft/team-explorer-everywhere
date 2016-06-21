@@ -16,6 +16,8 @@ import java.text.MessageFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.microsoft.tfs.util.StringUtil;
+
 /**
  * <p>
  * An {@link OutputStream} that writes bytes to temporary storage and can be
@@ -94,7 +96,7 @@ public class FastTempOutputStream extends OutputStream {
     /**
      * The default limit on heap storage, after this size file storage is used.
      */
-    public static final int DEFAULT_HEAP_STORAGE_LIMIT_BYTES = 512 * 1024;
+    public static final int DEFAULT_HEAP_STORAGE_LIMIT_BYTES = getDefaultHeapStorageLimit();
 
     /**
      * Holds the limit on heap storage we can't exceed. We track this
@@ -178,6 +180,26 @@ public class FastTempOutputStream extends OutputStream {
 
             heapStream = new DirectAccessByteArrayOutputStream(initialHeapStorageSizeBytes);
             currentStream = heapStream;
+        }
+    }
+
+    private static int getDefaultHeapStorageLimit() {
+        final String propertyName = "com.microsoft.tfs.fasttempstream.heaplimit"; //$NON-NLS-1$
+        final int defaultValue = 8 * 1024 * 1024;
+        final String value = System.getProperty(propertyName);
+        if (StringUtil.isNullOrEmpty(value)) {
+            return defaultValue;
+        } else {
+            try {
+                final int number = StringUtil.toInt(value);
+                return number;
+            } catch (final NumberFormatException e) {
+                final String message =
+                    MessageFormat.format("Incorrect value of the system property {0} = {1}", propertyName, value); //$NON-NLS-1$
+                log.error(message, e);
+
+                return defaultValue;
+            }
         }
     }
 

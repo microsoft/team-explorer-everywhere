@@ -5,6 +5,7 @@ package com.microsoft.tfs.core.ws.runtime.types;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -15,8 +16,12 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.microsoft.tfs.core.ws.runtime.stax.StaxFactoryProvider;
 import com.microsoft.tfs.core.ws.runtime.stax.StaxUtils;
+import com.microsoft.tfs.util.Closable;
 import com.microsoft.tfs.util.temp.FastTempOutputStream;
 
 /**
@@ -32,17 +37,21 @@ import com.microsoft.tfs.util.temp.FastTempOutputStream;
  * {@link XMLStreamReader}s.
  */
 public class StaxAnyContentType implements AnyContentType {
+    private final static Log log = LogFactory.getLog(StaxAnyContentType.class);
+
     /**
      * Wraps a {@link File} {@link Iterator} and provides
      * {@link XMLStreamReader}s for those files via {@link #next()}.
      */
-    private static class XMLStreamReaderIterator implements Iterator {
+    private static class XMLStreamReaderIterator implements Iterator, Closable {
         private final Iterator outputStreamIterator;
         private final XMLInputFactory inputFactory;
+        private final List<InputStream> tempInputStreams;
 
         public XMLStreamReaderIterator(final Iterator fileIterator, final XMLInputFactory inputFactory) {
             outputStreamIterator = fileIterator;
             this.inputFactory = inputFactory;
+            this.tempInputStreams = new ArrayList<InputStream>();
         }
 
         @Override
@@ -55,7 +64,10 @@ public class StaxAnyContentType implements AnyContentType {
             final FastTempOutputStream ftos = (FastTempOutputStream) outputStreamIterator.next();
 
             try {
-                final XMLStreamReader reader = inputFactory.createXMLStreamReader(ftos.getInputStream());
+                final InputStream inputStream = ftos.getInputStream();
+                tempInputStreams.add(inputStream);
+
+                final XMLStreamReader reader = inputFactory.createXMLStreamReader(inputStream);
 
                 return reader;
             } catch (final IOException e) {
@@ -68,6 +80,20 @@ public class StaxAnyContentType implements AnyContentType {
         @Override
         public void remove() {
             outputStreamIterator.remove();
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void close() {
+            for (final InputStream inputStream : tempInputStreams) {
+                try {
+                    inputStream.close();
+                } catch (final IOException e) {
+                    log.error("Cannot close input stream.", e); //$NON-NLS-1$
+                }
+            }
         }
     }
 
@@ -219,10 +245,12 @@ public class StaxAnyContentType implements AnyContentType {
      */
     @Override
     public void writeAsElement(final XMLStreamWriter writer, final String name) throws XMLStreamException {
+        final Iterator i = getElementIterator();
+
         /*
          * Use the regular public iterator for reader access.
          */
-        for (final Iterator i = getElementIterator(); i.hasNext();) {
+        for (; i.hasNext();) {
             final XMLStreamReader reader = (XMLStreamReader) i.next();
 
             /*
@@ -234,6 +262,10 @@ public class StaxAnyContentType implements AnyContentType {
             StaxUtils.copyCurrentElement(reader, writer);
 
             reader.close();
+        }
+
+        if (i instanceof Closable) {
+            ((Closable) i).close();
         }
     }
 }
