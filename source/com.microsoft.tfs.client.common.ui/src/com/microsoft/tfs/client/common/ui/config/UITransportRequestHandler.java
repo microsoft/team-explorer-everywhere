@@ -261,7 +261,7 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
 
             cleanupSavedCredentials(service.getClient());
 
-            if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, false)) {
+            if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)) {
                 dialogRunnable = new UITransportOAuthRunnable(connectionInstanceData.getServerURI());
             } else {
                 dialogRunnable = new UITransportFederatedFallbackAuthRunnable(
@@ -278,7 +278,7 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
         else if (exception instanceof UnauthorizedException && service.isPromptForCredentials()) {
             log.debug(" UnauthorizedException has been raised."); //$NON-NLS-1$
 
-            if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, false)
+            if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)
                 && isPatCredentials(connectionInstanceData.getCredentials())) {
                 // PAT token is probably expired. Remove it from the Eclipse
                 // secure storage and retry.

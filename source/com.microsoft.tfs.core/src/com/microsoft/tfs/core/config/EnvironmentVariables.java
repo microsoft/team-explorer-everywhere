@@ -54,8 +54,8 @@ public abstract class EnvironmentVariables {
     public static final String USE_LEGACY_MSA = "TF_USE_LEGACY_MSA"; //$NON-NLS-1$
 
     /**
-     * When set to any "true-ish" value the new OAuth authentication dialog will
-     * be used.
+     * When set to any "false-ish" value the new OAuth authentication dialog
+     * will not be used.
      */
     public static final String USE_OAUTH_LIBRARY = "TF_USE_OAUTH_LIBRARY"; //$NON-NLS-1$
 

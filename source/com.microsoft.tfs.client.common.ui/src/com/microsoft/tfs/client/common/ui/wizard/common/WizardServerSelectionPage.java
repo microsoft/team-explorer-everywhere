@@ -211,7 +211,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
     private Credentials getVstsRootCredentials(final boolean tryCurrentCredentials) {
         final Credentials vstsCredentials;
 
-        if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, false)) {
+        if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)) {
 
             vstsCredentials = CredentialsHelper.getOAuthCredentials(null);
 
