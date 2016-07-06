@@ -22,13 +22,12 @@ Bundle-ClassPath: com.microsoft.tfs.core.jar,
  libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar,
  libs/jna/jna-4.2.1.jar,
  libs/jna/jna-platform-4.2.1.jar,
- libs/oauth2-useragent/oauth2-useragent-0.8.1.jar,
  libs/slf4j/slf4j-api-1.7.19.jar,
- libs/azure-interactive-login/aad-interactive-auth-1.0.1-SNAPSHOT.jar,
- libs/java-auth-lib/auth-common-0.1.9.jar,
- libs/java-auth-lib/auth-core-0.1.9.jar,
- libs/java-auth-lib/auth-providers-0.1.9.jar,
- libs/java-auth-lib/auth-secure-storage-0.1.9.jar
+ libs/oauth2-useragent/oauth2-useragent-0.10.0.jar,
+ libs/java-auth-lib/auth-common-0.2.2.jar,
+ libs/java-auth-lib/auth-core-0.2.2.jar,
+ libs/java-auth-lib/auth-providers-0.2.2.jar,
+ libs/java-auth-lib/auth-secure-storage-0.2.2.jar
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
 Export-Package: .,
