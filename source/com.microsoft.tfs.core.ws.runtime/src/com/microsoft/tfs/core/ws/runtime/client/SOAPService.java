@@ -392,14 +392,14 @@ public abstract class SOAPService {
         final SOAPRequest request,
         final String responseName,
         final SOAPMethodResponseReader responseReader)
-            throws SOAPFault,
-                UnauthorizedException,
-                ProxyUnauthorizedException,
-                FederatedAuthException,
-                InvalidServerResponseException,
-                EndpointNotFoundException,
-                TransportException,
-                TransportRequestHandlerCanceledException {
+        throws SOAPFault,
+            UnauthorizedException,
+            ProxyUnauthorizedException,
+            FederatedAuthException,
+            InvalidServerResponseException,
+            EndpointNotFoundException,
+            TransportException,
+            TransportRequestHandlerCanceledException {
         /*
          * Duplicate the transport request handler map so we needn't keep a lock
          * and so that we have a consistent set throughout execution.
@@ -496,13 +496,13 @@ public abstract class SOAPService {
         final SOAPRequest request,
         final String responseName,
         final SOAPMethodResponseReader responseReader)
-            throws SOAPFault,
-                UnauthorizedException,
-                ProxyUnauthorizedException,
-                InvalidServerResponseException,
-                EndpointNotFoundException,
-                TransportException,
-                CanceledException {
+        throws SOAPFault,
+            UnauthorizedException,
+            ProxyUnauthorizedException,
+            InvalidServerResponseException,
+            EndpointNotFoundException,
+            TransportException,
+            CanceledException {
         final PostMethod method = request.getPostMethod();
 
         final long start = System.currentTimeMillis();
@@ -582,8 +582,9 @@ public abstract class SOAPService {
 
                     try {
 
-                        // responseStream = method.getResponseBodyAsStream();
-                        reader = SOAPService.xmlInputFactory.createXMLStreamReader(responseStream);
+                        reader = SOAPService.xmlInputFactory.createXMLStreamReader(
+                            responseStream,
+                            SOAPRequestEntity.SOAP_ENCODING);
 
                         /*
                          * Read as far as the SOAP body from the stream.
