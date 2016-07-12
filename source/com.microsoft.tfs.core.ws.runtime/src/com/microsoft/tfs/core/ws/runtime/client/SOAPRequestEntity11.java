@@ -50,7 +50,7 @@ public class SOAPRequestEntity11 extends SOAPRequestEntity {
         try {
             writer = getXMLOutputFactory().createXMLStreamWriter(
                 new BufferedOutputStream(out),
-                SOAPRequestEntity12.SOAP_ENCODING);
+                SOAPRequestEntity.SOAP_ENCODING);
 
             writer.writeStartDocument();
             writer.writeStartElement("soap", "Envelope", Schemas.SOAP_11); //$NON-NLS-1$ //$NON-NLS-2$

@@ -19,6 +19,7 @@ import javax.xml.stream.XMLStreamWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.microsoft.tfs.core.ws.runtime.client.SOAPRequestEntity;
 import com.microsoft.tfs.core.ws.runtime.stax.StaxFactoryProvider;
 import com.microsoft.tfs.core.ws.runtime.stax.StaxUtils;
 import com.microsoft.tfs.util.Closable;
@@ -67,7 +68,8 @@ public class StaxAnyContentType implements AnyContentType {
                 final InputStream inputStream = ftos.getInputStream();
                 tempInputStreams.add(inputStream);
 
-                final XMLStreamReader reader = inputFactory.createXMLStreamReader(inputStream);
+                final XMLStreamReader reader =
+                    inputFactory.createXMLStreamReader(inputStream, SOAPRequestEntity.SOAP_ENCODING);
 
                 return reader;
             } catch (final IOException e) {
@@ -205,7 +207,9 @@ public class StaxAnyContentType implements AnyContentType {
                     /*
                      * Create a writer.
                      */
-                    writer = StaxFactoryProvider.getXMLOutputFactory().createXMLStreamWriter(ftos);
+                    writer = StaxFactoryProvider.getXMLOutputFactory().createXMLStreamWriter(
+                        ftos,
+                        SOAPRequestEntity.SOAP_ENCODING);
                     writer.writeStartDocument();
 
                     StaxUtils.copyCurrentElement(reader, writer);
