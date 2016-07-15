@@ -18,6 +18,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
+import com.microsoft.alm.helpers.Action;
 import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
@@ -29,6 +31,7 @@ import com.microsoft.tfs.client.common.ui.config.UITransportFederatedAuthRunnabl
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl.ServerTypeSelectionChangedEvent;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl.ServerTypeSelectionChangedListener;
+import com.microsoft.tfs.client.common.ui.dialogs.connect.OAuth2DeviceFlowCallbackDialog;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandFinishedCallbackFactory;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
@@ -191,10 +194,12 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
                 final String accountURI = "https://" + account.getAccountName() + ".visualstudio.com"; //$NON-NLS-1$ //$NON-NLS-2$
 
+                final Action<DeviceFlowResponse> deviceFlowCallback = getDeviceFlowCallback();
+
                 try {
                     final URI uri = URIUtils.newURI(accountURI);
                     final TFSConnection configurationServer =
-                        openAccount(uri, CredentialsHelper.getOAuthCredentials(uri));
+                        openAccount(uri, CredentialsHelper.getOAuthCredentials(uri, deviceFlowCallback));
                     if (configurationServer != null) {
                         configurationServers.add(configurationServer);
                     }
@@ -211,9 +216,11 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
     private Credentials getVstsRootCredentials(final boolean tryCurrentCredentials) {
         final Credentials vstsCredentials;
 
+        final Action<DeviceFlowResponse> deviceFlowCallback = getDeviceFlowCallback();
+
         if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)) {
 
-            vstsCredentials = CredentialsHelper.getOAuthCredentials(null);
+            vstsCredentials = CredentialsHelper.getOAuthCredentials(null, deviceFlowCallback);
 
             if (vstsCredentials != null && (vstsCredentials instanceof JwtCredentials)) {
                 return vstsCredentials;
@@ -239,6 +246,22 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         } else {
             return ((CookieCredentials) currentCredentials).setDomain(URIUtils.VSTS_ROOT_URL.getHost());
         }
+    }
+
+    private Action<DeviceFlowResponse> getDeviceFlowCallback() {
+        final Action<DeviceFlowResponse> deviceFlowCallback = new Action<DeviceFlowResponse>() {
+            /**
+             * {@inheritDoc}
+             */
+            @Override
+            public void call(final DeviceFlowResponse response) {
+                final OAuth2DeviceFlowCallbackDialog callbackDialog =
+                    new OAuth2DeviceFlowCallbackDialog(getShell(), response);
+                callbackDialog.open();
+            }
+        };
+
+        return deviceFlowCallback;
     }
 
     private Credentials getCurrentCredentials() {

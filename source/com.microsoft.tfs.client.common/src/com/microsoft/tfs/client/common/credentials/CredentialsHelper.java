@@ -14,8 +14,10 @@ import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.alm.auth.Authenticator;
 import com.microsoft.alm.auth.PromptBehavior;
+import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
 import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
 import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
+import com.microsoft.alm.helpers.Action;
 import com.microsoft.alm.secret.Token;
 import com.microsoft.alm.secret.TokenPair;
 import com.microsoft.alm.secret.TokenType;
@@ -166,17 +168,19 @@ public abstract class CredentialsHelper {
         return vstsConnection;
     }
 
-    public static Credentials getOAuthCredentials(final URI serverURI) {
+    public static Credentials getOAuthCredentials(final URI serverURI, final Action<DeviceFlowResponse> callback) {
         removeStaleOAuth2Token();
 
         final Authenticator authenticator;
+        final OAuth2Authenticator oauth2Authenticator =
+            OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, callback);
         final Token token;
 
         if (serverURI != null) {
             log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
             log.debug("Trying to persist credential, generating a PAT"); //$NON-NLS-1$
 
-            authenticator = new VstsPatAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, tokenStore);
+            authenticator = new VstsPatAuthenticator(oauth2Authenticator, tokenStore);
 
             final String tokenKey =
                 authenticator.getUriToKeyConversion().convert(serverURI, authenticator.getAuthType());
@@ -191,7 +195,7 @@ public abstract class CredentialsHelper {
             log.debug("Interactively retrieving credential based on oauth2 flow for VSTS"); //$NON-NLS-1$
             log.debug("Do not try to persist, generating oauth2 token."); //$NON-NLS-1$
 
-            authenticator = OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore);
+            authenticator = oauth2Authenticator;
 
             final TokenPair tokenPair = authenticator.getOAuth2TokenPair();
             token = tokenPair != null ? tokenPair.AccessToken : null;
