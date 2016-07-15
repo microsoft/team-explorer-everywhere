@@ -599,7 +599,7 @@ public class TSWAHyperlinkBuilder {
         if (urlText == null) {
             throw new NotSupportedException(
                 MessageFormat.format(
-                    "'{0}' is missing. Please verify that Web Access is configured correctly.", //$NON-NLS-1$
+                    "The Location Service Manager cannot find the service definition \"{0}\" among the TSWebAccess tool's services. Please verify that Web Access is configured correctly.", //$NON-NLS-1$
                     serviceType));
         }
 
