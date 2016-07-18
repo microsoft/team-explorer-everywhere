@@ -135,7 +135,7 @@ public class GnomeKeyringCredentialsManager implements CredentialsManager {
     }
 
     private String getKey(final URI serverURI) {
-        return Secret.DefaultUriNameConversion.convert(serverURI, "tee_clc"); //$NON-NLS-1$
+        return Secret.DefaultUriNameConversion.convert(serverURI, "tee"); //$NON-NLS-1$
     }
 
 }
