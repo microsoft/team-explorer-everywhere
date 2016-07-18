@@ -21,8 +21,10 @@ import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.alm.auth.Authenticator;
 import com.microsoft.alm.auth.PromptBehavior;
+import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
 import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
 import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
+import com.microsoft.alm.helpers.Action;
 import com.microsoft.alm.provider.Options;
 import com.microsoft.alm.provider.UserPasswordCredentialProvider;
 import com.microsoft.alm.secret.Credential;
@@ -226,6 +228,28 @@ public final class Prompt {
         final SecretStore<TokenPair> accessTokenStore = new InsecureInMemoryStore<TokenPair>();
         final SecretStore<Token> tokenStore = new InsecureInMemoryStore<Token>();
 
+        final Action<DeviceFlowResponse> deviceFlowCallback = new Action<DeviceFlowResponse>() {
+            @Override
+            public void call(final DeviceFlowResponse response) {
+                display.printLine("------------------------------------"); //$NON-NLS-1$
+                display.printLine(Messages.getString("Command.DeviceFlowCallbackTitle")); //$NON-NLS-1$
+                display.printLine("------------------------------------"); //$NON-NLS-1$
+                display.printLine(Messages.getString("Command.DeviceFlowCallbackInstructionUrl")); //$NON-NLS-1$
+                display.printLine(response.getVerificationUri().toString());
+                display.printLine(Messages.getString("Command.DeviceFlowCallbackInstructionCode")); //$NON-NLS-1$
+                display.printLine(response.getUserCode());
+                display.printLine(Messages.getString("Command.DeviceFlowCallbackInstructionContinue")); //$NON-NLS-1$
+
+                display.printLine(
+                    MessageFormat.format(
+                        Messages.getString("Command.DeviceFlowCallbackInstructionBypass"), //$NON-NLS-1$
+                        EnvironmentVariables.BYPASS_INTERACTIVE_BROWSER_LOGIN));
+            }
+        };
+
+        final OAuth2Authenticator oauth2Authenticator =
+            OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, deviceFlowCallback);
+
         final Authenticator authenticator;
         final Options options = Options.getDefaultOptions();
 
@@ -234,7 +258,7 @@ public final class Prompt {
             /*
              * If this credential is to be persisted, then let's create a PAT
              */
-            authenticator = new VstsPatAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, tokenStore);
+            authenticator = new VstsPatAuthenticator(oauth2Authenticator, tokenStore);
             options.patGenerationOptions.displayName = getPATDisplayName();
 
         } else {
@@ -242,7 +266,7 @@ public final class Prompt {
             /*
              * Not persisting this credential, simply create an oauth2 token
              */
-            authenticator = OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore);
+            authenticator = oauth2Authenticator;
         }
 
         final UserPasswordCredentialProvider provider = new UserPasswordCredentialProvider(authenticator);
