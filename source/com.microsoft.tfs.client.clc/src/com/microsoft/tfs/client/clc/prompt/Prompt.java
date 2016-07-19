@@ -236,7 +236,10 @@ public final class Prompt {
                 display.printLine("------------------------------------"); //$NON-NLS-1$
                 display.printLine(Messages.getString("Command.DeviceFlowCallbackInstructionUrl")); //$NON-NLS-1$
                 display.printLine(response.getVerificationUri().toString());
-                display.printLine(Messages.getString("Command.DeviceFlowCallbackInstructionCode")); //$NON-NLS-1$
+                display.printLine(
+                    MessageFormat.format(
+                        Messages.getString("Command.DeviceFlowCallbackInstructionCode"), //$NON-NLS-1$
+                        response.getExpiresIn() / 60));
                 display.printLine(response.getUserCode());
                 display.printLine(Messages.getString("Command.DeviceFlowCallbackInstructionContinue")); //$NON-NLS-1$
 

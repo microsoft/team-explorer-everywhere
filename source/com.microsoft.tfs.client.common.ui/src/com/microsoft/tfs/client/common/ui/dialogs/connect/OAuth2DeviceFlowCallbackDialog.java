@@ -5,9 +5,12 @@ package com.microsoft.tfs.client.common.ui.dialogs.connect;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -28,6 +31,7 @@ import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 
 public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
+    private static final Log log = LogFactory.getLog(OAuth2DeviceFlowCallbackDialog.class);
 
     private final DeviceFlowResponse response;
     private final FormToolkit toolkit;
@@ -70,16 +74,19 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
             public void linkActivated(final HyperlinkEvent e) {
                 try {
                     PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(new URL(e.getLabel()));
-                } catch (PartInitException e1) {
-                    e1.printStackTrace();
-                } catch (MalformedURLException e1) {
-                    e1.printStackTrace();
+                } catch (PartInitException pie) {
+                    log.error("Failed to open the verification url in browser.", pie); //$NON-NLS-1$
+                } catch (MalformedURLException mue) {
+                    log.error("Failed to open the verification url in browser: " + e.getLabel(), mue); //$NON-NLS-1$
                 }
             }
         });
 
-        final Label codeNameLabel =
-            SWTUtil.createLabel(dialogArea, Messages.getString("OAuth2DeviceFlowCallbackDialog.DeviceUserCodeText")); //$NON-NLS-1$
+        final Label codeNameLabel = SWTUtil.createLabel(
+            dialogArea,
+            MessageFormat.format(
+                Messages.getString("OAuth2DeviceFlowCallbackDialog.DeviceUserCodeText"), //$NON-NLS-1$
+                this.response.getExpiresIn() / 60));
         GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().applyTo(codeNameLabel);
 
         final Text deviceCodeText = new Text(dialogArea, SWT.READ_ONLY | SWT.BORDER);
@@ -101,12 +108,12 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
         /*
          * If users clicked on OK, it means they should have completed auth flow
          * on the browser. Shorten the timeout to 15 seconds as this should be
-         * the enough to make one server call. If we don't have this timeout,
-         * and user clicked on "OK" without completing the oauth flow in
-         * browser, we will hang their Eclipse instance for a long time.
+         * enough to make one server call. If we don't have this timeout, and
+         * user clicked on "OK" without completing the oauth flow in browser, we
+         * will hang their Eclipse instance for a long time.
          */
         this.response.getExpiresAt().setTime(new Date());
-        this.response.getExpiresAt().add(Calendar.SECOND, 15);
+        this.response.getExpiresAt().add(Calendar.SECOND, 5);
         super.okPressed();
     }
 
@@ -124,6 +131,6 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
      */
     @Override
     protected String provideDialogTitle() {
-        return "Follow the instructions to complete sign-in"; //$NON-NLS-1$
+        return Messages.getString("OAuth2DeviceFlowCallbackDialog.DialogTitle"); //$NON-NLS-1$
     }
 }
