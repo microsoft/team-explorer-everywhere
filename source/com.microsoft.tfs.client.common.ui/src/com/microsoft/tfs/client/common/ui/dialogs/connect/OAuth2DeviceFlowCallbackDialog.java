@@ -85,7 +85,7 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
         final Label codeNameLabel = SWTUtil.createLabel(
             dialogArea,
             MessageFormat.format(
-                Messages.getString("OAuth2DeviceFlowCallbackDialog.DeviceUserCodeText"), //$NON-NLS-1$
+                Messages.getString("OAuth2DeviceFlowCallbackDialog.DeviceUserCodeTextFormat"), //$NON-NLS-1$
                 this.response.getExpiresIn() / 60));
         GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().applyTo(codeNameLabel);
 

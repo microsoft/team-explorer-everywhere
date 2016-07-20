@@ -238,14 +238,14 @@ public final class Prompt {
                 display.printLine(response.getVerificationUri().toString());
                 display.printLine(
                     MessageFormat.format(
-                        Messages.getString("Command.DeviceFlowCallbackInstructionCode"), //$NON-NLS-1$
+                        Messages.getString("Command.DeviceFlowCallbackInstructionCodeFormat"), //$NON-NLS-1$
                         response.getExpiresIn() / 60));
                 display.printLine(response.getUserCode());
                 display.printLine(Messages.getString("Command.DeviceFlowCallbackInstructionContinue")); //$NON-NLS-1$
 
                 display.printLine(
                     MessageFormat.format(
-                        Messages.getString("Command.DeviceFlowCallbackInstructionBypass"), //$NON-NLS-1$
+                        Messages.getString("Command.DeviceFlowCallbackInstructionBypassFormat"), //$NON-NLS-1$
                         EnvironmentVariables.BYPASS_INTERACTIVE_BROWSER_LOGIN));
             }
         };
