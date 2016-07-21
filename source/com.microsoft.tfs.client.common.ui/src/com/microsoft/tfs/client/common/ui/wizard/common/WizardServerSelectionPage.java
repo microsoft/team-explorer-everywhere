@@ -6,7 +6,6 @@ package com.microsoft.tfs.client.common.ui.wizard.common;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,7 +18,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
 import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
+import com.microsoft.alm.client.TeeClientHandler;
+import com.microsoft.alm.client.model.VssResourceNotFoundException;
 import com.microsoft.alm.helpers.Action;
+import com.microsoft.alm.visualstudio.services.account.Account;
+import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
+import com.microsoft.alm.visualstudio.services.profile.Profile;
+import com.microsoft.alm.visualstudio.services.profile.client.ProfileHttpClient;
 import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
@@ -53,10 +58,6 @@ import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Platform;
-import com.microsoft.visualstudio.services.account.AccountHttpClient;
-import com.microsoft.visualstudio.services.account.model.Account;
-import com.microsoft.visualstudio.services.account.model.Profile;
-import com.microsoft.vss.client.core.model.VssResourceNotFoundException;
 
 public class WizardServerSelectionPage extends ExtendedWizardPage {
     public static final String PAGE_NAME = "WizardServerSelectionPage"; //$NON-NLS-1$
@@ -108,12 +109,10 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
     protected boolean onPageFinished() {
         if (serverTypeSelectControl.isVstsSelected()) {
 
-            final AtomicReference<AccountHttpClient> restClientHolder = new AtomicReference<AccountHttpClient>(null);
-            final AtomicReference<Credentials> credentialsHolder = new AtomicReference<Credentials>(null);
-            final Profile profile = getUserProfile(restClientHolder, credentialsHolder);
+            final Action<DeviceFlowResponse> deviceFlowCallback = getDeviceFlowCallback();
+            final List<Account> accounts = getUserAccounts(deviceFlowCallback);
 
-            final List<TFSConnection> configurationServers =
-                getConfigurationServers(profile, credentialsHolder.get(), restClientHolder.get());
+            final List<TFSConnection> configurationServers = getConfigurationServers(accounts, deviceFlowCallback);
             setPageData(configurationServers);
 
             return configurationServers.size() > 0;
@@ -131,13 +130,10 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         }
     }
 
-    private Profile getUserProfile(
-        final AtomicReference<AccountHttpClient> restClientHolder,
-        final AtomicReference<Credentials> credentialsHolder) {
-        Profile profile = null;
-
+    private List<Account> getUserAccounts(final Action<DeviceFlowResponse> deviceFlowCallback) {
         for (int retriesLeft = MAX_CREDENTIALS_RETRIES; retriesLeft > 0; retriesLeft--) {
-            final Credentials vstsCredentials = getVstsRootCredentials(retriesLeft == MAX_CREDENTIALS_RETRIES);
+            final Credentials vstsCredentials =
+                getVstsRootCredentials(retriesLeft == MAX_CREDENTIALS_RETRIES, deviceFlowCallback);
 
             if (vstsCredentials == null) {
                 log.info(" Credentials dialog has been cancelled by the user."); //$NON-NLS-1$
@@ -146,12 +142,24 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
             final TFSConnection vstsConnection =
                 new TFSTeamProjectCollection(URIUtils.VSTS_ROOT_URL, vstsCredentials, new UIClientConnectionAdvisor());
-            final AccountHttpClient accountClient = new AccountHttpClient(vstsConnection);
+            final ProfileHttpClient profileClient =
+                new ProfileHttpClient(new TeeClientHandler(vstsConnection.getHTTPClient()), URIUtils.VSTS_ROOT_URL);
 
             try {
-                profile = accountClient.getMyProfile();
-                restClientHolder.set(accountClient);
-                credentialsHolder.set(vstsCredentials);
+                final Profile profile = profileClient.getMyProfile();
+
+                if (profile != null) {
+                    log.info("Profile ID = " + profile.getId()); //$NON-NLS-1$
+
+                    final AccountHttpClient accountClient = new AccountHttpClient(
+                        new TeeClientHandler(vstsConnection.getHTTPClient()),
+                        URIUtils.VSTS_ROOT_URL);
+
+                    final List<Account> accounts = accountClient.getAccounts(profile.getId());
+                    log.info("Accounts number = " + accounts.size()); //$NON-NLS-1$
+
+                    return accounts;
+                }
                 break;
             } catch (final Exception e) {
                 if (retriesLeft > 1 && (e instanceof VssResourceNotFoundException)) {
@@ -174,49 +182,39 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
             }
         }
 
-        return profile;
+        return new ArrayList<Account>();
     }
 
     private List<TFSConnection> getConfigurationServers(
-        final Profile profile,
-        final Credentials credentials,
-        final AccountHttpClient accountClient) {
+        final List<Account> accounts,
+        final Action<DeviceFlowResponse> deviceFlowCallback) {
         final List<TFSConnection> configurationServers = new ArrayList<TFSConnection>(100);
 
-        if (profile != null) {
-            log.info("Profile ID = " + profile.getId()); //$NON-NLS-1$
+        for (final Account account : accounts) {
+            log.debug("Account name = " + account.getAccountName()); //$NON-NLS-1$
+            log.debug("Account URI  = " + account.getAccountUri()); //$NON-NLS-1$
 
-            final List<Account> accounts = accountClient.getAccounts(profile.getId());
+            final String accountURI = "https://" + account.getAccountName() + ".visualstudio.com"; //$NON-NLS-1$ //$NON-NLS-2$
 
-            for (final Account account : accounts) {
-                log.debug("Account name = " + account.getAccountName()); //$NON-NLS-1$
-                log.debug("Account URI  = " + account.getAccountUri()); //$NON-NLS-1$
-
-                final String accountURI = "https://" + account.getAccountName() + ".visualstudio.com"; //$NON-NLS-1$ //$NON-NLS-2$
-
-                final Action<DeviceFlowResponse> deviceFlowCallback = getDeviceFlowCallback();
-
-                try {
-                    final URI uri = URIUtils.newURI(accountURI);
-                    final TFSConnection configurationServer =
-                        openAccount(uri, CredentialsHelper.getOAuthCredentials(uri, deviceFlowCallback));
-                    if (configurationServer != null) {
-                        configurationServers.add(configurationServer);
-                    }
-                } catch (final Exception e) {
-                    log.error(e.getMessage(), e);
+            try {
+                final URI uri = URIUtils.newURI(accountURI);
+                final TFSConnection configurationServer =
+                    openAccount(uri, CredentialsHelper.getOAuthCredentials(uri, deviceFlowCallback));
+                if (configurationServer != null) {
+                    configurationServers.add(configurationServer);
                 }
+            } catch (final Exception e) {
+                log.error(e.getMessage(), e);
             }
-
         }
 
         return configurationServers;
     }
 
-    private Credentials getVstsRootCredentials(final boolean tryCurrentCredentials) {
+    private Credentials getVstsRootCredentials(
+        final boolean tryCurrentCredentials,
+        final Action<DeviceFlowResponse> deviceFlowCallback) {
         final Credentials vstsCredentials;
-
-        final Action<DeviceFlowResponse> deviceFlowCallback = getDeviceFlowCallback();
 
         if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)) {
 

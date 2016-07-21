@@ -8,8 +8,8 @@ import java.text.MessageFormat;
 
 import org.eclipse.swt.widgets.Shell;
 
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionTemplate;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.browser.BrowserFacade;
 import com.microsoft.tfs.client.common.ui.browser.BrowserFacade.LaunchMode;

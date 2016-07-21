@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.IActionFilter;
 import org.eclipse.ui.PlatformUI;
 
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.productplugin.TFSProductPlugin;
