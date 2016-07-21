@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.vss.client.core;
+package com.microsoft.alm.client;
 
 public abstract class VssHttpHeaders {
     public final static String ACTIVITY_ID = "ActivityId"; //$NON-NLS-1$
@@ -23,4 +23,7 @@ public abstract class VssHttpHeaders {
     public final static String CONTENT_ENCODING = "Content-Encoding"; //$NON-NLS-1$
     public final static String CONTENT_LENGTH = "Content-Length"; //$NON-NLS-1$
     public final static String HTTP_METHOD_OVERRIDE = "X-HTTP-Method-Override"; //$NON-NLS-1$
+
+    public final static String CONTENT_TYPE_HEADER = "Content-Type"; //$NON-NLS-1$
+    public final static String CONTENT_LENGTH_HEADER = "Content-Length"; //$NON-NLS-1$
 }

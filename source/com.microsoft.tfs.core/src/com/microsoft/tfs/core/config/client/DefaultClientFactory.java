@@ -7,12 +7,13 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.microsoft.teamfoundation.build.webapi.BuildHttpClient;
-import com.microsoft.teamfoundation.core.webapi.CoreHttpClient;
-import com.microsoft.teamfoundation.distributedtask.webapi.TaskAgentHttpClient;
-import com.microsoft.teamfoundation.distributedtask.webapi.TaskHttpClient;
-import com.microsoft.teamfoundation.sourcecontrol.webapi.GitHttpClient;
-import com.microsoft.teamfoundation.sourcecontrol.webapi.TfvcHttpClient;
+import com.microsoft.alm.client.TeeClientHandler;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
+import com.microsoft.alm.teamfoundation.core.webapi.CoreHttpClient;
+import com.microsoft.alm.teamfoundation.distributedtask.webapi.TaskAgentHttpClient;
+import com.microsoft.alm.teamfoundation.distributedtask.webapi.TaskHttpClient;
+import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.GitHttpClient;
+import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.TfvcHttpClient;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
@@ -378,7 +379,7 @@ public class DefaultClientFactory implements ClientFactory {
             public Object newClient(final TFSConnection connection) {
                 throwIfNotProjectCollection(connection, BuildHttpClient.class);
 
-                return new BuildHttpClient((TFSTeamProjectCollection) connection);
+                return new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
             }
         });
 
@@ -390,7 +391,7 @@ public class DefaultClientFactory implements ClientFactory {
             public Object newClient(final TFSConnection connection) {
                 throwIfNotProjectCollection(connection, CoreHttpClient.class);
 
-                return new CoreHttpClient((TFSTeamProjectCollection) connection);
+                return new CoreHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
             }
         });
 
@@ -402,7 +403,7 @@ public class DefaultClientFactory implements ClientFactory {
             public Object newClient(final TFSConnection connection) {
                 throwIfNotProjectCollection(connection, TaskHttpClient.class);
 
-                return new TaskHttpClient((TFSTeamProjectCollection) connection);
+                return new TaskHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
             }
         });
 
@@ -414,7 +415,9 @@ public class DefaultClientFactory implements ClientFactory {
             public Object newClient(final TFSConnection connection) {
                 throwIfNotProjectCollection(connection, TaskAgentHttpClient.class);
 
-                return new TaskAgentHttpClient((TFSTeamProjectCollection) connection);
+                return new TaskAgentHttpClient(
+                    new TeeClientHandler(connection.getHTTPClient()),
+                    connection.getBaseURI());
             }
         });
 
@@ -426,7 +429,7 @@ public class DefaultClientFactory implements ClientFactory {
             public Object newClient(final TFSConnection connection) {
                 throwIfNotProjectCollection(connection, GitHttpClient.class);
 
-                return new GitHttpClient((TFSTeamProjectCollection) connection);
+                return new GitHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
             }
         });
 
@@ -438,7 +441,7 @@ public class DefaultClientFactory implements ClientFactory {
             public Object newClient(final TFSConnection connection) {
                 throwIfNotProjectCollection(connection, TfvcHttpClient.class);
 
-                return new TfvcHttpClient((TFSTeamProjectCollection) connection);
+                return new TfvcHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
             }
         });
     }

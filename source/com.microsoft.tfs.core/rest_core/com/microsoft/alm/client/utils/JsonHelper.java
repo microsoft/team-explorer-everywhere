@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.vss.client.core.utils;
+package com.microsoft.alm.client.utils;
 
 /**
  * Latest versions of Jackson Core is available on the Maven central repository
@@ -28,13 +28,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.microsoft.alm.client.VssHttpHeaders;
+import com.microsoft.alm.client.model.VssServiceException;
+import com.microsoft.alm.visualstudio.services.webapi.VssJsonCollectionWrapper;
 import com.microsoft.tfs.core.Messages;
 import com.microsoft.tfs.core.clients.versioncontrol.DownloadContentTypes;
 import com.microsoft.tfs.core.httpclient.Header;
 import com.microsoft.tfs.core.httpclient.HttpMethodBase;
-import com.microsoft.visualstudio.services.webapi.model.VssJsonCollectionWrapper;
-import com.microsoft.vss.client.core.VssHttpHeaders;
-import com.microsoft.vss.client.core.model.VssServiceException;
 
 public class JsonHelper {
     private static final Log log = LogFactory.getLog(JsonHelper.class);
@@ -99,6 +99,7 @@ public class JsonHelper {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T deserializeResponce(final HttpMethodBase response, final Class<T> clazz) {
         try {
             if (!InputStream.class.isAssignableFrom(clazz)) {
