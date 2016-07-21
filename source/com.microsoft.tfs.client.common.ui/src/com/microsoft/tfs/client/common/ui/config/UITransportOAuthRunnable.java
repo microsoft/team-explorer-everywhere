@@ -8,10 +8,13 @@ import java.net.URI;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
 
+import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
+import com.microsoft.alm.helpers.Action;
 import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.CredentialsCompleteDialog;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.CredentialsCompleteListener;
+import com.microsoft.tfs.client.common.ui.dialogs.connect.OAuth2DeviceFlowCallbackDialog;
 import com.microsoft.tfs.client.common.ui.framework.helper.ShellUtils;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
@@ -59,9 +62,12 @@ public class UITransportOAuthRunnable extends UITransportAuthRunnable {
         Credentials credentials;
         final Shell shell;
 
+        final Action<DeviceFlowResponse> deviceFlowCallback;
+
         public OAuthCredentialsDialog(final Shell parentShell, final URI serverURI) {
             super(parentShell);
             this.shell = parentShell;
+            this.deviceFlowCallback = getDeviceFlowCallback(this.shell);
         }
 
         /**
@@ -69,7 +75,7 @@ public class UITransportOAuthRunnable extends UITransportAuthRunnable {
          */
         @Override
         public int open() {
-            credentials = CredentialsHelper.getOAuthCredentials(serverURI);
+            credentials = CredentialsHelper.getOAuthCredentials(serverURI, this.deviceFlowCallback);
 
             if (credentials != null) {
                 setReturnCode(IDialogConstants.OK_ID);
@@ -111,5 +117,22 @@ public class UITransportOAuthRunnable extends UITransportAuthRunnable {
         protected String provideDialogTitle() {
             return null;
         }
+
+        private Action<DeviceFlowResponse> getDeviceFlowCallback(final Shell parentShell) {
+
+            final Action<DeviceFlowResponse> deviceFlowCallback = new Action<DeviceFlowResponse>() {
+                @Override
+                public void call(final DeviceFlowResponse response) {
+                    final OAuth2DeviceFlowCallbackDialog callbackDialog =
+                        new OAuth2DeviceFlowCallbackDialog(parentShell, response);
+                    callbackDialog.open();
+
+                }
+
+            };
+
+            return deviceFlowCallback;
+        }
     }
+
 }

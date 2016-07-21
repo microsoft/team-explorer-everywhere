@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-common-0.2.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-core-0.2.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-providers-0.2.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-secure-storage-0.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-common-0.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-core-0.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-providers-0.3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-secure-storage-0.3.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/oauth2-useragent/oauth2-useragent-0.10.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jna/jna-4.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jna/jna-platform-4.2.1.jar"/>
