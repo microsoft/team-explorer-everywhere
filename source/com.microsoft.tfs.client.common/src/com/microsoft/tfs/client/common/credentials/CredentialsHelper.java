@@ -69,10 +69,9 @@ public abstract class CredentialsHelper {
         if (connection.isHosted() && !hasAccountCodeAccessToken(connection)) {
             final String tokenDisplayName = getAccessTokenDescription(connection.getBaseURI().toString());
 
-            final TFSConnection vstsConnection = getVstsRootConnection(connection);
             final DelegatedAuthorizationHttpClient authorizationClient = new DelegatedAuthorizationHttpClient(
-                new TeeClientHandler(vstsConnection.getHTTPClient()),
-                vstsConnection.getBaseURI());
+                new TeeClientHandler(connection.getHTTPClient()),
+                URIUtils.VSTS_ROOT_URL);
 
             final UUID accountId = getAccountId(connection);
             final String pat = authorizationClient.createAccountSessionToken(
@@ -162,15 +161,6 @@ public abstract class CredentialsHelper {
         } else {
             return currentCredentials;
         }
-    }
-
-    public static TFSConnection getVstsRootConnection(final TFSConnection connection) {
-        final TFSConnection vstsConnection = new TFSTeamProjectCollection(
-            URIUtils.VSTS_ROOT_URL,
-            getVstsRootCredentials(connection),
-            connection.getConnectionAdvisor());
-
-        return vstsConnection;
     }
 
     public static Credentials getOAuthCredentials(final URI serverURI, final Action<DeviceFlowResponse> callback) {
