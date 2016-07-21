@@ -140,10 +140,19 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 break;
             }
 
+            /*
+             * At this point we do not have any connection which HTTPClient we
+             * might use to create a TeeClientHandler. Let's create a fake one.
+             * We do not use the connection we create here as a real
+             * TFSTeamProjectColection. We only use this fake connection object
+             * as a source of an HTTPClient configured to use the VSTS
+             * credentials provided.
+             */
             final TFSConnection vstsConnection =
                 new TFSTeamProjectCollection(URIUtils.VSTS_ROOT_URL, vstsCredentials, new UIClientConnectionAdvisor());
-            final ProfileHttpClient profileClient =
-                new ProfileHttpClient(new TeeClientHandler(vstsConnection.getHTTPClient()), URIUtils.VSTS_ROOT_URL);
+            final TeeClientHandler clientHandler = new TeeClientHandler(vstsConnection.getHTTPClient());
+
+            final ProfileHttpClient profileClient = new ProfileHttpClient(clientHandler, URIUtils.VSTS_ROOT_URL);
 
             try {
                 final Profile profile = profileClient.getMyProfile();
@@ -151,9 +160,8 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 if (profile != null) {
                     log.info("Profile ID = " + profile.getId()); //$NON-NLS-1$
 
-                    final AccountHttpClient accountClient = new AccountHttpClient(
-                        new TeeClientHandler(vstsConnection.getHTTPClient()),
-                        URIUtils.VSTS_ROOT_URL);
+                    final AccountHttpClient accountClient =
+                        new AccountHttpClient(clientHandler, URIUtils.VSTS_ROOT_URL);
 
                     final List<Account> accounts = accountClient.getAccounts(profile.getId());
                     log.info("Accounts number = " + accounts.size()); //$NON-NLS-1$
@@ -178,6 +186,20 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                         null,
                         new Status(Status.ERROR, TFSCommonUIClientPlugin.PLUGIN_ID, 0, message, e));
                     break;
+                }
+            } finally {
+                /*
+                 * We didn't use any features of the vstsConnection but the
+                 * HTTPClient. However to release all resources and the
+                 * infrastructure created for the connection (e.g.
+                 * ShoultDownManager, HTTPClientReference, Service Clients,
+                 * etc.), we still should close this connection when leaving the
+                 * try-catch block.
+                 */
+                try {
+                    vstsConnection.close();
+                } catch (final Exception e) {
+                    log.error("Absolutelly unexpected error while closing not opened connection", e); //$NON-NLS-1$
                 }
             }
         }

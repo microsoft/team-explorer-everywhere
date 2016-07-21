@@ -250,6 +250,14 @@ public abstract class CredentialsHelper {
     }
 
     private static boolean isCredentialsValid(URI baseURI, Credentials credentials) {
+
+        /*
+         * At this point we do not have any connection which HTTPClient we might
+         * use to create a TeeClientHandler. Let's create a fake one. We do not
+         * use the connection we create here as a real TFSTeamProjectColection.
+         * We only use this fake connection object as a source of an HTTPClient
+         * configured to use the VSTS credentials provided.
+         */
         final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
             baseURI,
             credentials,
@@ -257,7 +265,23 @@ public abstract class CredentialsHelper {
         final AccountHttpClient client =
             new AccountHttpClient(new TeeClientHandler(rootConnection.getHTTPClient()), baseURI);
 
-        return client.checkConnection();
+        try {
+            return client.checkConnection();
+        } finally {
+            /*
+             * We didn't use any features of the vstsConnection but the
+             * HTTPClient. However to release all resources and the
+             * infrastructure created for the connection (e.g.
+             * ShoultDownManager, HTTPClientReference, Service Clients, etc.),
+             * we still should close this connection when leaving the try-catch
+             * block.
+             */
+            try {
+                rootConnection.close();
+            } catch (final Exception e) {
+                log.error("Absolutelly unexpected error while closing not opened connection", e); //$NON-NLS-1$
+            }
+        }
     }
 
     private static String getAccessTokenDescription(final String uri) {
