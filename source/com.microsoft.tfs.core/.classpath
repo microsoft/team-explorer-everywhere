@@ -39,5 +39,11 @@
 	<classpathentry kind="src" path="rest_core"/>
 	<classpathentry kind="lib" path="libs/applicationinsights-core/applicationinsights-core-1.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar"/>
+	<classpathentry kind="lib" path="libs/AlmHttpClient-15.103.0.20160719/alm-distributedtask-client-15.103.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.103.0.20160719/alm-distributedtask-client-15.103.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="libs/AlmHttpClient-15.103.0.20160719/alm-extensionmanagement-client-15.103.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.103.0.20160719/alm-extensionmanagement-client-15.103.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="libs/AlmHttpClient-15.103.0.20160719/alm-gallery-client-15.103.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.103.0.20160719/alm-gallery-client-15.103.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="libs/AlmHttpClient-15.103.0.20160719/alm-releasemanagement-client-15.103.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.103.0.20160719/alm-releasemanagement-client-15.103.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="libs/AlmHttpClient-15.103.0.20160719/alm-tfs-client-15.103.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.103.0.20160719/alm-tfs-client-15.103.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="libs/AlmHttpClient-15.103.0.20160719/alm-vss-client-15.103.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.103.0.20160719/alm-vss-client-15.103.0-SNAPSHOT-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
