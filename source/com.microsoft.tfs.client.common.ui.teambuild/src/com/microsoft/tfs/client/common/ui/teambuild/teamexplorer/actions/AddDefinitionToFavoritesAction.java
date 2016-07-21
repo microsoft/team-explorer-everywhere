@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.eclipse.jface.action.IAction;
 
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
 import com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.favorites.BuildFavoriteItem;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.actions.TeamExplorerBaseAction;

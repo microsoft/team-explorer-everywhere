@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionTemplate;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
 import com.microsoft.tfs.client.common.ui.framework.dialog.BaseDialog;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.teambuild.Messages;

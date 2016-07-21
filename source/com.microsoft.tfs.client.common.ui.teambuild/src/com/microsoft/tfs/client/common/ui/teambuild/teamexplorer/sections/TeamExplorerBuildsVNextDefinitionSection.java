@@ -29,11 +29,11 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 
-import com.microsoft.teamfoundation.build.webapi.BuildHttpClient;
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionReference;
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionTemplate;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionType;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.client.common.ui.TeamExplorerEventArg;
 import com.microsoft.tfs.client.common.ui.framework.helper.ContentProviderAdapter;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
@@ -200,10 +200,10 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
         }
 
         final UUID projectId = UUID.fromString(context.getCurrentProjectInfo().getGUID());
-        final List<DefinitionReference> rawDefinitions =
-            buildClient.getDefinitions(projectId, null, DefinitionType.BUILD);
+        final List<BuildDefinitionReference> rawDefinitions =
+            buildClient.getDefinitions(projectId);
 
-        final List<BuildDefinitionReference> list = new ArrayList();
+        final List<BuildDefinitionReference> list = new ArrayList<BuildDefinitionReference>();
         for (final DefinitionReference definition : rawDefinitions) {
             if (definition instanceof BuildDefinitionReference) {
                 list.add((BuildDefinitionReference) definition);

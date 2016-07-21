@@ -5,7 +5,7 @@ package com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.actions;
 
 import org.eclipse.jface.action.IAction;
 
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
 import com.microsoft.tfs.client.common.ui.tasks.ViewBuildsVNextTask;
 
 public class ViewBuildsVNextAction extends BuildDefinitionVNextAction {

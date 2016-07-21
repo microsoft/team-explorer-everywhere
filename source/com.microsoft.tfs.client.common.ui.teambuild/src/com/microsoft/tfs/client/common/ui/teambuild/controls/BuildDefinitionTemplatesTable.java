@@ -9,8 +9,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Composite;
 
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionTemplate;
-import com.microsoft.teamfoundation.distributedtask.webapi.TaskAgentHttpClient;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
+import com.microsoft.alm.teamfoundation.distributedtask.webapi.TaskAgentHttpClient;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.table.TableColumnData;
 import com.microsoft.tfs.client.common.ui.framework.table.TableControl;

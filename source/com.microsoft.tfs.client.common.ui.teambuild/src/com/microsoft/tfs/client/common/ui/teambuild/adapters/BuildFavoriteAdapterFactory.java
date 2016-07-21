@@ -6,7 +6,7 @@ package com.microsoft.tfs.client.common.ui.teambuild.adapters;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.IActionFilter;
 
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionType;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.favorites.BuildFavoriteItem;
 
 public class BuildFavoriteAdapterFactory implements IAdapterFactory {

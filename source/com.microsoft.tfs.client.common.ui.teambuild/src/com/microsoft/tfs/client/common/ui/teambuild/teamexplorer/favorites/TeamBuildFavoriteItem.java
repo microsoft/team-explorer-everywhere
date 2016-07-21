@@ -3,7 +3,7 @@
 
 package com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.favorites;
 
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
 import com.microsoft.tfs.core.clients.build.IBuildServer;
 import com.microsoft.tfs.core.clients.favorites.FavoriteItem;
 
