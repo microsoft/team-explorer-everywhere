@@ -11,9 +11,11 @@ package com.microsoft.alm.client.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -138,8 +140,7 @@ public class JsonHelper {
             if (input == null || input.length == 0) {
                 return null;
             } else {
-                if (genericType.getType() instanceof ParameterizedType
-                    && ((ParameterizedType) genericType.getType()).getRawType() == List.class) {
+                if (isArrayType(genericType)) {
                     final JavaType rootType = objectMapper.getTypeFactory().constructParametricType(
                         VssJsonCollectionWrapper.class,
                         objectMapper.constructType(genericType.getType()));
@@ -156,6 +157,18 @@ public class JsonHelper {
         } finally {
             response.releaseConnection();
         }
+    }
+    
+    private static <T> boolean isArrayType(final TypeReference<T> genericType) {
+        
+        final Type type = genericType.getType();
+        
+        if (genericType.getType() instanceof ParameterizedType) {
+            final Type rawType = ((ParameterizedType) genericType.getType()).getRawType();
+            return (rawType == ArrayList.class) || (rawType == List.class); 
+        }
+        
+        return false;
     }
 
     public static String serializeRequestToString(final Object entity) {
