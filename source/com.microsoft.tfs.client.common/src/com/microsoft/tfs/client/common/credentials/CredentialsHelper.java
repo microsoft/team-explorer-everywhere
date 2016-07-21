@@ -17,6 +17,7 @@ import com.microsoft.alm.auth.PromptBehavior;
 import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
 import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
 import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
+import com.microsoft.alm.client.TeeClientHandler;
 import com.microsoft.alm.helpers.Action;
 import com.microsoft.alm.secret.Token;
 import com.microsoft.alm.secret.TokenPair;
@@ -24,6 +25,10 @@ import com.microsoft.alm.secret.TokenType;
 import com.microsoft.alm.secret.VsoTokenScope;
 import com.microsoft.alm.storage.InsecureInMemoryStore;
 import com.microsoft.alm.storage.SecretStore;
+import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
+import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionToken;
+import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionTokenScope;
+import com.microsoft.alm.visualstudio.services.delegatedauthorization.client.DelegatedAuthorizationHttpClient;
 import com.microsoft.tfs.client.common.Messages;
 import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
 import com.microsoft.tfs.core.TFSConfigurationServer;
@@ -39,9 +44,6 @@ import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredenti
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.jni.helpers.LocalHost;
 import com.microsoft.tfs.util.StringUtil;
-import com.microsoft.visualstudio.services.account.AccountHttpClient;
-import com.microsoft.visualstudio.services.delegatedauthorization.DelegatedAuthorizationHttpClient;
-import com.microsoft.visualstudio.services.delegatedauthorization.model.SessionToken;
 
 /**
  * Static methods to manipulate {@link SessionToken}s.
@@ -68,12 +70,15 @@ public abstract class CredentialsHelper {
             final String tokenDisplayName = getAccessTokenDescription(connection.getBaseURI().toString());
 
             final TFSConnection vstsConnection = getVstsRootConnection(connection);
-            final DelegatedAuthorizationHttpClient authorizationClient =
-                new DelegatedAuthorizationHttpClient(vstsConnection);
+            final DelegatedAuthorizationHttpClient authorizationClient = new DelegatedAuthorizationHttpClient(
+                new TeeClientHandler(vstsConnection.getHTTPClient()),
+                vstsConnection.getBaseURI());
 
             final UUID accountId = getAccountId(connection);
-            final String pat =
-                authorizationClient.createAccountCodeAccessToken(tokenDisplayName, accountId).getAlternateToken();
+            final String pat = authorizationClient.createAccountSessionToken(
+                tokenDisplayName,
+                accountId,
+                SessionTokenScope.CODE_MANAGE).getAlternateToken();
 
             final URI baseURI = connection.getBaseURI();
             gitCredentialsManager.setCredentials(new CachedCredentials(baseURI, pat)); // $NON-NLS-1$
@@ -259,7 +264,8 @@ public abstract class CredentialsHelper {
             baseURI,
             credentials,
             new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
-        final AccountHttpClient client = new AccountHttpClient(rootConnection);
+        final AccountHttpClient client =
+            new AccountHttpClient(new TeeClientHandler(rootConnection.getHTTPClient()), baseURI);
 
         return client.checkConnection();
     }
