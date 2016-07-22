@@ -205,9 +205,9 @@ public class TeeClientHandler extends VssRestClientHandlerBase implements VssRes
                     name = parameter.substring(1, parameter.length() - 1);
                 }
 
-                final String value = (String) routeValues.get(name);
-                if (!StringUtil.isNullOrEmpty(value)) {
-                    actualParameters.add(value);
+                final Object value = routeValues.get(name);
+                if (value != null) {
+                    actualParameters.add(value.toString());
                 }
             } else {
                 actualParameters.add(parameter);
