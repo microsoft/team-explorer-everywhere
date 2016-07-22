@@ -9,7 +9,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.widgets.Shell;
 
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionTemplate;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 
 public class NewBuildDefinitionVNextTask extends BuildDefinitionVNextTask {

@@ -487,7 +487,7 @@ public abstract class StringUtil {
     }
 
     public static boolean startsWithIgnoreCase(final String value, final String possiblePrefix) {
-        if (value.length() < possiblePrefix.length()) {
+        if (value == null || possiblePrefix == null || value.length() < possiblePrefix.length()) {
             return false;
         }
 

@@ -5,8 +5,8 @@ package com.microsoft.tfs.client.common.ui.teambuild;
 
 import org.eclipse.swt.graphics.Image;
 
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionReference;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionType;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.client.common.ui.framework.image.ImageHelper;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.flags.BuildReason;

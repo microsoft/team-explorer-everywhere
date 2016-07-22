@@ -7,8 +7,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinition;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionType;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.client.common.ui.teambuild.editors.BuildExplorer;
 import com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.favorites.BuildFavoriteItem;
 import com.microsoft.tfs.client.common.ui.teamexplorer.actions.TeamExplorerBaseAction;

@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.microsoft.teamfoundation.build.webapi.BuildHttpClient;
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinition;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionType;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.IBuildServer;
 import com.microsoft.tfs.core.clients.favorites.FavoriteItem;

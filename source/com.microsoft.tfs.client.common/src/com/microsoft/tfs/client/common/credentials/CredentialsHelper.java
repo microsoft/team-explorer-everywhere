@@ -17,6 +17,7 @@ import com.microsoft.alm.auth.PromptBehavior;
 import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
 import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
 import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
+import com.microsoft.alm.client.TeeClientHandler;
 import com.microsoft.alm.helpers.Action;
 import com.microsoft.alm.secret.Token;
 import com.microsoft.alm.secret.TokenPair;
@@ -24,6 +25,10 @@ import com.microsoft.alm.secret.TokenType;
 import com.microsoft.alm.secret.VsoTokenScope;
 import com.microsoft.alm.storage.InsecureInMemoryStore;
 import com.microsoft.alm.storage.SecretStore;
+import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
+import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionToken;
+import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionTokenScope;
+import com.microsoft.alm.visualstudio.services.delegatedauthorization.client.DelegatedAuthorizationHttpClient;
 import com.microsoft.tfs.client.common.Messages;
 import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
 import com.microsoft.tfs.core.TFSConfigurationServer;
@@ -39,9 +44,6 @@ import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredenti
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.jni.helpers.LocalHost;
 import com.microsoft.tfs.util.StringUtil;
-import com.microsoft.visualstudio.services.account.AccountHttpClient;
-import com.microsoft.visualstudio.services.delegatedauthorization.DelegatedAuthorizationHttpClient;
-import com.microsoft.visualstudio.services.delegatedauthorization.model.SessionToken;
 
 /**
  * Static methods to manipulate {@link SessionToken}s.
@@ -67,13 +69,15 @@ public abstract class CredentialsHelper {
         if (connection.isHosted() && !hasAccountCodeAccessToken(connection)) {
             final String tokenDisplayName = getAccessTokenDescription(connection.getBaseURI().toString());
 
-            final TFSConnection vstsConnection = getVstsRootConnection(connection);
-            final DelegatedAuthorizationHttpClient authorizationClient =
-                new DelegatedAuthorizationHttpClient(vstsConnection);
+            final DelegatedAuthorizationHttpClient authorizationClient = new DelegatedAuthorizationHttpClient(
+                new TeeClientHandler(connection.getHTTPClient()),
+                URIUtils.VSTS_ROOT_URL);
 
             final UUID accountId = getAccountId(connection);
-            final String pat =
-                authorizationClient.createAccountCodeAccessToken(tokenDisplayName, accountId).getAlternateToken();
+            final String pat = authorizationClient.createAccountSessionToken(
+                tokenDisplayName,
+                accountId,
+                SessionTokenScope.CODE_MANAGE).getAlternateToken();
 
             final URI baseURI = connection.getBaseURI();
             gitCredentialsManager.setCredentials(new CachedCredentials(baseURI, pat)); // $NON-NLS-1$
@@ -157,15 +161,6 @@ public abstract class CredentialsHelper {
         } else {
             return currentCredentials;
         }
-    }
-
-    public static TFSConnection getVstsRootConnection(final TFSConnection connection) {
-        final TFSConnection vstsConnection = new TFSTeamProjectCollection(
-            URIUtils.VSTS_ROOT_URL,
-            getVstsRootCredentials(connection),
-            connection.getConnectionAdvisor());
-
-        return vstsConnection;
     }
 
     public static Credentials getOAuthCredentials(final URI serverURI, final Action<DeviceFlowResponse> callback) {
@@ -255,13 +250,38 @@ public abstract class CredentialsHelper {
     }
 
     private static boolean isCredentialsValid(URI baseURI, Credentials credentials) {
+
+        /*
+         * At this point we do not have any connection which HTTPClient we might
+         * use to create a TeeClientHandler. Let's create a fake one. We do not
+         * use the connection we create here as a real TFSTeamProjectColection.
+         * We only use this fake connection object as a source of an HTTPClient
+         * configured to use the VSTS credentials provided.
+         */
         final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
             baseURI,
             credentials,
             new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
-        final AccountHttpClient client = new AccountHttpClient(rootConnection);
+        final AccountHttpClient client =
+            new AccountHttpClient(new TeeClientHandler(rootConnection.getHTTPClient()), baseURI);
 
-        return client.checkConnection();
+        try {
+            return client.checkConnection();
+        } finally {
+            /*
+             * We didn't use any features of the vstsConnection but the
+             * HTTPClient. However to release all resources and the
+             * infrastructure created for the connection (e.g.
+             * ShoultDownManager, HTTPClientReference, Service Clients, etc.),
+             * we still should close this connection when leaving the try-catch
+             * block.
+             */
+            try {
+                rootConnection.close();
+            } catch (final Exception e) {
+                log.error("Absolutelly unexpected error while closing not opened connection", e); //$NON-NLS-1$
+            }
+        }
     }
 
     private static String getAccessTokenDescription(final String uri) {

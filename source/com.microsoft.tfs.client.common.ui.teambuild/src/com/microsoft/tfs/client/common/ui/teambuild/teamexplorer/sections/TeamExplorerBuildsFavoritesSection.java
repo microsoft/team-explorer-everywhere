@@ -24,10 +24,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.microsoft.teamfoundation.build.webapi.BuildHttpClient;
-import com.microsoft.teamfoundation.build.webapi.model.BuildDefinition;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionReference;
-import com.microsoft.teamfoundation.build.webapi.model.DefinitionType;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.client.common.ui.TeamExplorerEventArg;
 import com.microsoft.tfs.client.common.ui.framework.helper.ContentProviderAdapter;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
@@ -95,7 +96,7 @@ public abstract class TeamExplorerBuildsFavoritesSection extends TeamExplorerBas
         }
 
         final UUID projectId = UUID.fromString(context.getCurrentProjectInfo().getGUID());
-        final List<DefinitionReference> rawDefinitions = buildClient.getDefinitions(projectId);
+        final List<BuildDefinitionReference> rawDefinitions = buildClient.getDefinitions(projectId);
 
         for (final DefinitionReference definition : rawDefinitions) {
             definitions.put(definition.getUri().toString(), definition);
