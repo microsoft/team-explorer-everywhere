@@ -203,8 +203,8 @@ public class LocalPathTest extends TestCase {
             assertEquals("b", LocalPath.makeRelative("/a/b", "/a")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
             // Test case insensitive.
-            assertEquals("b", LocalPath.makeRelative("/Abc/bar", "/abc")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            assertEquals("b", LocalPath.makeRelative("/abC/bar", "/aBc")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            assertEquals("bar", LocalPath.makeRelative("/Abc/bar", "/abc")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            assertEquals("bar", LocalPath.makeRelative("/abC/bar", "/aBc")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
             // No relative possible, should return first path.
             assertEquals("/a/b", LocalPath.makeRelative("/a/b", "/zap")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
