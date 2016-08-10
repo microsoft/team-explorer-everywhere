@@ -15,6 +15,6 @@ public class MessagesTest extends MessagesTestCase {
 
     @Override
     protected List<String> getSourceDirectoryNames() {
-        return Arrays.asList("src", "rest_core", "rest_generated"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        return Arrays.asList("src", "rest_core"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }
