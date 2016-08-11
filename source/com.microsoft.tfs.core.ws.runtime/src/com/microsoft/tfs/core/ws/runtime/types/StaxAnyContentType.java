@@ -232,7 +232,7 @@ public class StaxAnyContentType implements AnyContentType {
                         try {
                             ftos.close();
                         } catch (final IOException e) {
-                            new RuntimeException(e);
+                            log.error(e);
                         }
                     }
 
