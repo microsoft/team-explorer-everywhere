@@ -259,7 +259,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
             vstsCredentials = dialogRunnable.getCredentials();
 
-            log.debug("The dialog returned cedentials: " //$NON-NLS-1$
+            log.debug("The dialog returned credentials: " //$NON-NLS-1$
                 + (vstsCredentials == null ? "null" : vstsCredentials.getClass().getName())); //$NON-NLS-1$
 
             return vstsCredentials;

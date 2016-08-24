@@ -53,7 +53,9 @@ public abstract class UITransportAuthRunnable implements Runnable {
             }
         });
 
-        credentialsDialog.open();
+        if (credentialsDialog.open() == IDialogConstants.CANCEL_ID) {
+            setComplete(null);
+        };
 
         /*
          * Store a copy of the display, because the shell may be closed /

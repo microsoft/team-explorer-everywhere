@@ -83,6 +83,7 @@ public class UITransportOAuthRunnable extends UITransportAuthRunnable {
                 return IDialogConstants.OK_ID;
             }
 
+            setReturnCode(IDialogConstants.CANCEL_ID);
             return IDialogConstants.CANCEL_ID;
         }
 
