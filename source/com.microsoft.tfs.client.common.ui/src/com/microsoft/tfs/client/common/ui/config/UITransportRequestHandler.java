@@ -310,7 +310,7 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
         final Credentials credentials = getCredentials(dialogRunnable);
 
         log.debug(
-            " The dialog returned cedentials: " + (credentials == null ? "null" : credentials.getClass().getName())); //$NON-NLS-1$ //$NON-NLS-2$
+            " The dialog returned credentials: " + (credentials == null ? "null" : credentials.getClass().getName())); //$NON-NLS-1$ //$NON-NLS-2$
 
         if (credentials == null) {
             log.info(" Credentials dialog has been cancelled by the user."); //$NON-NLS-1$
