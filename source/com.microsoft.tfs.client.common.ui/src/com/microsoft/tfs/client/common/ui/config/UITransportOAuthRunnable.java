@@ -77,14 +77,16 @@ public class UITransportOAuthRunnable extends UITransportAuthRunnable {
         public int open() {
             credentials = CredentialsHelper.getOAuthCredentials(serverURI, this.deviceFlowCallback);
 
-            if (credentials != null) {
-                setReturnCode(IDialogConstants.OK_ID);
-                ((CredentialsCompleteListener) credentialsCompleteListeners.getListener()).credentialsComplete();
-                return IDialogConstants.OK_ID;
-            }
+            /*
+             * Save the return code and notify listeners that the UI credentials
+             * dialog has already completed. This will prevent the invoking
+             * run() method in the base class of infinite waiting for
+             * credentials completion.
+             */
+            setReturnCode(credentials != null ? IDialogConstants.OK_ID : IDialogConstants.CANCEL_ID);
+            ((CredentialsCompleteListener) credentialsCompleteListeners.getListener()).credentialsComplete();
 
-            setReturnCode(IDialogConstants.CANCEL_ID);
-            return IDialogConstants.CANCEL_ID;
+            return getReturnCode();
         }
 
         /**

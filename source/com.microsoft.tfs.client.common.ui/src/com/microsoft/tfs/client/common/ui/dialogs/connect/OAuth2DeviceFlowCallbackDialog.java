@@ -107,13 +107,17 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
     protected void okPressed() {
         /*
          * If users clicked on OK, it means they should have completed auth flow
-         * on the browser. Shorten the timeout to 15 seconds as this should be
-         * enough to make one server call. If we don't have this timeout, and
-         * user clicked on "OK" without completing the oauth flow in browser, we
-         * will hang their Eclipse instance for a long time.
+         * on the browser. The dialog closes and control flow gets back to OAuth
+         * library. In the currently used version (0.3.0) of the library, the
+         * token polling loop checks the expiration first and then tries to
+         * obtain a token from the identity provider. Thus we set some small
+         * time interval to reach the loop and let it execute once. Since
+         * version 0.4.0 the token polling loop always executes at least one
+         * time, and checks expiration after that. We won't need this interval
+         * after we upgrade to the next library version.
          */
         this.response.getExpiresAt().setTime(new Date());
-        this.response.getExpiresAt().add(Calendar.SECOND, 5);
+        this.response.getExpiresAt().add(Calendar.MILLISECOND, 100);
         super.okPressed();
     }
 
