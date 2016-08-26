@@ -6,7 +6,6 @@ package com.microsoft.tfs.client.common.ui.dialogs.connect;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.logging.Log;
@@ -107,17 +106,17 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
     protected void okPressed() {
         /*
          * If users clicked on OK, it means they should have completed auth flow
-         * on the browser. The dialog closes and control flow gets back to OAuth
-         * library. In the currently used version (0.3.0) of the library, the
-         * token polling loop checks the expiration first and then tries to
-         * obtain a token from the identity provider. Thus we set some small
-         * time interval to reach the loop and let it execute once. Since
-         * version 0.4.0 the token polling loop always executes at least one
-         * time, and checks expiration after that. We won't need this interval
-         * after we upgrade to the next library version.
+         * on the browser. The dialog closes and control flow gets back to the
+         * OAuth library. Since version 0.4.0 of the OAuth2 library, the token
+         * polling loop always executes at least one time, and checks for
+         * expiration time after that. We don't need a second attempt in the UI
+         * plug-in. Either the token is available or we get an error explaining
+         * the reason for operation rejection, e.g. CANCELLED, TIMEOUT,
+         * MISSING_PERMISSIONS. Thus we set the ExpiresAt property to the
+         * current time to prevent retry attempts in the OAuth2 library's
+         * polling loop.
          */
         this.response.getExpiresAt().setTime(new Date());
-        this.response.getExpiresAt().add(Calendar.MILLISECOND, 100);
         super.okPressed();
     }
 

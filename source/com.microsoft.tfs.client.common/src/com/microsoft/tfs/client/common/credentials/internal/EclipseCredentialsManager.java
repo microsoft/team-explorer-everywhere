@@ -248,8 +248,10 @@ public class EclipseCredentialsManager implements CredentialsManager {
             node.clear();
             node.removeNode();
             return true;
-        } else {
+        } else if (persistenceProvider != null) {
             return getPlatformCredentialsManager().removeCredentials(uri);
+        } else {
+            return true;
         }
     }
 
