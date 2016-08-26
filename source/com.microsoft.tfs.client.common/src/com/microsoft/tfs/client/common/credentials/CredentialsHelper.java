@@ -214,6 +214,10 @@ public abstract class CredentialsHelper {
     }
 
     private static void removeStaleOAuth2Token() {
+        removeOAuth2Token(false);
+    }
+
+    public static void removeOAuth2Token(final boolean force) {
         final Authenticator authenticator =
             OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore);
 
@@ -224,7 +228,7 @@ public abstract class CredentialsHelper {
         if (oauth2TokenPair != null && oauth2TokenPair.AccessToken != null) {
             final String token = oauth2TokenPair.AccessToken.Value;
 
-            if (!StringUtil.isNullOrEmpty(token) && !isOAuth2TokenValid(token)) {
+            if (force || !isOAuth2TokenValid(token)) {
                 accessTokenStore.delete(tokenKey);
             }
         }
@@ -239,9 +243,14 @@ public abstract class CredentialsHelper {
     }
 
     private static boolean isOAuth2TokenValid(final String token) {
-        final URI serverURI = URIUtils.VSTS_ROOT_URL;
-        final JwtCredentials credentials = new JwtCredentials(token);
-        return isCredentialsValid(serverURI, credentials);
+        if (StringUtil.isNullOrEmpty(token)) {
+            return false;
+        } else {
+            final URI serverURI = URIUtils.VSTS_ROOT_URL;
+            final JwtCredentials credentials = new JwtCredentials(token);
+
+            return isCredentialsValid(serverURI, credentials);
+        }
     }
 
     private static boolean isAccessTokenValid(String token, URI serverURI) {

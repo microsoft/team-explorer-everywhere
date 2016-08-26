@@ -6,7 +6,6 @@ package com.microsoft.tfs.client.common.ui.dialogs.connect;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.logging.Log;
@@ -107,13 +106,17 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
     protected void okPressed() {
         /*
          * If users clicked on OK, it means they should have completed auth flow
-         * on the browser. Shorten the timeout to 15 seconds as this should be
-         * enough to make one server call. If we don't have this timeout, and
-         * user clicked on "OK" without completing the oauth flow in browser, we
-         * will hang their Eclipse instance for a long time.
+         * on the browser. The dialog closes and control flow gets back to the
+         * OAuth library. Since version 0.4.0 of the OAuth2 library, the token
+         * polling loop always executes at least one time, and checks for
+         * expiration time after that. We don't need a second attempt in the UI
+         * plug-in. Either the token is available or we get an error explaining
+         * the reason for operation rejection, e.g. CANCELLED, TIMEOUT,
+         * MISSING_PERMISSIONS. Thus we set the ExpiresAt property to the
+         * current time to prevent retry attempts in the OAuth2 library's
+         * polling loop.
          */
         this.response.getExpiresAt().setTime(new Date());
-        this.response.getExpiresAt().add(Calendar.SECOND, 5);
         super.okPressed();
     }
 

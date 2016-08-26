@@ -3,6 +3,7 @@
 
 package com.microsoft.tfs.client.common.ui.controls.connect;
 
+import java.net.URI;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -18,6 +19,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
+import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.controls.generic.BaseControl;
@@ -31,6 +33,7 @@ import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
+import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.serverlist.ServerList;
 import com.microsoft.tfs.core.util.serverlist.ServerListConfigurationEntry;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
@@ -228,19 +231,34 @@ public class ServerListControl extends BaseControl {
             EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
         final CredentialsManager gitCredentialsProvider = EclipseCredentialsManagerFactory.getGitCredentialsManager();
 
+        boolean removeOAuth2Token = false;
         for (int i = 0; i < serverListEntries.length; i++) {
             final ServerListConfigurationEntry serverListEntry = serverListEntries[i];
+            final URI url = serverListEntry.getURI();
+
             // Remove from TEE node
-            final CachedCredentials cachedCredentials = credentialsProvider.getCredentials(serverListEntry.getURI());
+            final CachedCredentials cachedCredentials = credentialsProvider.getCredentials(url);
             if (cachedCredentials != null) {
                 credentialsProvider.removeCredentials(cachedCredentials);
             }
+
             // Remove from Git node
-            final CachedCredentials gitCachedCredentials =
-                gitCredentialsProvider.getCredentials(serverListEntry.getURI());
+            final CachedCredentials gitCachedCredentials = gitCredentialsProvider.getCredentials(url);
             if (gitCachedCredentials != null) {
                 gitCredentialsProvider.removeCredentials(gitCachedCredentials);
             }
+
+            // Remove from OAuth2 access token from the internal store
+            removeOAuth2Token = removeOAuth2Token && ServerURIUtils.isHosted(url);
+        }
+
+        if (removeOAuth2Token) {
+            /*
+             * Removing the token pair from the internal store. Next time we
+             * connect to a VSTS account that does not have saved PAT, the user
+             * will be prompted for credentials.
+             */
+            CredentialsHelper.removeOAuth2Token(true);
         }
 
         refreshTable();
