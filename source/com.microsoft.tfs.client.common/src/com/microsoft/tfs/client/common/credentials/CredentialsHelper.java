@@ -36,7 +36,6 @@ import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
-import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.JwtCredentials;
 import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
@@ -150,16 +149,6 @@ public abstract class CredentialsHelper {
             return UUID.fromString(((TFSConfigurationServer) connection).getInstanceID().toString());
         } else {
             return getAccountId(((TFSTeamProjectCollection) connection).getConfigurationServer());
-        }
-    }
-
-    public static Credentials getVstsRootCredentials(final TFSConnection connection) {
-        final Credentials currentCredentials = connection.getCredentials();
-
-        if (currentCredentials instanceof CookieCredentials) {
-            return ((CookieCredentials) currentCredentials).setDomain(URIUtils.VSTS_SUFFIX);
-        } else {
-            return currentCredentials;
         }
     }
 
