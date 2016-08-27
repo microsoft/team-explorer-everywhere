@@ -246,6 +246,7 @@ public class ServerListControl extends BaseControl {
             final CachedCredentials gitCachedCredentials = gitCredentialsProvider.getCredentials(url);
             if (gitCachedCredentials != null) {
                 gitCredentialsProvider.removeCredentials(gitCachedCredentials);
+                removeOAuth2Token = true;
             }
 
             // Remove from OAuth2 access token from the internal store
