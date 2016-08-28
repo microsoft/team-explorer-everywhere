@@ -8,6 +8,7 @@ import java.net.URI;
 import com.microsoft.tfs.core.httpclient.Cookie;
 import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
+import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.util.Check;
@@ -167,6 +168,17 @@ public class CachedCredentials {
         } else {
             final String u = (username != null) ? username : ""; //$NON-NLS-1$
             return new UsernamePasswordCredentials(u, password);
+        }
+    }
+
+    public Credentials toPreemptiveCredentials() {
+        if (isCookieCredentials()) {
+            return new CookieCredentials(cookies);
+        } else if (isPatCredentials()) {
+            return PreemptiveUsernamePasswordCredentials.newFrom(new PatCredentials(password));
+        } else {
+            final String u = (username != null) ? username : ""; //$NON-NLS-1$
+            return new PreemptiveUsernamePasswordCredentials(u, password);
         }
     }
 

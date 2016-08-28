@@ -38,6 +38,13 @@
             parentID="com.microsoft.tfs.client.eclipse.ui.teamexplorer.TeamExplorerGitExplorerNavigationItem"
             title="%extension.teamExplorer.link.gitwizard.name">
       </teamExplorerNavigationLink>
+      <teamExplorerNavigationLink
+            class="com.microsoft.tfs.client.eclipse.ui.egit.teamexplorer.TeamExplorerProtocolHandlerNavigationLink"
+            displayPriority="100"
+            id="com.microsoft.tfs.client.eclipse.ui.egit.teamexplorer.TeamExplorerProtocolHandlerNavigationLink"
+            parentID="com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerHomePage"
+            title="%extension.teamExplorer.link.protocolHandler.name">
+      </teamExplorerNavigationLink>
    </extension>
    <extension
           point="com.microsoft.tfs.client.common.ui.teamExplorerPage">

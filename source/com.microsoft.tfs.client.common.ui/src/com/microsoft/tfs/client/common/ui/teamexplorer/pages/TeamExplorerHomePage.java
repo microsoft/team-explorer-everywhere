@@ -3,19 +3,31 @@
 
 package com.microsoft.tfs.client.common.ui.teamexplorer.pages;
 
+import java.net.URI;
+import java.text.MessageFormat;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.events.HyperlinkAdapter;
 import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.FormText;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
+import org.eclipse.ui.forms.widgets.ImageHyperlink;
 
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
@@ -31,9 +43,14 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelp
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerNavigationItemConfig;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerNavigationLinkConfig;
 import com.microsoft.tfs.client.common.ui.teamexplorer.items.ITeamExplorerNavigationItem;
+import com.microsoft.tfs.client.common.ui.teamexplorer.link.ITeamExplorerNavigationLink;
 import com.microsoft.tfs.core.clients.versioncontrol.SourceControlCapabilityFlags;
 
 public class TeamExplorerHomePage extends TeamExplorerBasePage {
+
+    private final static String HOME_PAGE_ID =
+        "com.microsoft.tfs.client.common.ui.teamexplorer.pages.TeamExplorerHomePage"; //$NON-NLS-1$
+
     private final TeamExplorerConfig configuration;
     private final TeamExplorerNavigator navigator;
     private static final Log log = LogFactory.getLog(TeamExplorerHomePage.class);
@@ -56,13 +73,15 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
         final GridLayout layout = SWTUtil.gridLayout(composite, 1, false, 5, 0);
         layout.verticalSpacing = 0;
 
+        createProtocolHandlerUI(toolkit, composite, context);
+
         if (!context.isConnectedToCollection()) {
             log.debug("Disconnected context"); //$NON-NLS-1$
             createDisconnectedUI(toolkit, composite);
         } else {
             log.debug("Connected context"); //$NON-NLS-1$
-            log.debug("Source control:" + //$NON-NLS-1$
-                (context.getSourceControlCapability().contains(SourceControlCapabilityFlags.GIT) ? " GIT" : "") //$NON-NLS-1$ //$NON-NLS-2$
+            log.debug("Source control:" //$NON-NLS-1$
+                + (context.getSourceControlCapability().contains(SourceControlCapabilityFlags.GIT) ? " GIT" : "") //$NON-NLS-1$ //$NON-NLS-2$
                 + (context.getSourceControlCapability().contains(SourceControlCapabilityFlags.TFS) ? " TFS" : "")); //$NON-NLS-1$ //$NON-NLS-2$
 
             createConnectedUI(toolkit, composite, context);
@@ -168,6 +187,135 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
         final FormToolkit toolkit,
         final Composite parent,
         final TeamExplorerContext context) {
+    }
+
+    private void createProtocolHandlerUI(
+        final FormToolkit toolkit,
+        final Composite parent,
+        final TeamExplorerContext context) {
+
+        if (!TeamExplorerHelpers.hasProtocolHandlerRequest()) {
+            return;
+        }
+
+        final Composite composite = toolkit.createComposite(parent);
+        composite.setBackground(TeamExplorerHelpers.getDropCompositeBackground(parent));
+        SWTUtil.gridLayout(composite, 1, false, 3, 3);
+        GridDataBuilder.newInstance().hAlignFill().hGrab().vIndent(5).applyTo(composite);
+
+        final Composite innerComposite = toolkit.createComposite(composite);
+        innerComposite.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+        innerComposite.setForeground(parent.getDisplay().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
+        SWTUtil.gridLayout(innerComposite, 2, false, 5, 5);
+        GridDataBuilder.newInstance().hAlignFill().hGrab().applyTo(innerComposite);
+
+        final TeamExplorerNavigationLinkConfig[] navHomPageLinks = configuration.getNavigationLinks(HOME_PAGE_ID);
+        for (final TeamExplorerNavigationLinkConfig item : navHomPageLinks) {
+            final ITeamExplorerNavigationLink navLink = item.createInstance();
+            if (navLink.isVisible(context)) {
+                final Composite itemComposite = toolkit.createComposite(innerComposite);
+                itemComposite.setBackground(innerComposite.getBackground());
+                SWTUtil.gridLayout(itemComposite, 1, false, 5, 5);
+                GridDataBuilder.newInstance().hAlignFill().hGrab().applyTo(itemComposite);
+
+                final String encodedRepoUrl = TeamExplorerHelpers.getProtocolHandlerEncodedUrl();
+                final StringBuilder sb = new StringBuilder(encodedRepoUrl);
+                sb.append('?');
+                sb.append("version=GB" + TeamExplorerHelpers.getProtocolHandlerBranch()); //$NON-NLS-1$
+                final String messageText = MessageFormat.format(
+                    "<form><p>Import projects from the <span color=\"linkcolor\">{0}</span> branch of the <a href=\"{1}\">{2}</a> repository</p></form>", //$NON-NLS-1$
+                    TeamExplorerHelpers.getProtocolHandlerBranch(),
+                    sb.toString(),
+                    TeamExplorerHelpers.getProtocolHandlerRepository());
+
+                final FormText formText = toolkit.createFormText(itemComposite, false);
+                formText.setBackground(innerComposite.getBackground());
+                formText.setForeground(innerComposite.getForeground());
+                formText.setText(messageText, true, false);
+                formText.setColor("linkcolor", formText.getHyperlinkSettings().getForeground()); //$NON-NLS-1$
+                formText.addHyperlinkListener(new HyperlinkAdapter() {
+                    @Override
+                    public void linkActivated(HyperlinkEvent e) {
+                        try {
+                            final URI repoUri = new URI((String) e.getHref());
+                            PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser().openURL(repoUri.toURL());
+                        } catch (final Exception ex) {
+                            log.error("Error opening browser:", ex); //$NON-NLS-1$
+                        }
+                    }
+
+                    /**
+                     * {@inheritDoc}
+                     */
+                    @Override
+                    public void linkEntered(HyperlinkEvent e) {
+                        // TODO Auto-generated method stub
+                        super.linkEntered(e);
+                    }
+
+                    /**
+                     * {@inheritDoc}
+                     */
+                    @Override
+                    public void linkExited(HyperlinkEvent e) {
+                        // TODO Auto-generated method stub
+                        super.linkExited(e);
+                    }
+                });
+                GridDataBuilder.newInstance().hAlignFill().hGrab().wHint(200).applyTo(formText);
+
+                final String cloneText = "Clone..."; //$NON-NLS-1$
+
+                final Button cloneButton = toolkit.createButton(itemComposite, cloneText, SWT.PUSH);
+                cloneButton.setBackground(TeamExplorerHelpers.getDropCompositeBackground(parent));
+                cloneButton.addSelectionListener(new SelectionAdapter() {
+                    @Override
+                    public void widgetSelected(final SelectionEvent e) {
+                        navLink.clicked(parent.getShell(), context, navigator, null);
+                        TeamExplorerHelpers.toggleCompositeVisibility(composite);
+                        TeamExplorerHelpers.relayoutContainingScrolledComposite(parent);
+                        TeamExplorerHelpers.removeProtocolHandlerArguments();
+                    }
+
+                    @Override
+                    public void widgetDefaultSelected(final SelectionEvent e) {
+                        navLink.clicked(parent.getShell(), context, navigator, null);
+                        TeamExplorerHelpers.toggleCompositeVisibility(composite);
+                        TeamExplorerHelpers.relayoutContainingScrolledComposite(parent);
+                        TeamExplorerHelpers.removeProtocolHandlerArguments();
+                    }
+                });
+                GridDataBuilder.newInstance().hAlignLeft().hGrab().applyTo(cloneButton);
+            }
+        }
+
+        final ImageHyperlink closeButton = toolkit.createImageHyperlink(innerComposite, SWT.PUSH);
+
+        final ImageHelper imageHelper = new ImageHelper(TFSCommonUIClientPlugin.PLUGIN_ID);
+        final Image image = imageHelper.getImage("/images/common/close_button.png"); //$NON-NLS-1$
+
+        closeButton.setImage(image);
+        closeButton.setText(""); //$NON-NLS-1$
+        closeButton.setBackground(innerComposite.getBackground());
+        GridDataBuilder.newInstance().vAlignTop().hAlignRight().applyTo(closeButton);
+
+        closeButton.addHyperlinkListener(new HyperlinkAdapter() {
+            @Override
+            public void linkActivated(final HyperlinkEvent e) {
+                TeamExplorerHelpers.toggleCompositeVisibility(composite);
+                TeamExplorerHelpers.relayoutContainingScrolledComposite(parent);
+                TeamExplorerHelpers.removeProtocolHandlerArguments();
+            }
+        });
+
+        composite.addDisposeListener(new DisposeListener() {
+
+            @Override
+            public void widgetDisposed(final DisposeEvent e) {
+                imageHelper.dispose();
+                image.dispose();
+            }
+        });
     }
 
     private void onClick(

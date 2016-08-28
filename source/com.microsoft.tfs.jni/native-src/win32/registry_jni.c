@@ -32,7 +32,11 @@
  */
 HKEY _getRootKey(jint rootKeyID)
 {
-    if (rootKeyID == 2)
+    if (rootKeyID == 3)
+    {
+        return HKEY_CLASSES_ROOT;
+    }
+    else if (rootKeyID == 2)
     {
         return HKEY_LOCAL_MACHINE;
     }

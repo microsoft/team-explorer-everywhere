@@ -124,6 +124,27 @@ public class TeeClientHandler extends VssRestClientHandlerBase implements VssRes
         final String acceptMediaType) {
 
         final URI target = createTarget(locationId, routeValues, queryParameters);
+        return createRequest(
+            method,
+            target,
+            locationId,
+            version,
+            value,
+            contentMediaType,
+            queryParameters,
+            acceptMediaType);
+    }
+
+    protected <TEntity> VssRestRequest createRequest(
+        final HttpMethod method,
+        final URI target,
+        final UUID locationId,
+        final ApiResourceVersion version,
+        final TEntity value,
+        final String contentMediaType,
+        final Map<String, String> queryParameters,
+        final String acceptMediaType) {
+
         final String acceptType =
             getMediaTypeWithQualityHeaderValue(acceptMediaType, negotiateRequestVersion(locationId, version));
 
@@ -219,7 +240,9 @@ public class TeeClientHandler extends VssRestClientHandlerBase implements VssRes
 
     private String getMediaTypeWithQualityHeaderValue(final String baseMediaType, final ApiResourceVersion version) {
         final Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put(API_VERSION_PARAMETER_NAME, version.toString());
+        if (version != null) {
+            parameters.put(API_VERSION_PARAMETER_NAME, version.toString());
+        }
         parameters.put(CHARSET_PARAMETER_NAME, StringUtil.UTF8_CHARSET);
 
         return getMediaTypeWithQualityHeaderValue(baseMediaType, parameters);
@@ -307,6 +330,10 @@ public class TeeClientHandler extends VssRestClientHandlerBase implements VssRes
             }
 
             return new TeeRestResponse(request);
+        }
+
+        public void setFollowRedirects(final boolean followRedirects) {
+            request.setFollowRedirects(followRedirects);
         }
     }
 

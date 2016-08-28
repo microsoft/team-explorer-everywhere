@@ -47,6 +47,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.httpclient.Credentials;
+import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.util.GUID;
 import com.microsoft.tfs.util.StringUtil;
@@ -56,6 +57,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
 
     public static final String PAGE_NAME = "WizardCrossCollectionRepoSelectionPage"; //$NON-NLS-1$
     public static final String INITIALLY_SELECTED_REPO = "InitiallySelectedRepo"; //$NON-NLS-1$
+    public static final String PROTOCOL_HANDLER_REPO = "ProtocolHandlerRepo"; //$NON-NLS-1$
 
     private boolean cloningHadErrors = false;
     private CrossCollectionRepositorySelectControl repositorySelectControl;
@@ -205,6 +207,18 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
                 repository.setBranchesJson(repositoryBranches.get(repository.getId()));
             }
 
+            if (getExtendedWizard().hasPageData(PROTOCOL_HANDLER_REPO)) {
+                final TypedServerGitRepository initialRepo =
+                    (TypedServerGitRepository) getExtendedWizard().getPageData(PROTOCOL_HANDLER_REPO);
+                if (selectedRepository.getRepository().getId().equalsIgnoreCase(initialRepo.getJson().getId())) {
+                    // At this point the repositories branches are not fully
+                    // initialized. We make this call to finish their
+                    // initialization, otherwise the default branch setting we
+                    // make in the next line will be overridden later.
+                    repository.getBranches();
+                    repository.setDefaultBranch(initialRepo.getJson().getDefaultBranch());
+                }
+            }
             doClone(repository, options);
 
             if (!cloningHadErrors) {
@@ -322,10 +336,17 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
             }
         }
 
+        if (connection.getCredentials() != null
+            && !connection.isHosted()
+            && (connection.getCredentials() instanceof DefaultNTCredentials)) {
+            // That's possible only in case of NTLM on Windows platform.
+            return null;
+        }
+
         // Prompt for credentials providing to the dialog any credentials
         // information we've found so far.
         final CredentialsDialog credentialsDialog = new CredentialsDialog(getShell(), connection.getBaseURI());
-        credentialsDialog.setCredentials(savedCredentials);
+        credentialsDialog.setCredentials(connection.getCredentials());
 
         if (credentialsDialog.open() == IDialogConstants.OK_ID) {
             final UsernamePasswordCredentials credentials =

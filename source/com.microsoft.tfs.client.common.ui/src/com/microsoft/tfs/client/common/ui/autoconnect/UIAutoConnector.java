@@ -27,9 +27,11 @@ import com.microsoft.tfs.client.common.ui.helpers.UIConnectionPersistence;
 import com.microsoft.tfs.client.common.ui.prefs.UIPreferenceConstants;
 import com.microsoft.tfs.client.common.ui.tasks.ConnectToDefaultRepositoryTask;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.ConnectHelpers;
+import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.core.clients.commonstructure.ProjectInfo;
 import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.exceptions.TEPreviewExpiredException;
+import com.microsoft.tfs.core.util.URIUtils;
 
 /**
  * Base class for Eclipse Plugin and Explorer based auto-connect mechanisms.
@@ -71,6 +73,8 @@ public abstract class UIAutoConnector implements AutoConnector {
         final URI serverURI;
         final boolean startConnection;
 
+        boolean hasProtocolHandlerRequest = TeamExplorerHelpers.hasProtocolHandlerRequest();
+
         synchronized (lock) {
             if (started) {
                 return;
@@ -78,19 +82,22 @@ public abstract class UIAutoConnector implements AutoConnector {
 
             started = true;
 
-            /* Do not connect if we're already connected to a server */
-            if (TFSCommonUIClientPlugin.getDefault().getProductPlugin().getServerManager().getDefaultServer() != null) {
-                return;
+            if (hasProtocolHandlerRequest) {
+                serverURI = URIUtils.newURI(TeamExplorerHelpers.getProtocolHandlerServer());
+            } else {
+                /* Do not connect if we're already connected to a server */
+                if (TFSCommonUIClientPlugin.getDefault().getProductPlugin().getServerManager().getDefaultServer() != null) {
+                    return;
+                }
+
+                /* Do not autoconnect if the preference is unset */
+                if (!TFSCommonUIClientPlugin.getDefault().getPreferenceStore().getBoolean(
+                    UIPreferenceConstants.RECONNECT_AT_STARTUP)) {
+                    return;
+                }
+
+                serverURI = UIConnectionPersistence.getInstance().getLastUsedServerURI();
             }
-
-            /* Do not autoconnect if the preference is unset */
-            if (!TFSCommonUIClientPlugin.getDefault().getPreferenceStore().getBoolean(
-                UIPreferenceConstants.RECONNECT_AT_STARTUP)) {
-                return;
-            }
-
-            serverURI = UIConnectionPersistence.getInstance().getLastUsedServerURI();
-
             LicenseManager.getInstance().getProductID();
 
             /*
@@ -122,7 +129,18 @@ public abstract class UIAutoConnector implements AutoConnector {
                     TFSCommonUIClientPlugin.getDefault().getProductPlugin().getRepositoryManager().setDefaultRepository(
                         repository);
 
-                    final ProjectInfo currentTeamProject = server.getProjectCache().getCurrentTeamProject();
+                    final ProjectInfo currentTeamProject;
+                    if (hasProtocolHandlerRequest) {
+                        currentTeamProject =
+                            server.getProjectCache().getTeamProject(TeamExplorerHelpers.getProtocolHandlerProject());
+                        server.getProjectCache().setActiveTeamProjects(new ProjectInfo[] {
+                            currentTeamProject
+                        });
+                        server.getProjectCache().setCurrentTeamProject(currentTeamProject);
+                    } else {
+                        currentTeamProject = server.getProjectCache().getCurrentTeamProject();
+                    }
+
                     if (currentTeamProject != null) {
                         ConnectHelpers.showHideViews(currentTeamProject.getSourceControlCapabilityFlags());
                     } else {
