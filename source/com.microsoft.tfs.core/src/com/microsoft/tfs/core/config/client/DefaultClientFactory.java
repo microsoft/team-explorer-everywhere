@@ -7,13 +7,6 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.microsoft.alm.client.TeeClientHandler;
-import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
-import com.microsoft.alm.teamfoundation.core.webapi.CoreHttpClient;
-import com.microsoft.alm.teamfoundation.distributedtask.webapi.TaskAgentHttpClient;
-import com.microsoft.alm.teamfoundation.distributedtask.webapi.TaskHttpClient;
-import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.GitHttpClient;
-import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.TfvcHttpClient;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
@@ -368,80 +361,6 @@ public class DefaultClientFactory implements ClientFactory {
                 throwIfNotProjectCollection(connection, TeamProjectCollectionTeamStore.class);
 
                 return new TeamProjectCollectionTeamStore((TFSTeamProjectCollection) connection);
-            }
-        });
-
-        /*
-         * TFS Build2 REST API client
-         */
-        instantiatorMap.put(BuildHttpClient.class, new ClientInstantiator() {
-            @Override
-            public Object newClient(final TFSConnection connection) {
-                throwIfNotProjectCollection(connection, BuildHttpClient.class);
-
-                return new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
-            }
-        });
-
-        /*
-         * TFS ServerCore REST API client
-         */
-        instantiatorMap.put(CoreHttpClient.class, new ClientInstantiator() {
-            @Override
-            public Object newClient(final TFSConnection connection) {
-                throwIfNotProjectCollection(connection, CoreHttpClient.class);
-
-                return new CoreHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
-            }
-        });
-
-        /*
-         * Distributed task REST API client
-         */
-        instantiatorMap.put(TaskHttpClient.class, new ClientInstantiator() {
-            @Override
-            public Object newClient(final TFSConnection connection) {
-                throwIfNotProjectCollection(connection, TaskHttpClient.class);
-
-                return new TaskHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
-            }
-        });
-
-        /*
-         * Distributed task agent REST API client
-         */
-        instantiatorMap.put(TaskAgentHttpClient.class, new ClientInstantiator() {
-            @Override
-            public Object newClient(final TFSConnection connection) {
-                throwIfNotProjectCollection(connection, TaskAgentHttpClient.class);
-
-                return new TaskAgentHttpClient(
-                    new TeeClientHandler(connection.getHTTPClient()),
-                    connection.getBaseURI());
-            }
-        });
-
-        /*
-         * Git version control REST API client
-         */
-        instantiatorMap.put(GitHttpClient.class, new ClientInstantiator() {
-            @Override
-            public Object newClient(final TFSConnection connection) {
-                throwIfNotProjectCollection(connection, GitHttpClient.class);
-
-                return new GitHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
-            }
-        });
-
-        /*
-         * TF version control REST API client
-         */
-        instantiatorMap.put(TfvcHttpClient.class, new ClientInstantiator() {
-            @Override
-            public Object newClient(final TFSConnection connection) {
-                throwIfNotProjectCollection(connection, TfvcHttpClient.class);
-
-                return new TfvcHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
             }
         });
     }
