@@ -218,15 +218,29 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
                 SWTUtil.gridLayout(itemComposite, 1, false, 5, 5);
                 GridDataBuilder.newInstance().hAlignFill().hGrab().applyTo(itemComposite);
 
+                // TODO: Find a better way to build the URL. Use
+                // TSWAHyperlinkBuilder?
                 final String encodedRepoUrl = TeamExplorerHelpers.getProtocolHandlerEncodedUrl();
                 final StringBuilder sb = new StringBuilder(encodedRepoUrl);
                 sb.append('?');
                 sb.append("version=GB" + TeamExplorerHelpers.getProtocolHandlerBranch()); //$NON-NLS-1$
-                final String messageText = MessageFormat.format(
-                    "<form><p>Import projects from the <span color=\"linkcolor\">{0}</span> branch of the <a href=\"{1}\">{2}</a> repository</p></form>", //$NON-NLS-1$
-                    TeamExplorerHelpers.getProtocolHandlerBranch(),
+
+                final String branchText = MessageFormat.format(
+                    "<span color=\"linkcolor\">{0}</span>", //$NON-NLS-1$
+                    TeamExplorerHelpers.getProtocolHandlerBranch());
+
+                final String repositoryLink = MessageFormat.format(
+                    "<a href=\"{0}\">{1}</a>", //$NON-NLS-1$
                     sb.toString(),
                     TeamExplorerHelpers.getProtocolHandlerRepository());
+
+                final String localizedMessageText =
+                    MessageFormat.format(
+                        Messages.getString("TeamExplorerHomePage.ImportRepoMessageFormat"), //$NON-NLS-1$
+                        branchText,
+                        repositoryLink);
+
+                final String messageText = MessageFormat.format("<form><p>{0}</p></form>", localizedMessageText); //$NON-NLS-1$
 
                 final FormText formText = toolkit.createFormText(itemComposite, false);
                 formText.setBackground(innerComposite.getBackground());
@@ -243,28 +257,10 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
                             log.error("Error opening browser:", ex); //$NON-NLS-1$
                         }
                     }
-
-                    /**
-                     * {@inheritDoc}
-                     */
-                    @Override
-                    public void linkEntered(HyperlinkEvent e) {
-                        // TODO Auto-generated method stub
-                        super.linkEntered(e);
-                    }
-
-                    /**
-                     * {@inheritDoc}
-                     */
-                    @Override
-                    public void linkExited(HyperlinkEvent e) {
-                        // TODO Auto-generated method stub
-                        super.linkExited(e);
-                    }
                 });
                 GridDataBuilder.newInstance().hAlignFill().hGrab().wHint(200).applyTo(formText);
 
-                final String cloneText = "Clone..."; //$NON-NLS-1$
+                final String cloneText = Messages.getString("TeamExplorerHomePage.CloneButtonText"); //$NON-NLS-1$
 
                 final Button cloneButton = toolkit.createButton(itemComposite, cloneText, SWT.PUSH);
                 cloneButton.setBackground(TeamExplorerHelpers.getDropCompositeBackground(parent));

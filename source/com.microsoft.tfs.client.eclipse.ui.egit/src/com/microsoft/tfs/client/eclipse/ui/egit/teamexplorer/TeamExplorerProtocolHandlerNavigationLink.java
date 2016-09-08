@@ -48,7 +48,7 @@ public class TeamExplorerProtocolHandlerNavigationLink extends TeamExplorerBaseN
                 Messages.getString("TeamExplorerGitWizardNavigationLink.EGitMissingErrorMessageText"); //$NON-NLS-1$
             final String title = Messages.getString("TeamExplorerGitWizardNavigationLink.EGitMissingErrorMessageTitle"); //$NON-NLS-1$
 
-            log.error("Cannot import from a Git Repository. EGit plugin is requered for this action."); //$NON-NLS-1$
+            log.error("Cannot import from a Git Repository. EGit plugin is required for this action."); //$NON-NLS-1$
             MessageDialog.openError(shell, title, errorMessage);
 
             return;
