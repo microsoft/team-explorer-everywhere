@@ -46,7 +46,8 @@ rem enabled so we catch and fix bugs early.
 set CFLAGS=%CFLAGS% -analyze
 
 rem High warnings (and treat as errors)
-set CFLAGS=%CFLAGS% -W3 -WX
+rem set CFLAGS=%CFLAGS% -W3 -WX
+set CFLAGS=%CFLAGS% -W3
 
 rem Zi=Complete debugging information (in PDB file)
 set CFLAGS=%CFLAGS% -Zi
@@ -107,7 +108,7 @@ if "%ARCH%" == "x64" set TESTJAVA=C:\Program Files\Java\jre6\bin\java.exe
 if "%ARCH%" == "x86" set VCARCH=x86
 if "%ARCH%" == "x64" set VCARCH=amd64
 
-call "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat" %VCARCH%
+call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %VCARCH%
 
 rem ###########################################################
 rem Clean up old builds
@@ -128,7 +129,7 @@ rem Compile the Java classes
 rem ###########################################################
 
 echo Compiling wrapper classes...
-set CLASSPATH=.;%BUILD_TMP%;junit-3.8.2.jar;..\..\com.microsoft.tfs.logging\lib\commons-logging-1.1\commons-logging-1.1.jar;..\..\com.microsoft.tfs.logging\lib\log4j-1.2.14\log4j-1.2.14.jar
+set CLASSPATH=.;%BUILD_TMP%;junit-3.8.2.jar;..\..\com.microsoft.tfs.logging\lib\commons-logging-1.1.3\commons-logging-1.1.3.jar;..\..\com.microsoft.tfs.logging\lib\log4j-1.2.14\log4j-1.2.14.jar
 
 set SOURCEFILES=^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\Check.java ^
@@ -141,7 +142,7 @@ set SOURCEFILES=^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\TypesafeEnum.java ^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\BitField.java ^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\LocaleInvariantStringHelpers.java ^
-        ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\StringHelpers.java ^
+        ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\StringUtil.java ^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\HashUtils.java ^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\NewlineUtils.java ^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\base64\Base64.java ^
@@ -230,7 +231,7 @@ set SOURCEFILES=^
 
 if not defined NOJAVAH (
   rem We require a minimum of Java 1.5
-  javac -source 1.5 %SOURCEFILES% -classpath %CLASSPATH% -encoding "UTF-8" -d "%BUILD_TMP%"
+  "%JAVA_HOME%\bin\javac" -source 1.5 %SOURCEFILES% -classpath %CLASSPATH% -encoding "UTF-8" -d "%BUILD_TMP%"
 )
 
 if not exist "%BUILD_TMP%\com\microsoft\tfs\jni\AllNativeTests.class" goto javacerror
@@ -251,13 +252,13 @@ rem ###########################################################
 
 if not defined NOJAVAH (
   echo Generating C headers...
-  javah -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_auth.h" com.microsoft.tfs.jni.internal.auth.NativeAuth
-  javah -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_console.h" com.microsoft.tfs.jni.internal.console.NativeConsole
-  javah -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_filesystem.h" com.microsoft.tfs.jni.internal.filesystem.NativeFileSystem
-  javah -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_misc.h" com.microsoft.tfs.jni.internal.platformmisc.NativePlatformMisc
-  javah -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_synchronization.h" com.microsoft.tfs.jni.internal.synchronization.NativeSynchronization
-  javah -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_registry.h" com.microsoft.tfs.jni.RegistryKey
-  javah -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_messagewindow.h" com.microsoft.tfs.jni.MessageWindow
+  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_auth.h" com.microsoft.tfs.jni.internal.auth.NativeAuth
+  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_console.h" com.microsoft.tfs.jni.internal.console.NativeConsole
+  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_filesystem.h" com.microsoft.tfs.jni.internal.filesystem.NativeFileSystem
+  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_misc.h" com.microsoft.tfs.jni.internal.platformmisc.NativePlatformMisc
+  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_synchronization.h" com.microsoft.tfs.jni.internal.synchronization.NativeSynchronization
+  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_registry.h" com.microsoft.tfs.jni.RegistryKey
+  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_messagewindow.h" com.microsoft.tfs.jni.MessageWindow
 )
 
 if not exist "%BUILD_TMP%\native_auth.h" goto javaherror
@@ -393,6 +394,7 @@ if exist %SYMBOLDIR%\native_messagewindow.pdb del %SYMBOLDIR%\native_messagewind
 if exist %SYMBOLDIR%\native_messagewindow.pdb goto delerror
 
 if not exist %DESTDIR% md %DESTDIR%
+if not exist %SYMBOLDIR% md %SYMBOLDIR%
 if not exist %DESTDIR% goto copyerror
 
 copy "%BUILD_TMP%\native_auth.dll" %DESTDIR%\native_auth.dll

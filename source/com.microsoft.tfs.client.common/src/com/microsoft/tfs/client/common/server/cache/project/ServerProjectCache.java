@@ -162,6 +162,25 @@ public class ServerProjectCache {
     }
 
     /**
+     * Gets the team project by its name.
+     *
+     * @return the team project (may be <code>null</code>)
+     */
+    public ProjectInfo getTeamProject(final String projectName) {
+        if (!loaded) {
+            refresh();
+        }
+
+        for (final ProjectInfo project : allProjects) {
+            if (project.getName().equalsIgnoreCase(projectName)) {
+                return project;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Gets the team project that is currently being used (for instance, by the
      * Team Explorer).
      *

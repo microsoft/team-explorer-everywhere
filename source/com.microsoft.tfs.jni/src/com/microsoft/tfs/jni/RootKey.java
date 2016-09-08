@@ -19,6 +19,7 @@ public class RootKey {
 
     public static final RootKey HKEY_CURRENT_USER = new RootKey(1, "HKEY_CURRENT_USER"); //$NON-NLS-1$
     public static final RootKey HKEY_LOCAL_MACHINE = new RootKey(2, "HKEY_LOCAL_MACHINE"); //$NON-NLS-1$
+    public static final RootKey HKEY_CLASSES_ROOT = new RootKey(3, "HKEY_CLASSES_ROOT"); //$NON-NLS-1$
 
     private final int value;
     private final String name;
