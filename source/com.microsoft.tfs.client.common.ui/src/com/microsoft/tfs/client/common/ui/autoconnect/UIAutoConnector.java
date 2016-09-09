@@ -119,7 +119,7 @@ public abstract class UIAutoConnector implements AutoConnector {
                 if (!shouldAutoConnect()) {
                     log.info("Auto connection is not requested."); //$NON-NLS-1$
                 } else if (serverURI == null) {
-                    log.info("No previously connecter server detected."); //$NON-NLS-1$
+                    log.info("No previously connected server detected."); //$NON-NLS-1$
                 } else {
                     log.info("EULA is not accepted yet."); //$NON-NLS-1$
                 }
