@@ -620,7 +620,7 @@ public class TeamExplorerHelpers {
             bufferedWriter.write("Windows Registry Editor Version 5.00\r\n" + //$NON-NLS-1$
                 "[-HKEY_CLASSES_ROOT\\vsoe]\r\n" + //$NON-NLS-1$
                 "[HKEY_CLASSES_ROOT\\" + PROTOCOL_HANDLER_REGISTRY_KEY + "]\r\n" + //$NON-NLS-1$ //$NON-NLS-2$
-                "@=\"\\\"" + launcher.replace("\\", "\\\\") + "\\\" \\\"%1\\\"\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                "@=\"\\\"" + launcher.replace("\\", "\\\\") + "\\\" " + PROTOCOL_HANDLER_ARG + " \\\"%1\\\"\""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
         } finally {
             bufferedWriter.close();
             fileWriter.close();
