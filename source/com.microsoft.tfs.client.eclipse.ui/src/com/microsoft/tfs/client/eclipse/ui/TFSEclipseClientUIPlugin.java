@@ -23,6 +23,7 @@ import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.server.ServerManager;
 import com.microsoft.tfs.client.common.ui.helpers.FileViewer;
 import com.microsoft.tfs.client.common.ui.productplugin.TFSProductPlugin;
+import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.client.common.ui.wizard.teamprojectwizard.ITeamProjectWizard;
 import com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin;
 import com.microsoft.tfs.client.eclipse.ui.connectionconflict.EclipseUIConnectionConflictHandler;
@@ -84,6 +85,9 @@ public class TFSEclipseClientUIPlugin extends AbstractUIPlugin implements TFSPro
             IResourceChangeEvent.POST_CHANGE);
 
         getRepositoryManager().addListener(repositoryListener);
+
+        TeamExplorerHelpers.registerProtocolHandler();
+        TeamExplorerHelpers.tryParseProtocolHandlerArguments(org.eclipse.core.runtime.Platform.getApplicationArgs());
     }
 
     /*
@@ -189,7 +193,7 @@ public class TFSEclipseClientUIPlugin extends AbstractUIPlugin implements TFSPro
                 if (workspace != null && WorkspaceLocation.LOCAL == workspace.getLocation()) {
                     final Job reconcileJob =
                         new Job(Messages.getString("TFSEclipseClientUIPlugin.ReconcilingLocalWorkspace")) //$NON-NLS-1$
-                    {
+                        {
                             @Override
                             public IStatus run(final IProgressMonitor monitor) {
                                 final AtomicBoolean pendingChangesUpdatedByServer = new AtomicBoolean();

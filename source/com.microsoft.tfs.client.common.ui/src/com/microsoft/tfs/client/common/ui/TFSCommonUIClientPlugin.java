@@ -21,7 +21,6 @@ import com.microsoft.tfs.client.common.ui.productplugin.TFSProductPlugin;
 import com.microsoft.tfs.client.common.ui.productplugin.TFSProductPluginProvider;
 import com.microsoft.tfs.client.common.ui.teamexplorer.NewViewShowsListener;
 import com.microsoft.tfs.client.common.ui.teamexplorer.ProjectAndTeamListener;
-import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.PendingChangesViewModel;
 import com.microsoft.tfs.client.common.util.ExtensionLoader;
 import com.microsoft.tfs.core.clients.versioncontrol.Workstation;
@@ -157,9 +156,6 @@ public class TFSCommonUIClientPlugin extends AbstractUIPlugin implements TFSCons
                     });
                 }
             });
-
-        TeamExplorerHelpers.tryParseProtocolHandlerArguments(org.eclipse.core.runtime.Platform.getApplicationArgs());
-        TeamExplorerHelpers.registerProtocolHandler();
     }
 
     private void createConsole() {

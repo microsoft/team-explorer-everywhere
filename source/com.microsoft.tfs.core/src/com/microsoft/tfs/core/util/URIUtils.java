@@ -373,6 +373,18 @@ public class URIUtils {
         return URI.create(sb.toString());
     }
 
+    public static URI newURI(final String scheme, final String authority, final String path, final String query) {
+        return newURI(scheme, authority, path, query, null);
+    }
+
+    public static URI newURI(final String scheme, final String authority, final String path) {
+        return newURI(scheme, authority, path, null, null);
+    }
+
+    public static URI newURI(final String scheme, final String authority) {
+        return newURI(scheme, authority, null, null, null);
+    }
+
     /**
      * <p>
      * Appends the specified parent {@link URI} with provided query parameters.
@@ -414,7 +426,7 @@ public class URIUtils {
             }
         }
 
-        return newURI(parent.getScheme(), parent.getAuthority(), parent.getPath(), sb.toString(), null);
+        return newURI(parent.getScheme(), parent.getAuthority(), parent.getPath(), sb.toString());
     }
 
     /**

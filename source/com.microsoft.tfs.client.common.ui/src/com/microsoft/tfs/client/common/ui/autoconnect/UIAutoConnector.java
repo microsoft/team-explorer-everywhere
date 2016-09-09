@@ -6,6 +6,8 @@ package com.microsoft.tfs.client.common.ui.autoconnect;
 import java.net.URI;
 import java.text.MessageFormat;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -39,6 +41,8 @@ import com.microsoft.tfs.core.util.URIUtils;
  * @threadsafety unknown
  */
 public abstract class UIAutoConnector implements AutoConnector {
+    private static final Log log = LogFactory.getLog(UIAutoConnector.class);
+
     private final Object lock = new Object();
 
     private boolean started = false;
@@ -51,7 +55,6 @@ public abstract class UIAutoConnector implements AutoConnector {
                 return;
             }
         }
-
         /*
          * Schedule this in a job so that it will be started when the workbench
          * is started. (If we're restoring a view, the workbench is not fully
@@ -84,6 +87,7 @@ public abstract class UIAutoConnector implements AutoConnector {
 
             if (hasProtocolHandlerRequest) {
                 serverURI = URIUtils.newURI(TeamExplorerHelpers.getProtocolHandlerServer());
+                log.info("Auto connecting to the server requested by protocol handler: " + serverURI); //$NON-NLS-1$
             } else {
                 /* Do not connect if we're already connected to a server */
                 if (TFSCommonUIClientPlugin.getDefault().getProductPlugin().getServerManager().getDefaultServer() != null) {
@@ -97,6 +101,9 @@ public abstract class UIAutoConnector implements AutoConnector {
                 }
 
                 serverURI = UIConnectionPersistence.getInstance().getLastUsedServerURI();
+                if (serverURI != null) {
+                    log.info("Auto connecting to the previously used server: " + serverURI); //$NON-NLS-1$
+                }
             }
             LicenseManager.getInstance().getProductID();
 
@@ -109,11 +116,20 @@ public abstract class UIAutoConnector implements AutoConnector {
                 startConnection = true;
                 connecting = true;
             } else {
+                if (!shouldAutoConnect()) {
+                    log.info("Auto connection is not requested."); //$NON-NLS-1$
+                } else if (serverURI == null) {
+                    log.info("No previously connecter server detected."); //$NON-NLS-1$
+                } else {
+                    log.info("EULA is not accepted yet."); //$NON-NLS-1$
+                }
                 startConnection = false;
             }
         }
 
-        try {
+        try
+
+        {
             if (startConnection) {
                 final Shell shell = ShellUtils.getBestParent(ShellUtils.getWorkbenchShell());
 
