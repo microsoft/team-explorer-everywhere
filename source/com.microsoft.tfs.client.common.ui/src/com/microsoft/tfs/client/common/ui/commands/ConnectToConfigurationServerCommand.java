@@ -29,10 +29,12 @@ import com.microsoft.tfs.core.exceptions.TFSFederatedAuthException;
 import com.microsoft.tfs.core.exceptions.TFSUnauthorizedException;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
+import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.core.ws.runtime.exceptions.TransportRequestHandlerCanceledException;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.LocaleUtil;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * Attempt a connection to TFS in a TFS Framework (i.e. TFS2010 and up
@@ -99,29 +101,46 @@ public class ConnectToConfigurationServerCommand extends TFSCommand implements C
         progressMonitor.beginTask(message, IProgressMonitor.UNKNOWN);
 
         /*
-         * URI fallbacks: First we try the given URI as a configuration server
-         * URI, then remove the trailing "/tfs/" and retry as a configuration
-         * server. Then we try as a project collection, then remove the trailing
-         * "/tfs/" and retry as a project collection. Fail ONLY on unauthorized
-         * errors.
+         * URI fallbacks:
+         * 
+         * In previous TEE versions we did the following:First we try the given
+         * URI as a configuration server URI, then remove the trailing "/tfs/"
+         * and retry as a configuration server. Then we try as a project
+         * collection, then remove the trailing "/tfs/" and retry as a project
+         * collection. Fail ONLY on unauthorized errors.
+         * 
+         * In 14.0.4, let's allow at this point arbitrary TFS URIs, i.e.
+         * http(s)://host[:port][/path][/collection][/project]... We need to
+         * connect to a configuration server here, which has to be found either
+         * with http(s)://host[:port]/path or with http(s)://host[:port] URI (if
+         * we're connecting to a hosted service or the path is not configured on
+         * on-premises TFS server). So we do not care of the entire URI path
+         * string, but rather its first item.
+         * 
          */
 
         final List<ConnectionURIAndType> connectionTypes = new ArrayList<ConnectionURIAndType>();
 
-        connectionTypes.add(new ConnectionURIAndType(TFSConfigurationServer.class, serverURI));
-
-        if ("/tfs".equals(serverURI.getPath())) //$NON-NLS-1$
-        {
+        final String pathCandidate = getFirstPathItem(serverURI.getPath());
+        if (ServerURIUtils.isHosted(serverURI) || StringUtil.isNullOrEmpty(pathCandidate)) {
+            // We have either a VSTS URI or a URI of TFS server with an empty
+            // path configured. We should be able to find the configuration
+            // server at the URI without any path.
             connectionTypes.add(
-                new ConnectionURIAndType(TFSConfigurationServer.class, URIUtils.resolve(serverURI, "/"))); //$NON-NLS-1$
-        }
+                new ConnectionURIAndType(
+                    TFSConfigurationServer.class,
+                    URIUtils.newURI(serverURI.getScheme(), serverURI.getAuthority())));
+        } else {
+            // We have an on-premises TFS server URI. The first path item might
+            // be a server path or a collection name if the server is configured
+            // with an empty path. The latter is much more rare situation, so
+            // we'll try configuration server first and collection after that.
 
-        connectionTypes.add(new ConnectionURIAndType(TFSTeamProjectCollection.class, serverURI));
+            final URI uriCandidate =
+                URIUtils.newURI(serverURI.getScheme(), serverURI.getAuthority(), '/' + pathCandidate);
 
-        if ("/tfs".equals(serverURI.getPath())) //$NON-NLS-1$
-        {
-            connectionTypes.add(
-                new ConnectionURIAndType(TFSTeamProjectCollection.class, URIUtils.resolve(serverURI, "/"))); //$NON-NLS-1$
+            connectionTypes.add(new ConnectionURIAndType(TFSConfigurationServer.class, uriCandidate));
+            connectionTypes.add(new ConnectionURIAndType(TFSTeamProjectCollection.class, uriCandidate));
         }
 
         /*
@@ -218,6 +237,22 @@ public class ConnectToConfigurationServerCommand extends TFSCommand implements C
     private String getUsername() {
         if (credentials != null && credentials instanceof UsernamePasswordCredentials) {
             return ((UsernamePasswordCredentials) credentials).getUsername();
+        }
+
+        return null;
+    }
+
+    private static String getFirstPathItem(final String path) {
+        if (StringUtil.isNullOrEmpty(path) || path.equalsIgnoreCase("/")) { //$NON-NLS-1$
+            return null;
+        }
+
+        final String[] pathItems = path.split("/"); //$NON-NLS-1$
+
+        for (final String pathItem : pathItems) {
+            if (!StringUtil.isNullOrEmpty(pathItem)) {
+                return pathItem;
+            }
         }
 
         return null;
