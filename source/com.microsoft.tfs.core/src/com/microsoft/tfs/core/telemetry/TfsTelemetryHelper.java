@@ -20,6 +20,7 @@ import com.microsoft.applicationinsights.telemetry.SessionState;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
+import com.microsoft.tfs.core.product.CoreVersionInfo;
 import com.microsoft.tfs.core.product.ProductInformation;
 import com.microsoft.tfs.core.product.ProductName;
 import com.microsoft.tfs.util.GUID;
@@ -45,6 +46,10 @@ public class TfsTelemetryHelper {
 
     public synchronized static TelemetryClient getTelemetryClient() {
         if (aiClient == null) {
+            log.info(ProductInformation.getCurrent().getProductFullNameNOLOC()
+                + " v." //$NON-NLS-1$
+                + CoreVersionInfo.getVersion());
+
             if (ProductInformation.getCurrent() == ProductName.SDK) {
                 log.info("AppInsights telemetry disabled for SDK product"); //$NON-NLS-1$
 
