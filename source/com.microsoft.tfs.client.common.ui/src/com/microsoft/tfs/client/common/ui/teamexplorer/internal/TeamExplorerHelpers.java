@@ -580,7 +580,7 @@ public class TeamExplorerHelpers {
                     return;
                 }
 
-                final String command = "\"" + launcher + "\" \"%1\""; //$NON-NLS-1$ //$NON-NLS-2$
+                final String command = "\"" + launcher + "\" " + PROTOCOL_HANDLER_ARG + " \"%1\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
                 final RegistryKey handlerKey =
                     new RegistryKey(RootKey.HKEY_CLASSES_ROOT, PROTOCOL_HANDLER_REGISTRY_KEY);

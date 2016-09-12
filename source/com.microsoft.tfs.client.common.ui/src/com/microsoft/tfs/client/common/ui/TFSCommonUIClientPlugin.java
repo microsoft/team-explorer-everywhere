@@ -11,6 +11,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.util.tracker.ServiceTracker;
 
 import com.microsoft.tfs.client.common.console.TFSConsoleProvider;
+import com.microsoft.tfs.client.common.logging.TELoggingConfiguration;
 import com.microsoft.tfs.client.common.ui.buildmanager.BuildManager;
 import com.microsoft.tfs.client.common.ui.console.ConsoleCoreEventListener;
 import com.microsoft.tfs.client.common.ui.console.TFSConsole;
@@ -25,6 +26,8 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.internal.pendingchanges.P
 import com.microsoft.tfs.client.common.util.ExtensionLoader;
 import com.microsoft.tfs.core.clients.versioncontrol.Workstation;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
+import com.microsoft.tfs.core.product.ProductInformation;
+import com.microsoft.tfs.core.product.ProductName;
 import com.microsoft.tfs.core.util.notifications.MessageWindowNotificationManager;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
@@ -72,6 +75,9 @@ public class TFSCommonUIClientPlugin extends AbstractUIPlugin implements TFSCons
      * The constructor
      */
     public TFSCommonUIClientPlugin() {
+        ProductInformation.initialize(ProductName.PLUGIN);
+
+        TELoggingConfiguration.configure();
     }
 
     /*
