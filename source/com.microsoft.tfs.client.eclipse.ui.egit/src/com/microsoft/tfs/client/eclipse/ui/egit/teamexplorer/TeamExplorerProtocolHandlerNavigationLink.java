@@ -9,9 +9,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import com.microsoft.tfs.client.common.git.utils.GitHelpers;
+import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerNavigator;
-import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerNavigationItemConfig;
 import com.microsoft.tfs.client.common.ui.teamexplorer.link.TeamExplorerBaseNavigationLink;
 import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
@@ -24,7 +24,7 @@ public class TeamExplorerProtocolHandlerNavigationLink extends TeamExplorerBaseN
     @Override
     public boolean isEnabled(final TeamExplorerContext context) {
         try {
-            return TeamExplorerHelpers.hasProtocolHandlerRequest();
+            return ProtocolHandler.getInstance().hasProtocolHandlerRequest();
         } catch (final Exception e) {
             log.error("", e); //$NON-NLS-1$
             return false;

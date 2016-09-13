@@ -27,9 +27,9 @@ import com.microsoft.tfs.client.common.ui.framework.helper.ShellUtils;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.client.common.ui.helpers.UIConnectionPersistence;
 import com.microsoft.tfs.client.common.ui.prefs.UIPreferenceConstants;
+import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.tasks.ConnectToDefaultRepositoryTask;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.ConnectHelpers;
-import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.core.clients.commonstructure.ProjectInfo;
 import com.microsoft.tfs.core.exceptions.NotSupportedException;
 import com.microsoft.tfs.core.exceptions.TEPreviewExpiredException;
@@ -76,7 +76,7 @@ public abstract class UIAutoConnector implements AutoConnector {
         final URI serverURI;
         final boolean startConnection;
 
-        boolean hasProtocolHandlerRequest = TeamExplorerHelpers.hasProtocolHandlerRequest();
+        boolean hasProtocolHandlerRequest = ProtocolHandler.getInstance().hasProtocolHandlerRequest();
 
         synchronized (lock) {
             if (started) {
@@ -86,7 +86,7 @@ public abstract class UIAutoConnector implements AutoConnector {
             started = true;
 
             if (hasProtocolHandlerRequest) {
-                serverURI = URIUtils.newURI(TeamExplorerHelpers.getProtocolHandlerServer());
+                serverURI = URIUtils.newURI(ProtocolHandler.getInstance().getProtocolHandlerServer());
                 log.info("Auto connecting to the server requested by protocol handler: " + serverURI); //$NON-NLS-1$
             } else {
                 /* Do not connect if we're already connected to a server */
@@ -147,8 +147,8 @@ public abstract class UIAutoConnector implements AutoConnector {
 
                     final ProjectInfo currentTeamProject;
                     if (hasProtocolHandlerRequest) {
-                        currentTeamProject =
-                            server.getProjectCache().getTeamProject(TeamExplorerHelpers.getProtocolHandlerProject());
+                        currentTeamProject = server.getProjectCache().getTeamProject(
+                            ProtocolHandler.getInstance().getProtocolHandlerProject());
                         server.getProjectCache().setActiveTeamProjects(new ProjectInfo[] {
                             currentTeamProject
                         });

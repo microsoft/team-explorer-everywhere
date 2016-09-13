@@ -16,7 +16,7 @@ import com.microsoft.tfs.client.common.ui.autoconnect.UIAutoConnector;
 import com.microsoft.tfs.client.common.ui.commands.ConnectToDefaultRepositoryCommand;
 import com.microsoft.tfs.client.common.ui.framework.command.UIAsyncObjectWaiter;
 import com.microsoft.tfs.client.common.ui.framework.command.UIJobCommandAdapter;
-import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
+import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin;
 
 /**
@@ -35,7 +35,7 @@ public class EclipseAutoConnector extends UIAutoConnector {
         /* Don't try to auto-connect if we have ever connected an IProject. */
         int nProjects = TFSEclipseClientPlugin.getDefault().getProjectManager().getProjects().length;
         int nClosedProjects = TFSEclipseClientPlugin.getDefault().getProjectManager().getClosedProjects().length;
-        boolean hasProtocolHandlerRequest = TeamExplorerHelpers.hasProtocolHandlerRequest();
+        boolean hasProtocolHandlerRequest = ProtocolHandler.getInstance().hasProtocolHandlerRequest();
         return (nProjects == 0 && nClosedProjects == 0) || hasProtocolHandlerRequest;
     }
 

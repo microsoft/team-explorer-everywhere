@@ -17,8 +17,8 @@ import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.GitRepository;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.git.json.TfsGitRepositoryJson;
 import com.microsoft.tfs.client.common.git.json.TfsGitTeamProjectJson;
+import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
-import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerGitRepository;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerItem;
 import com.microsoft.tfs.client.eclipse.ui.egit.importwizard.GitImportWizard;
@@ -50,7 +50,7 @@ public class ProtocolHandlerHelpers {
 
     public static void clone(final Shell shell, final TeamExplorerContext context) {
 
-        if (TeamExplorerHelpers.hasProtocolHandlerRequest()) {
+        if (ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
             final ProtocolHandlerHelpers handler = new ProtocolHandlerHelpers(shell, context);
             handler.cloneRepo();
         }
@@ -58,8 +58,8 @@ public class ProtocolHandlerHelpers {
 
     private void cloneRepo() {
 
-        final String repoUrl = TeamExplorerHelpers.getProtocolHandlerUrl();
-        final String branch = TeamExplorerHelpers.getProtocolHandlerBranch();
+        final String repoUrl = ProtocolHandler.getInstance().getProtocolHandlerCloneUrl();
+        final String branch = ProtocolHandler.getInstance().getProtocolHandlerBranch();
 
         credentials = getAccountCredentials(repoUrl);
 

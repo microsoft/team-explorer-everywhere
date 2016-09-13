@@ -16,14 +16,17 @@ import org.osgi.framework.BundleContext;
 
 import com.microsoft.tfs.client.common.autoconnect.AutoConnector;
 import com.microsoft.tfs.client.common.connectionconflict.ConnectionConflictHandler;
+import com.microsoft.tfs.client.common.framework.command.CommandFactory;
+import com.microsoft.tfs.client.common.framework.command.ICommand;
 import com.microsoft.tfs.client.common.repository.RepositoryManager;
 import com.microsoft.tfs.client.common.repository.RepositoryManagerAdapter;
 import com.microsoft.tfs.client.common.repository.RepositoryManagerEvent;
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.server.ServerManager;
+import com.microsoft.tfs.client.common.ui.framework.command.UIJobCommandAdapter;
 import com.microsoft.tfs.client.common.ui.helpers.FileViewer;
 import com.microsoft.tfs.client.common.ui.productplugin.TFSProductPlugin;
-import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
+import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.wizard.teamprojectwizard.ITeamProjectWizard;
 import com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin;
 import com.microsoft.tfs.client.eclipse.ui.connectionconflict.EclipseUIConnectionConflictHandler;
@@ -86,8 +89,7 @@ public class TFSEclipseClientUIPlugin extends AbstractUIPlugin implements TFSPro
 
         getRepositoryManager().addListener(repositoryListener);
 
-        TeamExplorerHelpers.registerProtocolHandler();
-        TeamExplorerHelpers.tryParseProtocolHandlerArguments(org.eclipse.core.runtime.Platform.getApplicationArgs());
+        registerProtocolHandler();
     }
 
     /*
@@ -180,6 +182,17 @@ public class TFSEclipseClientUIPlugin extends AbstractUIPlugin implements TFSPro
     @Override
     public FileViewer getFileViewer() {
         return new EclipseFileViewer();
+    }
+
+    private void registerProtocolHandler() {
+        final ICommand registrationCommand = ProtocolHandler.getInstance().getRegistrationCommand();
+
+        if (registrationCommand != null) {
+            final UIJobCommandAdapter registrationJob =
+                new UIJobCommandAdapter(CommandFactory.newCancelableCommand(registrationCommand), null, null);
+
+            registrationJob.schedule();
+        }
     }
 
     private class RepositoryListener extends RepositoryManagerAdapter {
