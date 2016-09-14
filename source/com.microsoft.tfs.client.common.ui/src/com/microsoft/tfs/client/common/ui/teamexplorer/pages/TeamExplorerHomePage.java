@@ -35,6 +35,7 @@ import com.microsoft.tfs.client.common.ui.controls.teamexplorer.TeamExplorerTile
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.image.ImageHelper;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
+import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerNavigator;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.ConnectHelpers;
@@ -194,7 +195,7 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
         final Composite parent,
         final TeamExplorerContext context) {
 
-        if (!TeamExplorerHelpers.hasProtocolHandlerRequest()) {
+        if (!ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
             return;
         }
 
@@ -220,19 +221,19 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
 
                 // TODO: Find a better way to build the URL. Use
                 // TSWAHyperlinkBuilder?
-                final String encodedRepoUrl = TeamExplorerHelpers.getProtocolHandlerEncodedUrl();
+                final String encodedRepoUrl = ProtocolHandler.getInstance().getProtocolHandlerEncodedCloneUrl();
                 final StringBuilder sb = new StringBuilder(encodedRepoUrl);
                 sb.append('?');
-                sb.append("version=GB" + TeamExplorerHelpers.getProtocolHandlerBranch()); //$NON-NLS-1$
+                sb.append("version=GB" + ProtocolHandler.getInstance().getProtocolHandlerBranch()); //$NON-NLS-1$
 
                 final String branchText = MessageFormat.format(
                     "<span color=\"linkcolor\">{0}</span>", //$NON-NLS-1$
-                    TeamExplorerHelpers.getProtocolHandlerBranch());
+                    ProtocolHandler.getInstance().getProtocolHandlerBranch());
 
                 final String repositoryLink = MessageFormat.format(
                     "<a href=\"{0}\">{1}</a>", //$NON-NLS-1$
                     sb.toString(),
-                    TeamExplorerHelpers.getProtocolHandlerRepository());
+                    ProtocolHandler.getInstance().getProtocolHandlerRepository());
 
                 final String localizedMessageText =
                     MessageFormat.format(
@@ -270,7 +271,7 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
                         navLink.clicked(parent.getShell(), context, navigator, null);
                         TeamExplorerHelpers.toggleCompositeVisibility(composite);
                         TeamExplorerHelpers.relayoutContainingScrolledComposite(parent);
-                        TeamExplorerHelpers.removeProtocolHandlerArguments();
+                        ProtocolHandler.getInstance().removeProtocolHandlerArguments();
                     }
 
                     @Override
@@ -278,7 +279,7 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
                         navLink.clicked(parent.getShell(), context, navigator, null);
                         TeamExplorerHelpers.toggleCompositeVisibility(composite);
                         TeamExplorerHelpers.relayoutContainingScrolledComposite(parent);
-                        TeamExplorerHelpers.removeProtocolHandlerArguments();
+                        ProtocolHandler.getInstance().removeProtocolHandlerArguments();
                     }
                 });
                 GridDataBuilder.newInstance().hAlignLeft().hGrab().applyTo(cloneButton);
@@ -300,7 +301,7 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
             public void linkActivated(final HyperlinkEvent e) {
                 TeamExplorerHelpers.toggleCompositeVisibility(composite);
                 TeamExplorerHelpers.relayoutContainingScrolledComposite(parent);
-                TeamExplorerHelpers.removeProtocolHandlerArguments();
+                ProtocolHandler.getInstance().removeProtocolHandlerArguments();
             }
         });
 

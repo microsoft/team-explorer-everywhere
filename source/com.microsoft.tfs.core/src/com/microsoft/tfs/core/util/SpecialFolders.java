@@ -94,4 +94,26 @@ public class SpecialFolders {
         }
         return null;
     }
+
+    /**
+     * Gets the ueser profile folder if it exists on disk ( <code>null</code> if
+     * it does not).
+     * <p>
+     * Represents the file system directory that serves as a root for by the
+     * current user data.
+     *
+     * @return the full path to the user profile folder, <code>null</code> if it
+     *         does not exist on disk and <code>null</code> on non-Windows
+     *         platforms
+     */
+    public static String getUserProfilePath() {
+        if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
+            final String path = PlatformMiscUtils.getInstance().getEnvironmentVariable("USERPROFILE"); //$NON-NLS-1$
+
+            if (path != null && path.length() > 0 && new File(path).exists()) {
+                return path;
+            }
+        }
+        return null;
+    }
 }
