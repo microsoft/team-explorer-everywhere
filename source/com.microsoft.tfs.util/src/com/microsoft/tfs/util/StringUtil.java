@@ -789,4 +789,8 @@ public abstract class StringUtil {
         return number;
 
     }
+
+    public static String escapeXml(final String s) {
+        return s.replace("&", "&amp;").replace("<", "&lt;"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+    }
 }

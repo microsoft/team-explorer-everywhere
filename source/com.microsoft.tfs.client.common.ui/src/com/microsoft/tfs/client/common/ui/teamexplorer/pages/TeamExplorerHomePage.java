@@ -219,21 +219,14 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
                 SWTUtil.gridLayout(itemComposite, 1, false, 5, 5);
                 GridDataBuilder.newInstance().hAlignFill().hGrab().applyTo(itemComposite);
 
-                // TODO: Find a better way to build the URL. Use
-                // TSWAHyperlinkBuilder?
-                final String encodedRepoUrl = ProtocolHandler.getInstance().getProtocolHandlerEncodedCloneUrl();
-                final StringBuilder sb = new StringBuilder(encodedRepoUrl);
-                sb.append('?');
-                sb.append("version=GB" + ProtocolHandler.getInstance().getProtocolHandlerBranch()); //$NON-NLS-1$
-
                 final String branchText = MessageFormat.format(
                     "<span color=\"linkcolor\">{0}</span>", //$NON-NLS-1$
-                    ProtocolHandler.getInstance().getProtocolHandlerBranch());
+                    ProtocolHandler.getInstance().getProtocolHandlerBranchForHtml());
 
                 final String repositoryLink = MessageFormat.format(
                     "<a href=\"{0}\">{1}</a>", //$NON-NLS-1$
-                    sb.toString(),
-                    ProtocolHandler.getInstance().getProtocolHandlerRepository());
+                    ProtocolHandler.getInstance().getProtocolHandlerCloneUrlForWebAccess(),
+                    ProtocolHandler.getInstance().getProtocolHandlerRepositoryForHtml());
 
                 final String localizedMessageText =
                     MessageFormat.format(

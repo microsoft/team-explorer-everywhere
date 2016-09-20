@@ -404,17 +404,23 @@ public class URIUtils {
             return parent;
         }
 
-        final StringBuilder sb = new StringBuilder();
+        // Make sure we use a well escaped URI string for a base.
+        final StringBuilder sb = new StringBuilder(URIUtils.removeQueryParts(parent).toASCIIString());
+
+        boolean isFirstParameter = true;
 
         for (final Entry<String, String> queryParameter : queryParameters.entrySet()) {
-            if (sb.length() > 0) {
+            if (isFirstParameter) {
+                sb.append("?"); //$NON-NLS-1$
+                isFirstParameter = false;
+            } else {
                 sb.append("&"); //$NON-NLS-1$
             }
 
             try {
-                sb.append(URIUtil.encodeQuery(queryParameter.getKey()));
+                sb.append(URIUtil.encodeWithinQuery(queryParameter.getKey()));
                 sb.append("="); //$NON-NLS-1$
-                sb.append(URIUtil.encodeQuery(queryParameter.getValue()));
+                sb.append(URIUtil.encodeWithinQuery(queryParameter.getValue()));
             } catch (final URIException e) {
                 final IllegalArgumentException e2 = new IllegalArgumentException(
                     MessageFormat.format(
@@ -426,7 +432,7 @@ public class URIUtils {
             }
         }
 
-        return newURI(parent.getScheme(), parent.getAuthority(), parent.getPath(), sb.toString());
+        return newURI(sb.toString());
     }
 
     /**
