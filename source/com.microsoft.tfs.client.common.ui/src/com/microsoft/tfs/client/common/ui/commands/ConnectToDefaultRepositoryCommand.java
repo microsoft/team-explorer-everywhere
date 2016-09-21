@@ -15,10 +15,13 @@ import com.microsoft.tfs.client.common.framework.command.CommandExecutor;
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.server.TFSServer;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
+import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
+import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.util.Check;
+import com.microsoft.tfs.util.GUID;
 
 /**
  * Connects to the "default" (last used) TFS workspace for a given profile.
@@ -80,23 +83,28 @@ public class ConnectToDefaultRepositoryCommand extends TFSCommand implements Con
 
         checkForCancellation(progressMonitor);
 
-        final TFSConnection configurationServer = connectCommand.getConnection();
+        final TFSConfigurationServer configurationServer = (TFSConfigurationServer) connectCommand.getConnection();
         final TFSTeamProjectCollection connection;
 
         final SubProgressMonitor projectCollectionMonitor = new SubProgressMonitor(progressMonitor, 1);
 
         try {
-            final GetDefaultProjectCollectionCommand projectCollectionCommand =
-                new GetDefaultProjectCollectionCommand(configurationServer);
+            if (ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
+                final GUID collectionId = new GUID(ProtocolHandler.getInstance().getProtocolHandlerCollectionId());
+                connection = configurationServer.getTeamProjectCollection(collectionId);
+            } else {
+                final GetDefaultProjectCollectionCommand projectCollectionCommand =
+                    new GetDefaultProjectCollectionCommand(configurationServer);
 
-            final IStatus projectCollectionStatus =
-                new CommandExecutor(projectCollectionMonitor).execute(projectCollectionCommand);
+                final IStatus projectCollectionStatus =
+                    new CommandExecutor(projectCollectionMonitor).execute(projectCollectionCommand);
 
-            if (!projectCollectionStatus.isOK()) {
-                return projectCollectionStatus;
+                if (!projectCollectionStatus.isOK()) {
+                    return projectCollectionStatus;
+                }
+
+                connection = projectCollectionCommand.getConnection();
             }
-
-            connection = projectCollectionCommand.getConnection();
         } finally {
             projectCollectionMonitor.done();
         }

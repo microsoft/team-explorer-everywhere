@@ -3,15 +3,19 @@
 
 package com.microsoft.tfs.client.common.ui.protocolhandler;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.text.MessageFormat;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicReference;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.tfs.client.common.framework.command.ICommand;
 import com.microsoft.tfs.client.common.git.utils.GitHelpers;
-import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Platform;
 import com.microsoft.tfs.util.StringUtil;
@@ -23,14 +27,20 @@ public class ProtocolHandler {
     private static final Log log = LogFactory.getLog(ProtocolHandler.class);
 
     private static final String GIT_TOKEN = "_git"; //$NON-NLS-1$
-    private static final String DEFAULT_COLLECTION_TOKEN = "DefaultCollection"; //$NON-NLS-1$
 
-    private final static String PROTOCOL_HANDLER_URL_PARAM = "url="; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_ENCODING_PARAM = "EncFormat="; //$NON-NLS-1$
-    private final static String PROTOCOL_HANDLER_BRANCH_PARAM = "Ref="; //$NON-NLS-1$
+    private final static String PROTOCOL_HANDLER_TFS_LINK_PARAM = "tfslink="; //$NON-NLS-1$
+
+    // tfsLink items
+    private final static String PROTOCOL_HANDLER_PROJECT_ITEM = "project"; //$NON-NLS-1$
+    private final static String PROTOCOL_HANDLER_REPOSITORY_ITEM = "repository"; //$NON-NLS-1$
+    private final static String PROTOCOL_HANDLER_CLONE_URL_ITEM = "cloneUrl"; //$NON-NLS-1$
+    private final static String PROTOCOL_HANDLER_SERVER_URL_ITEM = "serverUrl"; //$NON-NLS-1$
+    private final static String PROTOCOL_HANDLER_COLLECTION_ID_ITEM = "collectionId"; //$NON-NLS-1$
+    private final static String PROTOCOL_HANDLER_BRANCH_ITEM = "ref"; //$NON-NLS-1$
 
     public final static String PROTOCOL_HANDLER_ARG = "-clonefromtfs"; //$NON-NLS-1$
-    public final static String PROTOCOL_HANDLER_SCHEME = "vsoi"; //$NON-NLS-1$
+    public final static String PROTOCOL_HANDLER_SCHEME = "vsoeclipse"; //$NON-NLS-1$
 
     private static final ProtocolHandler instance = new ProtocolHandler();
 
@@ -38,15 +48,43 @@ public class ProtocolHandler {
 
     private boolean isParsed = false;
     private boolean isAvailable = false;
-    private String cloneUrl;
     private String encoding;
-    private String branchName;
-    private String serverUrl;
-    private String repository;
-    private String project;
 
-    public ProtocolHandler() {
-        protocolHandlerUri = findProtocolHandlerUriArgument(org.eclipse.core.runtime.Platform.getApplicationArgs());
+    // tfsLink values
+    private final AtomicReference<String> serverUrl = new AtomicReference<String>();
+    private final AtomicReference<String> cloneUrl = new AtomicReference<String>();
+    private final AtomicReference<String> collectionId = new AtomicReference<String>();
+    private final AtomicReference<String> repository = new AtomicReference<String>();
+    private final AtomicReference<String> project = new AtomicReference<String>();
+    private final AtomicReference<String> branchName = new AtomicReference<String>();
+
+    private ProtocolHandler() {
+        this.protocolHandlerUri =
+            findProtocolHandlerUriArgument(org.eclipse.core.runtime.Platform.getApplicationArgs());
+    }
+
+    // For testing purposes
+    protected ProtocolHandler(final String protocolHandlerUri) {
+        this.protocolHandlerUri = URIUtils.newURI(protocolHandlerUri);
+    }
+
+    private Map<String, AtomicReference<String>> prepareTfsLinkItemMap() {
+        final Map<String, AtomicReference<String>> t =
+            new TreeMap<String, AtomicReference<String>>(String.CASE_INSENSITIVE_ORDER);
+
+        t.put(PROTOCOL_HANDLER_SERVER_URL_ITEM, serverUrl);
+        t.put(PROTOCOL_HANDLER_CLONE_URL_ITEM, cloneUrl);
+        t.put(PROTOCOL_HANDLER_COLLECTION_ID_ITEM, collectionId);
+        t.put(PROTOCOL_HANDLER_PROJECT_ITEM, project);
+        t.put(PROTOCOL_HANDLER_REPOSITORY_ITEM, repository);
+        t.put(PROTOCOL_HANDLER_BRANCH_ITEM, branchName);
+
+        // The branch parameter is not sent if the repository is empty.
+        // We cannot infer the master branch however, because an empty
+        // repository does not have any branches at all.
+        branchName.set(StringUtil.EMPTY);
+
+        return t;
     }
 
     public static ProtocolHandler getInstance() {
@@ -54,27 +92,42 @@ public class ProtocolHandler {
     }
 
     public boolean hasProtocolHandlerRequest() {
-        return isParsed ? isAvailable : protocolHandlerUri != null;
+        return tryParseProtocolHandlerUri();
     }
 
-    public String getProtocolHandlerServer() {
+    public String getProtocolHandlerServerUrl() {
         tryParseProtocolHandlerUri();
-        return isAvailable ? serverUrl : StringUtil.EMPTY;
+        return isAvailable ? serverUrl.get() : StringUtil.EMPTY;
+    }
+
+    public String getProtocolHandlerCollectionId() {
+        tryParseProtocolHandlerUri();
+        return isAvailable ? collectionId.get() : StringUtil.EMPTY;
     }
 
     public String getProtocolHandlerProject() {
         tryParseProtocolHandlerUri();
-        return isAvailable ? project : StringUtil.EMPTY;
+        return isAvailable ? project.get() : StringUtil.EMPTY;
     }
 
     public String getProtocolHandlerBranch() {
         tryParseProtocolHandlerUri();
-        return isAvailable ? branchName : StringUtil.EMPTY;
+        return isAvailable ? URIUtils.decodeForDisplay(branchName.get()) : StringUtil.EMPTY;
+    }
+
+    public String getProtocolHandlerBranchForHtml() {
+        tryParseProtocolHandlerUri();
+        return isAvailable ? StringUtil.escapeXml(URIUtils.decodeForDisplay(branchName.get())) : StringUtil.EMPTY;
     }
 
     public String getProtocolHandlerRepository() {
         tryParseProtocolHandlerUri();
-        return isAvailable ? repository : StringUtil.EMPTY;
+        return isAvailable ? repository.get() : StringUtil.EMPTY;
+    }
+
+    public String getProtocolHandlerRepositoryForHtml() {
+        tryParseProtocolHandlerUri();
+        return isAvailable ? StringUtil.escapeXml(repository.get()) : StringUtil.EMPTY;
     }
 
     public String getProtocolHandlerCloneUrl() {
@@ -82,9 +135,15 @@ public class ProtocolHandler {
         return isAvailable ? cloneUrl.toString() : StringUtil.EMPTY;
     }
 
-    public String getProtocolHandlerEncodedCloneUrl() {
+    public String getProtocolHandlerCloneUrlForWebAccess() {
         tryParseProtocolHandlerUri();
-        return isAvailable ? URIUtils.newURI(cloneUrl).toASCIIString() : StringUtil.EMPTY;
+        // TODO: Find a better way to build the URL. Use TSWAHyperlinkBuilder?
+        return isAvailable ? cloneUrl.get() + "?version=GB" + branchName.get() : StringUtil.EMPTY; //$NON-NLS-1$
+    }
+
+    public String getProtocolHandlerEncoding() {
+        tryParseProtocolHandlerUri();
+        return isAvailable ? encoding : StringUtil.EMPTY;
     }
 
     private URI findProtocolHandlerUriArgument(final String[] applicationArgs) {
@@ -129,55 +188,50 @@ public class ProtocolHandler {
 
     /*
      * @formatter:off
-     * We're looking for a protocol handler argument among all command line
-     * arguments passed by eclipse.launcher to the Eclipse application. The
-     * protocol handler argument generated by TFS should have the following
-     * syntax:
+     * The protocol handler argument generated by TFS should have
+     * the following syntax:
      * 
-     * -clonefromtfs vsoe://<operation>/?url=<git-repository-url>&Ref=master&EncFormat=UTF8[&<other-parameters>...]
+     * -clonefromtfs vsoeclipse://checkout/?EncFormat=UTF8&tfslink=<base64 encoded parameters>
      * 
-     * At this moment we use vsoi instead of vsoe, and ignore <operation> and
-     * <other-parameters>
      * @formatter:on
      */
-    private synchronized void tryParseProtocolHandlerUri() {
+    private synchronized boolean tryParseProtocolHandlerUri() {
         if (isParsed) {
-            return;
+            return isAvailable;
         }
         isParsed = true;
 
         if (protocolHandlerUri == null) {
-            return;
+            return false;
         }
 
         if (!PROTOCOL_HANDLER_SCHEME.equalsIgnoreCase(protocolHandlerUri.getScheme())) {
             log.error(MessageFormat.format(
                 "   Incorrect scheme in the protocol handler URL: {0}", //$NON-NLS-1$
                 protocolHandlerUri.getScheme() == null ? "NULL" : protocolHandlerUri.getScheme())); //$NON-NLS-1$
-            return;
+            return false;
         }
 
-        boolean repoUrlAvailable = false;
+        boolean tfsLinkAvailable = false;
 
         final String queryString = protocolHandlerUri.getQuery();
         if (StringUtil.isNullOrEmpty(queryString)) {
             log.error("   Incorrect (empty) query string in the protocol handler URL"); //$NON-NLS-1$
-            return;
+            return false;
         }
 
         final String[] queryItems = queryString.split("&"); //$NON-NLS-1$
 
         for (final String queryItem : queryItems) {
-            if (StringUtil.startsWithIgnoreCase(queryItem, PROTOCOL_HANDLER_URL_PARAM)) {
-                final String value = queryItem.substring(PROTOCOL_HANDLER_URL_PARAM.length());
+            if (StringUtil.startsWithIgnoreCase(queryItem, PROTOCOL_HANDLER_TFS_LINK_PARAM)) {
+                final String value = queryItem.substring(PROTOCOL_HANDLER_TFS_LINK_PARAM.length());
 
                 log.info(MessageFormat.format(
                     "   Found query parameter: {0}{1}", //$NON-NLS-1$
-                    PROTOCOL_HANDLER_URL_PARAM,
+                    PROTOCOL_HANDLER_TFS_LINK_PARAM,
                     value));
 
-                cloneUrl = value;
-                repoUrlAvailable = tryParseGitRepoUrl(value);
+                tfsLinkAvailable = tryParseTfsLink(value);
 
             } else if (StringUtil.startsWithIgnoreCase(queryItem, PROTOCOL_HANDLER_ENCODING_PARAM)) {
                 final String value = queryItem.substring(PROTOCOL_HANDLER_ENCODING_PARAM.length());
@@ -188,128 +242,76 @@ public class ProtocolHandler {
                     value));
 
                 encoding = value;
-
-            } else if (StringUtil.startsWithIgnoreCase(queryItem, PROTOCOL_HANDLER_BRANCH_PARAM)) {
-                final String value = queryItem.substring(PROTOCOL_HANDLER_BRANCH_PARAM.length());
-
-                log.info(MessageFormat.format(
-                    "   Found query parameter: {0}{1}", //$NON-NLS-1$
-                    PROTOCOL_HANDLER_BRANCH_PARAM,
-                    value));
-
-                branchName = value;
             }
         }
 
-        if (repoUrlAvailable) {
+        if (tfsLinkAvailable) {
             isAvailable = true;
         } else {
             log.error(MessageFormat.format(
                 "   Incorrect or missing {0} query parameter in the protocol handler URL", //$NON-NLS-1$
-                PROTOCOL_HANDLER_URL_PARAM));
+                PROTOCOL_HANDLER_TFS_LINK_PARAM));
         }
+
+        return isAvailable;
     }
 
-    private boolean tryParseGitRepoUrl(final String repoUrl) {
-        final URI uri;
+    /*
+     * @formatter:off
+     * The decoded tfslink value generated by TFS should have
+     * the following syntax:
+     * 
+     *     serverUrl=<server-url>&
+     *     cloneUrl=<clone-url>&
+     *     collectionId=<GUID>&
+     *     project=<project-name>&
+     *     repository=<repository-name>&
+     *     Ref=<branch-name>
+     * 
+     * At this moment we ignore ideType and ideExe.
+     * 
+     * @formatter:on
+     */
+    private boolean tryParseTfsLink(final String tfsLink) {
+        final String decodedTfsLink;
         try {
-            uri = URIUtils.newURI(repoUrl);
-        } catch (final Exception e) {
-            log.error(
-                "   Incorrect Git repository URL", //$NON-NLS-1$
-                e);
+            decodedTfsLink = new String(Base64.decodeBase64(tfsLink), "UTF-8"); //$NON-NLS-1$
+        } catch (final UnsupportedEncodingException e) {
+            log.error("Incorrectly encoded the tfslink query parameter in the protocol handler URI", e); //$NON-NLS-1$
             return false;
         }
 
-        final String pathString = uri.getPath();
-        if (StringUtil.isNullOrEmpty(pathString)) {
-            log.error("   Incorrect (empty) path in the Git repository URL"); //$NON-NLS-1$
-            return false;
-        }
+        final String[] tfsLinkItems = decodedTfsLink.split("&"); //$NON-NLS-1$
+        Map<String, AtomicReference<String>> tfsLinkItemMap = prepareTfsLinkItemMap();
 
-        final String[] pathItems = uri.getPath().split("/"); //$NON-NLS-1$
-        int n = pathItems.length;
+        for (final String tfsLinkItem : tfsLinkItems) {
+            final int idx = tfsLinkItem.indexOf("="); //$NON-NLS-1$
 
-        if (n < 2) {
-            log.error("   Too short path in the Git repository URL"); //$NON-NLS-1$
-            return false;
-        } else if (!GIT_TOKEN.equals(pathItems[n - 2])) {
-            log.error("   The repository URL does not point to a TFS Git repository"); //$NON-NLS-1$
-            return false;
-        }
-
-        final String scheme = uri.getScheme();
-        final String authority = uri.getAuthority();
-        String path;
-
-        repository = pathItems[n - 1];
-
-        // Note that because uri.getPath() is absolute, pathItems[0] is always
-        // an empty string.
-        if (ServerURIUtils.isHosted(uri)) {
-            /*
-             * @formatter off            
-             * Possible URLs are:
-             * https://account.visualstudio.com/_git/repository                           (n=3)
-             * https://account.visualstudio.com/project/_git/repository                   (n=4) 
-             * https://account.visualstudio.com/DefaultCollection/_git/repository         (n=4) 
-             * https://account.visualstudio.com/DefaultCollection/project/_git/repository (n=5) 
-             * in the future, "DefaultCollection" will be replaced with "Organization"
-             * @formatter:on          
-             */
-            switch (n) {
-                case 5:
-                    project = pathItems[2];
-                    path = '/' + pathItems[1];
-                    break;
-                case 4:
-                    if (DEFAULT_COLLECTION_TOKEN.equalsIgnoreCase(pathItems[1])) {
-                        project = repository;
-                        path = '/' + pathItems[1];
-                    } else {
-                        project = pathItems[1];
-                        path = null;
-                    }
-                    break;
-                case 3:
-                    project = repository;
-                    path = null;
-                    break;
-                default:
-                    log.error("   Too long path in the Git repository URL"); //$NON-NLS-1$
-                    return false;
+            final String itemName;
+            final String itemValue;
+            if (idx < 0) {
+                itemName = tfsLinkItem;
+                itemValue = StringUtil.EMPTY;
+            } else {
+                itemName = tfsLinkItem.substring(0, idx);
+                itemValue = tfsLinkItem.substring(idx + 1);
             }
-        } else {
-            /*
-             * @formatter:off            
-             * Possible URLs are:
-             * https://server:port/path/collection/_git/repository                           (n=5)
-             * https://server:port/path/collection/project/_git/repository                   (n=6) 
-             * @formatter:on          
-             */
-            switch (n) {
-                case 6:
-                    project = pathItems[3];
-                    path = '/' + pathItems[1] + '/' + pathItems[2];
-                    break;
-                case 5:
-                    project = repository;
-                    path = '/' + pathItems[1] + '/' + pathItems[2];
-                    break;
-                default:
-                    return false;
+
+            if (tfsLinkItemMap.containsKey(itemName)) {
+                log.info(MessageFormat.format(
+                    "                          {0}={1}", //$NON-NLS-1$
+                    itemName,
+                    itemValue));
+
+                tfsLinkItemMap.get(itemName).set(itemValue);
             }
         }
 
-        log.info("   Git repository has parsed as:"); //$NON-NLS-1$
-        log.info(MessageFormat.format("          scheme: {0}", scheme == null ? "NULL" : scheme)); //$NON-NLS-1$ //$NON-NLS-2$
-        log.info(MessageFormat.format("       authority: {0}", authority == null ? "NULL" : authority)); //$NON-NLS-1$ //$NON-NLS-2$
-        log.info(MessageFormat.format("            path: {0}", path == null ? "NULL" : path)); //$NON-NLS-1$ //$NON-NLS-2$
-        log.info(MessageFormat.format("         project: {0}", project == null ? "NULL" : project)); //$NON-NLS-1$ //$NON-NLS-2$
-        log.info(MessageFormat.format("      repository: {0}", repository == null ? "NULL" : repository)); //$NON-NLS-1$ //$NON-NLS-2$
-
-        serverUrl = URIUtils.newURI(uri.getScheme(), uri.getAuthority(), path, null, null).toString();
-
+        for (final AtomicReference<String> value : tfsLinkItemMap.values()) {
+            if (value.get() == null) {
+                return false;
+            }
+        }
         return true;
     }
 
