@@ -115,5 +115,5 @@ public final class ServiceInterfaceNames {
     public static final String TF_VIEW_SETTINGS = "AdministrationsWeb"; //$NON-NLS-1$
 
     public static final String GIT_VIEW_COMMIT_DETAILS = "CommitDetailsWeb"; //$NON-NLS-1$
-    public static final String GIT_VIEW_REPOSITORY_DETAILS = "GitRepositoryDetailsWeb"; //$NON-NLS-1$
+    public static final String GIT_VIEW_REF_DETAILS = "GitRefDetailsWeb"; //$NON-NLS-1$
 }

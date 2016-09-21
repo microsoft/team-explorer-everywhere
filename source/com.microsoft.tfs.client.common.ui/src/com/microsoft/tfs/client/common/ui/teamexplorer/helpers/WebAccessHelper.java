@@ -107,27 +107,25 @@ public class WebAccessHelper {
         }
     }
 
-    public static void openGitExplorer(final TeamExplorerContext context) {
+    public static void openGitRepo(
+        final TeamExplorerContext context,
+        final String projName,
+        final String repoName,
+        final String branchName) {
         final TSWAHyperlinkBuilder builder = getHyperlinkBuilder(context);
         if (TeamExplorerHelpers.supportsGit(context)) {
-            showURI(builder.getGitExplorerURL(getCurrentProjectName(context)));
-        }
-    }
-
-    public static void openGitRepo(final TeamExplorerContext context, final String projName, final String repoName) {
-        final TSWAHyperlinkBuilder builder = getHyperlinkBuilder(context);
-        if (TeamExplorerHelpers.supportsGit(context)) {
-            showURI(builder.getGitRepoURL(projName, repoName));
+            showURI(builder.getGitRepoURL(projName, repoName, branchName));
         }
     }
 
     public static String getGitRepoURL(
         final TeamExplorerContext context,
         final String projName,
-        final String repoName) {
+        final String repoName,
+        final String branchName) {
         final TSWAHyperlinkBuilder builder = getHyperlinkBuilder(context);
         if (TeamExplorerHelpers.supportsGit(context)) {
-            return builder.getGitRepoURL(projName, repoName).toString();
+            return builder.getGitRepoURL(projName, repoName, branchName).toString();
         } else {
             return null;
         }

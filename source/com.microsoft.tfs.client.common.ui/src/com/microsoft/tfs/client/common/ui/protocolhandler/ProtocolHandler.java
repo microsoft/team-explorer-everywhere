@@ -135,12 +135,6 @@ public class ProtocolHandler {
         return isAvailable ? cloneUrl.toString() : StringUtil.EMPTY;
     }
 
-    public String getProtocolHandlerCloneUrlForWebAccess() {
-        tryParseProtocolHandlerUri();
-        // TODO: Find a better way to build the URL. Use TSWAHyperlinkBuilder?
-        return isAvailable ? cloneUrl.get() + "?version=GB" + branchName.get() : StringUtil.EMPTY; //$NON-NLS-1$
-    }
-
     public String getProtocolHandlerEncoding() {
         tryParseProtocolHandlerUri();
         return isAvailable ? encoding : StringUtil.EMPTY;

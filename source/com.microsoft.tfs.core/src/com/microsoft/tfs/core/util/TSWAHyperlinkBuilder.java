@@ -769,50 +769,36 @@ public class TSWAHyperlinkBuilder {
         return uri;
     }
 
-    public URI getGitExplorerURL(final String projectName) {
-        Check.notNullOrEmpty(projectName, "projectName"); //$NON-NLS-1$
-
-        String urlText = getURL(
-            ServiceInterfaceNames.GIT_VIEW_REPOSITORY_DETAILS,
-            AccessMappingMonikers.PUBLIC_ACCESS_MAPPING,
-            this.collectionLocationService,
-            ToolNames.GIT);
-
-        if (urlText == null) {
-            urlText = collection.getBaseURI() + "_git/{projectName}"; //$NON-NLS-1$
-        }
-
-        final URI uri = formatURL(urlText, new String[] {
-            "projectName", //$NON-NLS-1$
-            projectName,
-        }, null);
-
-        return uri;
-    }
-
-    public URI getGitRepoURL(final String projectName, final String repoName) {
+    public URI getGitRepoURL(final String projectName, final String repoName, final String branchName) {
         Check.notNullOrEmpty(projectName, "projectName"); //$NON-NLS-1$
         Check.notNullOrEmpty(projectName, "repoName"); //$NON-NLS-1$
 
         String urlText = getURL(
-            ServiceInterfaceNames.GIT_VIEW_REPOSITORY_DETAILS,
+            ServiceInterfaceNames.GIT_VIEW_REF_DETAILS,
             AccessMappingMonikers.PUBLIC_ACCESS_MAPPING,
             this.collectionLocationService,
             ToolNames.GIT);
 
         if (urlText == null) {
-            if (projectName.equalsIgnoreCase(repoName)) {
-                urlText = collection.getBaseURI() + "_git/{repoName}"; //$NON-NLS-1$
-            } else {
-                urlText = collection.getBaseURI() + "{projectName}/_git/{repoName}"; //$NON-NLS-1$
-            }
+            urlText = collection.getBaseURI() + "{projectNameOrId}/_git/{repositoryId}#version={encodedRef}"; //$NON-NLS-1$
+        }
+
+        final String encodedRef;
+        if (StringUtil.isNullOrEmpty(branchName)) {
+            encodedRef = StringUtil.EMPTY;
+        } else if (branchName.startsWith("refs/heads/")) { //$NON-NLS-1$
+            encodedRef = "GB" + branchName.substring("refs/heads/".length()); //$NON-NLS-1$ //$NON-NLS-2$
+        } else {
+            encodedRef = "GB" + branchName; //$NON-NLS-1$
         }
 
         final URI uri = formatURL(urlText, new String[] {
-            "projectName", //$NON-NLS-1$
+            "projectNameOrId", //$NON-NLS-1$
             projectName,
-            "repoName", //$NON-NLS-1$
+            "repositoryId", //$NON-NLS-1$
             repoName,
+            "encodedRef", //$NON-NLS-1$
+            encodedRef,
         }, null);
 
         return uri;
