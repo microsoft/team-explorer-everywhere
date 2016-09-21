@@ -90,7 +90,7 @@ public class ConnectToDefaultRepositoryCommand extends TFSCommand implements Con
 
         try {
             if (ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
-                GUID collectionId = new GUID(ProtocolHandler.getInstance().getProtocolHandlerCollectionId());
+                final GUID collectionId = new GUID(ProtocolHandler.getInstance().getProtocolHandlerCollectionId());
                 connection = configurationServer.getTeamProjectCollection(collectionId);
             } else {
                 final GetDefaultProjectCollectionCommand projectCollectionCommand =

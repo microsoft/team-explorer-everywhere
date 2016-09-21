@@ -58,7 +58,7 @@ public class ProtocolHandler {
     private final AtomicReference<String> project = new AtomicReference<String>();
     private final AtomicReference<String> branchName = new AtomicReference<String>();
 
-    public ProtocolHandler() {
+    private ProtocolHandler() {
         this.protocolHandlerUri =
             findProtocolHandlerUriArgument(org.eclipse.core.runtime.Platform.getApplicationArgs());
     }
