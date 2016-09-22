@@ -23,6 +23,8 @@ Require-Bundle: org.eclipse.jgit;resolution:=optional,
  com.microsoft.tfs.core
 Export-Package: com.microsoft.tfs.client.eclipse.ui.egit,
  com.microsoft.tfs.client.eclipse.ui.egit.importwizard,
+ com.microsoft.tfs.client.eclipse.ui.egit.protocolhandler,
  com.microsoft.tfs.client.eclipse.ui.egit.teamexplorer
 Import-Package: org.eclipse.ui.forms.events,
  org.eclipse.ui.forms.widgets
+Bundle-ClassPath: com.microsoft.tfs.client.eclipse.ui.egit.jar

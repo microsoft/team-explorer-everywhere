@@ -1,15 +1,12 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.tfs.client.eclipse.ui.egit.protocolhandler;
+package com.microsoft.alm.client;
 
 import java.net.URI;
 
-import com.microsoft.alm.client.HttpMethod;
-import com.microsoft.alm.client.VssHttpClientBase;
-import com.microsoft.alm.client.VssMediaTypes;
-import com.microsoft.alm.client.VssRestRequest;
 import com.microsoft.alm.client.model.NameValueCollection;
+import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.VstsInfo;
 import com.microsoft.tfs.core.util.URIUtils;
 
 public class VstsInfoHttpClient extends VssHttpClientBase {
