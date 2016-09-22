@@ -141,7 +141,7 @@ public class TeamExplorerGitRepositoriesSection extends TeamExplorerBaseSection 
     }
 
     private void readRepositoriesInfo(final VersionControlClient vcClient) {
-        if (projectRepositories == null) {
+        if (projectRepositories == null && GitHelpers.isEGitInstalled(true)) {
             projectRepositories = new TreeMap<String, List<TfsGitRepositoryJson>>();
             final QueryGitRepositoriesCommand queryCommand =
                 new QueryGitRepositoriesCommand(vcClient, project.getName());
@@ -392,21 +392,19 @@ public class TeamExplorerGitRepositoriesSection extends TeamExplorerBaseSection 
         private final TeamExplorerContext context;
         private final String projectName;
         private final String repoName;
-
-        public OpenInWebAction(final TeamExplorerContext context, final String projectName, final String repoName) {
-            this.context = context;
-            this.projectName = projectName;
-            this.repoName = repoName;
-            setText(Messages.getString("TeamExplorerGitRepositoriesSection.OpenInWebActionName")); //$NON-NLS-1$
-        }
+        private final String branchName;
 
         public OpenInWebAction(final TeamExplorerContext context, final TfsGitRepositoryJson json) {
-            this(context, json.getTeamProject().getName(), json.getName());
+            this.context = context;
+            this.projectName = json.getTeamProject().getName();
+            this.repoName = json.getName();
+            this.branchName = json.getDefaultBranch();
+            setText(Messages.getString("TeamExplorerGitRepositoriesSection.OpenInWebActionName")); //$NON-NLS-1$
         }
 
         @Override
         public void run() {
-            WebAccessHelper.openGitRepo(context, projectName, repoName);
+            WebAccessHelper.openGitRepo(context, projectName, repoName, branchName);
         }
     }
 

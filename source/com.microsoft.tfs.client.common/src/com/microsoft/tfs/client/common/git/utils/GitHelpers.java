@@ -19,6 +19,7 @@ public abstract class GitHelpers {
 
     private static final String EGIT_CORE_BUNDLE_ID = "org.eclipse.egit.core"; //$NON-NLS-1$
     private static final String EGIT_UI_BUNDLE_ID = "org.eclipse.egit.ui"; //$NON-NLS-1$
+    private static final String JGIT_BUNDLE_ID = "org.eclipse.jgit"; //$NON-NLS-1$
 
     private static final Map<String, Bundle> bundleMap = new HashMap<String, Bundle>();
 
@@ -35,7 +36,7 @@ public abstract class GitHelpers {
              * EGit plug-in of required version is installed. We're going to use
              * its functionality right now, so load it first.
              */
-            return activateBundle(egit_core) && activateEGitUI();
+            return activateBundle(JGIT_BUNDLE_ID) && activateBundle(egit_core) && activateEGitUI();
         } else {
             /*
              * EGit plug-in of required version is installed. We do not need its

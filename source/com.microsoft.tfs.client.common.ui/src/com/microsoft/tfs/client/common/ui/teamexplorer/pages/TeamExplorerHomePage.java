@@ -39,6 +39,7 @@ import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerNavigator;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.ConnectHelpers;
+import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.WebAccessHelper;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerConfig;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerNavigationItemConfig;
@@ -225,7 +226,11 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
 
                 final String repositoryLink = MessageFormat.format(
                     "<a href=\"{0}\">{1}</a>", //$NON-NLS-1$
-                    ProtocolHandler.getInstance().getProtocolHandlerCloneUrlForWebAccess(),
+                    WebAccessHelper.getGitRepoURL(
+                        context,
+                        ProtocolHandler.getInstance().getProtocolHandlerProject(),
+                        ProtocolHandler.getInstance().getProtocolHandlerRepository(),
+                        ProtocolHandler.getInstance().getProtocolHandlerBranch()),
                     ProtocolHandler.getInstance().getProtocolHandlerRepositoryForHtml());
 
                 final String localizedMessageText =
