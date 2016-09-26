@@ -4,26 +4,24 @@
 package com.microsoft.tfs.client.eclipse.ui.egit.protocolhandler;
 
 import java.net.URI;
-import java.util.Arrays;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 
+import com.microsoft.alm.client.VstsInfoClientHandler;
+import com.microsoft.alm.client.VstsInfoHttpClient;
 import com.microsoft.alm.teamfoundation.core.webapi.TeamProjectReference;
 import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.GitRepository;
+import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.VstsInfo;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.git.json.TfsGitRepositoryJson;
 import com.microsoft.tfs.client.common.git.json.TfsGitTeamProjectJson;
 import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerGitRepository;
-import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerItem;
-import com.microsoft.tfs.client.eclipse.ui.egit.importwizard.GitImportWizard;
-import com.microsoft.tfs.client.eclipse.ui.egit.importwizard.WizardCrossCollectionRepoSelectionPage;
+import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
+import com.microsoft.tfs.core.config.ConnectionAdvisor;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
@@ -32,60 +30,56 @@ import com.microsoft.tfs.core.httpclient.DefaultNTCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
+import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
 
 public class ProtocolHandlerHelpers {
 
     private static final Log log = LogFactory.getLog(ProtocolHandlerHelpers.class);
 
-    final Shell shell;
     final TeamExplorerContext context;
 
-    Credentials credentials = null;
-
-    private ProtocolHandlerHelpers(final Shell shell, final TeamExplorerContext context) {
-        this.shell = shell;
+    public ProtocolHandlerHelpers(final TeamExplorerContext context) {
         this.context = context;
     }
 
-    public static void clone(final Shell shell, final TeamExplorerContext context) {
-
-        if (ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
-            final ProtocolHandlerHelpers handler = new ProtocolHandlerHelpers(shell, context);
-            handler.cloneRepo();
-        }
-    }
-
-    private void cloneRepo() {
-
+    public TypedServerGitRepository getImportWizardInput(final ConnectionAdvisor advisor) {
+        final String serverUrl = ProtocolHandler.getInstance().getProtocolHandlerServerUrl();
         final String repoUrl = ProtocolHandler.getInstance().getProtocolHandlerCloneUrl();
         final String branch = ProtocolHandler.getInstance().getProtocolHandlerBranch();
 
-        credentials = getAccountCredentials(repoUrl);
-
-        final VstsInfo vstsInfo = getServerRepositroyInfo(repoUrl);
+        final VstsInfoHttpClient client = getVstsInfoClient(serverUrl, advisor);
+        final VstsInfo vstsInfo = client.getServerRepositoryInfo(repoUrl);
         final TypedServerGitRepository typedRepo = getSelectedRepository(vstsInfo, branch);
 
-        final GitImportWizard wizard = new GitImportWizard(Arrays.asList(new TypedServerItem[] {
-            typedRepo
-        }));
-
-        wizard.init(PlatformUI.getWorkbench(), null);
-        wizard.setPageData(WizardCrossCollectionRepoSelectionPage.INITIALLY_SELECTED_REPO, typedRepo);
-        wizard.setPageData(WizardCrossCollectionRepoSelectionPage.PROTOCOL_HANDLER_REPO, typedRepo);
-        final WizardDialog dialog = new WizardDialog(shell, wizard);
-        dialog.open();
-
+        return typedRepo;
     }
 
-    private VstsInfo getServerRepositroyInfo(final String repoUrl) {
-        final VstsInfoHttpClient client = new VstsInfoHttpClient(new VstsInfoClientHandler(repoUrl, credentials));
-        final VstsInfo info = client.getServerRepositoryInfo(repoUrl);
+    private VstsInfoHttpClient getVstsInfoClient(final String serverUrl, final ConnectionAdvisor advisor) {
 
-        return info;
+        VstsInfoClientHandler handler = null;
+
+        if (context.isConnectedToCollection()) {
+            final TFSTeamProjectCollection collection = context.getServer().getConnection();
+
+            if (serverUrl.equalsIgnoreCase(collection.getBaseURI().toASCIIString())) {
+                handler = new VstsInfoClientHandler(collection.getHTTPClient());
+            }
+        }
+
+        if (handler == null) {
+            final Credentials credentials = getAccountCredentials(serverUrl);
+            handler = new VstsInfoClientHandler(serverUrl, credentials, advisor);
+        }
+
+        final VstsInfoHttpClient client = new VstsInfoHttpClient(handler);
+
+        return client;
     }
 
-    private TypedServerGitRepository getSelectedRepository(final VstsInfo info, final String branch) {
+    static TypedServerGitRepository getSelectedRepository(final VstsInfo info, final String branch) {
+        Check.notNull(branch, "branch"); //$NON-NLS-1$
+
         final GitRepository repository = info.getRepository();
         final TeamProjectReference project = repository.getProject();
 
@@ -108,13 +102,13 @@ public class ProtocolHandlerHelpers {
 
     }
 
-    private Credentials getAccountCredentials(final String repoUrl) {
+    private Credentials getAccountCredentials(final String serverUrl) {
 
-        final URI hostUrl = URIUtils.removePathAndQueryParts(URIUtils.newURI(repoUrl));
+        final URI serverUri = URIUtils.newURI(serverUrl);
 
         final CredentialsManager credentialsManager =
             EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
-        final CachedCredentials cachedCredentials = credentialsManager.getCredentials(hostUrl);
+        final CachedCredentials cachedCredentials = credentialsManager.getCredentials(serverUri);
 
         if (cachedCredentials != null) {
             return cachedCredentials.toPreemptiveCredentials();
@@ -125,7 +119,7 @@ public class ProtocolHandlerHelpers {
              * dialog.) For hosted servers, use default NT credentials at all
              * (to avoid the username/password dialog.)
              */
-            return ServerURIUtils.isHosted(repoUrl) || Platform.isCurrentPlatform(Platform.WINDOWS)
+            return ServerURIUtils.isHosted(serverUri) || Platform.isCurrentPlatform(Platform.WINDOWS)
                 ? new DefaultNTCredentials() : new UsernamePasswordCredentials("", null); //$NON-NLS-1$
         }
     }

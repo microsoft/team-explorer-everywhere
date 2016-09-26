@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.tfs.client.eclipse.ui.egit.protocolhandler;
+package com.microsoft.alm.teamfoundation.sourcecontrol.webapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.microsoft.alm.teamfoundation.core.webapi.TeamProjectCollectionReference;

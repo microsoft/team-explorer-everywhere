@@ -26,8 +26,6 @@ import com.microsoft.tfs.util.StringUtil;
 public class ProtocolHandler {
     private static final Log log = LogFactory.getLog(ProtocolHandler.class);
 
-    private static final String GIT_TOKEN = "_git"; //$NON-NLS-1$
-
     private final static String PROTOCOL_HANDLER_ENCODING_PARAM = "EncFormat="; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_TFS_LINK_PARAM = "tfslink="; //$NON-NLS-1$
 

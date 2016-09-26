@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/com.microsoft.tfs.core/libs/AlmHttpClient-15.103.0.20160719/alm-tfs-client-15.103.0-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="/com.microsoft.tfs.core/libs/AlmHttpClient-15.103.0.20160719/alm-vss-client-15.103.0-SNAPSHOT.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.microsoft.tfs.core"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

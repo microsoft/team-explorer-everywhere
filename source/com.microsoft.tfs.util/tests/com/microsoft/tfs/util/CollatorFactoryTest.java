@@ -73,28 +73,6 @@ public class CollatorFactoryTest extends TestCase {
         // Case different (dotted lower and cap)
         assertTrue(ciCollator.equals("i", "İ")); //$NON-NLS-1$//$NON-NLS-2$
 
-        /*
-         * Case-insensitive Collators on Linux (more precisely, those set to
-         * Collator.SECONDARY strength) in the Turkish locale consider dotted
-         * and dotless characters interchangable! This is probably to enhance
-         * compat with English text, and both Sun and IBM's JDKs do this.
-         *
-         * This doesn't happen with Collators on Windows and Mac OS at that
-         * strength, even though String.equalsIgnoreCase() on those platforms do
-         * consider dotted and dotless equal. This is kind of a werid
-         * inconsistency.
-         */
-        if (Platform.isCurrentPlatform(Platform.LINUX)) {
-            // Different letters (dotted lower and dotless lower)
-            assertTrue(ciCollator.equals("i", "ı")); //$NON-NLS-1$//$NON-NLS-2$
-            // Different letters, case different (dotted lower and dotless cap)
-            assertTrue(ciCollator.equals("i", "I")); //$NON-NLS-1$//$NON-NLS-2$
-            // Different letters, case different (dotted cap and dotless lower)
-            assertTrue(ciCollator.equals("İ", "ı")); //$NON-NLS-1$//$NON-NLS-2$
-            // Example above
-            assertTrue(ciCollator.equals("title", "TITLE")); //$NON-NLS-1$//$NON-NLS-2$
-        }
-
         // Doesn't test collator but confirms that Java's String considers
         // dotless i and dotted i equivalent when case is ignored (also works in
         // English locale).
