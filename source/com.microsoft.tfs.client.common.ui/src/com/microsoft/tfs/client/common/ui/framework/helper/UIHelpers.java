@@ -190,7 +190,9 @@ public class UIHelpers {
      *        the Runnable to run
      */
     public static void runOnUIThread(final Shell shell, final boolean asynch, final Runnable runnable) {
-        runOnUIThread(shell.getDisplay(), asynch, runnable);
+        if (!shell.isDisposed()) {
+            runOnUIThread(shell.getDisplay(), asynch, runnable);
+        }
     }
 
     /**
