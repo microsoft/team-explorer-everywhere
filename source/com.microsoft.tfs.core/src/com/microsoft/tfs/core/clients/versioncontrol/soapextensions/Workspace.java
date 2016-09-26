@@ -1572,8 +1572,12 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
 
                 final Set<String> hashedRemainingConflicts = new TreeSet<String>(ServerPath.TOP_DOWN_COMPARATOR);
                 for (final Conflict conflict : remainingActualConflicts) {
-                    hashedRemainingConflicts.add(conflict.getYourServerItemSource());
-                    hashedRemainingConflicts.add(conflict.getYourServerItem());
+                    if (conflict.getYourServerItemSource() != null) {
+                        hashedRemainingConflicts.add(conflict.getYourServerItemSource());
+                    }
+                    if (conflict.getYourServerItem() != null) {
+                        hashedRemainingConflicts.add(conflict.getYourServerItem());
+                    }
                 }
 
                 final List<CheckinConflict> remainingCheckinConflicts = new ArrayList<CheckinConflict>();
