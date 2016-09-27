@@ -114,7 +114,7 @@ public abstract class ProtocolHandlerHelpersTestData {
             + "    }," //$NON-NLS-1$
             + "    \"repository\":{" //$NON-NLS-1$
             + "        \"id\":\"1c1227fd-4470-464b-bc7e-c372bf95700f\"," //$NON-NLS-1$
-            + "        \"name\":\"\u0440\u0435\u043f\u0430\"," //$NON-NLS-1$
+            + "        \"name\":\"репа\"," //$NON-NLS-1$
             + "        \"url\":\"http://fabricam-dv1:8080/tfs/DefaultCollection/_apis/git/repositories/1c1227fd-4470-464b-bc7e-c372bf95700f\"," //$NON-NLS-1$
             + "        \"project\":{" //$NON-NLS-1$
             + "            \"id\":\"e3c37a08-125a-4440-bf97-d5f84fa3a973\"," //$NON-NLS-1$
@@ -144,7 +144,7 @@ public abstract class ProtocolHandlerHelpersTestData {
     }
 
     public static String getNonLatinRepoRepoName() {
-        return "\u0440\u0435\u043f\u0430"; //$NON-NLS-1$
+        return "репа"; //$NON-NLS-1$
     }
 
     public static String getNonLatinRepoRemoteUrl() {
