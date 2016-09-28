@@ -40,7 +40,7 @@ public class ProtocolHandler {
     public final static String PROTOCOL_HANDLER_ARG = "-clonefromtfs"; //$NON-NLS-1$
     public final static String PROTOCOL_HANDLER_SCHEME = "vsoeclipse"; //$NON-NLS-1$
 
-    private static final ProtocolHandler instance = new ProtocolHandler();
+    private static ProtocolHandler instance = new ProtocolHandler();
 
     private URI protocolHandlerUri;
 
@@ -62,7 +62,7 @@ public class ProtocolHandler {
     }
 
     // For testing purposes
-    protected ProtocolHandler(final String protocolHandlerUri) {
+    ProtocolHandler(final String protocolHandlerUri) {
         this.protocolHandlerUri = URIUtils.newURI(protocolHandlerUri);
     }
 
@@ -86,6 +86,9 @@ public class ProtocolHandler {
     }
 
     public static ProtocolHandler getInstance() {
+        if (instance == null) {
+            instance = new ProtocolHandler();
+        }
         return instance;
     }
 
@@ -138,7 +141,7 @@ public class ProtocolHandler {
         return isAvailable ? encoding : StringUtil.EMPTY;
     }
 
-    private URI findProtocolHandlerUriArgument(final String[] applicationArgs) {
+    static URI findProtocolHandlerUriArgument(final String[] applicationArgs) {
         if (applicationArgs == null) {
             return null;
         }
@@ -164,7 +167,10 @@ public class ProtocolHandler {
                     arg));
 
                 try {
-                    return URIUtils.newURI(arg);
+                    final URI foundUrl = URIUtils.newURI(arg);
+                    if (foundUrl != null && PROTOCOL_HANDLER_SCHEME.equalsIgnoreCase(foundUrl.getScheme())) {
+                        return foundUrl;
+                    }
                 } catch (final Exception e) {
                     log.error("   Incorrect URL in the protocol handler argument", e); //$NON-NLS-1$
                 }
@@ -172,6 +178,8 @@ public class ProtocolHandler {
                 break;
             } else if (arg.equalsIgnoreCase(PROTOCOL_HANDLER_ARG)) {
                 found = true;
+            } else {
+                found = false;
             }
         }
 
