@@ -21,6 +21,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.RecursionTyp
 import com.microsoft.tfs.core.util.FileEncoding;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.LocaleUtil;
+import com.microsoft.tfs.util.StringUtil;
 
 public class PromoteCandidateChangesCommand extends TFSCommand {
     private final TFSRepository repository;
@@ -58,10 +59,12 @@ public class PromoteCandidateChangesCommand extends TFSCommand {
         final List<String> candidateDeletes = new ArrayList<String>();
 
         for (final PendingChange change : candidates) {
-            if (change.isAdd()) {
-                candidateAdds.add(change.getLocalItem());
-            } else if (change.isDelete()) {
-                candidateDeletes.add(change.getLocalItem());
+            if (!StringUtil.isNullOrEmpty(change.getLocalItem())) {
+                if (change.isAdd()) {
+                    candidateAdds.add(change.getLocalItem());
+                } else if (change.isDelete()) {
+                    candidateDeletes.add(change.getLocalItem());
+                }
             }
         }
 
