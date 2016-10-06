@@ -20,6 +20,7 @@ import com.microsoft.applicationinsights.telemetry.SessionState;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
+import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.core.product.CoreVersionInfo;
 import com.microsoft.tfs.core.product.ProductInformation;
 import com.microsoft.tfs.core.product.ProductName;
@@ -29,8 +30,13 @@ public class TfsTelemetryHelper {
     private static final Log log = LogFactory.getLog(TfsTelemetryHelper.class);
 
     private static TelemetryClient aiClient;
+    protected static boolean sendingTelemetryDisabled = false;
 
-    static {
+    // A property to define whether collecting telemetry should be skipped.
+    private static final String DISABLE_TELEMETRY_PROPERTY_NAME = "com.microsoft.tfs.core.telemetry.disabletelemetry"; //$NON-NLS-1$
+    private static final String DISABLE_TELEMETRY_ENVIRONMENT_VAR = "disabletelemetry"; //$NON-NLS-1$
+
+    private static void initializeTelemetryChannel() {
         final Map<String, String> loggerData = new HashMap<String, String>();
 
         loggerData.put("Level", InternalLogger.LoggingLevel.ERROR.toString()); //$NON-NLS-1$
@@ -44,8 +50,21 @@ public class TfsTelemetryHelper {
             TfsTelemetryInstrumentationInfo.isDeveloperMode());
     }
 
+    public synchronized static void checkDisableTelemetryProperty() {
+        // Unfortunately, we can't push the disabled logic onto the
+        // TelemetryClient itself because the initialization code for
+        // that object simply takes too much time. So, we have to stop
+        // the sending of telemetry here in the helper class.
+
+        // If the system property exists or the env var is true, then we disable
+        // telemetry.
+        sendingTelemetryDisabled = System.getProperty(DISABLE_TELEMETRY_PROPERTY_NAME) != null
+            || EnvironmentVariables.getBoolean(DISABLE_TELEMETRY_ENVIRONMENT_VAR, false);
+    }
+
     public synchronized static TelemetryClient getTelemetryClient() {
         if (aiClient == null) {
+            initializeTelemetryChannel();
             log.info(ProductInformation.getCurrent().getProductFullNameNOLOC()
                 + " v." //$NON-NLS-1$
                 + CoreVersionInfo.getVersion());
@@ -75,22 +94,42 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendMetric(final String name, final double value) {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackMetric(name, value);
     }
 
     public static void sendEvent(final String name) {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackEvent(name, null, null);
     }
 
     public static void sendEvent(final String name, final Map<String, String> properties) {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackEvent(name, properties, null);
     }
 
     public static void sendPageView(final String pageName) {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackPageView(pageName);
     }
 
     public static void sendPageView(final String pageName, final Map<String, String> properties) {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         final PageViewTelemetry telemetry = new PageViewTelemetry(pageName);
 
         if (properties != null) {
@@ -101,14 +140,26 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendSessionBegins() {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackSessionState(SessionState.Start);
     }
 
     public static void sendSessionEnds() {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackSessionState(SessionState.End);
     }
 
     public static void sendException(final Exception exception) {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackException(exception);
     }
 

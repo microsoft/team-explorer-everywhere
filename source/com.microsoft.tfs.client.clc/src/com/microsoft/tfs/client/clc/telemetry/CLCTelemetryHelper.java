@@ -14,6 +14,11 @@ import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 
 public class CLCTelemetryHelper extends TfsTelemetryHelper {
     public static void sendCommandFinishedEvent(final Command command, final int retCode) {
+        if (sendingTelemetryDisabled) {
+            // Don't send any telemetry
+            return;
+        }
+
         final String commandName;
         if (command == null) {
             commandName = "**UNKNOWN**"; //$NON-NLS-1$

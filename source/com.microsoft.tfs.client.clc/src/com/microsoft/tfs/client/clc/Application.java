@@ -147,6 +147,10 @@ public abstract class Application implements AbstractConsoleApplication {
          */
         ProductInformation.initialize(ProductName.CLC);
 
+        // We need to check for the disable telemetry flag before we send any
+        // telemetry to the server
+        TfsTelemetryHelper.checkDisableTelemetryProperty();
+
         TfsTelemetryHelper.sendSessionBegins();
         final int ret = run(args, false);
         TfsTelemetryHelper.sendSessionEnds();
@@ -252,7 +256,7 @@ public abstract class Application implements AbstractConsoleApplication {
              * arguments.
              */
 
-            AtomicReference<Exception> outException = new AtomicReference<Exception>();
+            final AtomicReference<Exception> outException = new AtomicReference<Exception>();
             c = parseTokens(args, options, freeArguments, outException);
 
             /*
@@ -485,7 +489,7 @@ public abstract class Application implements AbstractConsoleApplication {
 
                 try {
                     o = optionsMap.findOption(token);
-                } catch (InvalidOptionValueException e) {
+                } catch (final InvalidOptionValueException e) {
                     outException.set(e);
                     break;
                 }
