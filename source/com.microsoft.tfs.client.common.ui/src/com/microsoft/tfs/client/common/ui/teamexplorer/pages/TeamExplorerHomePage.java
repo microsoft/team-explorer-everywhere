@@ -75,8 +75,6 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
         final GridLayout layout = SWTUtil.gridLayout(composite, 1, false, 5, 0);
         layout.verticalSpacing = 0;
 
-        createProtocolHandlerUI(toolkit, composite, context);
-
         if (!context.isConnectedToCollection()) {
             log.debug("Disconnected context"); //$NON-NLS-1$
             createDisconnectedUI(toolkit, composite);
@@ -86,6 +84,7 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
                 + (context.getSourceControlCapability().contains(SourceControlCapabilityFlags.GIT) ? " GIT" : "") //$NON-NLS-1$ //$NON-NLS-2$
                 + (context.getSourceControlCapability().contains(SourceControlCapabilityFlags.TFS) ? " TFS" : "")); //$NON-NLS-1$ //$NON-NLS-2$
 
+            createProtocolHandlerUI(toolkit, composite, context);
             createConnectedUI(toolkit, composite, context);
         }
 
@@ -196,7 +195,7 @@ public class TeamExplorerHomePage extends TeamExplorerBasePage {
         final Composite parent,
         final TeamExplorerContext context) {
 
-        if (!ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
+        if (!ProtocolHandler.getInstance().hasProtocolHandlerRequest() || !context.isConnectedToCollection()) {
             return;
         }
 
