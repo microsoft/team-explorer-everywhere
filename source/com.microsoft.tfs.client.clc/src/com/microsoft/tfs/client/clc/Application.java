@@ -41,7 +41,6 @@ import com.microsoft.tfs.core.exceptions.TFSFederatedAuthException;
 import com.microsoft.tfs.core.httpclient.auth.AuthenticationSecurityException;
 import com.microsoft.tfs.core.product.ProductInformation;
 import com.microsoft.tfs.core.product.ProductName;
-import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 import com.microsoft.tfs.core.ws.runtime.exceptions.ProxyException;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.StringUtil;
@@ -147,9 +146,13 @@ public abstract class Application implements AbstractConsoleApplication {
          */
         ProductInformation.initialize(ProductName.CLC);
 
-        TfsTelemetryHelper.sendSessionBegins();
+        // We need to check for the no telemetry flag before we send any
+        // telemetry to the server
+        CLCTelemetryHelper.checkNoTelemetryProperty();
+
+        CLCTelemetryHelper.sendSessionBegins();
         final int ret = run(args, false);
-        TfsTelemetryHelper.sendSessionEnds();
+        CLCTelemetryHelper.sendSessionEnds();
 
         return ret;
     }
@@ -252,7 +255,7 @@ public abstract class Application implements AbstractConsoleApplication {
              * arguments.
              */
 
-            AtomicReference<Exception> outException = new AtomicReference<Exception>();
+            final AtomicReference<Exception> outException = new AtomicReference<Exception>();
             c = parseTokens(args, options, freeArguments, outException);
 
             /*
@@ -336,7 +339,7 @@ public abstract class Application implements AbstractConsoleApplication {
              * Same as above but returned by some low level Core or Common
              * classes, e.g. HttpHost.
              */
-            TfsTelemetryHelper.sendException(e);
+            CLCTelemetryHelper.sendException(e);
 
             final String messageFormat = Messages.getString("Application.AnArgumentErrorOccurredFormat"); //$NON-NLS-1$
             final String message = MessageFormat.format(messageFormat, e.getLocalizedMessage());
@@ -402,7 +405,7 @@ public abstract class Application implements AbstractConsoleApplication {
              * The most basic core exception class. All lower level (SOAP)
              * exceptions are wrapped in these.
              */
-            TfsTelemetryHelper.sendException(e);
+            CLCTelemetryHelper.sendException(e);
 
             final String messageFormat = Messages.getString("Application.AnErrorOccurredFormat"); //$NON-NLS-1$
             final String message = MessageFormat.format(messageFormat, e.getLocalizedMessage());
@@ -410,7 +413,7 @@ public abstract class Application implements AbstractConsoleApplication {
             display.printErrorLine(message);
             ret = ExitCode.FAILURE;
         } catch (final Throwable e) {
-            TfsTelemetryHelper.sendException(new Exception("Unexpected exception.", e)); //$NON-NLS-1$
+            CLCTelemetryHelper.sendException(new Exception("Unexpected exception.", e)); //$NON-NLS-1$
 
             log.error("Unexpected exception: ", e); //$NON-NLS-1$
         }
@@ -485,7 +488,7 @@ public abstract class Application implements AbstractConsoleApplication {
 
                 try {
                     o = optionsMap.findOption(token);
-                } catch (InvalidOptionValueException e) {
+                } catch (final InvalidOptionValueException e) {
                     outException.set(e);
                     break;
                 }

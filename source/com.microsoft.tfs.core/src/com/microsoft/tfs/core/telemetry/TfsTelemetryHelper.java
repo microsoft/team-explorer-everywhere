@@ -28,9 +28,10 @@ import com.microsoft.tfs.util.GUID;
 public class TfsTelemetryHelper {
     private static final Log log = LogFactory.getLog(TfsTelemetryHelper.class);
 
+    private static boolean telemetryDisabled = false;
     private static TelemetryClient aiClient;
 
-    static {
+    private static void initializeTelemetryChannel() {
         final Map<String, String> loggerData = new HashMap<String, String>();
 
         loggerData.put("Level", InternalLogger.LoggingLevel.ERROR.toString()); //$NON-NLS-1$
@@ -44,8 +45,19 @@ public class TfsTelemetryHelper {
             TfsTelemetryInstrumentationInfo.isDeveloperMode());
     }
 
+    public synchronized static void setTelemetryDisabled(final boolean disable) {
+        telemetryDisabled = disable;
+    }
+
+    public synchronized static boolean isTelemetryDisabled() {
+        return telemetryDisabled;
+    }
+
     public synchronized static TelemetryClient getTelemetryClient() {
         if (aiClient == null) {
+            System.out.println("XXXX TelemetryDisabled=" + isTelemetryDisabled()); //$NON-NLS-1$
+
+            initializeTelemetryChannel();
             log.info(ProductInformation.getCurrent().getProductFullNameNOLOC()
                 + " v." //$NON-NLS-1$
                 + CoreVersionInfo.getVersion());
@@ -75,22 +87,42 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendMetric(final String name, final double value) {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackMetric(name, value);
     }
 
     public static void sendEvent(final String name) {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackEvent(name, null, null);
     }
 
     public static void sendEvent(final String name, final Map<String, String> properties) {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackEvent(name, properties, null);
     }
 
     public static void sendPageView(final String pageName) {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackPageView(pageName);
     }
 
     public static void sendPageView(final String pageName, final Map<String, String> properties) {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         final PageViewTelemetry telemetry = new PageViewTelemetry(pageName);
 
         if (properties != null) {
@@ -101,14 +133,26 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendSessionBegins() {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackSessionState(SessionState.Start);
     }
 
     public static void sendSessionEnds() {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackSessionState(SessionState.End);
     }
 
     public static void sendException(final Exception exception) {
+        if (isTelemetryDisabled()) {
+            // Don't send any telemetry
+            return;
+        }
         getTelemetryClient().trackException(exception);
     }
 
