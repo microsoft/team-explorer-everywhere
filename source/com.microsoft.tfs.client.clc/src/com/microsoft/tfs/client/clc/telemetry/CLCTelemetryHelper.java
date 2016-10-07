@@ -7,14 +7,31 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.microsoft.tfs.client.clc.EnvironmentVariables;
 import com.microsoft.tfs.client.clc.ExitCode;
 import com.microsoft.tfs.client.clc.commands.Command;
 import com.microsoft.tfs.core.telemetry.TfsTelemetryConstants;
 import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 
 public class CLCTelemetryHelper extends TfsTelemetryHelper {
+    // A property to define whether collecting telemetry should be skipped.
+    private static final String NO_TELEMETRY_PROPERTY_NAME = "com.microsoft.tfs.client.clc.telemetry.notelemetry"; //$NON-NLS-1$
+
+    public synchronized static void checkNoTelemetryProperty() {
+        // Unfortunately, we can't push the disabled logic onto the
+        // TelemetryClient itself because the initialization code for
+        // that object simply takes too much time. So, we have to stop
+        // the sending of telemetry in the helper classes.
+
+        // If the system property exists or the env var is true, then we disable
+        // telemetry.
+        setTelemetryDisabled(
+            System.getProperty(NO_TELEMETRY_PROPERTY_NAME) != null
+                || EnvironmentVariables.getBoolean(EnvironmentVariables.NO_TELEMETRY, false));
+    }
+
     public static void sendCommandFinishedEvent(final Command command, final int retCode) {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }

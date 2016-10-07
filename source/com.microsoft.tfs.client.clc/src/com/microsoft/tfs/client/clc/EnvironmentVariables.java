@@ -84,6 +84,13 @@ public abstract class EnvironmentVariables {
     public static final String NO_SUMMARY = "TFSVC_NOSUMMARY"; //$NON-NLS-1$
 
     /**
+     * When set to any value, disables the sending of telemetry values.
+     * <p>
+     * IntelliJ uses this environment variable when calling the CLC.
+     */
+    public static final String NO_TELEMETRY = "TF_NOTELEMETRY"; //$NON-NLS-1$
+
+    /**
      * This environment variable is only used on Mac OS. When set to False, No
      * or N PersistanceCredentialsManager will be used to store credentials
      * instead of KeyChain
@@ -92,12 +99,12 @@ public abstract class EnvironmentVariables {
      * save credentials
      */
     public static final String USE_KEYCHAIN = "TF_USE_KEYCHAIN"; //$NON-NLS-1$
-    
+
     /**
      * This environment variable is used to disable the oauth2 interactive login
      * flow when we issue request against VSTS instances
      * <p>
-     * When set to False, we will bypass showing the browser to user. 
+     * When set to False, we will bypass showing the browser to user.
      */
     public static final String BYPASS_INTERACTIVE_BROWSER_LOGIN = "TF_BYPASS_BROWSER_LOGIN"; //$NON-NLS-1$
 
@@ -107,8 +114,8 @@ public abstract class EnvironmentVariables {
         if (StringUtil.isNullOrEmpty(value)) {
             return defaultValue;
         } else {
-            return !value.equalsIgnoreCase("FALSE") && //$NON-NLS-1$
-                !value.equalsIgnoreCase("NO") //$NON-NLS-1$
+            return !value.equalsIgnoreCase("FALSE") //$NON-NLS-1$
+                && !value.equalsIgnoreCase("NO") //$NON-NLS-1$
                 && !value.equalsIgnoreCase("N"); //$NON-NLS-1$
         }
     }

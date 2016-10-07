@@ -20,7 +20,6 @@ import com.microsoft.applicationinsights.telemetry.SessionState;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
-import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.core.product.CoreVersionInfo;
 import com.microsoft.tfs.core.product.ProductInformation;
 import com.microsoft.tfs.core.product.ProductName;
@@ -29,12 +28,8 @@ import com.microsoft.tfs.util.GUID;
 public class TfsTelemetryHelper {
     private static final Log log = LogFactory.getLog(TfsTelemetryHelper.class);
 
+    private static boolean telemetryDisabled = false;
     private static TelemetryClient aiClient;
-    protected static boolean sendingTelemetryDisabled = false;
-
-    // A property to define whether collecting telemetry should be skipped.
-    private static final String DISABLE_TELEMETRY_PROPERTY_NAME = "com.microsoft.tfs.core.telemetry.disabletelemetry"; //$NON-NLS-1$
-    private static final String DISABLE_TELEMETRY_ENVIRONMENT_VAR = "disabletelemetry"; //$NON-NLS-1$
 
     private static void initializeTelemetryChannel() {
         final Map<String, String> loggerData = new HashMap<String, String>();
@@ -50,20 +45,18 @@ public class TfsTelemetryHelper {
             TfsTelemetryInstrumentationInfo.isDeveloperMode());
     }
 
-    public synchronized static void checkDisableTelemetryProperty() {
-        // Unfortunately, we can't push the disabled logic onto the
-        // TelemetryClient itself because the initialization code for
-        // that object simply takes too much time. So, we have to stop
-        // the sending of telemetry here in the helper class.
+    public synchronized static void setTelemetryDisabled(final boolean disable) {
+        telemetryDisabled = disable;
+    }
 
-        // If the system property exists or the env var is true, then we disable
-        // telemetry.
-        sendingTelemetryDisabled = System.getProperty(DISABLE_TELEMETRY_PROPERTY_NAME) != null
-            || EnvironmentVariables.getBoolean(DISABLE_TELEMETRY_ENVIRONMENT_VAR, false);
+    public synchronized static boolean isTelemetryDisabled() {
+        return telemetryDisabled;
     }
 
     public synchronized static TelemetryClient getTelemetryClient() {
         if (aiClient == null) {
+            System.out.println("XXXX TelemetryDisabled=" + isTelemetryDisabled()); //$NON-NLS-1$
+
             initializeTelemetryChannel();
             log.info(ProductInformation.getCurrent().getProductFullNameNOLOC()
                 + " v." //$NON-NLS-1$
@@ -94,7 +87,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendMetric(final String name, final double value) {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
@@ -102,7 +95,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendEvent(final String name) {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
@@ -110,7 +103,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendEvent(final String name, final Map<String, String> properties) {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
@@ -118,7 +111,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendPageView(final String pageName) {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
@@ -126,7 +119,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendPageView(final String pageName, final Map<String, String> properties) {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
@@ -140,7 +133,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendSessionBegins() {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
@@ -148,7 +141,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendSessionEnds() {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
@@ -156,7 +149,7 @@ public class TfsTelemetryHelper {
     }
 
     public static void sendException(final Exception exception) {
-        if (sendingTelemetryDisabled) {
+        if (isTelemetryDisabled()) {
             // Don't send any telemetry
             return;
         }
