@@ -55,8 +55,6 @@ public class TfsTelemetryHelper {
 
     public synchronized static TelemetryClient getTelemetryClient() {
         if (aiClient == null) {
-            System.out.println("XXXX TelemetryDisabled=" + isTelemetryDisabled()); //$NON-NLS-1$
-
             initializeTelemetryChannel();
             log.info(ProductInformation.getCurrent().getProductFullNameNOLOC()
                 + " v." //$NON-NLS-1$
