@@ -29,6 +29,7 @@ public class CommonXMLNames {
     public static final String FILE_TYPE = "file-type"; //$NON-NLS-1$
     public static final String USER = "user"; //$NON-NLS-1$
     public static final String OWNER = "owner"; //$NON-NLS-1$
+    public static final String OWNER_DISPLAY_NAME = "owner-display-name"; //$NON-NLS-1$
     public static final String COMMITTER = "committer"; //$NON-NLS-1$
     public static final String ITEM = "item"; //$NON-NLS-1$
     public static final String CHANGE_TYPE = "change-type"; //$NON-NLS-1$
