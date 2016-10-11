@@ -557,6 +557,12 @@ public final class CommandWorkspaces extends Command {
 
             workspaceAttributes.addAttribute("", "", CommonXMLNames.NAME, "CDATA", workspace.getName()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             workspaceAttributes.addAttribute("", "", CommonXMLNames.OWNER, "CDATA", workspace.getOwnerName()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            workspaceAttributes.addAttribute(
+                "", //$NON-NLS-1$
+                "", //$NON-NLS-1$
+                CommonXMLNames.OWNER_DISPLAY_NAME,
+                "CDATA", //$NON-NLS-1$
+                workspace.getOwnerDisplayName());
             workspaceAttributes.addAttribute("", "", CommonXMLNames.COMPUTER, "CDATA", workspace.getComputer()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             workspaceAttributes.addAttribute("", "", CommonXMLNames.COMMENT, "CDATA", workspace.getComment()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             workspaceAttributes.addAttribute(
