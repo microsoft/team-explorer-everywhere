@@ -4,12 +4,12 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.core;singleton:=true
 Bundle-Version: 14.0.4.qualifier
 Bundle-ClassPath: com.microsoft.tfs.core.jar,
- libs/AlmHttpClient-15.103.0.20160719/alm-vss-client-15.103.0-SNAPSHOT.jar,
- libs/AlmHttpClient-15.103.0.20160719/alm-gallery-client-15.103.0-SNAPSHOT.jar,
- libs/AlmHttpClient-15.103.0.20160719/alm-extensionmanagement-client-15.103.0-SNAPSHOT.jar,
- libs/AlmHttpClient-15.103.0.20160719/alm-distributedtask-client-15.103.0-SNAPSHOT.jar,
- libs/AlmHttpClient-15.103.0.20160719/alm-tfs-client-15.103.0-SNAPSHOT.jar,
- libs/AlmHttpClient-15.103.0.20160719/alm-releasemanagement-client-15.103.0-SNAPSHOT.jar,
+ libs/AlmHttpClient-15.105.0.20161011/alm-vss-client-15.105.0-SNAPSHOT.jar,
+ libs/AlmHttpClient-15.105.0.20161011/alm-gallery-client-15.105.0-SNAPSHOT.jar,
+ libs/AlmHttpClient-15.105.0.20161011/alm-extensionmanagement-client-15.105.0-SNAPSHOT.jar,
+ libs/AlmHttpClient-15.105.0.20161011/alm-distributedtask-client-15.105.0-SNAPSHOT.jar,
+ libs/AlmHttpClient-15.105.0.20161011/alm-tfs-client-15.105.0-SNAPSHOT.jar,
+ libs/AlmHttpClient-15.105.0.20161011/alm-releasemanagement-client-15.105.0-SNAPSHOT.jar,
  libs/hsqldb-1.8.0.10-ebcdic/hsqldb.jar,
  libs/xerces-2.8.0/xercesImpl.jar,
  libs/xerces-2.8.0/xml-apis.jar,
