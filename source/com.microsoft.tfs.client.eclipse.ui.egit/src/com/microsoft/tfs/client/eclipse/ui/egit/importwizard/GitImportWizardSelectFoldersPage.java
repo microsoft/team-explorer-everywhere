@@ -205,6 +205,7 @@ public class GitImportWizardSelectFoldersPage extends ExtendedWizardPage {
         repositories = itemCollection.getRepositories();
 
         setFoldersInput();
+        setPageComplete(isValid());
     }
 
     private void setFoldersInput() {
