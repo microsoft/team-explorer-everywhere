@@ -32,7 +32,7 @@ import com.microsoft.tfs.util.GUID;
  * @threadsafety unknown
  */
 public class ConnectToDefaultRepositoryCommand extends TFSCommand implements ConnectCommand {
-    private final ConnectToConfigurationServerCommand connectCommand;
+    private final ConnectCommand connectCommand;
 
     private TFSServer server;
     private TFSRepository repository;
@@ -41,7 +41,11 @@ public class ConnectToDefaultRepositoryCommand extends TFSCommand implements Con
         Check.notNull(serverURI, "serverURI"); //$NON-NLS-1$
         Check.notNull(credentials, "credentials"); //$NON-NLS-1$
 
-        this.connectCommand = new ConnectToConfigurationServerCommand(serverURI, credentials);
+        if (isProjectCollectionUrl(serverURI)) {
+            this.connectCommand = new ConnectToProjectCollectionCommand(serverURI, credentials);
+        } else {
+            this.connectCommand = new ConnectToConfigurationServerCommand(serverURI, credentials);
+        }
 
         setCancellable(true);
     }
@@ -83,30 +87,42 @@ public class ConnectToDefaultRepositoryCommand extends TFSCommand implements Con
 
         checkForCancellation(progressMonitor);
 
-        final TFSConfigurationServer configurationServer = (TFSConfigurationServer) connectCommand.getConnection();
         final TFSTeamProjectCollection connection;
 
-        final SubProgressMonitor projectCollectionMonitor = new SubProgressMonitor(progressMonitor, 1);
+        if (connectCommand.getConnection() instanceof TFSTeamProjectCollection) {
+            connection = (TFSTeamProjectCollection) connectCommand.getConnection();
+        } else {
+            final TFSConfigurationServer configurationServer = (TFSConfigurationServer) connectCommand.getConnection();
 
-        try {
-            if (ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
-                final GUID collectionId = new GUID(ProtocolHandler.getInstance().getProtocolHandlerCollectionId());
-                connection = configurationServer.getTeamProjectCollection(collectionId);
-            } else {
-                final GetDefaultProjectCollectionCommand projectCollectionCommand =
-                    new GetDefaultProjectCollectionCommand(configurationServer);
+            final SubProgressMonitor projectCollectionMonitor = new SubProgressMonitor(progressMonitor, 1);
 
-                final IStatus projectCollectionStatus =
-                    new CommandExecutor(projectCollectionMonitor).execute(projectCollectionCommand);
+            try {
+                if (ProtocolHandler.getInstance().hasProtocolHandlerRequest()) {
+                    /*
+                     * Remove this special processing of the protocol handler
+                     * case after TFS server is fixed. See the User Story #687657 
+                     * @formatter:off
+                     * https://mseng.visualstudio.com/DefaultCollection/VSOnline/_workitems/edit/687657
+                     * @formatter:on
+                     */
+                    final GUID collectionId = new GUID(ProtocolHandler.getInstance().getProtocolHandlerCollectionId());
+                    connection = configurationServer.getTeamProjectCollection(collectionId);
+                } else {
+                    final GetDefaultProjectCollectionCommand projectCollectionCommand =
+                        new GetDefaultProjectCollectionCommand(configurationServer);
 
-                if (!projectCollectionStatus.isOK()) {
-                    return projectCollectionStatus;
+                    final IStatus projectCollectionStatus =
+                        new CommandExecutor(projectCollectionMonitor).execute(projectCollectionCommand);
+
+                    if (!projectCollectionStatus.isOK()) {
+                        return projectCollectionStatus;
+                    }
+
+                    connection = projectCollectionCommand.getConnection();
                 }
-
-                connection = projectCollectionCommand.getConnection();
+            } finally {
+                projectCollectionMonitor.done();
             }
-        } finally {
-            projectCollectionMonitor.done();
         }
 
         checkForCancellation(progressMonitor);
@@ -177,5 +193,9 @@ public class ConnectToDefaultRepositoryCommand extends TFSCommand implements Con
 
     public TFSRepository getRepository() {
         return repository;
+    }
+
+    private boolean isProjectCollectionUrl(final URI url) {
+        return ProtocolHandler.getInstance().hasProtocolHandlerCollectionUrl();
     }
 }
