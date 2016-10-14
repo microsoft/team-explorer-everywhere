@@ -86,7 +86,11 @@ public abstract class UIAutoConnector implements AutoConnector {
             started = true;
 
             if (hasProtocolHandlerRequest) {
-                serverURI = URIUtils.newURI(ProtocolHandler.getInstance().getProtocolHandlerServerUrl());
+                if (ProtocolHandler.getInstance().hasProtocolHandlerCollectionUrl()) {
+                    serverURI = URIUtils.newURI(ProtocolHandler.getInstance().getProtocolHandlerCollectionUrl());
+                } else {
+                    serverURI = URIUtils.newURI(ProtocolHandler.getInstance().getProtocolHandlerServerUrl());
+                }
                 log.info("Auto connecting to the server requested by protocol handler: " + serverURI); //$NON-NLS-1$
             } else {
                 /* Do not connect if we're already connected to a server */

@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.microsoft.alm.client.TeeClientHandler;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
 import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
 import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
+import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.build.IBuildServer;
 import com.microsoft.tfs.core.clients.favorites.FavoriteItem;
@@ -100,7 +102,10 @@ public abstract class BuildFavoriteItem {
     private static BuildDefinition getBuildDefinitionFromFavorite(
         final IBuildServer server,
         final BuildDefinition oldDefinition) {
-        final BuildHttpClient buildClient = (BuildHttpClient) server.getConnection().getClient(BuildHttpClient.class);
+
+        final TFSTeamProjectCollection connection = server.getConnection();
+        final BuildHttpClient buildClient =
+            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
 
         final DefinitionReference definition =
             buildClient.getDefinition(oldDefinition.getProject().getId(), oldDefinition.getId(), null, null);

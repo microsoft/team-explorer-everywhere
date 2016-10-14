@@ -66,20 +66,30 @@ public abstract class CredentialsHelper {
 
     public static void createAccountCodeAccessToken(final TFSConnection connection) {
         if (connection.isHosted() && !hasAccountCodeAccessToken(connection)) {
-            final String tokenDisplayName = getAccessTokenDescription(connection.getBaseURI().toString());
-
-            final DelegatedAuthorizationHttpClient authorizationClient = new DelegatedAuthorizationHttpClient(
-                new TeeClientHandler(connection.getHTTPClient()),
-                URIUtils.VSTS_ROOT_URL);
-
-            final UUID accountId = getAccountId(connection);
-            final String pat = authorizationClient.createAccountSessionToken(
-                tokenDisplayName,
-                accountId,
-                SessionTokenScope.CODE_MANAGE).getAlternateToken();
-
             final URI baseURI = connection.getBaseURI();
-            gitCredentialsManager.setCredentials(new CachedCredentials(baseURI, pat)); // $NON-NLS-1$
+            final CachedCredentials currentCredentials = new CachedCredentials(baseURI, connection.getCredentials());
+
+            final CachedCredentials patCredentials;
+
+            if (currentCredentials.isPatCredentials()) {
+                patCredentials = currentCredentials;
+            } else {
+                final String tokenDisplayName = getAccessTokenDescription(connection.getBaseURI().toString());
+
+                final DelegatedAuthorizationHttpClient authorizationClient = new DelegatedAuthorizationHttpClient(
+                    new TeeClientHandler(connection.getHTTPClient()),
+                    URIUtils.VSTS_ROOT_URL);
+
+                final UUID accountId = getAccountId(connection);
+                final String pat = authorizationClient.createAccountSessionToken(
+                    tokenDisplayName,
+                    accountId,
+                    SessionTokenScope.CODE_MANAGE).getAlternateToken();
+
+                patCredentials = new CachedCredentials(baseURI, pat);
+            }
+
+            gitCredentialsManager.setCredentials(patCredentials);
         }
     }
 

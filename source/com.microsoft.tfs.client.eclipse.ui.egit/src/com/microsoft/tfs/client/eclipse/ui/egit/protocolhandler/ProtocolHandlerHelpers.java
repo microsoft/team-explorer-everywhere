@@ -21,7 +21,6 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerGitRepository;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.clients.versioncontrol.path.ServerPath;
-import com.microsoft.tfs.core.config.ConnectionAdvisor;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
@@ -43,35 +42,24 @@ public class ProtocolHandlerHelpers {
         this.context = context;
     }
 
-    public TypedServerGitRepository getImportWizardInput(final ConnectionAdvisor advisor) {
+    public TypedServerGitRepository getImportWizardInput() {
         final String serverUrl = ProtocolHandler.getInstance().getProtocolHandlerServerUrl();
         final String repoUrl = ProtocolHandler.getInstance().getProtocolHandlerCloneUrl();
         final String branch = ProtocolHandler.getInstance().getProtocolHandlerBranch();
 
-        final VstsInfoHttpClient client = getVstsInfoClient(serverUrl, advisor);
+        final VstsInfoHttpClient client = getVstsInfoClient(serverUrl);
         final VstsInfo vstsInfo = client.getServerRepositoryInfo(repoUrl);
         final TypedServerGitRepository typedRepo = getSelectedRepository(vstsInfo, branch);
 
         return typedRepo;
     }
 
-    private VstsInfoHttpClient getVstsInfoClient(final String serverUrl, final ConnectionAdvisor advisor) {
+    private VstsInfoHttpClient getVstsInfoClient(final String serverUrl) {
 
-        VstsInfoClientHandler handler = null;
+        Check.isTrue(context.isConnectedToCollection(), "disconnected context in Team Explorer"); //$NON-NLS-1$
 
-        if (context.isConnectedToCollection()) {
-            final TFSTeamProjectCollection collection = context.getServer().getConnection();
-
-            if (serverUrl.equalsIgnoreCase(collection.getBaseURI().toASCIIString())) {
-                handler = new VstsInfoClientHandler(collection.getHTTPClient());
-            }
-        }
-
-        if (handler == null) {
-            final Credentials credentials = getAccountCredentials(serverUrl);
-            handler = new VstsInfoClientHandler(serverUrl, credentials, advisor);
-        }
-
+        final TFSTeamProjectCollection collection = context.getServer().getConnection();
+        final VstsInfoClientHandler handler = new VstsInfoClientHandler(collection.getHTTPClient());
         final VstsInfoHttpClient client = new VstsInfoHttpClient(handler);
 
         return client;
