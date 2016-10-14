@@ -9,12 +9,14 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Composite;
 
+import com.microsoft.alm.client.TeeClientHandler;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
 import com.microsoft.alm.teamfoundation.distributedtask.webapi.TaskAgentHttpClient;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.table.TableColumnData;
 import com.microsoft.tfs.client.common.ui.framework.table.TableControl;
 import com.microsoft.tfs.client.common.ui.teambuild.Messages;
+import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.util.StringUtil;
 
 public class BuildDefinitionTemplatesTable extends TableControl {
@@ -54,9 +56,10 @@ public class BuildDefinitionTemplatesTable extends TableControl {
         setupTable(true, false, columnData);
         setUseViewerDefaults();
 
+        final TFSTeamProjectCollection connection =
+            TFSCommonUIClientPlugin.getDefault().getProductPlugin().getServerManager().getDefaultServer().getConnection();
         taskAgentClient =
-            (TaskAgentHttpClient) TFSCommonUIClientPlugin.getDefault().getProductPlugin().getServerManager().getDefaultServer().getConnection().getClient(
-                TaskAgentHttpClient.class);
+            new TaskAgentHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
     }
 
     @Override

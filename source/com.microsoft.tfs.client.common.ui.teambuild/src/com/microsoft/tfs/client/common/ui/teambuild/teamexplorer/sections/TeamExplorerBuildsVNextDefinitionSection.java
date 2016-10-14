@@ -29,11 +29,11 @@ import org.eclipse.ui.forms.events.HyperlinkEvent;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 
+import com.microsoft.alm.client.TeeClientHandler;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
 import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
-import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.client.common.ui.TeamExplorerEventArg;
 import com.microsoft.tfs.client.common.ui.framework.helper.ContentProviderAdapter;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
@@ -163,7 +163,8 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
 
     private void createNewDefinition() {
         final TFSTeamProjectCollection connection = context.getServer().getConnection();
-        final BuildHttpClient buildClient = (BuildHttpClient) connection.getClient(BuildHttpClient.class);
+        final BuildHttpClient buildClient =
+            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
 
         final String projectName = context.getCurrentProjectInfo().getName();
         final List<BuildDefinitionTemplate> templates = buildClient.getTemplates(projectName);
@@ -192,16 +193,12 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
             return;
         }
 
+        final TFSTeamProjectCollection connection = context.getServer().getConnection();
         final BuildHttpClient buildClient =
-            (BuildHttpClient) context.getServer().getConnection().getClient(BuildHttpClient.class);
-
-        if (buildClient == null) {
-            return;
-        }
+            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
 
         final UUID projectId = UUID.fromString(context.getCurrentProjectInfo().getGUID());
-        final List<BuildDefinitionReference> rawDefinitions =
-            buildClient.getDefinitions(projectId);
+        final List<BuildDefinitionReference> rawDefinitions = buildClient.getDefinitions(projectId);
 
         final List<BuildDefinitionReference> list = new ArrayList<BuildDefinitionReference>();
         for (final DefinitionReference definition : rawDefinitions) {

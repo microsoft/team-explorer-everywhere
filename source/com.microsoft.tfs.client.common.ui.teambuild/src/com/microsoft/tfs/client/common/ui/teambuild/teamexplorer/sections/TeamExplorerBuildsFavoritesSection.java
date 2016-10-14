@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.microsoft.alm.client.TeeClientHandler;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
@@ -45,6 +46,7 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerEventListener
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerEvents;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerHelpers;
 import com.microsoft.tfs.client.common.ui.teamexplorer.sections.TeamExplorerBaseSection;
+import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.favorites.FavoritesStoreFactory;
 import com.microsoft.tfs.core.clients.favorites.IFavoritesStore;
@@ -88,12 +90,9 @@ public abstract class TeamExplorerBuildsFavoritesSection extends TeamExplorerBas
             return;
         }
 
+        final TFSTeamProjectCollection connection = context.getServer().getConnection();
         final BuildHttpClient buildClient =
-            (BuildHttpClient) context.getServer().getConnection().getClient(BuildHttpClient.class);
-
-        if (buildClient == null) {
-            return;
-        }
+            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
 
         final UUID projectId = UUID.fromString(context.getCurrentProjectInfo().getGUID());
         final List<BuildDefinitionReference> rawDefinitions = buildClient.getDefinitions(projectId);
