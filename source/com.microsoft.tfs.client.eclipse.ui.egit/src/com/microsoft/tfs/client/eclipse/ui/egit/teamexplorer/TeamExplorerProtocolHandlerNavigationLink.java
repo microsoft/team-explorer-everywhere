@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 import com.microsoft.tfs.client.common.git.utils.GitHelpers;
-import com.microsoft.tfs.client.common.ui.config.UIClientConnectionAdvisor;
 import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerNavigator;
@@ -42,7 +41,7 @@ public class TeamExplorerProtocolHandlerNavigationLink extends TeamExplorerBaseN
 
     @Override
     public boolean isVisible(final TeamExplorerContext context) {
-        return isEnabled(context);
+        return isEnabled(context) && context.isConnectedToCollection();
     }
 
     @Override
@@ -65,7 +64,7 @@ public class TeamExplorerProtocolHandlerNavigationLink extends TeamExplorerBaseN
         }
 
         final ProtocolHandlerHelpers handler = new ProtocolHandlerHelpers(context);
-        final TypedServerGitRepository typedRepo = handler.getImportWizardInput(new UIClientConnectionAdvisor());
+        final TypedServerGitRepository typedRepo = handler.getImportWizardInput();
 
         final GitImportWizard wizard = new GitImportWizard(Arrays.asList(new TypedServerItem[] {
             typedRepo
