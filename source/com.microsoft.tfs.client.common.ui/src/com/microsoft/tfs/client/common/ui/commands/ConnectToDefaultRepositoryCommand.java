@@ -128,22 +128,7 @@ public class ConnectToDefaultRepositoryCommand extends TFSCommand implements Con
         checkForCancellation(progressMonitor);
 
         /* Create PAT for EGit access to VSTS if needed */
-        final SubProgressMonitor patMonitor = new SubProgressMonitor(progressMonitor, 1);
-        patMonitor.beginTask(getName(), 1);
-
-        try {
-            if (connection.isHosted()) {
-                if (CredentialsHelper.hasAccountCodeAccessToken(connection)) {
-                    if (!CredentialsHelper.isAccountCodeAccessTokenValid(connection)) {
-                        CredentialsHelper.refreshAccountCodeAccessToken(connection);
-                    }
-                } else if (!CredentialsHelper.hasAlternateCredentials(connection)) {
-                    CredentialsHelper.createAccountCodeAccessToken(connection);
-                }
-            }
-        } finally {
-            patMonitor.done();
-        }
+        CredentialsHelper.refreshCredentialsForGit(connection);
 
         checkForCancellation(progressMonitor);
 
