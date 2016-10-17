@@ -65,7 +65,7 @@ public abstract class CredentialsHelper {
         final CachedCredentials currentCredentials = new CachedCredentials(baseURI, connection.getCredentials());
 
         if (!currentCredentials.isCookieCredentials()) {
-            // The current credentials are not of UsernamePassword type.
+            // The current credentials are not of the UsernamePassword type.
             // We cannot use them for Git.
             return;
         }
@@ -74,8 +74,9 @@ public abstract class CredentialsHelper {
 
         if (cachedCredentials == null) {
             // No credentials are cached for Git.
-            // Let's use the current ones. They might be PAT, Alternative (on
-            // hosted), or Basic (on prem.)
+            // Let's use the current ones. They might be either PAT or
+            // Alternative (on
+            // hosted)/Basic (on prem.)
             gitCredentialsManager.setCredentials(currentCredentials);
         }
 
@@ -87,7 +88,7 @@ public abstract class CredentialsHelper {
 
         if (cachedCredentials.isPatCredentials() == currentCredentials.isPatCredentials()) {
             // The credentials are changed and are of the same type, i.e either
-            // both PAT, or both Alternative, or both Basic. Let's refresh the
+            // both PAT, or both Alternative/Basic. Let's refresh the
             // cached credentials.
             gitCredentialsManager.setCredentials(currentCredentials);
         }
