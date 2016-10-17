@@ -246,16 +246,8 @@ public abstract class ConnectWizard extends AbstractEULAWizard {
             ConnectHelpers.showHideViews(null);
         }
 
-        if (connection.isHosted()) {
-            /* Create PAT for EGit access to VSTS if needed */
-            if (CredentialsHelper.hasAccountCodeAccessToken(connection)) {
-                if (!CredentialsHelper.isAccountCodeAccessTokenValid(connection)) {
-                    CredentialsHelper.refreshAccountCodeAccessToken(connection);
-                }
-            } else if (!CredentialsHelper.hasAlternateCredentials(connection)) {
-                CredentialsHelper.createAccountCodeAccessToken(connection);
-            }
-        }
+        /* Create PAT for EGit access to VSTS if needed */
+        CredentialsHelper.refreshCredentialsForGit(connection);
 
         return server;
     }

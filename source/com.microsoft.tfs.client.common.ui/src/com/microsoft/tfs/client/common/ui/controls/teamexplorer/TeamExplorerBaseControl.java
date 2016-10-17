@@ -178,6 +178,10 @@ public abstract class TeamExplorerBaseControl extends BaseControl {
             GridDataBuilder.newInstance().hFill().hGrab().applyTo(composite);
         }
 
+        if (!context.isConnectedToCollection()) {
+            return;
+        }
+
         if (sections != null) {
             for (int i = 0; i < sections.length; i++) {
                 final TeamExplorerSectionConfig section = sections[i];
@@ -225,8 +229,8 @@ public abstract class TeamExplorerBaseControl extends BaseControl {
         try {
             final ITeamExplorerPage pageInstance = page.createInstance();
             pageInstance.initialize(null, context, stateMap.get(page.getID()));
-            composite = pageInstance.getPageContent(toolkit, parent, SWT.NONE, context);
             currentPage = pageInstance;
+            composite = pageInstance.getPageContent(toolkit, parent, SWT.NONE, context);
         } catch (final Exception e) {
             composite = createExceptionComposite(parent, page.getTitle(), e);
         }

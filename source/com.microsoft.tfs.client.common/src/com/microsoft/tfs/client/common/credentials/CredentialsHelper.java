@@ -7,7 +7,6 @@ import java.net.URI;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,11 +26,8 @@ import com.microsoft.alm.storage.InsecureInMemoryStore;
 import com.microsoft.alm.storage.SecretStore;
 import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
 import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionToken;
-import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionTokenScope;
-import com.microsoft.alm.visualstudio.services.delegatedauthorization.client.DelegatedAuthorizationHttpClient;
 import com.microsoft.tfs.client.common.Messages;
 import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
-import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
@@ -51,115 +47,54 @@ import com.microsoft.tfs.util.StringUtil;
  */
 
 public abstract class CredentialsHelper {
-    private static final Log log = LogFactory.getLog(CredentialsHelper.class);
+    private final static Log log = LogFactory.getLog(CredentialsHelper.class);
 
     /**
      * Constants for OAuth2 Interactive Browser logon flow
      */
-    private static final String CLIENT_ID = "97877f11-0fc6-4aee-b1ff-febb0519dd00"; //$NON-NLS-1$
-    private static final String REDIRECT_URL = "https://java.visualstudio.com"; //$NON-NLS-1$
+    private final static String CLIENT_ID = "97877f11-0fc6-4aee-b1ff-febb0519dd00"; //$NON-NLS-1$
+    private final static String REDIRECT_URL = "https://java.visualstudio.com"; //$NON-NLS-1$
 
-    private static CredentialsManager gitCredentialsManager =
+    private final static CredentialsManager gitCredentialsManager =
         EclipseCredentialsManagerFactory.getGitCredentialsManager();
-    final static SecretStore<TokenPair> accessTokenStore = new InsecureInMemoryStore<TokenPair>();
-    final static SecretStore<Token> tokenStore = new EclipseTokenStore();
+    private final static SecretStore<TokenPair> accessTokenStore = new InsecureInMemoryStore<TokenPair>();
+    private final static SecretStore<Token> tokenStore = new EclipseTokenStore();
 
-    public static void createAccountCodeAccessToken(final TFSConnection connection) {
-        if (connection.isHosted() && !hasAccountCodeAccessToken(connection)) {
-            final URI baseURI = connection.getBaseURI();
-            final CachedCredentials currentCredentials = new CachedCredentials(baseURI, connection.getCredentials());
-
-            final CachedCredentials patCredentials;
-
-            if (currentCredentials.isPatCredentials()) {
-                patCredentials = currentCredentials;
-            } else {
-                final String tokenDisplayName = getAccessTokenDescription(connection.getBaseURI().toString());
-
-                final DelegatedAuthorizationHttpClient authorizationClient = new DelegatedAuthorizationHttpClient(
-                    new TeeClientHandler(connection.getHTTPClient()),
-                    URIUtils.VSTS_ROOT_URL);
-
-                final UUID accountId = getAccountId(connection);
-                final String pat = authorizationClient.createAccountSessionToken(
-                    tokenDisplayName,
-                    accountId,
-                    SessionTokenScope.CODE_MANAGE).getAlternateToken();
-
-                patCredentials = new CachedCredentials(baseURI, pat);
-            }
-
-            gitCredentialsManager.setCredentials(patCredentials);
-        }
-    }
-
-    public static void refreshAccountCodeAccessToken(final TFSConnection connection) {
-        if (connection.isHosted()) {
-            final URI baseURI = connection.getBaseURI();
-            final CachedCredentials cachedCredentials = gitCredentialsManager.getCredentials(baseURI);
-
-            if (cachedCredentials.isPatCredentials()) {
-                gitCredentialsManager.removeCredentials(cachedCredentials);
-                createAccountCodeAccessToken(connection);
-            }
-        }
-
-    }
-
-    public static boolean hasAccountCodeAccessToken(final TFSConnection connection) {
-        if (connection.isHosted()) {
-            final URI baseURI = connection.getBaseURI();
-            final CachedCredentials cachedCredentials = gitCredentialsManager.getCredentials(baseURI);
-
-            if (cachedCredentials != null
-                && cachedCredentials.isPatCredentials()
-                && !StringUtil.isNullOrEmpty(cachedCredentials.getPassword())) {
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static boolean hasAlternateCredentials(final TFSConnection connection) {
-        if (connection.isHosted()) {
-            final URI baseURI = connection.getBaseURI();
-            final CachedCredentials cachedCredentials = gitCredentialsManager.getCredentials(baseURI);
-
-            if (cachedCredentials != null && cachedCredentials.isUsernamePasswordCredentials()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public static boolean isCredentialsValid(final TFSConnection connection, final Credentials credentials) {
+    public static void refreshCredentialsForGit(final TFSConnection connection) {
         final URI baseURI = connection.getBaseURI();
-        return isCredentialsValid(baseURI, credentials);
-    }
+        final CachedCredentials currentCredentials = new CachedCredentials(baseURI, connection.getCredentials());
 
-    public static boolean isAccountCodeAccessTokenValid(final TFSConnection connection) {
-        if (connection.isHosted()) {
-            final URI baseURI = connection.getBaseURI();
-            final CachedCredentials cachedCredentials = gitCredentialsManager.getCredentials(baseURI);
-
-            if (cachedCredentials != null && cachedCredentials.isPatCredentials()) {
-                final PatCredentials patCredentials = (PatCredentials) cachedCredentials.toCredentials();
-                return isCredentialsValid(connection, PreemptiveUsernamePasswordCredentials.newFrom(patCredentials));
-            }
+        if (!currentCredentials.isCookieCredentials()) {
+            // The current credentials are not of the UsernamePassword type.
+            // We cannot use them for Git.
+            return;
         }
 
-        return false;
-    }
+        final CachedCredentials cachedCredentials = gitCredentialsManager.getCredentials(baseURI);
 
-    public static UUID getAccountId(final TFSConnection connection) {
-        if (connection instanceof TFSConfigurationServer) {
-            return UUID.fromString(((TFSConfigurationServer) connection).getInstanceID().toString());
-        } else {
-            return getAccountId(((TFSTeamProjectCollection) connection).getConfigurationServer());
+        if (cachedCredentials == null) {
+            // No credentials are cached for Git.
+            // Let's use the current ones. They might be either PAT or
+            // Alternative (on
+            // hosted)/Basic (on prem.)
+            gitCredentialsManager.setCredentials(currentCredentials);
         }
+
+        if (cachedCredentials.equals(currentCredentials)) {
+            // The credentials haven't changed.
+            // No need to refresh.
+            return;
+        }
+
+        if (cachedCredentials.isPatCredentials() == currentCredentials.isPatCredentials()) {
+            // The credentials are changed and are of the same type, i.e either
+            // both PAT, or both Alternative/Basic. Let's refresh the
+            // cached credentials.
+            gitCredentialsManager.setCredentials(currentCredentials);
+        }
+
+        log.info("The type of cachec credentials does not match to the one of the current credentials."); //$NON-NLS-1$
+        log.info("The user has to clean up the cached credentials explicitly."); //$NON-NLS-1$
     }
 
     public static Credentials getOAuthCredentials(final URI serverURI, final Action<DeviceFlowResponse> callback) {
@@ -207,6 +142,8 @@ public abstract class CredentialsHelper {
         log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog1")); //$NON-NLS-1$
         log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog2")); //$NON-NLS-1$
         log.warn(Messages.getString("CredentialsHelper.InteractiveAuthenticationFailedDetailedLog3")); //$NON-NLS-1$
+
+        removeOAuth2Token(true);
 
         // Failed to get credential, return null
         return null;

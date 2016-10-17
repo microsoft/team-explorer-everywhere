@@ -31,7 +31,6 @@ import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
 import com.microsoft.tfs.client.common.ui.helpers.UIConnectionPersistence;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
-import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.serverlist.ServerList;
@@ -184,16 +183,11 @@ public class ServerListControl extends BaseControl {
         if (MessageDialog.openQuestion(getShell(), title, message) == false) {
             return;
         }
-        final CredentialsManager credentialsProvider =
-            EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
+
+        removeCredentials(serverListEntries);
 
         for (int i = 0; i < serverListEntries.length; i++) {
             final ServerListConfigurationEntry serverListEntry = serverListEntries[i];
-            final CachedCredentials cachedCredentials = credentialsProvider.getCredentials(serverListEntry.getURI());
-
-            if (cachedCredentials != null) {
-                credentialsProvider.removeCredentials(cachedCredentials);
-            }
 
             serverList.remove(serverListEntry);
 
@@ -227,7 +221,15 @@ public class ServerListControl extends BaseControl {
             return;
         }
 
-        final CredentialsManager credentialsProvider =
+        removeCredentials(serverListEntries);
+
+        refreshTable();
+        serverListTable.setFocus();
+    }
+
+    private void removeCredentials(final ServerListConfigurationEntry[] serverListEntries) {
+
+        final CredentialsManager teeCredentialsProvider =
             EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
         final CredentialsManager gitCredentialsProvider = EclipseCredentialsManagerFactory.getGitCredentialsManager();
 
@@ -236,21 +238,11 @@ public class ServerListControl extends BaseControl {
             final ServerListConfigurationEntry serverListEntry = serverListEntries[i];
             final URI url = serverListEntry.getURI();
 
-            // Remove from TEE node
-            final CachedCredentials cachedCredentials = credentialsProvider.getCredentials(url);
-            if (cachedCredentials != null) {
-                credentialsProvider.removeCredentials(cachedCredentials);
-            }
-
-            // Remove from Git node
-            final CachedCredentials gitCachedCredentials = gitCredentialsProvider.getCredentials(url);
-            if (gitCachedCredentials != null) {
-                gitCredentialsProvider.removeCredentials(gitCachedCredentials);
-                removeOAuth2Token = true;
-            }
+            teeCredentialsProvider.removeCredentials(url);
+            gitCredentialsProvider.removeCredentials(url);
 
             // Remove from OAuth2 access token from the internal store
-            removeOAuth2Token = removeOAuth2Token && ServerURIUtils.isHosted(url);
+            removeOAuth2Token = removeOAuth2Token || ServerURIUtils.isHosted(url);
         }
 
         if (removeOAuth2Token) {
@@ -261,9 +253,6 @@ public class ServerListControl extends BaseControl {
              */
             CredentialsHelper.removeOAuth2Token(true);
         }
-
-        refreshTable();
-        serverListTable.setFocus();
     }
 
     private void onTableDoubleClick(final DoubleClickEvent event) {
