@@ -138,7 +138,18 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
 
     @Override
     protected void appendCollectionInformation(final TFSTeamProjectCollection collection) {
-        final VersionControlClient vcClient = collection.getVersionControlClient();
+        final VersionControlClient vcClient;
+        try {
+            vcClient = collection.getVersionControlClient();
+        } catch (final Exception e) {
+            // If we could not create a client, ignore this collection and move
+            // on
+            logger.warn("Failed to get a Version Control Client."); //$NON-NLS-1$
+            logger.warn(e);
+
+            return;
+        }
+
         final QueryGitRepositoriesCommand queryCommand3 = new QueryGitRepositoriesCommand(vcClient);
         final IStatus status3 = getCommandExecutor().execute(queryCommand3);
 

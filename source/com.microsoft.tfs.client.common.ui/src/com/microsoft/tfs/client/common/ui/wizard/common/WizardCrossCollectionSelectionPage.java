@@ -287,13 +287,20 @@ public abstract class WizardCrossCollectionSelectionPage extends ExtendedWizardP
 
                     final TeamProjectCollectionInfo[] projectCollections = queryCommand.getProjectCollections();
                     for (final TeamProjectCollectionInfo collectionInfo : projectCollections) {
-                        collections.add(configurationServer.getTeamProjectCollection(collectionInfo.getIdentifier()));
+                        try {
+                            collections.add(
+                                configurationServer.getTeamProjectCollection(collectionInfo.getIdentifier()));
+                        } catch (final Exception e) {
+                            logger.warn("Failed to get Team Project Collection: " + collectionInfo.getDisplayName()); //$NON-NLS-1$
+                            logger.warn(e);
+                        }
                     }
 
                     // For each collection get the list of projects
                     for (final TFSTeamProjectCollection collection : collections) {
                         appendCollectionInformation(collection);
                     }
+
                     updateConnectionLabel();
                     refreshUI();
                 }
