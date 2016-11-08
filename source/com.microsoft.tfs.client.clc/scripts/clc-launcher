@@ -144,6 +144,6 @@ if [ `uname` = "Linux" ] ; then
     RANDOM_DEVICE_PROPERTY="-Djava.security.egd=file:/dev/urandom"
 fi
 
-exec java -Xmx2048M -classpath "$CLC_CLASSPATH" \
+exec java -Xmx2048M -classpath "$CLC_CLASSPATH" $TF_ADDITIONAL_JAVA_ARGS \
 	"-Dcom.microsoft.tfs.jni.native.base-directory=$BASE_DIRECTORY/native" \
     $RANDOM_DEVICE_PROPERTY @@LAUNCHER_CLASS@@ "$@"
