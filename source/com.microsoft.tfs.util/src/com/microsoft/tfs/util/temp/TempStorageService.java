@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
 import com.microsoft.tfs.util.IOUtils;
+import com.microsoft.tfs.util.Messages;
 import com.microsoft.tfs.util.shutdown.ShutdownEventListener;
 import com.microsoft.tfs.util.shutdown.ShutdownManager;
 import com.microsoft.tfs.util.shutdown.ShutdownManager.Priority;
@@ -343,8 +344,19 @@ public final class TempStorageService {
     public synchronized void renameItem(final File sourceItem, final File targetItem) {
         Check.notNull(sourceItem, "sourceItem"); //$NON-NLS-1$
         Check.notNull(targetItem, "targetItem"); //$NON-NLS-1$
-        Check.isTrue(sourceItem.exists(), "renaming: source file does not exist"); //$NON-NLS-1$
-        Check.isTrue(!targetItem.exists(), "renaming: target file already exists"); //$NON-NLS-1$
+
+        if (!sourceItem.exists()) {
+            throw new RuntimeException(
+                MessageFormat.format(
+                    Messages.getString("TempStorageService.RenameErrorSourceDoesNotExistFormat"), //$NON-NLS-1$
+                    sourceItem.getAbsolutePath()));
+        }
+        if (targetItem.exists()) {
+            throw new RuntimeException(
+                MessageFormat.format(
+                    Messages.getString("TempStorageService.RenameErrorTargetExistsFormat"), //$NON-NLS-1$
+                    sourceItem.getAbsolutePath()));
+        }
 
         for (int k = 0; k < MAX_RENAME_ATTEMPTS; k++) {
             if (k > 0) {
