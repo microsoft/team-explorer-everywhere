@@ -196,6 +196,10 @@ public class FieldImpl implements Field, IRuleTargetField {
             }
             NodeImpl node = witContext.getRootNode().findNodeDownwards(originalId.intValue());
 
+            if (node == null) {
+                return null;
+            }
+
             if (id == WorkItemFieldIDs.TEAM_PROJECT) {
                 node = node.getProjectNodeParent();
             }
