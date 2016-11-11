@@ -349,13 +349,15 @@ public final class TempStorageService {
             throw new RuntimeException(
                 MessageFormat.format(
                     Messages.getString("TempStorageService.RenameErrorSourceDoesNotExistFormat"), //$NON-NLS-1$
-                    sourceItem.getAbsolutePath()));
+                    sourceItem.getAbsolutePath(),
+                    targetItem.getAbsolutePath()));
         }
         if (targetItem.exists()) {
             throw new RuntimeException(
                 MessageFormat.format(
                     Messages.getString("TempStorageService.RenameErrorTargetExistsFormat"), //$NON-NLS-1$
-                    sourceItem.getAbsolutePath()));
+                    sourceItem.getAbsolutePath(),
+                    targetItem.getAbsolutePath()));
         }
 
         for (int k = 0; k < MAX_RENAME_ATTEMPTS; k++) {
