@@ -82,6 +82,11 @@ public abstract class TECoreExceptionMapper {
                 e.getCause());
         } else if (e instanceof FederatedAuthFailedException) {
             return new TFSAccessException((FederatedAuthFailedException) e);
+        } else if (e instanceof TECoreException) {
+            /*
+             * Avoid unnecessary exception type conversion.
+             */
+            return e;
         } else if (e instanceof ProxyException) {
             /*
              * ProxyException covers all the checked exceptions that escape

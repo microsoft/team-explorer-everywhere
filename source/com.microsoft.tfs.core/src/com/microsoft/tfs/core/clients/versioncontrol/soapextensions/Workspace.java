@@ -2471,7 +2471,11 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
                             ChangePendedFlags.UNKNOWN);
                     } catch (final Exception e) {
                         log.error("Error processing GET operations", e); //$NON-NLS-1$
-                        throw new RuntimeException(e);
+                        if (e instanceof VersionControlException) {
+                            throw (VersionControlException) e;
+                        } else {
+                            throw new VersionControlException(e);
+                        }
                     } finally {
                         TaskMonitorService.popTaskMonitor(true);
                     }
