@@ -27,6 +27,7 @@ import com.microsoft.tfs.jni.PlatformMiscUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.CollatorFactory;
 import com.microsoft.tfs.util.LocaleInvariantStringHelpers;
+import com.microsoft.tfs.util.StringUtil;
 
 public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
     private static final Log log = LogFactory.getLog(CLCHTTPClientFactory.class);
@@ -110,20 +111,27 @@ public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
         String proxyPort = null;
         String nonProxyHosts = null;
 
+        log.debug("Trying to configure proxy from JVM properties:"); //$NON-NLS-1$
+
         if ("http".equalsIgnoreCase(connectionInstanceData.getServerURI().getScheme())) //$NON-NLS-1$
         {
             proxyHost = System.getProperty("http.proxyHost"); //$NON-NLS-1$
+            logIfDefined("http.proxyHost", proxyHost); //$NON-NLS-1$
             proxyPort = System.getProperty("http.proxyPort"); //$NON-NLS-1$
+            logIfDefined("http.proxyPort", proxyPort); //$NON-NLS-1$
             nonProxyHosts = System.getProperty("http.nonProxyHosts"); //$NON-NLS-1$
+            logIfDefined("http.nonProxyHosts", nonProxyHosts); //$NON-NLS-1$
         } else if ("https".equalsIgnoreCase(connectionInstanceData.getServerURI().getScheme())) //$NON-NLS-1$
         {
             proxyHost = System.getProperty("https.proxyHost"); //$NON-NLS-1$
+            logIfDefined("https.proxyHost", proxyHost); //$NON-NLS-1$
             proxyPort = System.getProperty("https.proxyPort"); //$NON-NLS-1$
+            logIfDefined("https.proxyPort", proxyPort); //$NON-NLS-1$
             nonProxyHosts = System.getProperty("https.nonProxyHosts"); //$NON-NLS-1$
+            logIfDefined("https.nonProxyHosts", nonProxyHosts); //$NON-NLS-1$
         }
 
-        if (proxyHost != null
-            && proxyHost.length() > 0
+        if (!StringUtil.isNullOrEmpty(proxyHost)
             && !hostExcludedFromProxyProperties(connectionInstanceData.getServerURI(), nonProxyHosts)) {
             int proxyPortValue = -1;
 
@@ -159,6 +167,7 @@ public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
             }
         }
 
+        log.debug("    proxy is not defined in JVM properties or excluded"); //$NON-NLS-1$
         return null;
     }
 
@@ -170,6 +179,8 @@ public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
         String proxyUrl = null;
         String nonProxyHosts;
 
+        log.debug("Trying to configure proxy from environment variables:"); //$NON-NLS-1$
+
         /*
          * If we're doing HTTPS, check for the presence of an HTTPS proxy
          * environment variable.
@@ -177,10 +188,12 @@ public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
         if ("https".equalsIgnoreCase(connectionInstanceData.getServerURI().getScheme())) //$NON-NLS-1$
         {
             proxyUrl = PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.HTTPS_PROXY_URL);
+            logIfDefined(EnvironmentVariables.HTTPS_PROXY_URL, proxyUrl);
 
-            if (proxyUrl == null || proxyUrl.length() == 0) {
+            if (StringUtil.isNullOrEmpty(proxyUrl)) {
                 proxyUrl = PlatformMiscUtils.getInstance().getEnvironmentVariable(
                     EnvironmentVariables.HTTPS_PROXY_URL_ALTERNATE);
+                logIfDefined(EnvironmentVariables.HTTPS_PROXY_URL_ALTERNATE, proxyUrl);
             }
         }
 
@@ -193,16 +206,19 @@ public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
          * (Note, we have always tried using the HTTP_PROXY environment variable
          * for HTTPS connections, so continue to support this.)
          */
-        if (proxyUrl == null || proxyUrl.length() == 0) {
+        if (StringUtil.isNullOrEmpty(proxyUrl)) {
             proxyUrl = PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.HTTP_PROXY_URL);
+            logIfDefined(EnvironmentVariables.HTTP_PROXY_URL, proxyUrl);
 
-            if (proxyUrl == null || proxyUrl.length() == 0) {
+            if (StringUtil.isNullOrEmpty(proxyUrl)) {
                 proxyUrl = PlatformMiscUtils.getInstance().getEnvironmentVariable(
                     EnvironmentVariables.HTTP_PROXY_URL_ALTERNATE);
+                logIfDefined(EnvironmentVariables.HTTP_PROXY_URL_ALTERNATE, proxyUrl);
             }
         }
 
-        if (proxyUrl == null || proxyUrl.length() == 0) {
+        if (StringUtil.isNullOrEmpty(proxyUrl)) {
+            log.debug("    proxy is not defined in environment variables"); //$NON-NLS-1$
             return null;
         }
 
@@ -212,13 +228,16 @@ public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
          * the variable and its alternate.)
          */
         nonProxyHosts = PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.NO_PROXY_HOSTS);
+        logIfDefined(EnvironmentVariables.NO_PROXY_HOSTS, nonProxyHosts);
 
-        if (nonProxyHosts == null || nonProxyHosts.length() == 0) {
+        if (StringUtil.isNullOrEmpty(nonProxyHosts)) {
             nonProxyHosts =
                 PlatformMiscUtils.getInstance().getEnvironmentVariable(EnvironmentVariables.NO_PROXY_HOSTS_ALTERNATE);
+            logIfDefined(EnvironmentVariables.NO_PROXY_HOSTS_ALTERNATE, nonProxyHosts);
         }
 
         if (hostExcludedFromProxyEnvironment(connectionInstanceData.getServerURI(), nonProxyHosts)) {
+            log.debug("    proxy is defined, but excluded in environment variables"); //$NON-NLS-1$
             return null;
         }
 
@@ -262,6 +281,12 @@ public class CLCHTTPClientFactory extends DefaultHTTPClientFactory {
         }
 
         return new CLCHTTPProxyConfiguration(proxyURI.getHost(), proxyURI.getPort(), username, password);
+    }
+
+    private void logIfDefined(final String name, final String value) {
+        if (!StringUtil.isNullOrEmpty(value)) {
+            log.debug("    " + name + "=" + value); //$NON-NLS-1$ //$NON-NLS-2$
+        }
     }
 
     /**
