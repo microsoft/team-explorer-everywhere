@@ -14,8 +14,11 @@ Supported on Linux, Mac OS X, and Windows.
 Compatible with IDEs that are based on Eclipse 3.5 to 4.5.
 
 ## Where Can I Get This Eclipse Plug-in?
-The plug-in is freely available from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/team-explorer-everywhere).
+
+a) The plug-in is freely available from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/team-explorer-everywhere).
 Hover over the `Install` button for more information on how to install it into your version of Eclipse.
+
+b) Follow instuctions at https://java.visualstudio.com/Docs/tools/eclipse and use update site `http://dl.microsoft.com/eclipse/`.
 
 ## What is the Command-line Client for TFS?
 The CLC for TFS allows you run version control commands from a console/terminal window against a TFS server on any operating system. 
