@@ -26,7 +26,7 @@ This tool is for use with Team Foundation Version Control (TFVC), a centralized 
 If you prefer to use Git, you can use any Git client with TFS or Team Services as well.
 
 ## Where Can I Get The Command-line Client?
-The CLC is a separate download choice when you choose to download TEE [here](https://www.visualstudio.com/downloads/download-visual-studio-vs#d-team-explorer-everywhere). 
+The CLC is a separate download choice when you choose to download TEE [here](https://www.microsoft.com/download/details.aspx?id=47727). 
 
 ## Building with Ant
 ### Install Java 6
