@@ -203,7 +203,9 @@ public final class CommandResolve extends Command implements ConflictResolvedLis
          */
         boolean containsSymlink = false;
         for (final Conflict conflict : conflicts) {
-            if (FileSystemUtils.getInstance().getAttributes(conflict.getTargetLocalItem()).isSymbolicLink()) {
+            if (conflict.getTargetLocalItem() != null
+                && conflict.getTargetLocalItem().length() > 0
+                && FileSystemUtils.getInstance().getAttributes(conflict.getTargetLocalItem()).isSymbolicLink()) {
                 containsSymlink = true;
                 break;
             }
