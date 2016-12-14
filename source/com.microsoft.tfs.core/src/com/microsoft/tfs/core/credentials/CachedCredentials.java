@@ -41,10 +41,6 @@ public class CachedCredentials {
         Check.notNull(credentials, "credentials"); //$NON-NLS-1$
         this.uri = uri;
 
-        Check.isTrue(
-            credentials instanceof UsernamePasswordCredentials || credentials instanceof CookieCredentials,
-            "credentials must be UsernamePasswordCredentials or CookieCredentials"); //$NON-NLS-1$
-
         if (credentials instanceof UsernamePasswordCredentials) {
             Check.notNull(
                 ((UsernamePasswordCredentials) credentials).getUsername(),
@@ -146,6 +142,10 @@ public class CachedCredentials {
      */
     public Cookie[] getCookies() {
         return cookies;
+    }
+
+    public boolean isNtlmCredentials() {
+        return cookies == null && username == null && password == null;
     }
 
     public boolean isCookieCredentials() {

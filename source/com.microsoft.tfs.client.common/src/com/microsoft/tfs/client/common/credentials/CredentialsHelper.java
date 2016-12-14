@@ -64,7 +64,7 @@ public abstract class CredentialsHelper {
         final URI baseURI = connection.getBaseURI();
         final CachedCredentials currentCredentials = new CachedCredentials(baseURI, connection.getCredentials());
 
-        if (!currentCredentials.isCookieCredentials()) {
+        if (currentCredentials.isCookieCredentials() || currentCredentials.isNtlmCredentials()) {
             // The current credentials are not of the UsernamePassword type.
             // We cannot use them for Git.
             return;
@@ -75,8 +75,7 @@ public abstract class CredentialsHelper {
         if (cachedCredentials == null) {
             // No credentials are cached for Git.
             // Let's use the current ones. They might be either PAT or
-            // Alternative (on
-            // hosted)/Basic (on prem.)
+            // Alternative (on hosted)/Basic (on prem.)
             gitCredentialsManager.setCredentials(currentCredentials);
         }
 
@@ -93,7 +92,7 @@ public abstract class CredentialsHelper {
             gitCredentialsManager.setCredentials(currentCredentials);
         }
 
-        log.info("The type of cachec credentials does not match to the one of the current credentials."); //$NON-NLS-1$
+        log.info("The type of cached credentials does not match to the one of the current credentials."); //$NON-NLS-1$
         log.info("The user has to clean up the cached credentials explicitly."); //$NON-NLS-1$
     }
 
