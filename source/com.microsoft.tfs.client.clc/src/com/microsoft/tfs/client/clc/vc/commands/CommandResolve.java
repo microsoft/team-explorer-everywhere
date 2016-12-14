@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.microsoft.alm.client.utils.StringUtil;
 import com.microsoft.tfs.client.clc.AcceptedOptionSet;
 import com.microsoft.tfs.client.clc.EnvironmentVariables;
 import com.microsoft.tfs.client.clc.ExitCode;
@@ -203,7 +204,8 @@ public final class CommandResolve extends Command implements ConflictResolvedLis
          */
         boolean containsSymlink = false;
         for (final Conflict conflict : conflicts) {
-            if (FileSystemUtils.getInstance().getAttributes(conflict.getTargetLocalItem()).isSymbolicLink()) {
+            if (!StringUtil.isNullOrEmpty(conflict.getTargetLocalItem())
+                && FileSystemUtils.getInstance().getAttributes(conflict.getTargetLocalItem()).isSymbolicLink()) {
                 containsSymlink = true;
                 break;
             }
