@@ -79,7 +79,6 @@ See [Contributing](https://github.com/Microsoft/team-explorer-everywhere/blob/ma
 
 ## Localization
 We highly encourage contributions to our translations.
-See [Localization](https://github.com/Microsoft/team-explorer-everywhere/blob/master/Localization.md) for details.
 
 ## Frequently Asked Questions (FAQ)
 **Q: Is there a beginner's guide for TEE?**
