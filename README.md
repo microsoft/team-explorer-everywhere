@@ -75,7 +75,11 @@ Note: The Eclipse target installation location is needed as a parameter for the 
 
 ## Contributing
 We welcome pull requests. Please fork this repo and send us your contributions.
-See [Contributing](https://github.com/Microsoft/team-explorer-everywhere/blob/master/Contributing.md) for details.
+See [Contributing](./Contributing.md) for details.
+
+## Localization
+We highly encourage contributions to our translations.
+See [Localization](./Localization.md) for details.
 
 ## Frequently Asked Questions (FAQ)
 **Q: Is there a beginner's guide for TEE?**
