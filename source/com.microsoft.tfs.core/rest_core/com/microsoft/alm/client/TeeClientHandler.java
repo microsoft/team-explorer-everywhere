@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.microsoft.alm.client.model.VssResourceNotFoundException;
 import com.microsoft.alm.client.model.VssServiceException;
 import com.microsoft.alm.client.utils.JsonHelper;
+import com.microsoft.alm.client.VssRestClientHandler;
 import com.microsoft.alm.visualstudio.services.webapi.ApiResourceLocation;
 import com.microsoft.alm.visualstudio.services.webapi.ApiResourceLocationCollection;
 import com.microsoft.alm.visualstudio.services.webapi.ApiResourceVersion;

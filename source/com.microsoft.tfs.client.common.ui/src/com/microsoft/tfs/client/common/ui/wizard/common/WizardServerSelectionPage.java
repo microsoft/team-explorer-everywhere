@@ -160,11 +160,17 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 if (profile != null) {
                     log.info("Profile ID = " + profile.getId()); //$NON-NLS-1$
 
+                    final String tfsUrlProperty =
+                        "Microsoft.VisualStudio.Services.Account.ServiceUrl.00025394-6065-48CA-87D9-7F5672854EF7"; //$NON-NLS-1$
                     final AccountHttpClient accountClient =
                         new AccountHttpClient(clientHandler, URIUtils.VSTS_ROOT_URL);
 
+                    // final List<Account> accounts =
+                    // accountClient.getAccounts(null, null, profile.getId(),
+                    // null, tfsUrlProperty, null);
                     final List<Account> accounts = accountClient.getAccounts(profile.getId());
                     log.info("Accounts number = " + accounts.size()); //$NON-NLS-1$
+                    log.info("Propertied number = " + accounts.get(0).getProperties().size()); //$NON-NLS-1$
 
                     return accounts;
                 }
