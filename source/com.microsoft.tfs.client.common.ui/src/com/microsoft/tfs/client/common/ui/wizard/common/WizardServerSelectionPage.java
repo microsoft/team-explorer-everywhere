@@ -58,6 +58,7 @@ import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Platform;
+import com.microsoft.tfs.util.StringUtil;
 
 public class WizardServerSelectionPage extends ExtendedWizardPage {
     public static final String PAGE_NAME = "WizardServerSelectionPage"; //$NON-NLS-1$
@@ -65,6 +66,8 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
     private static final Log log = LogFactory.getLog(WizardServerSelectionPage.class);
 
     private static final int MAX_CREDENTIALS_RETRIES = 3;
+    private static final String TFS_URL_PROPERTY_NAME =
+        "Microsoft.VisualStudio.Services.Account.ServiceUrl.00025394-6065-48CA-87D9-7F5672854EF7"; //$NON-NLS-1$
 
     private ServerTypeSelectControl serverTypeSelectControl;
 
@@ -160,17 +163,11 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 if (profile != null) {
                     log.info("Profile ID = " + profile.getId()); //$NON-NLS-1$
 
-                    final String tfsUrlProperty =
-                        "Microsoft.VisualStudio.Services.Account.ServiceUrl.00025394-6065-48CA-87D9-7F5672854EF7"; //$NON-NLS-1$
                     final AccountHttpClient accountClient =
                         new AccountHttpClient(clientHandler, URIUtils.VSTS_ROOT_URL);
 
-                    // final List<Account> accounts =
-                    // accountClient.getAccounts(null, null, profile.getId(),
-                    // null, tfsUrlProperty, null);
-                    final List<Account> accounts = accountClient.getAccounts(profile.getId());
-                    log.info("Accounts number = " + accounts.size()); //$NON-NLS-1$
-                    log.info("Propertied number = " + accounts.get(0).getProperties().size()); //$NON-NLS-1$
+                    final List<Account> accounts =
+                        accountClient.getAccounts(null, null, profile.getId(), null, TFS_URL_PROPERTY_NAME, null);
 
                     return accounts;
                 }
@@ -220,19 +217,25 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
         for (final Account account : accounts) {
             log.debug("Account name = " + account.getAccountName()); //$NON-NLS-1$
-            log.debug("Account URI  = " + account.getAccountUri()); //$NON-NLS-1$
 
-            final String accountURI = "https://" + account.getAccountName() + ".visualstudio.com"; //$NON-NLS-1$ //$NON-NLS-2$
+            if (account.getProperties() != null && account.getProperties().containsKey(TFS_URL_PROPERTY_NAME)) {
 
-            try {
-                final URI uri = URIUtils.newURI(accountURI);
-                final TFSConnection configurationServer =
-                    openAccount(uri, CredentialsHelper.getOAuthCredentials(uri, deviceFlowCallback));
-                if (configurationServer != null) {
-                    configurationServers.add(configurationServer);
+                final String accountURL = account.getProperties().get(TFS_URL_PROPERTY_NAME).getValue();
+
+                if (!StringUtil.isNullOrEmpty(accountURL)) {
+                    log.debug("Account URI  = " + accountURL); //$NON-NLS-1$
+
+                    try {
+                        final URI uri = URIUtils.newURI(accountURL);
+                        final TFSConnection configurationServer =
+                            openAccount(uri, CredentialsHelper.getOAuthCredentials(uri, deviceFlowCallback));
+                        if (configurationServer != null) {
+                            configurationServers.add(configurationServer);
+                        }
+                    } catch (final Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
                 }
-            } catch (final Exception e) {
-                log.error(e.getMessage(), e);
             }
         }
 
