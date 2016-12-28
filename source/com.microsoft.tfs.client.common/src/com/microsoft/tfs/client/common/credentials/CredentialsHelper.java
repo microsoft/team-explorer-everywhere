@@ -25,7 +25,6 @@ import com.microsoft.alm.secret.VsoTokenScope;
 import com.microsoft.alm.storage.InsecureInMemoryStore;
 import com.microsoft.alm.storage.SecretStore;
 import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
-import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionToken;
 import com.microsoft.tfs.client.common.Messages;
 import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
 import com.microsoft.tfs.core.TFSConnection;

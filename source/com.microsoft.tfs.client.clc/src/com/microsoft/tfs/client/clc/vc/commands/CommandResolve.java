@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.microsoft.alm.client.utils.StringUtil;
 import com.microsoft.tfs.client.clc.AcceptedOptionSet;
 import com.microsoft.tfs.client.clc.EnvironmentVariables;
 import com.microsoft.tfs.client.clc.ExitCode;
@@ -56,6 +55,7 @@ import com.microsoft.tfs.core.externaltools.validators.ExternalToolException;
 import com.microsoft.tfs.core.util.FileEncoding;
 import com.microsoft.tfs.jni.FileSystemUtils;
 import com.microsoft.tfs.util.Check;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.process.ProcessFinishedHandler;
 import com.microsoft.tfs.util.process.ProcessRunner;
 

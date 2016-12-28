@@ -4,12 +4,8 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.core;singleton:=true
 Bundle-Version: 14.111.1.qualifier
 Bundle-ClassPath: com.microsoft.tfs.core.jar,
- libs/AlmHttpClient-15.108.0.20161221/alm-vss-client-15.108.2-SNAPSHOT.jar,
- libs/AlmHttpClient-15.108.0.20161221/alm-gallery-client-15.108.2-SNAPSHOT.jar,
- libs/AlmHttpClient-15.108.0.20161221/alm-extensionmanagement-client-15.108.2-SNAPSHOT.jar,
- libs/AlmHttpClient-15.108.0.20161221/alm-distributedtask-client-15.108.2-SNAPSHOT.jar,
- libs/AlmHttpClient-15.108.0.20161221/alm-tfs-client-15.108.2-SNAPSHOT.jar,
- libs/AlmHttpClient-15.108.0.20161221/alm-releasemanagement-client-15.108.2-SNAPSHOT.jar,
+ libs/AlmHttpClient-15.108.2.20161221/alm-vss-client-15.108.2-20161221.204102-2.jar,
+ libs/AlmHttpClient-15.108.2.20161221/alm-tfs-client-15.108.2-20161221.204212-2.jar,
  libs/hsqldb-1.8.0.10-ebcdic/hsqldb.jar,
  libs/xerces-2.8.0/xercesImpl.jar,
  libs/xerces-2.8.0/xml-apis.jar,
@@ -34,7 +30,11 @@ Bundle-ClassPath: com.microsoft.tfs.core.jar,
  libs/java-auth-lib/auth-common-0.5.0.jar,
  libs/java-auth-lib/auth-core-0.5.0.jar,
  libs/java-auth-lib/auth-providers-0.5.0.jar,
- libs/java-auth-lib/auth-secure-storage-0.5.0.jar
+ libs/java-auth-lib/auth-secure-storage-0.5.0.jar,
+ libs/AlmHttpClient-15.108.2.20161221/alm-distributedtask-client-15.108.2-20161221.204113-2.jar,
+ libs/AlmHttpClient-15.108.2.20161221/alm-extensionmanagement-client-15.108.2-20161221.204125-2.jar,
+ libs/AlmHttpClient-15.108.2.20161221/alm-gallery-client-15.108.2-20161221.204119-2.jar,
+ libs/AlmHttpClient-15.108.2.20161221/alm-releasemanagement-client-15.108.2-20161221.204137-2.jar
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
 Export-Package: .,
