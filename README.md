@@ -20,6 +20,8 @@ Hover over the `Install` button for more information on how to install it into y
 
 b) Follow instructions at https://java.visualstudio.com/Docs/tools/eclipse and use update site `http://dl.microsoft.com/eclipse/`.
 
+c) You can also manually download and install the plug-in from the [Releases](https://github.com/Microsoft/team-explorer-everywhere/releases) section of this GitHub repository.
+
 ## What is the Command-line Client for TFS?
 The CLC for TFS allows you run version control commands from a console/terminal window against a TFS server on any operating system. 
 This tool is for use with Team Foundation Version Control (TFVC), a centralized version control system.
