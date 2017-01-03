@@ -108,7 +108,7 @@ public abstract class BuildFavoriteItem {
             new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
 
         final DefinitionReference definition =
-            buildClient.getDefinition(oldDefinition.getProject().getId(), oldDefinition.getId(), null, null);
+            buildClient.getDefinition(oldDefinition.getProject().getId(), oldDefinition.getId(), null, null, null);
 
         if (definition == null || !(definition instanceof BuildDefinition) || definition.getUri() == null) {
             throw new FavoritesException("Build favorite " + oldDefinition.getUri() + " does not exist."); //$NON-NLS-1$ //$NON-NLS-2$

@@ -6,26 +6,18 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="rest_core"/>
 	<classpathentry kind="src" path="tests"/>
-	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-distributedtask-client-15.105.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.105.0.20161011/alm-distributedtask-client-15.105.0-SNAPSHOT-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-extensionmanagement-client-15.105.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.105.0.20161011/alm-extensionmanagement-client-15.105.0-SNAPSHOT-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-gallery-client-15.105.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.105.0.20161011/alm-gallery-client-15.105.0-SNAPSHOT-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-releasemanagement-client-15.105.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.105.0.20161011/alm-releasemanagement-client-15.105.0-SNAPSHOT-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-tfs-client-15.105.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.105.0.20161011/alm-tfs-client-15.105.0-SNAPSHOT-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-vss-client-15.105.0-SNAPSHOT.jar" sourcepath="libs/AlmHttpClient-15.105.0.20161011/alm-vss-client-15.105.0-SNAPSHOT-sources.jar"/>
-	<classpathentry kind="lib" path="libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar"/>
-	<classpathentry kind="lib" path="libs/applicationinsights-core/applicationinsights-core-1.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-common-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-common-0.5.0-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-core-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-core-0.5.0-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-providers-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-providers-0.5.0-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-secure-storage-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-secure-storage-0.5.0-sources.jar"/>
-	<classpathentry kind="lib" path="libs/logging-1.1.3/commons-logging-1.1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.108.2/alm-vss-client-15.108.2-20161228.200110-6.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/AlmHttpClient-15.108.2/alm-tfs-client-15.108.2-20161228.200220-6.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/hsqldb-1.8.0.10-ebcdic/hsqldb.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/guava-12.0.1/guava-12.0.1.jar"/>
 	<classpathentry kind="lib" path="libs/commons-codec-1.6/commons-codec-1.6.jar" sourcepath="libs_src/commons-codec-1.6/commons-codec-1.6-sources.jar"/>
-	<classpathentry kind="lib" path="libs/commons-io-2.4/commons-io-2.4.jar"/>
-	<classpathentry kind="lib" path="libs/commons-lang3-3.1/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="libs/httpcore-4.3/httpcore-4.3.jar"/>
-	<classpathentry kind="lib" path="libs/httpclient-4.3.1/httpclient-4.3.1.jar"/>
-	<classpathentry kind="lib" path="libs/hsqldb-1.8.0.10-ebcdic/hsqldb.jar"/>
-	<classpathentry kind="lib" path="libs/guava-12.0.1/guava-12.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/commons-io-2.4/commons-io-2.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/commons-lang3-3.1/commons-lang3-3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/httpclient-4.3.1/httpclient-4.3.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/httpcore-4.3/httpcore-4.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jsr305-1.3.9/jsr305-1.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/logging-1.1.3/commons-logging-1.1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/applicationinsights-core/applicationinsights-core-1.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jackson-core-2.4.1/jackson-annotations-2.4.1.jar" sourcepath="libs_src/jackson-core-2.4.1/jackson-annotations-2.4.1-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:platform:/resource/com.microsoft.tfs.core/libs_src/jackson-core-2.4.1/jackson-annotations-2.4.1-javadoc.jar!/"/>
@@ -41,9 +33,15 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/com.microsoft.tfs.core/libs_src/jackson-core-2.4.1/jackson-databind-2.4.1-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jna/jna-4.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jna/jna-platform-4.2.1.jar"/>
-	<classpathentry kind="lib" path="libs/jsr305-1.3.9/jsr305-1.3.9.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/slf4j/slf4j-api-1.7.19.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/slf4j/slf4j-log4j12-1.7.19.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/oauth2-useragent/oauth2-useragent-0.11.2.jar" sourcepath="libs/oauth2-useragent/oauth2-useragent-0.11.2-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-common-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-common-0.5.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-core-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-core-0.5.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-providers-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-providers-0.5.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/java-auth-lib/auth-secure-storage-0.5.0.jar" sourcepath="libs/java-auth-lib/auth-secure-storage-0.5.0-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
