@@ -32,14 +32,11 @@ import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.config.UIClientConnectionAdvisor;
-import com.microsoft.tfs.client.common.ui.config.UITransportAuthRunnable;
-import com.microsoft.tfs.client.common.ui.config.UITransportFederatedAuthRunnable;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl.ServerTypeSelectionChangedEvent;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl.ServerTypeSelectionChangedListener;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.OAuth2DeviceFlowCallbackDialog;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandFinishedCallbackFactory;
-import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizard;
 import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizardPage;
@@ -47,7 +44,6 @@ import com.microsoft.tfs.client.common.ui.tasks.ConnectToConfigurationServerTask
 import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
-import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
@@ -138,7 +134,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         final AtomicReference<JwtCredentials> vstsCredentialsHolder,
         final Action<DeviceFlowResponse> deviceFlowCallback) {
         for (int retriesLeft = MAX_CREDENTIALS_RETRIES; retriesLeft > 0; retriesLeft--) {
-            final Credentials vstsCredentials =
+            final JwtCredentials vstsCredentials =
                 getVstsRootCredentials(retriesLeft == MAX_CREDENTIALS_RETRIES, deviceFlowCallback);
 
             if (vstsCredentials == null) {
@@ -146,9 +142,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
                 break;
             }
 
-            if (vstsCredentials instanceof JwtCredentials) {
-                vstsCredentialsHolder.set((JwtCredentials) vstsCredentials);
-            }
+            vstsCredentialsHolder.set(vstsCredentials);
 
             /*
              * At this point we do not have any connection which HTTPClient we
@@ -245,39 +239,18 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         return configurationServers;
     }
 
-    private Credentials getVstsRootCredentials(
+    private JwtCredentials getVstsRootCredentials(
         final boolean tryCurrentCredentials,
         final Action<DeviceFlowResponse> deviceFlowCallback) {
         final Credentials vstsCredentials;
 
-        if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)) {
+        vstsCredentials = CredentialsHelper.getOAuthCredentials(null, null, deviceFlowCallback);
 
-            vstsCredentials = CredentialsHelper.getOAuthCredentials(null, null, deviceFlowCallback);
-
-            if (vstsCredentials != null && (vstsCredentials instanceof JwtCredentials)) {
-                return vstsCredentials;
-            } else {
-                return null;
-            }
+        if (vstsCredentials != null && (vstsCredentials instanceof JwtCredentials)) {
+            return (JwtCredentials) vstsCredentials;
         }
 
-        final Credentials currentCredentials = tryCurrentCredentials ? getCurrentCredentials() : null;
-
-        if (currentCredentials == null || !(currentCredentials instanceof CookieCredentials)) {
-            final UITransportAuthRunnable dialogRunnable = new UITransportFederatedAuthRunnable();
-
-            log.debug("Prompt for credentials"); //$NON-NLS-1$
-            UIHelpers.runOnUIThread(getShell(), false, dialogRunnable);
-
-            vstsCredentials = dialogRunnable.getCredentials();
-
-            log.debug("The dialog returned credentials: " //$NON-NLS-1$
-                + (vstsCredentials == null ? "null" : vstsCredentials.getClass().getName())); //$NON-NLS-1$
-
-            return vstsCredentials;
-        } else {
-            return ((CookieCredentials) currentCredentials).setDomain(URIUtils.VSTS_ROOT_URL.getHost());
-        }
+        return null;
     }
 
     private Action<DeviceFlowResponse> getDeviceFlowCallback() {
