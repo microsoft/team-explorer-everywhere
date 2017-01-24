@@ -77,21 +77,21 @@ public abstract class CredentialsHelper {
             // Let's use the current ones. They might be either PAT or
             // Alternative (on hosted)/Basic (on prem.)
             gitCredentialsManager.setCredentials(currentCredentials);
+            return;
         }
 
-        if (cachedCredentials != null) {
-            if (cachedCredentials.equals(currentCredentials)) {
-                // The credentials haven't changed.
-                // No need to refresh.
-                return;
-            }
+        if (cachedCredentials.equals(currentCredentials)) {
+            // The credentials haven't changed.
+            // No need to refresh.
+            return;
+        }
 
-            if (cachedCredentials.isPatCredentials() == currentCredentials.isPatCredentials()) {
-                // The credentials are changed and are of the same type, i.e
-                // either both PAT, or both Alternative/Basic. Let's refresh the
-                // cached credentials.
-                gitCredentialsManager.setCredentials(currentCredentials);
-            }
+        if (cachedCredentials.isPatCredentials() == currentCredentials.isPatCredentials()) {
+            // The credentials are changed and are of the same type, i.e
+            // either both PAT, or both Alternative/Basic. Let's refresh the
+            // cached credentials.
+            gitCredentialsManager.setCredentials(currentCredentials);
+            return;
         }
 
         log.info("The type of cached credentials does not match to the one of the current credentials."); //$NON-NLS-1$
