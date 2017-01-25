@@ -6,6 +6,7 @@ package com.microsoft.tfs.client.common.ui.wizard.common;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,14 +32,11 @@ import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.config.UIClientConnectionAdvisor;
-import com.microsoft.tfs.client.common.ui.config.UITransportAuthRunnable;
-import com.microsoft.tfs.client.common.ui.config.UITransportFederatedAuthRunnable;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl.ServerTypeSelectionChangedEvent;
 import com.microsoft.tfs.client.common.ui.controls.connect.ServerTypeSelectControl.ServerTypeSelectionChangedListener;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.OAuth2DeviceFlowCallbackDialog;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandFinishedCallbackFactory;
-import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizard;
 import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizardPage;
@@ -46,7 +44,6 @@ import com.microsoft.tfs.client.common.ui.tasks.ConnectToConfigurationServerTask
 import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
-import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
@@ -110,9 +107,12 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         if (serverTypeSelectControl.isVstsSelected()) {
 
             final Action<DeviceFlowResponse> deviceFlowCallback = getDeviceFlowCallback();
-            final List<Account> accounts = getUserAccounts(deviceFlowCallback);
+            final AtomicReference<JwtCredentials> vstsCredentials = new AtomicReference<JwtCredentials>();
 
-            final List<TFSConnection> configurationServers = getConfigurationServers(accounts, deviceFlowCallback);
+            final List<Account> accounts = getUserAccounts(vstsCredentials, deviceFlowCallback);
+
+            final List<TFSConnection> configurationServers =
+                getConfigurationServers(accounts, vstsCredentials, deviceFlowCallback);
             setPageData(configurationServers);
 
             return configurationServers.size() > 0;
@@ -130,15 +130,19 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         }
     }
 
-    private List<Account> getUserAccounts(final Action<DeviceFlowResponse> deviceFlowCallback) {
+    private List<Account> getUserAccounts(
+        final AtomicReference<JwtCredentials> vstsCredentialsHolder,
+        final Action<DeviceFlowResponse> deviceFlowCallback) {
         for (int retriesLeft = MAX_CREDENTIALS_RETRIES; retriesLeft > 0; retriesLeft--) {
-            final Credentials vstsCredentials =
+            final JwtCredentials vstsCredentials =
                 getVstsRootCredentials(retriesLeft == MAX_CREDENTIALS_RETRIES, deviceFlowCallback);
 
             if (vstsCredentials == null) {
                 log.info(" Credentials dialog has been cancelled by the user."); //$NON-NLS-1$
                 break;
             }
+
+            vstsCredentialsHolder.set(vstsCredentials);
 
             /*
              * At this point we do not have any connection which HTTPClient we
@@ -209,9 +213,11 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
 
     private List<TFSConnection> getConfigurationServers(
         final List<Account> accounts,
+        final AtomicReference<JwtCredentials> vstsCredentialsHolder,
         final Action<DeviceFlowResponse> deviceFlowCallback) {
         final List<TFSConnection> configurationServers = new ArrayList<TFSConnection>(100);
 
+        final JwtCredentials vstsCredentials = vstsCredentialsHolder.get();
         for (final Account account : accounts) {
             log.debug("Account name = " + account.getAccountName()); //$NON-NLS-1$
             log.debug("Account URI  = " + account.getAccountUri()); //$NON-NLS-1$
@@ -221,7 +227,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
             try {
                 final URI uri = URIUtils.newURI(accountURI);
                 final TFSConnection configurationServer =
-                    openAccount(uri, CredentialsHelper.getOAuthCredentials(uri, deviceFlowCallback));
+                    openAccount(uri, CredentialsHelper.getOAuthCredentials(uri, vstsCredentials, deviceFlowCallback));
                 if (configurationServer != null) {
                     configurationServers.add(configurationServer);
                 }
@@ -233,39 +239,18 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         return configurationServers;
     }
 
-    private Credentials getVstsRootCredentials(
+    private JwtCredentials getVstsRootCredentials(
         final boolean tryCurrentCredentials,
         final Action<DeviceFlowResponse> deviceFlowCallback) {
         final Credentials vstsCredentials;
 
-        if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)) {
+        vstsCredentials = CredentialsHelper.getOAuthCredentials(null, null, deviceFlowCallback);
 
-            vstsCredentials = CredentialsHelper.getOAuthCredentials(null, deviceFlowCallback);
-
-            if (vstsCredentials != null && (vstsCredentials instanceof JwtCredentials)) {
-                return vstsCredentials;
-            } else {
-                return null;
-            }
+        if (vstsCredentials != null && (vstsCredentials instanceof JwtCredentials)) {
+            return (JwtCredentials) vstsCredentials;
         }
 
-        final Credentials currentCredentials = tryCurrentCredentials ? getCurrentCredentials() : null;
-
-        if (currentCredentials == null || !(currentCredentials instanceof CookieCredentials)) {
-            final UITransportAuthRunnable dialogRunnable = new UITransportFederatedAuthRunnable();
-
-            log.debug("Prompt for credentials"); //$NON-NLS-1$
-            UIHelpers.runOnUIThread(getShell(), false, dialogRunnable);
-
-            vstsCredentials = dialogRunnable.getCredentials();
-
-            log.debug("The dialog returned credentials: " //$NON-NLS-1$
-                + (vstsCredentials == null ? "null" : vstsCredentials.getClass().getName())); //$NON-NLS-1$
-
-            return vstsCredentials;
-        } else {
-            return ((CookieCredentials) currentCredentials).setDomain(URIUtils.VSTS_ROOT_URL.getHost());
-        }
+        return null;
     }
 
     private Action<DeviceFlowResponse> getDeviceFlowCallback() {

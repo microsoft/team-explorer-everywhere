@@ -75,7 +75,7 @@ public class UITransportOAuthRunnable extends UITransportAuthRunnable {
          */
         @Override
         public int open() {
-            credentials = CredentialsHelper.getOAuthCredentials(serverURI, this.deviceFlowCallback);
+            credentials = CredentialsHelper.getOAuthCredentials(serverURI, null, this.deviceFlowCallback);
 
             /*
              * Save the return code and notify listeners that the UI credentials

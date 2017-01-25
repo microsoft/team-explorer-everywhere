@@ -77,6 +77,7 @@ public abstract class CredentialsHelper {
             // Let's use the current ones. They might be either PAT or
             // Alternative (on hosted)/Basic (on prem.)
             gitCredentialsManager.setCredentials(currentCredentials);
+            return;
         }
 
         if (cachedCredentials.equals(currentCredentials)) {
@@ -86,17 +87,21 @@ public abstract class CredentialsHelper {
         }
 
         if (cachedCredentials.isPatCredentials() == currentCredentials.isPatCredentials()) {
-            // The credentials are changed and are of the same type, i.e either
-            // both PAT, or both Alternative/Basic. Let's refresh the
+            // The credentials are changed and are of the same type, i.e
+            // either both PAT, or both Alternative/Basic. Let's refresh the
             // cached credentials.
             gitCredentialsManager.setCredentials(currentCredentials);
+            return;
         }
 
         log.info("The type of cached credentials does not match to the one of the current credentials."); //$NON-NLS-1$
         log.info("The user has to clean up the cached credentials explicitly."); //$NON-NLS-1$
     }
 
-    public static Credentials getOAuthCredentials(final URI serverURI, final Action<DeviceFlowResponse> callback) {
+    public static Credentials getOAuthCredentials(
+        final URI serverURI,
+        final JwtCredentials accessToken,
+        final Action<DeviceFlowResponse> callback) {
         removeStaleOAuth2Token();
 
         final Authenticator authenticator;
@@ -114,11 +119,15 @@ public abstract class CredentialsHelper {
                 authenticator.getUriToKeyConversion().convert(serverURI, authenticator.getAuthType());
             removeStalePersonalAccessToken(tokenKey, serverURI);
 
+            final TokenPair oauth2Token =
+                (accessToken == null) ? null : new TokenPair(accessToken.getAccessToken(), "null"); //$NON-NLS-1$
+
             token = authenticator.getPersonalAccessToken(
                 serverURI,
                 VsoTokenScope.AllScopes,
                 getAccessTokenDescription(serverURI.toString()),
-                PromptBehavior.AUTO);
+                PromptBehavior.AUTO,
+                oauth2Token);
         } else {
             log.debug("Interactively retrieving credential based on oauth2 flow for VSTS"); //$NON-NLS-1$
             log.debug("Do not try to persist, generating oauth2 token."); //$NON-NLS-1$
