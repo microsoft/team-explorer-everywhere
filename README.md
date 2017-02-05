@@ -103,7 +103,7 @@ That article specifically shows TFVC but when you go to Share the project, youâ€
 
 **Q: Where can I learn more about the Azure Toolkit for Eclipse?**
 
-**A:** Check the <a href="https://docs.microsoft.com/en-us/azure/azure-toolkit-for-eclipse" target="_blank">Azure Toolkit for Eclipse web page</a>
+**A:** Check the <a href="https://docs.microsoft.com/azure/azure-toolkit-for-eclipse" target="_blank">Azure Toolkit for Eclipse web page</a>
 
 **Q: The TEE Command Line Client has removed the "tf profile" command. How can I connect to TFS without having to repeatedly type my credentials?**
 
