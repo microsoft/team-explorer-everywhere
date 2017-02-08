@@ -4,7 +4,7 @@ We’re using an open localization platform to regularly integrate community fee
 * Go to https://www.transifex.com/, sign in if you have a **Transifex** account, sign up for an account if you don’t have one.
 
 ##Request for access to “Team Explorer Everywhere”
-* Go to https://www.transifex.com/microsoft-oss/teamexplorereverywhere/.
+* Go to https://www.transifex.com/microsoft-oss/team-explorer-everywhere/.
 * Click  ![](./img/join.png)
 * Select the language you want to contribute to.
 ![](./img/screenshot.png)
