@@ -15,7 +15,7 @@ We’re using an open localization platform to regularly integrate community fee
 * Go to https://www.transifex.com/microsoft-oss/teamexplorereverywhere/
 * Select your requested language.
 * Click  ![](./img/trans.png)
-* Select a partucilar resource or choose "All resources" to see all strings in the product.  
+* Select a particular resource or choose "All resources" to see all strings in the product.  
 
 ###Reviewing and voting on translations
 * Review the suggestions and vote ![](./img/1.png) ,  ![](./img/2.png) 
