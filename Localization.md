@@ -12,7 +12,7 @@ We’re using an open localization platform to regularly integrate community fee
 * You will receive a notification when your request is approved.
 
 ##How do I start contributing?
-* Go to https://www.transifex.com/microsoft-oss/teamexplorereverywhere/
+* Go to https://www.transifex.com/microsoft-oss/team-explorer-everywhere/
 * Select your requested language.
 * Click  ![](./img/trans.png)
 * Select a particular resource or choose "All resources" to see all strings in the product.  
