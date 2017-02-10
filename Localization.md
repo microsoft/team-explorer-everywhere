@@ -23,5 +23,8 @@ We’re using an open localization platform to regularly integrate community fee
 ###Adding new translation suggestions
 * Click ![](./img/suggest.png) to suggest a new translation 
 
+###Adding new language
+* Click ![](./img/suggest.png) to suggest a new language 
+
 ###Adding feedback 
 * Click ![](./img/comments.png) and ![](./img/addcomment.png)
