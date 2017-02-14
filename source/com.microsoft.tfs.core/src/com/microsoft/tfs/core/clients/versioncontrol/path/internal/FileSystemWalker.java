@@ -374,12 +374,13 @@ public class FileSystemWalker {
         // Once the current file spec is set, generate a non fatal error if it
         // didn't match anything.
         if (hasNoFileMatches()) {
-            workspace.getClient().getEventEngine().fireNonFatalError(new NonFatalErrorEvent(
-                EventSource.newFromHere(),
-                workspace,
-                new Exception(MessageFormat.format(
-                    Messages.getString("FileSystemWalker.NoFileMatchesFormat"), //$NON-NLS-1$
-                    currentFileSpec))));
+            workspace.getClient().getEventEngine().fireNonFatalError(
+                new NonFatalErrorEvent(
+                    EventSource.newFromHere(),
+                    workspace,
+                    new Exception(MessageFormat.format(
+                        Messages.getString("FileSystemWalker.NoFileMatchesFormat"), //$NON-NLS-1$
+                        currentFileSpec))));
         }
     }
 
@@ -500,7 +501,7 @@ public class FileSystemWalker {
                 }
 
                 fileSpecIsDir = true;
-            } else if (attrs.exists()) {
+            } else if (attrs != null && attrs.exists()) {
                 // getParent() only returns null if given the root of a
                 // filesystem, and this is a file so it can't be the root dir
                 dirName = LocalPath.getParent(currentFileSpec);
