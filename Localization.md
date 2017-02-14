@@ -23,5 +23,14 @@ We’re using an open localization platform to regularly integrate community fee
 ###Adding new translation suggestions
 * Click ![](./img/suggest.png) to suggest a new translation 
 
+###Adding new language support
+If you want to add new language support for TEE, pleaes follow below steps to request a new language.
+* Go to https://www.transifex.com/microsoft-oss/team-explorer-everywhere/
+* Click the Language ![](./img/lang.png) entry under Team Explorer Everywhere in left pane.
+* Then click Edit Languages icon ![](./img/editlang.png)
+* And enter language you want to add ![](./img/addlang.png) and click Apply.
+
 ###Adding feedback 
 * Click ![](./img/comments.png) and ![](./img/addcomment.png)
+
+
