@@ -79,9 +79,15 @@ Note: The Eclipse target installation location is needed as a parameter for the 
 We welcome pull requests. Please fork this repo and send us your contributions.
 See [Contributing](./Contributing.md) for details.
 
-## Localization
-We highly encourage contributions to our translations.
-See [Localization](./Localization.md) for details.
+## Localization / Translation
+Your language, your words, your plug-in for you!
+
+Along with open-sourced Team Explorer Everywhere (TEE) source code, we are making it possible for anyone to contribute translations in your native language. With these changes, you can now improve existing translated resources, translate updated resources, or even provide new language support TEE did not have before. Your contribution will be part of the TEE Plug-in in your language for everyone to use. We highly appreciate your efforts, and we welcome your feedback and suggestions on the TEE community localization process. Your contribution could be in next release!
+
+Please click [Localization](./Localization.md) for details on how to contribute in TEE community translation effort. Feel free to contact [us](mailto:kevinli@microsoft.com) if you have any questions.
+
+**Happy contributing!**
+
 
 ## Frequently Asked Questions (FAQ)
 **Q: Is there a beginner's guide for TEE?**
@@ -103,7 +109,7 @@ That article specifically shows TFVC but when you go to Share the project, youâ€
 
 **Q: Where can I learn more about the Azure Toolkit for Eclipse?**
 
-**A:** Check the <a href="https://msdn.microsoft.com/library/azure/hh694271.aspx" target="_blank">Azure Toolkit for Eclipse web page</a>
+**A:** Check the <a href="https://docs.microsoft.com/azure/azure-toolkit-for-eclipse" target="_blank">Azure Toolkit for Eclipse web page</a>
 
 **Q: The TEE Command Line Client has removed the "tf profile" command. How can I connect to TFS without having to repeatedly type my credentials?**
 
