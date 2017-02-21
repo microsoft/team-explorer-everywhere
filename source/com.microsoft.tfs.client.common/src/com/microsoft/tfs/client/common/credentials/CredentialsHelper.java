@@ -331,14 +331,13 @@ public abstract class CredentialsHelper {
 
         private String getResponseText(final HttpMethodBase request) throws IOException {
             final int statusCode = apacheClient.executeMethod(request);
+            final String responseText = request.getResponseBodyAsString();
 
             if (HttpStatus.isSuccessFamily(statusCode)) {
-                final String responseText = request.getResponseBodyAsString();
-
                 return responseText;
-            } else {
-                throw new IOException(HttpStatus.getStatusText(statusCode));
             }
+
+            throw new IOException(HttpStatus.getStatusText(statusCode) + ":" + responseText); //$NON-NLS-1$
         }
 
         /**
