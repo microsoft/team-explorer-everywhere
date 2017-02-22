@@ -134,15 +134,15 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         final AtomicReference<JwtCredentials> vstsCredentialsHolder,
         final Action<DeviceFlowResponse> deviceFlowCallback) {
         for (int retriesLeft = MAX_CREDENTIALS_RETRIES; retriesLeft > 0; retriesLeft--) {
-            final JwtCredentials vstsCredentials =
-                getVstsRootCredentials(retriesLeft == MAX_CREDENTIALS_RETRIES, deviceFlowCallback);
+            final JwtCredentials azureAccessToken =
+                getAzureAccessToken(retriesLeft == MAX_CREDENTIALS_RETRIES, deviceFlowCallback);
 
-            if (vstsCredentials == null) {
+            if (azureAccessToken == null) {
                 log.info(" Credentials dialog has been cancelled by the user."); //$NON-NLS-1$
                 break;
             }
 
-            vstsCredentialsHolder.set(vstsCredentials);
+            vstsCredentialsHolder.set(azureAccessToken);
 
             /*
              * At this point we do not have any connection which HTTPClient we
@@ -153,7 +153,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
              * credentials provided.
              */
             final TFSConnection vstsConnection =
-                new TFSTeamProjectCollection(URIUtils.VSTS_ROOT_URL, vstsCredentials, new UIClientConnectionAdvisor());
+                new TFSTeamProjectCollection(URIUtils.VSTS_ROOT_URL, azureAccessToken, new UIClientConnectionAdvisor());
             final TeeClientHandler clientHandler = new TeeClientHandler(vstsConnection.getHTTPClient());
 
             final ProfileHttpClient profileClient = new ProfileHttpClient(clientHandler, URIUtils.VSTS_ROOT_URL);
@@ -239,15 +239,17 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
         return configurationServers;
     }
 
-    private JwtCredentials getVstsRootCredentials(
+    private JwtCredentials getAzureAccessToken(
         final boolean tryCurrentCredentials,
         final Action<DeviceFlowResponse> deviceFlowCallback) {
-        final Credentials vstsCredentials;
+        final Credentials azureAccessToken;
 
-        vstsCredentials = CredentialsHelper.getOAuthCredentials(null, null, deviceFlowCallback);
+        // If ServerURI is null, we will get an Azure Access Token that is
+        // global to all VSTS accounts
+        azureAccessToken = CredentialsHelper.getOAuthCredentials(null, null, deviceFlowCallback);
 
-        if (vstsCredentials != null && (vstsCredentials instanceof JwtCredentials)) {
-            return (JwtCredentials) vstsCredentials;
+        if (azureAccessToken != null && (azureAccessToken instanceof JwtCredentials)) {
+            return (JwtCredentials) azureAccessToken;
         }
 
         return null;
