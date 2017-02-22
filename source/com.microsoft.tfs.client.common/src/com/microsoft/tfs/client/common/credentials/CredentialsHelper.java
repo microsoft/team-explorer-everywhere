@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import com.microsoft.alm.auth.Authenticator;
 import com.microsoft.alm.auth.PromptBehavior;
 import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
+import com.microsoft.alm.auth.oauth.Global;
 import com.microsoft.alm.auth.oauth.OAuth2Authenticator;
 import com.microsoft.alm.auth.pat.VstsPatAuthenticator;
 import com.microsoft.alm.client.TeeClientHandler;
@@ -108,6 +109,9 @@ public abstract class CredentialsHelper {
         final OAuth2Authenticator oauth2Authenticator =
             OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, callback);
         final Token token;
+
+        final AuthLibHttpClientFactory authLibHttpClientFactory = new AuthLibHttpClientFactory();
+        Global.setHttpClientFactory(authLibHttpClientFactory);
 
         if (serverURI != null) {
             log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
@@ -284,6 +288,13 @@ public abstract class CredentialsHelper {
         @Override
         public boolean isSecure() {
             return true;
+        }
+    }
+
+    private static class AuthLibHttpClientFactory extends com.microsoft.alm.auth.HttpClientFactory {
+        @Override
+        public com.microsoft.alm.helpers.HttpClient createHttpClient() {
+            return new AuthenticationHttpClientImpl();
         }
     }
 }
