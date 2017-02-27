@@ -10,12 +10,12 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.microsoft.alm.auth.oauth.DeviceFlowResponse;
 import com.microsoft.alm.helpers.Action;
-import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.CredentialsCompleteDialog;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.CredentialsCompleteListener;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.OAuth2DeviceFlowCallbackDialog;
 import com.microsoft.tfs.client.common.ui.framework.helper.ShellUtils;
+import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;

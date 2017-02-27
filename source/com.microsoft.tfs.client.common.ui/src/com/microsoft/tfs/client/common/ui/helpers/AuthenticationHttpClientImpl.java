@@ -1,19 +1,17 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.tfs.client.common.credentials;
+package com.microsoft.tfs.client.common.ui.helpers;
 
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
 import com.microsoft.alm.helpers.HttpResponse;
 import com.microsoft.alm.helpers.StringContent;
-import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
-import com.microsoft.tfs.core.TFSTeamProjectCollection;
+import com.microsoft.tfs.client.common.ui.config.UIClientConnectionAdvisor;
+import com.microsoft.tfs.core.config.ConnectionInstanceData;
 import com.microsoft.tfs.core.httpclient.Header;
 import com.microsoft.tfs.core.httpclient.HttpClient;
 import com.microsoft.tfs.core.httpclient.HttpMethodBase;
@@ -24,6 +22,7 @@ import com.microsoft.tfs.core.httpclient.methods.HeadMethod;
 import com.microsoft.tfs.core.httpclient.methods.PostMethod;
 import com.microsoft.tfs.core.httpclient.methods.StringRequestEntity;
 import com.microsoft.tfs.core.util.URIUtils;
+import com.microsoft.tfs.util.GUID;
 
 public class AuthenticationHttpClientImpl implements com.microsoft.alm.helpers.HttpClient {
 
@@ -31,12 +30,10 @@ public class AuthenticationHttpClientImpl implements com.microsoft.alm.helpers.H
     final private Map<String, String> headers;
 
     public AuthenticationHttpClientImpl() {
-        final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
-            URIUtils.VSTS_ROOT_URL,
-            null,
-            new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
+        final ConnectionInstanceData instanceData = new ConnectionInstanceData(URIUtils.VSTS_ROOT_URL, GUID.newGUID());
+        final UIClientConnectionAdvisor connectionAdvisor = new UIClientConnectionAdvisor();
 
-        apacheClient = rootConnection.getHTTPClient();
+        apacheClient = connectionAdvisor.getHTTPClientFactory(instanceData).newHTTPClient();
         headers = new HashMap<String, String>();
     }
 

@@ -19,7 +19,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
-import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.controls.generic.BaseControl;
@@ -28,6 +27,7 @@ import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.framework.validation.ButtonValidatorBinding;
 import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
+import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.client.common.ui.helpers.UIConnectionPersistence;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;

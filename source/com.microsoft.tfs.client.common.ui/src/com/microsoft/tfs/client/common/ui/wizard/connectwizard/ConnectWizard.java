@@ -9,10 +9,10 @@ import java.util.Locale;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizardPage;
 
-import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.server.TFSServer;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
+import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.client.common.ui.helpers.UIConnectionPersistence;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.ConnectHelpers;
 import com.microsoft.tfs.client.common.ui.wizard.common.WizardCrossCollectionProjectSelectionPage;

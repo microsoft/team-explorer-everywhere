@@ -26,7 +26,6 @@ import com.microsoft.alm.visualstudio.services.account.Account;
 import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
 import com.microsoft.alm.visualstudio.services.profile.Profile;
 import com.microsoft.alm.visualstudio.services.profile.client.ProfileHttpClient;
-import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
 import com.microsoft.tfs.client.common.ui.Messages;
@@ -40,6 +39,7 @@ import com.microsoft.tfs.client.common.ui.framework.command.UICommandFinishedCal
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizard;
 import com.microsoft.tfs.client.common.ui.framework.wizard.ExtendedWizardPage;
+import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.client.common.ui.tasks.ConnectToConfigurationServerTask;
 import com.microsoft.tfs.client.common.ui.wizard.connectwizard.ConnectWizard;
 import com.microsoft.tfs.core.TFSConnection;
