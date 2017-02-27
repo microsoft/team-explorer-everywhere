@@ -1,12 +1,10 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.tfs.client.common.credentials;
+package com.microsoft.tfs.client.common.ui.helpers;
 
 import java.net.URI;
 import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -28,9 +26,10 @@ import com.microsoft.alm.storage.SecretStore;
 import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
 import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionToken;
 import com.microsoft.tfs.client.common.Messages;
-import com.microsoft.tfs.client.common.config.CommonClientConnectionAdvisor;
+import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
+import com.microsoft.tfs.client.common.ui.config.UIClientConnectionAdvisor;
 import com.microsoft.tfs.core.TFSConnection;
-import com.microsoft.tfs.core.TFSTeamProjectCollection;
+import com.microsoft.tfs.core.config.ConnectionInstanceData;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.httpclient.Credentials;
@@ -39,6 +38,7 @@ import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.jni.helpers.LocalHost;
+import com.microsoft.tfs.util.GUID;
 import com.microsoft.tfs.util.StringUtil;
 
 /**
@@ -215,30 +215,15 @@ public abstract class CredentialsHelper {
          * We only use this fake connection object as a source of an HTTPClient
          * configured to use the VSTS credentials provided.
          */
-        final TFSTeamProjectCollection rootConnection = new TFSTeamProjectCollection(
-            baseURI,
-            credentials,
-            new CommonClientConnectionAdvisor(Locale.getDefault(), TimeZone.getDefault()));
-        final AccountHttpClient client =
-            new AccountHttpClient(new TeeClientHandler(rootConnection.getHTTPClient()), baseURI);
+        final ConnectionInstanceData instanceData = new ConnectionInstanceData(baseURI, GUID.newGUID());
+        final UIClientConnectionAdvisor connectionAdvisor = new UIClientConnectionAdvisor();
 
-        try {
-            return client.checkConnection();
-        } finally {
-            /*
-             * We didn't use any features of the vstsConnection but the
-             * HTTPClient. However to release all resources and the
-             * infrastructure created for the connection (e.g.
-             * ShoultDownManager, HTTPClientReference, Service Clients, etc.),
-             * we still should close this connection when leaving the try-catch
-             * block.
-             */
-            try {
-                rootConnection.close();
-            } catch (final Exception e) {
-                log.error("Absolutelly unexpected error while closing not opened connection", e); //$NON-NLS-1$
-            }
-        }
+        final AccountHttpClient client = new AccountHttpClient(
+            new TeeClientHandler(connectionAdvisor.getHTTPClientFactory(instanceData).newHTTPClient()),
+            baseURI);
+
+        return client.checkConnection();
+
     }
 
     private static String getAccessTokenDescription(final String uri) {

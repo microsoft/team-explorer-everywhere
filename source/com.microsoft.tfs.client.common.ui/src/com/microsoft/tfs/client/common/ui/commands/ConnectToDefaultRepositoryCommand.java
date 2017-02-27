@@ -10,11 +10,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 
 import com.microsoft.tfs.client.common.commands.TFSCommand;
-import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.framework.command.CommandExecutor;
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.server.TFSServer;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
+import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.client.common.ui.protocolhandler.ProtocolHandler;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;

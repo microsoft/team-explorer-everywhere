@@ -18,7 +18,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import com.microsoft.tfs.client.common.TFSCommonClientPlugin;
-import com.microsoft.tfs.client.common.credentials.CredentialsHelper;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.framework.command.CommandFactory;
 import com.microsoft.tfs.client.common.git.commands.QueryGitRepositoriesCommand;
@@ -28,6 +27,7 @@ import com.microsoft.tfs.client.common.git.json.TfsGitRepositoryJson;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.CredentialsDialog;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
+import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerGitRepository;
 import com.microsoft.tfs.client.common.ui.vc.serveritem.TypedServerItem;
 import com.microsoft.tfs.client.common.ui.wizard.common.WizardCrossCollectionSelectionPage;
