@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
 import com.microsoft.alm.teamfoundation.build.webapi.DefinitionType;
 import com.microsoft.tfs.client.common.ui.teambuild.editors.BuildExplorer;
 import com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.favorites.BuildFavoriteItem;
@@ -15,9 +16,9 @@ import com.microsoft.tfs.client.common.ui.teamexplorer.actions.TeamExplorerBaseA
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
 
 public abstract class BuildDefinitionVNextAction extends TeamExplorerBaseAction {
-    protected BuildDefinition selectedDefinition;
+    protected BuildDefinitionReference selectedDefinition;
 
-    protected BuildDefinition getSelectedBuildDefinition() {
+    protected BuildDefinitionReference getSelectedBuildDefinition() {
         return selectedDefinition;
     }
 
@@ -41,13 +42,13 @@ public abstract class BuildDefinitionVNextAction extends TeamExplorerBaseAction 
                     final BuildFavoriteItem favorite = (BuildFavoriteItem) o;
 
                     if (favorite.getBuildDefinitionType() == DefinitionType.BUILD) {
-                        selectedDefinition = (BuildDefinition) favorite.getBuildDefinition();
+                        selectedDefinition = (BuildDefinitionReference) favorite.getBuildDefinition();
                         return;
                     }
                 }
 
                 if (o instanceof BuildDefinition) {
-                    selectedDefinition = (BuildDefinition) o;
+                    selectedDefinition = (BuildDefinitionReference) o;
                     return;
                 }
             }
