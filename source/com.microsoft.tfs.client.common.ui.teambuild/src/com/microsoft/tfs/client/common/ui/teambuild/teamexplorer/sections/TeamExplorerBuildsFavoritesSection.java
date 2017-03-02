@@ -25,7 +25,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 import com.microsoft.alm.client.TeeClientHandler;
-import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
 import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
@@ -261,7 +260,8 @@ public abstract class TeamExplorerBuildsFavoritesSection extends TeamExplorerBas
                 if (favorite.getBuildDefinitionType() == DefinitionType.XAML) {
                     return imageHelper.getBuildDefinitionImage((IBuildDefinition) favorite.getBuildDefinition());
                 } else {
-                    return imageHelper.getBuildDefinitionImage((BuildDefinition) favorite.getBuildDefinition());
+                    return imageHelper.getBuildDefinitionImage(
+                        (BuildDefinitionReference) favorite.getBuildDefinition());
                 }
             }
             return null;
@@ -292,7 +292,7 @@ public abstract class TeamExplorerBuildsFavoritesSection extends TeamExplorerBas
                     new OpenBuildDefinitionVNextTask(
                         context.getWorkbenchPart().getSite().getShell(),
                         context.getServer().getConnection(),
-                        (BuildDefinition) favorite.getBuildDefinition()).run();
+                        (BuildDefinitionReference) favorite.getBuildDefinition()).run();
                 }
             }
         }
