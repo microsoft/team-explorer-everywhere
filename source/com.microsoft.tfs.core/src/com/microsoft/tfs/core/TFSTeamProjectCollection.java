@@ -182,7 +182,7 @@ public class TFSTeamProjectCollection extends TFSConnection {
                         if (locationServiceLocation == null) {
                             log.error(
                                 MessageFormat.format(
-                                    "You cannot connect to {0} because it is running a version of Team Foundation Server that is not supported by your version of Visual Studio. Upgrade your server to Team Foundation Server 2010 (or a newer version), or use Visual Studio 2010, Visual Studio 2012 or Visual Studio 2015.", //$NON-NLS-1$
+                                    "You cannot connect to {0} because it is running a version of Team Foundation Server that is not supported by your version of Visual Studio. Upgrade your server to Team Foundation Server 2012 (or a newer version), or use Visual Studio 2010, Visual Studio 2012 or Visual Studio 2015.", //$NON-NLS-1$
                                     getBaseURI()));
 
                             throw new NotSupportedException(MessageFormat.format(
