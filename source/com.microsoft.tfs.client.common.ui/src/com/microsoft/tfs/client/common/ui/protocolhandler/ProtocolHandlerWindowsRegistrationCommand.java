@@ -37,8 +37,8 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
 
     private final static String PROTOCOL_HANDLER_LAUNCHER_PROPERTY = "eclipse.launcher"; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_REGISTRY_KEY =
-        ProtocolHandler.PROTOCOL_HANDLER_SCHEME + "\\Shell\\Open\\Command"; //$NON-NLS-1$
-    private final static String PROTOCOL_HANDLER_REGISTRY_PATH = "HKCR\\" + PROTOCOL_HANDLER_REGISTRY_KEY; //$NON-NLS-1$
+        "SOFTWARE\\Classes\\" + ProtocolHandler.PROTOCOL_HANDLER_SCHEME + "\\Shell\\Open\\Command"; //$NON-NLS-1$ //$NON-NLS-2$
+    private final static String PROTOCOL_HANDLER_REGISTRY_PATH = "HKCU\\" + PROTOCOL_HANDLER_REGISTRY_KEY; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_REG_VALUE_TYPE = "REG_EXPAND_SZ"; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_SCRIPT_PATH = "%USERPROFILE%\\.vsts\\latestIDE.cmd"; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_REG_VALUE =
@@ -121,7 +121,7 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
     }
 
     private boolean isRegistryUpdateNeeded() {
-        final RegistryKey handlerKey = new RegistryKey(RootKey.HKEY_CLASSES_ROOT, PROTOCOL_HANDLER_REGISTRY_KEY);
+        final RegistryKey handlerKey = new RegistryKey(RootKey.HKEY_CURRENT_USER, PROTOCOL_HANDLER_REGISTRY_KEY);
 
         if (!handlerKey.exists()) {
             return true;
@@ -136,8 +136,8 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
         final PrintWriter writer = new PrintWriter(script);
         try {
             writer.println("Windows Registry Editor Version 5.00"); //$NON-NLS-1$
-            writer.println(MessageFormat.format("[-HKEY_CLASSES_ROOT\\{0}]", ProtocolHandler.PROTOCOL_HANDLER_SCHEME)); //$NON-NLS-1$
-            writer.println(MessageFormat.format("[HKEY_CLASSES_ROOT\\{0}]", PROTOCOL_HANDLER_REGISTRY_KEY)); //$NON-NLS-1$
+            writer.println(MessageFormat.format("[-HKEY_CURRENT_USER\\{0}]", PROTOCOL_HANDLER_REGISTRY_KEY)); //$NON-NLS-1$
+            writer.println(MessageFormat.format("[HKEY_CURRENT_USER\\{0}]", PROTOCOL_HANDLER_REGISTRY_KEY)); //$NON-NLS-1$
             writer.print("@=hex(2):"); //$NON-NLS-1$
             writeHexValue(writer, PROTOCOL_HANDLER_REG_VALUE);
             writer.println();
