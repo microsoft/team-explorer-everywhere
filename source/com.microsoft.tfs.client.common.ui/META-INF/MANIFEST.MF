@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.client.common.ui; singleton:=true
-Bundle-Version: 14.115.0.qualifier
+Bundle-Version: 14.116.0.qualifier
 Bundle-Activator: com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin
 Bundle-Vendor: %Bundle-Vendor
 Eclipse-LazyStart: true
