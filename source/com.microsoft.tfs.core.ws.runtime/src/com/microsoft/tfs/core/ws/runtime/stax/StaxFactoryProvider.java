@@ -22,6 +22,7 @@ public abstract class StaxFactoryProvider {
 
         if (setCoalescing) {
             factory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+            factory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
         }
 
         return factory;
