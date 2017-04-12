@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,6 +25,7 @@ import com.microsoft.tfs.core.clients.workitem.form.WIFormElement;
 import com.microsoft.tfs.core.clients.workitem.form.WIFormLinksControlExternalLinkFilters;
 import com.microsoft.tfs.core.clients.workitem.form.WIFormLinksControlWILinkFilters;
 import com.microsoft.tfs.core.clients.workitem.form.WIFormLinksControlWITypeFilters;
+import com.microsoft.tfs.util.xml.SAXUtils;
 
 public class WIFormParseHandler extends DefaultHandler {
     /**
@@ -118,7 +118,7 @@ public class WIFormParseHandler extends DefaultHandler {
         final WIFormParseHandler handler = new WIFormParseHandler();
 
         try {
-            final SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+            final SAXParser parser = SAXUtils.newSAXParser();
             parser.parse(new InputSource(new StringReader(xml)), handler);
         } catch (final SAXException ex) {
             ex.initCause(ex.getException());

@@ -9,11 +9,12 @@ import java.text.MessageFormat;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 
 import com.microsoft.tfs.core.Messages;
 import com.microsoft.tfs.core.clients.build.BuildConstants;
@@ -25,6 +26,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Item;
 import com.microsoft.tfs.core.util.FileEncoding;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.temp.TempStorageService;
+import com.microsoft.tfs.util.xml.SAXUtils;
 
 public class BuildTypeUtil {
     private static final Log log = LogFactory.getLog(BuildTypeUtil.class);
@@ -83,6 +85,10 @@ public class BuildTypeUtil {
      *        suggested file encoding to use, passing <code>null</code> will
      *        mean a suggesting encoding of <code>UTF-8</code> will be used.
      * @return parsed values for the passed file.
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws SAXNotSupportedException
+     * @throws SAXNotRecognizedException
      */
     public static BuildTypeInfo parseBuildTypeInfo(
         final String buildTypeName,
@@ -90,10 +96,8 @@ public class BuildTypeUtil {
         final FileEncoding encoding) throws IOException {
         final BasicBuildTypeParseHandler handler = new BasicBuildTypeParseHandler(buildTypeName);
 
-        final SAXParserFactory factory = SAXParserFactory.newInstance();
-
         try {
-            final SAXParser saxParser = factory.newSAXParser();
+            final SAXParser saxParser = SAXUtils.newSAXParser();
             saxParser.parse(localBuildFile, handler);
         } catch (final SAXException e) {
             // We did our best - log and rethrow any exceptions...

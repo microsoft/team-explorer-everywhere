@@ -155,7 +155,21 @@ public class DefaultHttpParams implements HttpParams, Serializable, Cloneable {
         }
         parameters.put(name, value);
         if (LOG.isDebugEnabled()) {
-            LOG.debug("Set parameter " + name + " = " + value);
+            if (value instanceof Class[]) {
+                Class[] classes = (Class[]) value;
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < classes.length; i++) {
+                    if (i > 0) {
+                        sb.append(", ");
+                    }
+                    sb.append(classes[i].getSimpleName());
+                }
+
+                LOG.debug("Set parameter " + name + " = [" + sb.toString() + "]");
+            } else {
+                LOG.debug("Set parameter " + name + " = " + value);
+            }
         }
     }
 

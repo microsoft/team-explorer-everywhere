@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,6 +22,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.microsoft.tfs.core.Messages;
+import com.microsoft.tfs.util.xml.SAXUtils;
 
 /**
  * {@link CodePageData} reads the code page mappings that are stored in
@@ -120,7 +120,7 @@ class CodePageData {
         }
 
         try {
-            final SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+            final SAXParser parser = SAXUtils.newSAXParser();
             final InputSource inputSource = new InputSource(inputStream);
             parser.parse(inputSource, new CodePagesHandler());
         } catch (final Exception e) {
