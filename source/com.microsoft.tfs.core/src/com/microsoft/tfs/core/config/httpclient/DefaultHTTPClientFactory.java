@@ -27,6 +27,7 @@ import com.microsoft.tfs.core.httpclient.JwtCredentials;
 import com.microsoft.tfs.core.httpclient.MultiThreadedHttpConnectionManager;
 import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
+import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.core.httpclient.auth.AuthScope;
 import com.microsoft.tfs.core.httpclient.params.HttpClientParams;
 import com.microsoft.tfs.core.httpclient.params.HttpConnectionManagerParams;
@@ -474,6 +475,7 @@ public class DefaultHTTPClientFactory implements ConfigurableHTTPClientFactory {
         httpClient.getParams().setPreemptiveAuthenticationTypes(new Class[] {
             CookieCredentials.class,
             JwtCredentials.class,
+            PatCredentials.class,
             PreemptiveUsernamePasswordCredentials.class
         });
     }

@@ -178,7 +178,7 @@ public abstract class EntityEnclosingMethod extends ExpectContinueMethod {
      * @since 2.0beta1
      */
     protected byte[] generateRequestBody() {
-        LOG.trace("enter EntityEnclosingMethod.renerateRequestBody()");
+        LOG.trace("enter EntityEnclosingMethod.generateRequestBody()");
         return null;
     }
 

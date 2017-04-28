@@ -57,7 +57,7 @@ public abstract class CredentialsHelper {
     private final static String REDIRECT_URL = "https://java.visualstudio.com"; //$NON-NLS-1$
 
     private final static CredentialsManager gitCredentialsManager =
-        EclipseCredentialsManagerFactory.getGitCredentialsManager();
+        EclipseCredentialsManagerFactory.getCredentialsManager();
     private final static SecretStore<TokenPair> accessTokenStore = new InsecureInMemoryStore<TokenPair>();
     private final static SecretStore<Token> tokenStore = new EclipseTokenStore();
 

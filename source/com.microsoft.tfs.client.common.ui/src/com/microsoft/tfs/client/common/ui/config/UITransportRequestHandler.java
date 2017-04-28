@@ -283,7 +283,7 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
                 // PAT token is probably expired. Remove it from the Eclipse
                 // secure storage and retry.
                 final CredentialsManager credentialsManager =
-                    EclipseCredentialsManagerFactory.getGitCredentialsManager();
+                    EclipseCredentialsManagerFactory.getCredentialsManager();
                 credentialsManager.removeCredentials(connectionInstanceData.getServerURI());
                 dialogRunnable = new UITransportOAuthRunnable(connectionInstanceData.getServerURI());
             } else {
