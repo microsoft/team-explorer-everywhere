@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.client.eclipse; singleton:=true
-Bundle-Version: 14.116.0.qualifier
+Bundle-Version: 14.117.0.qualifier
 Bundle-Activator: com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
