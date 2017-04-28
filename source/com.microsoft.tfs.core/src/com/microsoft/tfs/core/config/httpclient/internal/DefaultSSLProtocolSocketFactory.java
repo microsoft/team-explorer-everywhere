@@ -20,10 +20,12 @@ import javax.net.ssl.TrustManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.microsoft.tfs.core.config.EnvironmentVariables;
 import com.microsoft.tfs.core.httpclient.ConnectTimeoutException;
 import com.microsoft.tfs.core.httpclient.params.HttpConnectionParams;
 import com.microsoft.tfs.core.httpclient.protocol.SecureProtocolSocketFactory;
 import com.microsoft.tfs.util.Check;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * An SSL socket factory for HTTPClient that tweaks certificate validation,
@@ -37,13 +39,21 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
     public static final String ACCEPT_UNTRUSTED_CERTIFICATES_PARAMETER =
         "DefaultSSLProtocolSocketFactory.acceptUntrustedCertificates"; //$NON-NLS-1$
 
-    /*
-     * Name of the Java system property used to disable modifying the {@link
-     * SSLSocketFactory} from the default. If this is set (to any value), we
-     * will always use the standard system {@link SSLSocketFactory}.
+    /**
+     * Name of the Java system property used to disable modifying the
+     * {@link SSLSocketFactory} from the default. If this is set (to any value),
+     * we will always use the standard system {@link SSLSocketFactory}.
      */
     public static final String DISABLE_PROPERTY_NAME =
         "com.microsoft.tfs.core.config.httpclient.sslsocketfactory.disable"; //$NON-NLS-1$
+
+    /**
+     * Name of the SSL protocol to be used to create the
+     * {@link SSLSocketFactory}. Valid protocol names: SSL, SSLv3, TLS, TLSv1,
+     * TLSv1.1, TLSv1.2
+     */
+    public static final String SSL_PROTOCOL_PROPERTY_NAME =
+        "com.microsoft.tfs.core.config.httpclient.sslsocketfactory.sslprotocol"; //$NON-NLS-1$
 
     private static final Log log = LogFactory.getLog(DefaultSSLProtocolSocketFactory.class);
 
@@ -126,11 +136,12 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
             KeyStoreException,
             CertificateException,
             IOException {
+
         synchronized (lock) {
             if (standardSocketFactory == null) {
-                final SSLContext context = SSLContext.getInstance("SSL"); //$NON-NLS-1$
+                final SSLContext context = getSSLContext();
 
-                /* Use the self-signed x509 trust manager. */
+                /* Use the default x509 trust manager. */
                 context.init(null, new TrustManager[] {
                     new DefaultX509TrustManager(null)
                 }, null);
@@ -140,6 +151,28 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
 
             return standardSocketFactory;
         }
+    }
+
+    private SSLContext getSSLContext() throws NoSuchAlgorithmException {
+
+        final String requestedProtocol = getRequestedProtocol();
+
+        try {
+            return SSLContext.getInstance(requestedProtocol);
+        } catch (final NoSuchAlgorithmException e) {
+            log.error("Cannot create SSL context with the requested protocol " + requestedProtocol, e); //$NON-NLS-1$
+            log.info("Using SSL context with the default protocol TLS"); //$NON-NLS-1$
+
+            return SSLContext.getInstance("TLS"); //$NON-NLS-1$
+        }
+    }
+
+    private String getRequestedProtocol() {
+        final String protocol = System.getProperty(SSL_PROTOCOL_PROPERTY_NAME);
+        if (StringUtil.isNullOrEmpty(protocol)) {
+            return EnvironmentVariables.getString(EnvironmentVariables.SSL_PROTOCOL_NAME, "TLS"); //$NON-NLS-1$
+        }
+        return protocol;
     }
 
     /**
@@ -156,7 +189,7 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
             KeyStoreException {
         synchronized (lock) {
             if (selfSignedSocketFactory == null) {
-                final SSLContext context = SSLContext.getInstance("SSL"); //$NON-NLS-1$
+                final SSLContext context = getSSLContext();
 
                 /* Use the self-signed x509 trust manager. */
                 context.init(null, new TrustManager[] {

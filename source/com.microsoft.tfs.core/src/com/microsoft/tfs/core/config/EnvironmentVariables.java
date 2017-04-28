@@ -5,6 +5,8 @@ package com.microsoft.tfs.core.config;
 
 import java.text.MessageFormat;
 
+import javax.net.ssl.SSLSocketFactory;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,6 +36,16 @@ public abstract class EnvironmentVariables {
      * user understands the risks in disabling server certificate validation.
      */
     public static final String ACCEPT_UNTRUSTED_CERTIFICATES = "TF_ACCEPT_UNTRUSTED_CERTIFICATES"; //$NON-NLS-1$
+
+    /**
+     * Name of the SSL protocol to be used to create the
+     * {@link SSLSocketFactory}.
+     * <p>
+     * Valid protocol names: SSL, SSLv3, TLS, TLSv1, TLSv1.1, TLSv1.2
+     * <p>
+     * If not set the default protocol name "TLS" is used.
+     */
+    public static final String SSL_PROTOCOL_NAME = "TF_SSL_PROTOCOL_NAME"; //$NON-NLS-1$
 
     /**
      * When set to any value the old federated authentication dialog will be
@@ -225,6 +237,15 @@ public abstract class EnvironmentVariables {
 
     public static String getString(final String variableName) {
         return PlatformMiscUtils.getInstance().getEnvironmentVariable(variableName);
+    }
+
+    public static String getString(final String variableName, final String defaultValue) {
+        final String value = getString(variableName);
+        if (StringUtil.isNullOrEmpty(value)) {
+            return defaultValue;
+        } else {
+            return value;
+        }
     }
 
     public static boolean isDefined(final String variableName) {
