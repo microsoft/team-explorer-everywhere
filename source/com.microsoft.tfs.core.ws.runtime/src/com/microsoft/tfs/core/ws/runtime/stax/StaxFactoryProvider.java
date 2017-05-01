@@ -36,7 +36,8 @@ public abstract class StaxFactoryProvider {
      */
     public static XMLOutputFactory getXMLOutputFactory() {
         final XMLOutputFactory factory = XMLOutputFactory.newInstance();
-        factory.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES, Boolean.TRUE);
+        // factory.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES,
+        // Boolean.TRUE);
         return factory;
     }
 
