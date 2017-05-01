@@ -31,11 +31,13 @@ public class TraceInputStream extends InputStream {
     @Override
     public int read() throws IOException {
         bytesRead = delegate.read();
-        ++totalBytes;
-        if (totalBytes < storeBytes) {
-            addBytes(new byte[] {
-                (byte) bytesRead
-            }, 1);
+        if (bytesRead >= 0) {
+            ++totalBytes;
+            if (totalBytes < storeBytes) {
+                addBytes(new byte[] {
+                    (byte) bytesRead
+                }, 1);
+            }
         }
         return bytesRead;
     }
@@ -43,16 +45,20 @@ public class TraceInputStream extends InputStream {
     @Override
     public int read(final byte[] b, final int off, final int len) throws IOException {
         bytesRead = delegate.read(b, off, len);
-        totalBytes += bytesRead;
-        addBytes(b, bytesRead);
+        if (bytesRead >= 0) {
+            totalBytes += bytesRead;
+            addBytes(b, bytesRead);
+        }
         return bytesRead;
     }
 
     @Override
     public int read(final byte[] b) throws IOException {
         bytesRead = delegate.read(b);
-        totalBytes += bytesRead;
-        addBytes(b, bytesRead);
+        if (bytesRead >= 0) {
+            totalBytes += bytesRead;
+            addBytes(b, bytesRead);
+        }
         return bytesRead;
     }
 
