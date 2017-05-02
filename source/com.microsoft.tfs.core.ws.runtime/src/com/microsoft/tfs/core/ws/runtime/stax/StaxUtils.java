@@ -104,7 +104,14 @@ public abstract class StaxUtils {
         while (true) {
             switch (event) {
                 case XMLStreamConstants.START_ELEMENT:
-                    writer.writeStartElement(reader.getPrefix(), reader.getLocalName(), reader.getNamespaceURI());
+                    final String elementPrefix = reader.getPrefix();
+                    final String elementLocalName = reader.getLocalName();
+                    final String elementNameSpace = reader.getNamespaceURI();
+
+                    writer.writeStartElement(
+                        StringUtil.isNullOrEmpty(elementPrefix) ? StringUtil.EMPTY : elementPrefix,
+                        StringUtil.isNullOrEmpty(elementLocalName) ? StringUtil.EMPTY : elementLocalName,
+                        StringUtil.isNullOrEmpty(elementNameSpace) ? StringUtil.EMPTY : elementNameSpace);
 
                     final int attributeCount = reader.getAttributeCount();
                     for (int i = 0; i < attributeCount; i++) {

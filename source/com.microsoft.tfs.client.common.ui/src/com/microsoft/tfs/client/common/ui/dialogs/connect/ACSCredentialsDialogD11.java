@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,6 +60,7 @@ import com.microsoft.tfs.util.GUID;
 import com.microsoft.tfs.util.Platform;
 import com.microsoft.tfs.util.TypesafeEnum;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
+import com.microsoft.tfs.util.xml.SAXUtils;
 
 /**
  * Provide a dialog to handle ACS authentication.
@@ -604,7 +604,7 @@ public class ACSCredentialsDialogD11 extends CredentialsCompleteDialog {
             throw new Exception(message);
         }
 
-        final SAXParser acsResultParser = SAXParserFactory.newInstance().newSAXParser();
+        final SAXParser acsResultParser = SAXUtils.newSAXParser();
         final ACSResultHandler acsResultHandler = new ACSResultHandler();
         acsResultParser.parse(postMethod.getResponseBodyAsStream(), acsResultHandler);
 

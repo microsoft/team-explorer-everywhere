@@ -22,6 +22,7 @@ public abstract class StaxFactoryProvider {
 
         if (setCoalescing) {
             factory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+            factory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
         }
 
         return factory;
@@ -34,7 +35,10 @@ public abstract class StaxFactoryProvider {
      * @return the new factory
      */
     public static XMLOutputFactory getXMLOutputFactory() {
-        return XMLOutputFactory.newInstance();
+        final XMLOutputFactory factory = XMLOutputFactory.newInstance();
+        // factory.setProperty(XMLOutputFactory.IS_REPAIRING_NAMESPACES,
+        // Boolean.TRUE);
+        return factory;
     }
 
 }

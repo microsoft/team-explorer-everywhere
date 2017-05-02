@@ -12,7 +12,6 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -25,6 +24,7 @@ import com.microsoft.tfs.core.externaltools.validators.ExternalToolValidator;
 import com.microsoft.tfs.core.memento.Memento;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
+import com.microsoft.tfs.util.xml.SAXUtils;
 
 /**
  * <p>
@@ -262,7 +262,7 @@ public final class ExternalTool {
         try {
             final FileInputStream plistStream = new FileInputStream(plistFile);
 
-            final SAXParser plistParser = SAXParserFactory.newInstance().newSAXParser();
+            final SAXParser plistParser = SAXUtils.newSAXParser();
             final PlistHandler plistHandler = new PlistHandler();
             plistParser.parse(plistStream, plistHandler);
 
