@@ -1743,7 +1743,8 @@ public abstract class Command
      *
      */
     public boolean usePersistanceCredentialsManager() {
-        return !EnvironmentVariables.getBoolean(EnvironmentVariables.USE_KEYCHAIN, true);
+        return !EnvironmentVariables.getBoolean(EnvironmentVariables.USE_KEYCHAIN, true)
+            || !EnvironmentVariables.getBoolean(EnvironmentVariables.USE_SYSTEM_CREDENTIAL_MANAGER, true);
     }
 
     private String throwForInsufficientCredentials() throws CLCException {

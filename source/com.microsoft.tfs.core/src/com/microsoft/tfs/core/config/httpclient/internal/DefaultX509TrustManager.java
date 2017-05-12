@@ -39,7 +39,7 @@ public class DefaultX509TrustManager implements X509TrustManager {
     private final X509TrustManager standardTrustManager;
 
     /** Log object for this class. */
-    private static final Log log = LogFactory.getLog(SelfSignedX509TrustManager.class);
+    private static final Log log = LogFactory.getLog(DefaultX509TrustManager.class);
 
     /*
      * Resources that contain X509 certificates that should be consider trusted

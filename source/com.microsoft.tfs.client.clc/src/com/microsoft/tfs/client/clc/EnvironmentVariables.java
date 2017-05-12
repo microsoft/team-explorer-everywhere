@@ -12,10 +12,9 @@ import com.microsoft.tfs.util.StringUtil;
 public abstract class EnvironmentVariables {
     /**
      * When set to any value, credentials provided by command-line options or at
-     * the interactive prompt will be saved to the workspace cache
-     * <em>when the workspace cache is updated</em>. The cache is not updated
-     * during all commands, only for ones that query, create, or delete
-     * workspaces.
+     * the interactive prompt will be saved to the workspace cache <em>when the
+     * workspace cache is updated</em>. The cache is not updated during all
+     * commands, only for ones that query, create, or delete workspaces.
      * <p>
      * The default (when this variable is not set) is that no credentials are
      * saved to the workspace cache.
@@ -99,6 +98,16 @@ public abstract class EnvironmentVariables {
      * save credentials
      */
     public static final String USE_KEYCHAIN = "TF_USE_KEYCHAIN"; //$NON-NLS-1$
+
+    /**
+     * When set to False, No or N PersistanceCredentialsManager will be used to
+     * store credentials instead of Windows Credential Manager, KeyRing, or
+     * KeyChain.
+     * <p>
+     * The default (when this variable is not set) is that the available system
+     * credentials manager is used to save credentials
+     */
+    public static final String USE_SYSTEM_CREDENTIAL_MANAGER = "TF_SYSTEM_CREDENTIAL_MANAGER"; //$NON-NLS-1$
 
     /**
      * This environment variable is used to disable the oauth2 interactive login
