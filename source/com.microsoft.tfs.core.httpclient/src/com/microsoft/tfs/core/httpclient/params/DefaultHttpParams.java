@@ -32,10 +32,14 @@
 package com.microsoft.tfs.core.httpclient.params;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * This class represents a collection of HTTP protocol parameters. Protocol
@@ -88,7 +92,7 @@ public class DefaultHttpParams implements HttpParams, Serializable, Cloneable {
     private HttpParams defaults = null;
 
     /** Hash map of HTTP parameters that this collection contains */
-    private HashMap parameters = null;
+    private HashMap<String, Object> parameters = null;
 
     /**
      * Creates a new collection of parameters with the given parent. The
@@ -151,22 +155,17 @@ public class DefaultHttpParams implements HttpParams, Serializable, Cloneable {
     @Override
     public synchronized void setParameter(final String name, final Object value) {
         if (parameters == null) {
-            parameters = new HashMap();
+            parameters = new HashMap<String, Object>();
         }
         parameters.put(name, value);
+
         if (LOG.isDebugEnabled()) {
             if (value instanceof Class[]) {
-                Class[] classes = (Class[]) value;
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < classes.length; i++) {
-                    if (i > 0) {
-                        sb.append(", ");
-                    }
-                    sb.append(classes[i].getSimpleName());
+                final List<String> list = new ArrayList<String>();
+                for (Class<?> c : (Class[]) value) {
+                    list.add(c.getSimpleName());
                 }
-
-                LOG.debug("Set parameter " + name + " = [" + sb.toString() + "]");
+                LOG.debug("Set parameter " + name + " = " + StringUtil.join(",", list));
             } else {
                 LOG.debug("Set parameter " + name + " = " + value);
             }
@@ -282,7 +281,7 @@ public class DefaultHttpParams implements HttpParams, Serializable, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         final DefaultHttpParams clone = (DefaultHttpParams) super.clone();
         if (parameters != null) {
-            clone.parameters = (HashMap) parameters.clone();
+            clone.parameters = (HashMap<String, Object>) parameters.clone();
         }
         clone.setDefaults(defaults);
         return clone;

@@ -4,6 +4,8 @@
 package com.microsoft.tfs.core.config.httpclient.internal;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -12,8 +14,12 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLParameters;
+import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
@@ -77,6 +83,7 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         final int timeout = params.getConnectionTimeout();
 
         final Socket socket = getSocketFactory(params).createSocket();
+        configureSNI(socket, host);
         socket.bind(new InetSocketAddress(localAddress, localPort));
         socket.connect(new InetSocketAddress(host, port), timeout);
         return socket;
@@ -92,7 +99,11 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         final int port,
         final HttpConnectionParams params,
         final boolean autoClose) throws IOException, UnknownHostException {
-        return getSocketFactory(params).createSocket(socket, host, port, autoClose);
+        Check.notNull(params, "params"); //$NON-NLS-1$
+
+        final Socket ssocket = getSocketFactory(params).createSocket(socket, host, port, autoClose);
+        configureSNI(ssocket, host);
+        return ssocket;
     }
 
     private SSLSocketFactory getSocketFactory(final HttpConnectionParams params) {
@@ -123,6 +134,61 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         return (System.getProperty(DISABLE_PROPERTY_NAME) == null);
     }
 
+    private SSLContext getSSLContext() throws NoSuchAlgorithmException {
+
+        final String requestedProtocol = getRequestedProtocol();
+
+        try {
+            return SSLContext.getInstance(requestedProtocol);
+        } catch (final NoSuchAlgorithmException e) {
+            log.error("Cannot create SSL context with the requested protocol " + requestedProtocol, e); //$NON-NLS-1$
+            log.info("Using SSL context with the default protocol TLS"); //$NON-NLS-1$
+
+            return SSLContext.getInstance("TLS"); //$NON-NLS-1$
+        }
+    }
+
+    private String getRequestedProtocol() {
+        final String protocol = System.getProperty(SSL_PROTOCOL_PROPERTY_NAME);
+        if (StringUtil.isNullOrEmpty(protocol)) {
+            return EnvironmentVariables.getString(EnvironmentVariables.SSL_PROTOCOL_NAME, "TLS"); //$NON-NLS-1$
+        }
+        return protocol;
+    }
+
+    private void configureSNI(final Socket socket, final String host) {
+
+        if (System.getProperty("java.version").compareTo("1.8") < 0) { //$NON-NLS-1$ //$NON-NLS-2$
+            return;
+        }
+
+        /*
+         * Classes used to configure Server Name client-hello extension were
+         * introduced in Java 8. So, we neither can use nor compile this code
+         * using Java 6-7. Thus, let's use reflection.
+         */
+
+        try {
+            final SSLSocket sslSocket = (SSLSocket) socket;
+            final SSLParameters params = sslSocket.getSSLParameters();
+
+            final Class<?> sniHostNameClass = Class.forName("javax.net.ssl.SNIHostName"); //$NON-NLS-1$
+            final Constructor<?> sniHostNameClassConstructor = sniHostNameClass.getConstructor(String.class);
+
+            final Object serverName = sniHostNameClassConstructor.newInstance(host);
+            final List<Object> serverNames = new ArrayList<Object>(1);
+            serverNames.add(serverName);
+
+            final Class<?> paramsClass = params.getClass();
+            final Method setServerNames = paramsClass.getMethod("setServerNames", List.class); //$NON-NLS-1$
+            setServerNames.invoke(params, serverNames);
+
+            sslSocket.setSSLParameters(params);
+        } catch (final Exception e) {
+            log.error("Eror configuring SSL socket with SNI cipher extension:", e); //$NON-NLS-1$
+        }
+    }
+
     /**
      * Create a new SSL socket factory that is tolerant of self-signed
      * certificates.
@@ -151,28 +217,6 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
 
             return standardSocketFactory;
         }
-    }
-
-    private SSLContext getSSLContext() throws NoSuchAlgorithmException {
-
-        final String requestedProtocol = getRequestedProtocol();
-
-        try {
-            return SSLContext.getInstance(requestedProtocol);
-        } catch (final NoSuchAlgorithmException e) {
-            log.error("Cannot create SSL context with the requested protocol " + requestedProtocol, e); //$NON-NLS-1$
-            log.info("Using SSL context with the default protocol TLS"); //$NON-NLS-1$
-
-            return SSLContext.getInstance("TLS"); //$NON-NLS-1$
-        }
-    }
-
-    private String getRequestedProtocol() {
-        final String protocol = System.getProperty(SSL_PROTOCOL_PROPERTY_NAME);
-        if (StringUtil.isNullOrEmpty(protocol)) {
-            return EnvironmentVariables.getString(EnvironmentVariables.SSL_PROTOCOL_NAME, "TLS"); //$NON-NLS-1$
-        }
-        return protocol;
     }
 
     /**
