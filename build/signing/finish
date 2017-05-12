@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# Currently this scrip is not used because the COdeSign task is written on PowerShell 
+# and supports Windows OS only. We might use the script in the future.
+#
+
+REPO_ROOT=$1
+if [ -z "$REPO_ROOT" ]; then
+    echo The TEE repository root directory is not specified as the first parameter of the script.
+    exit 201
+fi
+
+INDIR="$REPO_ROOT/build/output/_signing"
+if ! [ -d "$INDIR" ]; then
+    echo The input directory $INDIR is missing.  Is this really the signed output root?
+    exit 202
+fi
+
+function pack_signed() {
+    "$JAVA_HOME/bin/java" -jar "$REPO_ROOT/build/signing/TEESignMerge.jar" "$1"
+}
+
+function move_signed() {
+    SOURCENAME=`basename $1`
+    TARGETNAME="${SOURCENAME//-signed\.zip/\.zip}"
+    
+    SOURCEPATH=`dirname $1`
+    TARGETDIR=`basename $SOURCEPATH`
+
+    mkdir -p "$2"/$TARGETDIR
+    cp "$1" "$2"/$TARGETDIR/$TARGETNAME
+}
+
+echo Pack signed JAR files back to their archives in "$REPO_ROOT/build/output/bin"
+pack_signed "$INDIR"
+
+INDIR="$REPO_ROOT/build/output/bin"
+OUTDIR="$REPO_ROOT/build/output/_packages"
+if [ -d "$OUTDIR" ]; then
+    rm -rf "$OUTDIR"
+fi
+
+echo Move signed CLC, TEE, and SDK archives to "$OUTDIR"
+for i in "$INDIR"/*/*-signed.zip; do
+    move_signed "$i" "$OUTDIR"
+done
+
+exit 0
