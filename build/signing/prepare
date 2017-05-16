@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Currently this scrip is not used because the COdeSign task is written on PowerShell 
+# and supports Windows OS only. We might use the script in the future.
+#
+
+REPO_ROOT=$1
+if [ -z "$REPO_ROOT" ]; then
+    echo The TEE repository root directory is not specified as the first parameter of the script.
+    exit 101
+fi
+
+INDIR="$REPO_ROOT/build/output/bin"
+if ! [ -d "$INDIR/clc" ]; then
+    echo The input directory $INDIR is missing the "clc" directory.  Is this really the build output root?
+    exit 102
+fi
+
+OUTDIR="$REPO_ROOT/build/output/_signing"
+if [ -d "$OUTDIR" ]; then
+    rm -rf "$OUTDIR"
+fi
+
+SOURCE=
+
+for i in "$INDIR"/*/TEE-CLC-1*.zip "$INDIR"/*/TFSEclipsePlugin-UpdateSiteArchive-1*.zip "$INDIR"/*/TFS-SDK-1*.zip; do
+    echo "$i"
+    SOURCE="$SOURCE $i"
+done
+
+echo "$SOURCE"
+
+"$JAVA_HOME/bin/java" -jar "$REPO_ROOT/build/signing/TEESignPrep.jar" "$OUTDIR" $SOURCE
+
+exit 0
