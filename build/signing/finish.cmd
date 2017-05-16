@@ -13,7 +13,7 @@ set INDIR=%REPO_ROOT%\build\output\bin
 set OUTDIR=%REPO_ROOT%\build\output\_packages
 if exist "%OUTDIR%" rmdir /S /Q "%OUTDIR%"
 
-echo Move signed CLC, TEE, and SDK archives to "%1"
+echo Move signed CLC, TEE, and SDK archives to "%OUTDIR"
 for /R "%INDIR%" %%i in (*-signed.zip) do call :move_signed %%i %OUTDIR%
 
 goto :end
@@ -33,7 +33,7 @@ set FILEPATH=%~dp1
 call :get_folder_name "!FILEPATH:~0,-1!"
 
 mkdir "%2\%FILEFOLDER%"
-move "%1" "%2\%FILEFOLDER%\%FILENAME%.zip"
+move /Y "%1" "%2\%FILEFOLDER%\%FILENAME%.zip"
 
 goto :eof
 
