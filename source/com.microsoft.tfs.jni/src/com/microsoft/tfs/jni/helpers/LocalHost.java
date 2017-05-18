@@ -74,6 +74,14 @@ public abstract class LocalHost {
             name = getSystemPropertyShortName();
 
             /*
+             * The last real technique is pure Java, which fails in certain
+             * network configurations because it uses DNS.
+             */
+            if (name == null) {
+                name = getPureJavaShortName();
+            }
+
+            /*
              * Native code (or the appropriate fallback from that layer) is
              * quite accurate. This will almost always work for all platforms.
              */
@@ -89,14 +97,6 @@ public abstract class LocalHost {
             }
 
             /*
-             * The last real technique is pure Java, which fails in certain
-             * network configurations because it uses DNS.
-             */
-            if (name == null) {
-                name = getPureJavaShortName();
-            }
-
-            /*
              * If we still don't have a host name, make up a cheesy one.
              */
             if (name == null || name.length() == 0) {
@@ -105,9 +105,9 @@ public abstract class LocalHost {
 
             // Cache the name forever. Truncate if too long.
             computerName =
-                name.substring(0, (name.length() > MAX_COMPUTER_NAME_SIZE) ? MAX_COMPUTER_NAME_SIZE : name.length());
+                name.substring(0, (name.length() > MAX_COMPUTER_NAME_SIZE) ? MAX_COMPUTER_NAME_SIZE : name.length()) + "-test";
         }
-
+        log.info("Short name resolved to: " + computerName);
         return computerName;
     }
 
