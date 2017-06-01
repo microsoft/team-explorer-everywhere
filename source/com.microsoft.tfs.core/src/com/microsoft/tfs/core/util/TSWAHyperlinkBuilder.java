@@ -448,6 +448,7 @@ public class TSWAHyperlinkBuilder {
         queryParameters.add("projectname=" + projectName); //$NON-NLS-1$
         queryParameters.add("definitionid=" + definitionId); //$NON-NLS-1$
         queryParameters.add("action=" + action); //$NON-NLS-1$
+        // queryParameters.add("sender=tee"); //$NON-NLS-1$
 
         /*
          * Current Location Service does not have any entry for vNext build
@@ -480,6 +481,7 @@ public class TSWAHyperlinkBuilder {
         queryParameters.add("definitionid=0"); //$NON-NLS-1$
         queryParameters.add("templateid=" + definitionTemplateId); //$NON-NLS-1$
         queryParameters.add("action=" + action); //$NON-NLS-1$
+        // queryParameters.add("sender=tee"); //$NON-NLS-1$
 
         /*
          * Current Location Service does not have any entry for vNext build

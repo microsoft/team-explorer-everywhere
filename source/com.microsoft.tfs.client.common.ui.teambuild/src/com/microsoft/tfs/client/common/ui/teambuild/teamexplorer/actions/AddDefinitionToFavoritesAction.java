@@ -8,12 +8,18 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinition;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
 import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
+import com.microsoft.tfs.client.common.ui.teambuild.editors.BuildExplorer;
 import com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.favorites.BuildFavoriteItem;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.actions.TeamExplorerBaseAction;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.FavoriteHelpers;
+import com.microsoft.tfs.core.TFSTeamProjectCollection;
 import com.microsoft.tfs.core.clients.build.IBuildDefinition;
 import com.microsoft.tfs.core.clients.favorites.FavoriteItem;
 import com.microsoft.tfs.core.clients.favorites.FavoritesStoreFactory;
@@ -23,9 +29,43 @@ import com.microsoft.tfs.util.GUID;
 
 public abstract class AddDefinitionToFavoritesAction extends TeamExplorerBaseAction {
     protected final boolean isPersonal;
+    protected BuildDefinitionReference selectedDefinition;
 
     protected AddDefinitionToFavoritesAction(final boolean isPersonal) {
         this.isPersonal = isPersonal;
+    }
+
+    protected TFSTeamProjectCollection getConnection() {
+        return getContext().getServer().getConnection();
+    }
+
+    @Override
+    protected void onSelectionChanged(final IAction action, final ISelection selection) {
+        super.onSelectionChanged(action, selection);
+        if (action.isEnabled()) {
+            if (BuildExplorer.getInstance() != null && !BuildExplorer.getInstance().isConnected()) {
+                action.setEnabled(false);
+                return;
+            }
+
+            if (selection instanceof IStructuredSelection) {
+                final Object o = ((IStructuredSelection) selection).getFirstElement();
+
+                if (o instanceof BuildDefinition) {
+                    selectedDefinition = (BuildDefinitionReference) o;
+                    return;
+                }
+
+                if (o instanceof BuildDefinitionReference) {
+                    selectedDefinition = (BuildDefinitionReference) o;
+                    return;
+                }
+            }
+
+            selectedDefinition = null;
+            action.setEnabled(false);
+            return;
+        }
     }
 
     protected abstract void fireFavoritesChangedEvent(final TeamExplorerContext context);
@@ -41,8 +81,8 @@ public abstract class AddDefinitionToFavoritesAction extends TeamExplorerBaseAct
             if (o instanceof IBuildDefinition) {
                 final IBuildDefinition definition = (IBuildDefinition) o;
                 list.add(createFavoriteItem(definition));
-            } else if (o instanceof DefinitionReference) {
-                final DefinitionReference definition = (DefinitionReference) o;
+            } else if (o instanceof BuildDefinitionReference) {
+                final BuildDefinitionReference definition = (BuildDefinitionReference) o;
                 list.add(createFavoriteItem(definition));
             }
         }

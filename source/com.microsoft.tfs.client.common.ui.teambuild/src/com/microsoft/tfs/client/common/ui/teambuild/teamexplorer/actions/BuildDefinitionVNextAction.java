@@ -51,12 +51,16 @@ public abstract class BuildDefinitionVNextAction extends TeamExplorerBaseAction 
                     selectedDefinition = (BuildDefinitionReference) o;
                     return;
                 }
+
+                if (o instanceof BuildDefinitionReference) {
+                    selectedDefinition = (BuildDefinitionReference) o;
+                    return;
+                }
             }
 
             selectedDefinition = null;
             action.setEnabled(false);
             return;
         }
-
     }
 }

@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.IActionFilter;
 import org.eclipse.ui.PlatformUI;
 
-import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
+import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.productplugin.TFSProductPlugin;
@@ -62,7 +62,7 @@ public class AdapterFactory implements IAdapterFactory {
             };
         }
 
-        if (adaptableObject instanceof DefinitionReference) {
+        if (adaptableObject instanceof BuildDefinitionReference) {
             return new IActionFilter() {
                 @Override
                 public boolean testAttribute(final Object target, final String name, final String value) {
