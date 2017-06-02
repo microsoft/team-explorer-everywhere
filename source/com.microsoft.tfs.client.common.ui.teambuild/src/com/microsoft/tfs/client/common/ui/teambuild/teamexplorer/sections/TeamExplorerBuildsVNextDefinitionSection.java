@@ -34,12 +34,13 @@ import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionTemplate;
 import com.microsoft.alm.teamfoundation.build.webapi.BuildHttpClient;
 import com.microsoft.alm.teamfoundation.build.webapi.DefinitionReference;
+import com.microsoft.alm.visualstudio.services.webapi.ApiResourceVersion.Version;
 import com.microsoft.tfs.client.common.ui.TeamExplorerEventArg;
 import com.microsoft.tfs.client.common.ui.framework.helper.ContentProviderAdapter;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.tasks.NewBuildDefinitionVNextTask;
-import com.microsoft.tfs.client.common.ui.tasks.OpenBuildDefinitionVNextTask;
+import com.microsoft.tfs.client.common.ui.tasks.ViewBuildsVNextTask;
 import com.microsoft.tfs.client.common.ui.teambuild.Messages;
 import com.microsoft.tfs.client.common.ui.teambuild.TeamBuildImageHelper;
 import com.microsoft.tfs.client.common.ui.teambuild.dialogs.BuildDefinitionTemplateSelectionDialog;
@@ -163,26 +164,31 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
 
     private void createNewDefinition() {
         final TFSTeamProjectCollection connection = context.getServer().getConnection();
-        final BuildHttpClient buildClient =
-            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
-
         final String projectName = context.getCurrentProjectInfo().getName();
-        final List<BuildDefinitionTemplate> templates = buildClient.getTemplates(projectName);
-
         final Shell shell = context.getWorkbenchPart().getSite().getShell();
-        final BuildDefinitionTemplateSelectionDialog dialog =
-            new BuildDefinitionTemplateSelectionDialog(shell, templates);
-
         final BuildDefinitionTemplate template;
-        switch (dialog.open()) {
-            case IDialogConstants.FINISH_ID:
-                template = null;
-                break;
-            case IDialogConstants.OK_ID:
-                template = dialog.getSelectedTemplate();
-                break;
-            default:
-                return;
+
+        if (connection.isHosted() || connection.getServerApiVersion().compareTo(new Version(3, 1)) > 0) {
+            template = null;
+        } else {
+            final BuildHttpClient buildClient =
+                new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
+
+            final List<BuildDefinitionTemplate> templates = buildClient.getTemplates(projectName);
+
+            final BuildDefinitionTemplateSelectionDialog dialog =
+                new BuildDefinitionTemplateSelectionDialog(shell, templates);
+
+            switch (dialog.open()) {
+                case IDialogConstants.FINISH_ID:
+                    template = null;
+                    break;
+                case IDialogConstants.OK_ID:
+                    template = dialog.getSelectedTemplate();
+                    break;
+                default:
+                    return;
+            }
         }
 
         new NewBuildDefinitionVNextTask(shell, connection, projectName, template).run();
@@ -267,7 +273,7 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
 
             if (element instanceof BuildDefinitionReference) {
                 final BuildDefinitionReference buildDefinition = (BuildDefinitionReference) element;
-                new OpenBuildDefinitionVNextTask(
+                new ViewBuildsVNextTask(
                     context.getWorkbenchPart().getSite().getShell(),
                     context.getServer().getConnection(),
                     buildDefinition).run();

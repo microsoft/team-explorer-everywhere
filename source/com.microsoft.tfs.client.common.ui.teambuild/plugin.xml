@@ -459,7 +459,7 @@
        <objectContribution
              adaptable="false"
              id="com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.vnext.BuildDefinition"
-             objectClass="com.microsoft.teamfoundation.build.webapi.model.BuildDefinitionReference">
+             objectClass="com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference">
           <action
                 class="com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.actions.QueueBuildVNextAction"
                 enablesFor="1"
@@ -485,8 +485,8 @@
        </objectContribution>
        <objectContribution
              adaptable="false"
-             id="com.microsoft.teamfoundation.build.webapi.model.DefinitionReference.teamfavorites"
-             objectClass="com.microsoft.teamfoundation.build.webapi.model.DefinitionReference">
+             id="com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference.teamfavorites"
+             objectClass="com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference">
           <action
                 class="com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.actions.AddDefinitionToTeamFavoritesAction"
                 enablesFor="+"
@@ -504,8 +504,8 @@
        </objectContribution>
        <objectContribution
              adaptable="false"
-             id="com.microsoft.teamfoundation.build.webapi.model.DefinitionReference.myfavorites"
-             objectClass="com.microsoft.teamfoundation.build.webapi.model.DefinitionReference">
+             id="com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference.myfavorites"
+             objectClass="com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference">
           <action
                 class="com.microsoft.tfs.client.common.ui.teambuild.teamexplorer.actions.AddDefinitionToMyFavoritesAction"
                 enablesFor="+"
@@ -770,7 +770,7 @@
           </adapter>
        </factory>
        <factory
-             adaptableType="com.microsoft.teamfoundation.build.webapi.model.DefinitionReference"
+             adaptableType="com.microsoft.alm.teamfoundation.build.webapi.BuildDefinitionReference"
              class="com.microsoft.tfs.client.common.ui.adapters.AdapterFactory">
           <adapter
                 type="org.eclipse.ui.IActionFilter">
