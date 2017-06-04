@@ -26,6 +26,7 @@ import com.microsoft.alm.visualstudio.services.webapi.ApiResourceLocation;
 import com.microsoft.alm.visualstudio.services.webapi.ApiResourceLocationCollection;
 import com.microsoft.alm.visualstudio.services.webapi.ApiResourceVersion;
 import com.microsoft.tfs.core.Messages;
+import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.httpclient.Header;
 import com.microsoft.tfs.core.httpclient.HttpClient;
 import com.microsoft.tfs.core.httpclient.HttpException;
@@ -51,9 +52,16 @@ public class TeeClientHandler extends VssRestClientHandlerBase implements VssRes
     private final static String MEDIA_TYPE_PARAMETERS_SEPARATOR = ";"; //$NON-NLS-1$
 
     private final HttpClient httpClient;
+    private final TFSConnection connection;
 
     public TeeClientHandler(final HttpClient httpClient) {
+        this.connection = null;
         this.httpClient = httpClient;
+    }
+
+    public TeeClientHandler(final TFSConnection connection) {
+        this.connection = connection;
+        this.httpClient = connection.getHTTPClient();
     }
 
     @Override
@@ -90,25 +98,29 @@ public class TeeClientHandler extends VssRestClientHandlerBase implements VssRes
 
     @Override
     public ApiResourceLocationCollection loadLocations() {
-        final URI optionsTarget = URIUtils.resolve(getBaseUrl(), OPTIONS_RELATIVE_PATH);
-        final HttpMethodBase request = createHttpMethod(HttpMethod.OPTIONS, optionsTarget);
-        request.setFollowRedirects(true);
-
-        try {
-            request.setRequestHeader(VssHttpHeaders.ACCEPT, VssMediaTypes.APPLICATION_JSON_TYPE);
-            final int statusCode = httpClient.executeMethod(request);
-
-            if (HttpStatus.isSuccessFamily(statusCode)) {
-                return JsonHelper.deserializeResponce(request, ApiResourceLocationCollection.class);
-            } else {
-                throw new HttpException(HttpStatus.getStatusText(statusCode));
+        if (connection != null && connection.getBaseURI().equals(getBaseUrl())) {
+            return connection.getServerApiLocations();
+        } else {
+            final URI optionsTarget = URIUtils.resolve(getBaseUrl(), OPTIONS_RELATIVE_PATH);
+            final HttpMethodBase request = createHttpMethod(HttpMethod.OPTIONS, optionsTarget);
+            request.setFollowRedirects(true);
+    
+            try {
+                request.setRequestHeader(VssHttpHeaders.ACCEPT, VssMediaTypes.APPLICATION_JSON_TYPE);
+                final int statusCode = httpClient.executeMethod(request);
+    
+                if (HttpStatus.isSuccessFamily(statusCode)) {
+                    return JsonHelper.deserializeResponce(request, ApiResourceLocationCollection.class);
+                } else {
+                    throw new HttpException(HttpStatus.getStatusText(statusCode));
+                }
+            } catch (final Exception e) {
+                log.error(e.getMessage(), e);
+                setLastException(e);
+                return null;
+            } finally {
+                request.releaseConnection();
             }
-        } catch (final Exception e) {
-            log.error(e.getMessage(), e);
-            setLastException(e);
-            return null;
-        } finally {
-            request.releaseConnection();
         }
     }
 

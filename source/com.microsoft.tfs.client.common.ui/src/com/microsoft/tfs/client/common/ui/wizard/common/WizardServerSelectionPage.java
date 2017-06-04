@@ -154,7 +154,7 @@ public class WizardServerSelectionPage extends ExtendedWizardPage {
              */
             final TFSConnection vstsConnection =
                 new TFSTeamProjectCollection(URIUtils.VSTS_ROOT_URL, azureAccessToken, new UIClientConnectionAdvisor());
-            final TeeClientHandler clientHandler = new TeeClientHandler(vstsConnection.getHTTPClient());
+            final TeeClientHandler clientHandler = new TeeClientHandler(vstsConnection);
 
             final ProfileHttpClient profileClient = new ProfileHttpClient(clientHandler, URIUtils.VSTS_ROOT_URL);
 
