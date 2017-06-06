@@ -172,7 +172,7 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
             template = null;
         } else {
             final BuildHttpClient buildClient =
-                new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
+                new BuildHttpClient(new TeeClientHandler(connection), connection.getBaseURI());
 
             final List<BuildDefinitionTemplate> templates = buildClient.getTemplates(projectName);
 
@@ -201,7 +201,7 @@ public class TeamExplorerBuildsVNextDefinitionSection extends TeamExplorerBaseSe
 
         final TFSTeamProjectCollection connection = context.getServer().getConnection();
         final BuildHttpClient buildClient =
-            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
+            new BuildHttpClient(new TeeClientHandler(connection), connection.getBaseURI());
 
         final UUID projectId = UUID.fromString(context.getCurrentProjectInfo().getGUID());
         final List<BuildDefinitionReference> rawDefinitions = buildClient.getDefinitions(projectId);

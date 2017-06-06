@@ -105,7 +105,7 @@ public abstract class BuildFavoriteItem {
 
         final TFSTeamProjectCollection connection = server.getConnection();
         final BuildHttpClient buildClient =
-            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
+            new BuildHttpClient(new TeeClientHandler(connection), connection.getBaseURI());
 
         final DefinitionReference definition =
             buildClient.getDefinition(oldDefinition.getProject().getId(), oldDefinition.getId(), null, null);

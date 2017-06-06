@@ -91,7 +91,7 @@ public abstract class TeamExplorerBuildsFavoritesSection extends TeamExplorerBas
 
         final TFSTeamProjectCollection connection = context.getServer().getConnection();
         final BuildHttpClient buildClient =
-            new BuildHttpClient(new TeeClientHandler(connection.getHTTPClient()), connection.getBaseURI());
+            new BuildHttpClient(new TeeClientHandler(connection), connection.getBaseURI());
 
         final UUID projectId = UUID.fromString(context.getCurrentProjectInfo().getGUID());
         final List<BuildDefinitionReference> rawDefinitions = buildClient.getDefinitions(projectId);

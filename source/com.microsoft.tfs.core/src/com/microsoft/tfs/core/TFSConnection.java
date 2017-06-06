@@ -1375,7 +1375,7 @@ public abstract class TFSConnection implements Closable {
             if (serverApiLocations == null) {
 
                 final TeeClientHandler clientHandler = new TeeClientHandler(getHTTPClient());
-                clientHandler.init(true, null, getBaseURI());
+                clientHandler.init(false, null, getBaseURI());
 
                 serverApiLocations = clientHandler.loadLocations();
             }
