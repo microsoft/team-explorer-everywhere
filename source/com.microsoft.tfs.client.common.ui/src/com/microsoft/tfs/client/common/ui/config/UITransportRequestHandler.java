@@ -31,7 +31,6 @@ import com.microsoft.tfs.core.httpclient.HttpClient;
 import com.microsoft.tfs.core.httpclient.URI;
 import com.microsoft.tfs.core.httpclient.URIException;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
-import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.core.httpclient.cookie.CookiePolicy;
 import com.microsoft.tfs.core.httpclient.cookie.CookieSpec;
 import com.microsoft.tfs.core.ws.runtime.client.SOAPRequest;
@@ -278,18 +277,37 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
         else if (exception instanceof UnauthorizedException && service.isPromptForCredentials()) {
             log.debug(" UnauthorizedException has been raised."); //$NON-NLS-1$
 
+            final Credentials usedCredentials = connectionInstanceData.getCredentials();
+            final java.net.URI serverUrl = connectionInstanceData.getServerURI();
+            final Header[] authHeaders = request.getPostMethod().getResponseHeaders("WWW-Authenticate"); //$NON-NLS-1$
+            boolean isHosted = true;
+            for (final Header header : authHeaders) {
+                if (header.getValue().equals("NTLM")) { //$NON-NLS-1$
+                    isHosted = false;
+                    break;
+                }
+                if (header.getValue().equals("Negotiate")) { //$NON-NLS-1$
+                    isHosted = false;
+                    break;
+                }
+                if (header.getValue().equals("Federated")) { //$NON-NLS-1$
+                    break;
+                }
+            }
+
             if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)
-                && isPatCredentials(connectionInstanceData.getCredentials())) {
+                && usedCredentials != null
+                && new CachedCredentials(serverUrl, usedCredentials).isPatCredentials()
+                && isHosted) {
                 // PAT token is probably expired. Remove it from the Eclipse
                 // secure storage and retry.
-                final CredentialsManager credentialsManager =
-                    EclipseCredentialsManagerFactory.getCredentialsManager();
-                credentialsManager.removeCredentials(connectionInstanceData.getServerURI());
-                dialogRunnable = new UITransportOAuthRunnable(connectionInstanceData.getServerURI());
+                final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
+                credentialsManager.removeCredentials(serverUrl);
+                dialogRunnable = new UITransportOAuthRunnable(serverUrl);
             } else {
                 dialogRunnable = new UITransportUsernamePasswordAuthRunnable(
-                    connectionInstanceData.getServerURI(),
-                    connectionInstanceData.getCredentials(),
+                    serverUrl,
+                    usedCredentials,
                     (UnauthorizedException) exception);
             }
         }
@@ -329,17 +347,6 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
             connectionInstanceData);
 
         return Status.COMPLETE;
-    }
-
-    private boolean isPatCredentials(Credentials credentials) {
-        if (credentials == null) {
-            return false;
-        } else if (!(credentials instanceof UsernamePasswordCredentials)) {
-            return false;
-        } else {
-            final String userName = ((UsernamePasswordCredentials) credentials).getUsername();
-            return PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT.equals(userName);
-        }
     }
 
     private void cleanupSavedCredentials(final HttpClient client) {

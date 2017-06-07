@@ -4,6 +4,8 @@
 package com.microsoft.tfs.client.common.credentials.internal;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,18 +20,19 @@ import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.credentials.CredentialsManagerFactory;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
+import com.microsoft.tfs.core.util.URIUtils;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.StringUtil;
 
 public class EclipseCredentialsManager implements CredentialsManager {
-    public static final String GIT_PATH_PREFIX = "/GIT/"; //$NON-NLS-1$
+    public static final String GIT_PATH_PREFIX = "/GIT"; //$NON-NLS-1$
 
     private static final String USER_NAME = "user"; //$NON-NLS-1$
     private static final String PASSWORD = "password"; //$NON-NLS-1$
     private static final String HTTP_SCHEME = "http"; //$NON-NLS-1$
     private static final String HTTPS_SCHEME = "https"; //$NON-NLS-1$
     private static final String ENCODED_SLASH = "\\2f"; //$NON-NLS-1$
-    private static final String COOKIE_PREFIX = "FedAuth"; //$NON-NLS-1$
+    private static final String SLASH = "/"; //$NON-NLS-1$
 
     private static final Log log = LogFactory.getLog(EclipseCredentialsManager.class);
 
@@ -68,8 +71,26 @@ public class EclipseCredentialsManager implements CredentialsManager {
 
     @Override
     public CachedCredentials[] getCredentials() {
-        // not used anywhere yet
-        return null;
+        final List<CachedCredentials> credentials = new ArrayList<CachedCredentials>(100);
+        final ISecurePreferences rootNode = preferences.node(rootPathPrefix);
+        final String[] children = rootNode.childrenNames();
+
+        for (final String child : children) {
+            final String url = child.replace(ENCODED_SLASH, SLASH);
+            try {
+                final URI serverURI = URIUtils.newURI(url);
+                final CachedCredentials cachedCredentials = getCredentials(serverURI);
+                if (cachedCredentials != null) {
+                    credentials.add(cachedCredentials);
+                }
+            } catch (final Exception e) {
+                // Log and ignore exception. Maybe the node has been created not
+                // by the TEE plugin.
+                log.error("Unexpected node in the Eclipse credentials storage", e); //$NON-NLS-1$
+            }
+        }
+
+        return credentials.toArray(new CachedCredentials[credentials.size()]);
     }
 
     @Override
@@ -173,6 +194,7 @@ public class EclipseCredentialsManager implements CredentialsManager {
         Check.notNull(serverURI.getHost(), "serverURI.getHost()"); //$NON-NLS-1$
 
         final StringBuffer sb = new StringBuffer(rootPathPrefix);
+        sb.append(SLASH);
 
         final String scheme = serverURI.getScheme();
         sb.append(scheme.toLowerCase());

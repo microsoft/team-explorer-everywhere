@@ -153,11 +153,12 @@ public class CachedCredentials {
     }
 
     public boolean isPatCredentials() {
-        return PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT.equals(username);
+        return !StringUtil.isNullOrEmpty(password)
+            && (StringUtil.isNullOrEmpty(username) || PatCredentials.USERNAME_FOR_CODE_ACCESS_PAT.equals(username));
     }
 
     public boolean isUsernamePasswordCredentials() {
-        return !isCookieCredentials() && !isPatCredentials() && username != null;
+        return !isCookieCredentials() && !isPatCredentials() && !StringUtil.isNullOrEmpty(username);
     }
 
     public Credentials toCredentials() {

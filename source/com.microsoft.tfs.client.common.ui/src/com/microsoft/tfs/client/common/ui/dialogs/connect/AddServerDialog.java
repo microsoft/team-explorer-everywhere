@@ -21,6 +21,7 @@ import com.microsoft.tfs.client.common.ui.controls.connect.AddServerControl;
 import com.microsoft.tfs.client.common.ui.framework.dialog.BaseDialog;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.framework.validation.ButtonValidatorBinding;
+import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.client.common.ui.tasks.ConnectToConfigurationServerTask;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
@@ -28,6 +29,7 @@ import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.core.httpclient.CookieCredentials;
 import com.microsoft.tfs.core.httpclient.Credentials;
+import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.serverlist.ServerList;
 import com.microsoft.tfs.core.util.serverlist.ServerListConfigurationEntry;
 import com.microsoft.tfs.core.util.serverlist.ServerListEntryType;
@@ -40,6 +42,7 @@ import com.microsoft.tfs.core.util.serverlist.ServerListEntryType;
 public class AddServerDialog extends BaseDialog {
 
     private static final int AUTH_BUTTON_ID = 3;
+    private static final int CLEAR_BUTTON_ID = 4;
 
     private AddServerControl addServerControl;
 
@@ -64,7 +67,8 @@ public class AddServerDialog extends BaseDialog {
         addServerControl = new AddServerControl(dialogArea, SWT.NONE);
         GridDataBuilder.newInstance().grab().fill().applyTo(addServerControl);
 
-        this.addButtonDescription(AUTH_BUTTON_ID, "Authentication...", false); //$NON-NLS-1$
+        this.addButtonDescription(AUTH_BUTTON_ID, Messages.getString("AddServerDialog.AuthButtonText"), false); //$NON-NLS-1$
+        this.addButtonDescription(CLEAR_BUTTON_ID, Messages.getString("AddServerDialog.ClearButtonText"), false); //$NON-NLS-1$
 
         setOptionResizableDirections(SWT.HORIZONTAL);
     }
@@ -82,19 +86,16 @@ public class AddServerDialog extends BaseDialog {
         final Button authButton = getButton(AUTH_BUTTON_ID);
         new ButtonValidatorBinding(authButton).bind(addServerControl);
 
-        // final Button authButton = getButton(AUTH_BUTTON_ID);
-        // authButton.addSelectionListener(new SelectionAdapter() {
-        // @Override
-        // public void widgetSelected(SelectionEvent event) {
-        // buttonPressed(((Integer) event.widget.getData()).intValue());
-        // }
-        // });
+        final Button clearButton = getButton(CLEAR_BUTTON_ID);
+        new ButtonValidatorBinding(clearButton).bind(addServerControl);
     }
 
     @Override
     protected void hookCustomButtonPressed(final int buttonId) {
         if (buttonId == AUTH_BUTTON_ID) {
             onAuthButtonSelected();
+        } else if (buttonId == CLEAR_BUTTON_ID) {
+            onClearButtonSelected();
         }
     }
 
@@ -139,12 +140,11 @@ public class AddServerDialog extends BaseDialog {
 
     private void onAuthButtonSelected() {
         final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
-
         final URI serverUrl = addServerControl.getServerURI();
-
-        final ServerAuthDialog credentialsDialog = new ServerAuthDialog(getShell(), serverUrl);
-
         final CachedCredentials oldCachedCredentials = credentialsManager.getCredentials(serverUrl);
+
+        final CredentialsDialog credentialsDialog = new CredentialsDialog(getShell(), serverUrl);
+
         if (oldCachedCredentials != null) {
             final Credentials savedCredentials = oldCachedCredentials.toCredentials();
             if (savedCredentials == null || !(savedCredentials instanceof CookieCredentials)) {
@@ -157,6 +157,35 @@ public class AddServerDialog extends BaseDialog {
 
             final CachedCredentials newCachedCredentials = new CachedCredentials(serverUrl, credentials);
             credentialsManager.setCredentials(newCachedCredentials);
+        }
+    }
+
+    private void onClearButtonSelected() {
+
+        final URI serverUrl = addServerControl.getServerURI();
+        final String title;
+        final String message;
+
+        title = Messages.getString(Messages.getString("AddServerDialog.ClearCredentialsTitleText")); //$NON-NLS-1$
+        message = MessageFormat.format(
+            Messages.getString(Messages.getString("AddServerDialog.ClearCredentialsMessageFormat")), //$NON-NLS-1$
+            serverUrl);
+
+        if (!MessageDialog.openQuestion(getShell(), title, message)) {
+            return;
+        }
+
+        final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
+
+        credentialsManager.removeCredentials(serverUrl);
+
+        if (ServerURIUtils.isHosted(serverUrl)) {
+            /*
+             * Removing the token pair from the internal store. Next time we
+             * connect to a VSTS account that does not have saved PAT, the user
+             * will be prompted for credentials.
+             */
+            CredentialsHelper.removeOAuth2Token(true);
         }
     }
 
