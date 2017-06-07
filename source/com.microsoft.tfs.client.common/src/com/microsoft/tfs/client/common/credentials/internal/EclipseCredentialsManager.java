@@ -77,16 +77,33 @@ public class EclipseCredentialsManager implements CredentialsManager {
 
         for (final String child : children) {
             final String url = child.replace(ENCODED_SLASH, SLASH);
+
             try {
                 final URI serverURI = URIUtils.newURI(url);
-                final CachedCredentials cachedCredentials = getCredentials(serverURI);
-                if (cachedCredentials != null) {
-                    credentials.add(cachedCredentials);
+
+                final boolean isHttp;
+                if (serverURI == null || StringUtil.isNullOrEmpty(serverURI.getScheme())) {
+                    isHttp = false;
+                } else if (serverURI.getScheme().equalsIgnoreCase("http") || //$NON-NLS-1$
+                    serverURI.getScheme().equalsIgnoreCase("https")) { //$NON-NLS-1$
+                    isHttp = true;
+                } else {
+                    isHttp = false;
+                }
+
+                if (isHttp) {
+                    final CachedCredentials cachedCredentials = getCredentials(serverURI);
+
+                    if (cachedCredentials != null) {
+                        credentials.add(cachedCredentials);
+                    }
                 }
             } catch (final Exception e) {
-                // Log and ignore exception. Maybe the node has been created not
-                // by the TEE plugin.
-                log.error("Unexpected node in the Eclipse credentials storage", e); //$NON-NLS-1$
+                /*
+                 * Log and ignore the exception. Maybe the node has been created not
+                 * by the TEE plugin.
+                 */
+                log.warn("Ignoring the unexpected node " + url + " in the Eclipse credentials storage", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
 
