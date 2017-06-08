@@ -297,8 +297,8 @@ public class UITransportRequestHandler extends DefaultTransportRequestHandler {
 
             if (EnvironmentVariables.getBoolean(EnvironmentVariables.USE_OAUTH_LIBRARY, true)
                 && usedCredentials != null
-                && new CachedCredentials(serverUrl, usedCredentials).isPatCredentials()
-                && isHosted) {
+                && isHosted
+                && new CachedCredentials(serverUrl, usedCredentials).isPatCredentials()) {
                 // PAT token is probably expired. Remove it from the Eclipse
                 // secure storage and retry.
                 final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
