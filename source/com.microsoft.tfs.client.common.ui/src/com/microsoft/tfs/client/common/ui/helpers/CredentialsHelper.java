@@ -8,6 +8,7 @@ import java.text.MessageFormat;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.jface.preference.IPreferenceStore;
 
 import com.microsoft.alm.auth.Authenticator;
 import com.microsoft.alm.auth.PromptBehavior;
@@ -27,7 +28,9 @@ import com.microsoft.alm.visualstudio.services.account.client.AccountHttpClient;
 import com.microsoft.alm.visualstudio.services.delegatedauthorization.SessionToken;
 import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.ui.Messages;
+import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.config.UIClientConnectionAdvisor;
+import com.microsoft.tfs.client.common.ui.prefs.UIPreferenceConstants;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.config.ConnectionInstanceData;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
@@ -105,49 +108,81 @@ public abstract class CredentialsHelper {
         final Action<DeviceFlowResponse> callback) {
         removeStaleOAuth2Token();
 
-        final Authenticator authenticator;
-        final OAuth2Authenticator oauth2Authenticator =
-            OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, callback);
-        final Token token;
+        final IPreferenceStore prefStore = TFSCommonUIClientPlugin.getDefault().getPreferenceStore();
+        final String saverUserAgentProvider = System.getProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY);
 
-        final AuthLibHttpClientFactory authLibHttpClientFactory = new AuthLibHttpClientFactory();
-        Global.setHttpClientFactory(authLibHttpClientFactory);
-
-        if (serverURI != null) {
-            log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
-            log.debug("Trying to persist credential, generating a PAT"); //$NON-NLS-1$
-
-            authenticator = new VstsPatAuthenticator(oauth2Authenticator, tokenStore);
-
-            final String tokenKey =
-                authenticator.getUriToKeyConversion().convert(serverURI, authenticator.getAuthType());
-            removeStalePersonalAccessToken(tokenKey, serverURI);
-
-            final TokenPair oauth2Token =
-                (accessToken == null) ? null : new TokenPair(accessToken.getAccessToken(), "null"); //$NON-NLS-1$
-
-            token = authenticator.getPersonalAccessToken(
-                serverURI,
-                VsoTokenScope.AllScopes,
-                getAccessTokenDescription(serverURI.toString()),
-                PromptBehavior.AUTO,
-                oauth2Token);
-        } else {
-            log.debug("Interactively retrieving credential based on oauth2 flow for VSTS"); //$NON-NLS-1$
-            log.debug("Do not try to persist, generating oauth2 token."); //$NON-NLS-1$
-
-            authenticator = oauth2Authenticator;
-
-            final TokenPair tokenPair = authenticator.getOAuth2TokenPair();
-            token = tokenPair != null ? tokenPair.AccessToken : null;
+        if (prefStore.getBoolean(UIPreferenceConstants.USE_DEVICE_FLOW_AUTHENTICATION)) {
+            /*
+             * The OAuth device flow has been requested either by an Eclipse
+             * preference or by JVM system property. We're setting the system
+             * property -DuserAgentProvider to "none".
+             */
+            System.setProperty(
+                UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY,
+                UIPreferenceConstants.USER_AGENT_PROVIDER_VALUE);
+        } else if (UIPreferenceConstants.USER_AGENT_PROVIDER_VALUE.equalsIgnoreCase(
+            System.getProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY))) {
+            /*
+             * The OAuth device flow has not been requested by an Eclipse
+             * preference. We're removing the system property
+             * -DuserAgentProvider only if it is set to "none". It might be also
+             * set by the user to "StandardWidgetToolkit" or "JavaFx".
+             */
+            System.getProperties().remove(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY);
         }
 
-        if (token != null && token.Type != null && !StringUtil.isNullOrEmpty(token.Value)) {
-            switch (token.Type) {
-                case Personal:
-                    return new PatCredentials(token.Value);
-                case Access:
-                    return new JwtCredentials(token.Value);
+        try {
+            final Authenticator authenticator;
+            final OAuth2Authenticator oauth2Authenticator =
+                OAuth2Authenticator.getAuthenticator(CLIENT_ID, REDIRECT_URL, accessTokenStore, callback);
+            final Token token;
+
+            final AuthLibHttpClientFactory authLibHttpClientFactory = new AuthLibHttpClientFactory();
+            Global.setHttpClientFactory(authLibHttpClientFactory);
+
+            if (serverURI != null) {
+                log.debug("Interactively retrieving credential based on oauth2 flow for " + serverURI.toString()); //$NON-NLS-1$
+                log.debug("Trying to persist credential, generating a PAT"); //$NON-NLS-1$
+
+                authenticator = new VstsPatAuthenticator(oauth2Authenticator, tokenStore);
+
+                final String tokenKey =
+                    authenticator.getUriToKeyConversion().convert(serverURI, authenticator.getAuthType());
+                removeStalePersonalAccessToken(tokenKey, serverURI);
+
+                final TokenPair oauth2Token =
+                    (accessToken == null) ? null : new TokenPair(accessToken.getAccessToken(), "null"); //$NON-NLS-1$
+
+                token = authenticator.getPersonalAccessToken(
+                    serverURI,
+                    VsoTokenScope.AllScopes,
+                    getAccessTokenDescription(serverURI.toString()),
+                    PromptBehavior.AUTO,
+                    oauth2Token);
+            } else {
+                log.debug("Interactively retrieving credential based on oauth2 flow for VSTS"); //$NON-NLS-1$
+                log.debug("Do not try to persist, generating oauth2 token."); //$NON-NLS-1$
+
+                authenticator = oauth2Authenticator;
+
+                final TokenPair tokenPair = authenticator.getOAuth2TokenPair();
+                token = tokenPair != null ? tokenPair.AccessToken : null;
+            }
+
+            if (token != null && token.Type != null && !StringUtil.isNullOrEmpty(token.Value)) {
+                switch (token.Type) {
+                    case Personal:
+                        return new PatCredentials(token.Value);
+                    case Access:
+                        return new JwtCredentials(token.Value);
+                }
+            }
+        } finally {
+            if (StringUtil.isNullOrEmpty(saverUserAgentProvider)) {
+                System.getProperties().remove(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY);
+
+            } else {
+                System.setProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY, saverUserAgentProvider);
             }
         }
 
