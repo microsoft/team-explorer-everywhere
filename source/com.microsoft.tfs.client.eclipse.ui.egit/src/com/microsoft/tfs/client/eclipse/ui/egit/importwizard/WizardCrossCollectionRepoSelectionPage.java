@@ -328,7 +328,7 @@ public class WizardCrossCollectionRepoSelectionPage extends WizardCrossCollectio
     }
 
     private UsernamePasswordCredentials getCredentials(final TFSConnection connection) {
-        final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getGitCredentialsManager();
+        final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
         Credentials savedCredentials = null;
 
         CachedCredentials cachedCredentials = credentialsManager.getCredentials(connection.getBaseURI());

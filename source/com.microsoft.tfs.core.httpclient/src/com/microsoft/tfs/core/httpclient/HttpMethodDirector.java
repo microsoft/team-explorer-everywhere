@@ -48,6 +48,7 @@ import com.microsoft.tfs.core.httpclient.auth.AuthScope;
 import com.microsoft.tfs.core.httpclient.auth.AuthState;
 import com.microsoft.tfs.core.httpclient.auth.AuthenticationException;
 import com.microsoft.tfs.core.httpclient.auth.AuthorizationHeaderScheme;
+import com.microsoft.tfs.core.httpclient.auth.BasicScheme;
 import com.microsoft.tfs.core.httpclient.auth.CredentialsNotAvailableException;
 import com.microsoft.tfs.core.httpclient.auth.CredentialsProvider;
 import com.microsoft.tfs.core.httpclient.auth.MalformedChallengeException;
@@ -150,15 +151,16 @@ class HttpMethodDirector {
                     if (preemptiveCredentials != null && method.getDoAuthentication()) {
                         method.getHostAuthState().setPreemptive(preemptiveCredentials);
                         method.getHostAuthState().setAuthAttempted(true);
+                        method.getHostAuthState().setAuthScheme(new BasicScheme());
 
                         /*
-                         * Disabled. HttpClient used to force
-                         * pre-emptive auth to the proxy if it was enabled for
-                         * the host, but this doesn't work when the pre-emptive
-                         * auth uses the Authorization header. Disabling will
-                         * prevent Basic auth to proxies, which TEE never
-                         * supported in the past because we never enabled
-                         * pre-emptive authentication before Dev11.
+                         * Disabled. HttpClient used to force pre-emptive auth
+                         * to the proxy if it was enabled for the host, but this
+                         * doesn't work when the pre-emptive auth uses the
+                         * Authorization header. Disabling will prevent Basic
+                         * auth to proxies, which TEE never supported in the
+                         * past because we never enabled pre-emptive
+                         * authentication before Dev11.
                          */
                         // if (conn.isProxied() && !conn.isSecure())
                         // {

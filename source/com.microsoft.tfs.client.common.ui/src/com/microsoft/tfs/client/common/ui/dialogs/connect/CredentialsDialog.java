@@ -28,13 +28,17 @@ import com.microsoft.tfs.client.common.ui.controls.connect.ConnectionErrorContro
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.helper.ShellUtils;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
+import com.microsoft.tfs.client.common.ui.framework.validation.ButtonValidatorBinding;
+import com.microsoft.tfs.client.common.ui.framework.validation.TextControlValidator;
 import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManagerFactory;
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials;
+import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 import com.microsoft.tfs.util.Check;
+import com.microsoft.tfs.util.StringUtil;
 import com.microsoft.tfs.util.listeners.SingleListenerFacade;
 
 public class CredentialsDialog extends CredentialsCompleteDialog {
@@ -45,12 +49,15 @@ public class CredentialsDialog extends CredentialsCompleteDialog {
     private static final Log log = LogFactory.getLog(CredentialsDialog.class);
 
     private final URI serverURI;
+    private String savedUserName = StringUtil.EMPTY;
     private Credentials credentials;
     private String errorMessage;
 
     private Text usernameText;
     private Text passwordText;
     private Button savePasswordButton;
+    private Button userpasswordButton;
+    private Button patButton;
 
     private Composite insecureComposite;
     private Label insecureSaveSpacer;
@@ -147,6 +154,30 @@ public class CredentialsDialog extends CredentialsCompleteDialog {
             GridDataBuilder.newInstance().hSpan(2).applyTo(spacerLabel);
         }
 
+        final Label credentialsTypeLabel = new Label(dialogArea, SWT.NONE);
+        credentialsTypeLabel.setText(Messages.getString("CredentialsDialog.CredentialsTypeLabel")); //$NON-NLS-1$
+
+        final Composite buttonComposite = new Composite(dialogArea, SWT.NONE);
+        final GridLayout buttonCompositeLayout = new GridLayout(2, false);
+        buttonCompositeLayout.horizontalSpacing = getHorizontalSpacing();
+        buttonCompositeLayout.verticalSpacing = getVerticalSpacing();
+        buttonCompositeLayout.marginWidth = 0;
+        buttonCompositeLayout.marginHeight = 0;
+        buttonComposite.setLayout(buttonCompositeLayout);
+
+        userpasswordButton = new Button(buttonComposite, SWT.RADIO);
+        userpasswordButton.setText(Messages.getString("CredentialsDialog.UserPasswordTypeLabel")); //$NON-NLS-1$
+        userpasswordButton.setSelection(true);
+
+        patButton = new Button(buttonComposite, SWT.RADIO);
+        patButton.setText(Messages.getString("CredentialsDialog.PatTypeLabel")); //$NON-NLS-1$
+        patButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(final SelectionEvent e) {
+                onCredentialTypeSelected();
+            }
+        });
+
         final Label usernameLabel = new Label(dialogArea, SWT.NONE);
         usernameLabel.setText(Messages.getString("CredentialsDialog.UserNameLabelText")); //$NON-NLS-1$
 
@@ -201,9 +232,31 @@ public class CredentialsDialog extends CredentialsCompleteDialog {
             }
         }
 
+        if (getCredentials() == null || getCredentials() instanceof PatCredentials) {
+            patButton.setSelection(true);
+            userpasswordButton.setSelection(false);
+        } else if (getCredentials() instanceof UsernamePasswordCredentials) {
+            savedUserName = ((UsernamePasswordCredentials) getCredentials()).getUsername();
+            usernameText.setText(savedUserName);
+            patButton.setSelection(false);
+            userpasswordButton.setSelection(true);
+        }
+
         if (usernameText.getText().length() > 0) {
             passwordText.setFocus();
         }
+
+        onCredentialTypeSelected();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected void createButtonsForButtonBar(final Composite parent) {
+        super.createButtonsForButtonBar(parent);
+        final Button okButton = getButton(IDialogConstants.OK_ID);
+        new ButtonValidatorBinding(okButton).bind(new TextControlValidator(passwordText));
     }
 
     private void toggleInsecureWarning() {
@@ -244,18 +297,32 @@ public class CredentialsDialog extends CredentialsCompleteDialog {
             IDialogConstants.MINIMUM_MESSAGE_AREA_WIDTH).applyTo(insecureSaveTextLabel);
     }
 
+    private void onCredentialTypeSelected() {
+        if (patButton.getSelection()) {
+            savedUserName = usernameText.getText();
+            usernameText.setText(StringUtil.EMPTY);
+        } else {
+            usernameText.setText(savedUserName);
+        }
+        usernameText.setEnabled(userpasswordButton.getSelection());
+    }
+
     @Override
     protected void okPressed() {
         final String username = usernameText.getText();
         final String password = passwordText.getText();
 
-        credentials = new UsernamePasswordCredentials(username, password);
+        if (userpasswordButton.getSelection()) {
+            credentials = new UsernamePasswordCredentials(username, password);
+        } else if (patButton.getSelection()) {
+            credentials = new PatCredentials(password);
+        }
 
         /* Save the username and password if the user requested it. */
         if (allowSavePassword && savePasswordButton.getSelection()) {
             if (!CredentialsManagerFactory.getCredentialsManager(
                 DefaultPersistenceStoreProvider.INSTANCE).setCredentials(
-                    new CachedCredentials(serverURI, usernameText.getText(), passwordText.getText()))) {
+                    new CachedCredentials(serverURI, credentials))) {
                 Shell shell = ShellUtils.getBestParent(null);
 
                 if (shell == null) {

@@ -23,6 +23,7 @@ import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFact
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.controls.generic.BaseControl;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.AddServerDialog;
+import com.microsoft.tfs.client.common.ui.dialogs.connect.CredentialsDialog;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.framework.validation.ButtonValidatorBinding;
@@ -30,8 +31,9 @@ import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
 import com.microsoft.tfs.client.common.ui.helpers.CredentialsHelper;
 import com.microsoft.tfs.client.common.ui.helpers.UIConnectionPersistence;
 import com.microsoft.tfs.core.TFSConnection;
-import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
+import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
+import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.util.ServerURIUtils;
 import com.microsoft.tfs.core.util.serverlist.ServerList;
 import com.microsoft.tfs.core.util.serverlist.ServerListConfigurationEntry;
@@ -40,6 +42,7 @@ import com.microsoft.tfs.util.listeners.SingleListenerFacade;
 public class ServerListControl extends BaseControl {
     public static final String SERVERS_TABLE_ID = "ServerListControl.profilesTable"; //$NON-NLS-1$
     public static final String ADD_BUTTON_ID = "ServerListControl.addButton"; //$NON-NLS-1$
+    public static final String AUTH_BUTTON_ID = "ServerListControl.authButton"; //$NON-NLS-1$
     public static final String DELETE_BUTTON_ID = "ServerListControl.deleteButton"; //$NON-NLS-1$
     public static final String CLEAR_BUTTON_ID = "ServerListControl.clearButton"; //$NON-NLS-1$
 
@@ -83,6 +86,28 @@ public class ServerListControl extends BaseControl {
             }
         });
 
+        final Button authButton = SWTUtil.createButton(this, Messages.getString("ServerListControl.AuthButtonText")); //$NON-NLS-1$
+        AutomationIDHelper.setWidgetID(authButton, AUTH_BUTTON_ID);
+        GridDataBuilder.newInstance().hFill().wButtonHint(authButton).applyTo(authButton);
+        authButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(final SelectionEvent e) {
+                ServerListControl.this.onAuthButtonSelected(e);
+            }
+        });
+        new ButtonValidatorBinding(authButton).bind(serverListTable.getSelectionValidator());
+
+        final Button clearButton = SWTUtil.createButton(this, Messages.getString("ServerListControl.ClearButtonText")); //$NON-NLS-1$
+        AutomationIDHelper.setWidgetID(clearButton, CLEAR_BUTTON_ID);
+        GridDataBuilder.newInstance().hFill().wButtonHint(clearButton).applyTo(clearButton);
+        clearButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(final SelectionEvent e) {
+                ServerListControl.this.onClearButtonSelected(e);
+            }
+        });
+        new ButtonValidatorBinding(clearButton).bind(serverListTable.getSelectionValidator());
+
         final Button deleteButton =
             SWTUtil.createButton(this, Messages.getString("ServerListControl.DeleteButtonText")); //$NON-NLS-1$
         AutomationIDHelper.setWidgetID(deleteButton, DELETE_BUTTON_ID);
@@ -94,17 +119,6 @@ public class ServerListControl extends BaseControl {
             }
         });
         new ButtonValidatorBinding(deleteButton).bind(serverListTable.getSelectionValidator());
-
-        final Button clearButton = SWTUtil.createButton(this, Messages.getString("ServerListControl.ClearButtonText")); //$NON-NLS-1$
-        AutomationIDHelper.setWidgetID(deleteButton, CLEAR_BUTTON_ID);
-        GridDataBuilder.newInstance().hFill().wButtonHint(clearButton).applyTo(clearButton);
-        clearButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(final SelectionEvent e) {
-                ServerListControl.this.onClearButtonSelected(e);
-            }
-        });
-        new ButtonValidatorBinding(clearButton).bind(serverListTable.getSelectionValidator());
 
         serverListTable.addSelectionChangedListener(new ISelectionChangedListener() {
 
@@ -123,6 +137,9 @@ public class ServerListControl extends BaseControl {
                 // is selected
                 deleteButton.setEnabled(!currentServerSelected);
 
+                // Enable authentication button if one and only one server is
+                // selected
+                authButton.setEnabled(selectedEntries.length == 1);
             }
         });
     }
@@ -161,6 +178,28 @@ public class ServerListControl extends BaseControl {
             serverList.add(lastAddedServerListEntry);
             refreshTable();
             serverListTable.setFocus();
+        }
+    }
+
+    private void onAuthButtonSelected(SelectionEvent e) {
+        final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
+
+        final ServerListConfigurationEntry[] serverListEntries = serverListTable.getSelectedServerListEntries();
+        final ServerListConfigurationEntry selectedEntry = serverListEntries[0];
+        final URI serverUrl = selectedEntry.getURI();
+
+        final CredentialsDialog credentialsDialog = new CredentialsDialog(getShell(), serverUrl);
+
+        final CachedCredentials oldCachedCredentials = credentialsManager.getCredentials(serverUrl);
+        if (oldCachedCredentials != null && !oldCachedCredentials.isCookieCredentials()) {
+            credentialsDialog.setCredentials(oldCachedCredentials.toCredentials());
+        }
+
+        if (credentialsDialog.open() == IDialogConstants.OK_ID) {
+            final Credentials credentials = credentialsDialog.getCredentials();
+
+            final CachedCredentials newCachedCredentials = new CachedCredentials(serverUrl, credentials);
+            credentialsManager.setCredentials(newCachedCredentials);
         }
     }
 
@@ -229,17 +268,14 @@ public class ServerListControl extends BaseControl {
 
     private void removeCredentials(final ServerListConfigurationEntry[] serverListEntries) {
 
-        final CredentialsManager teeCredentialsProvider =
-            EclipseCredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
-        final CredentialsManager gitCredentialsProvider = EclipseCredentialsManagerFactory.getGitCredentialsManager();
+        final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
 
         boolean removeOAuth2Token = false;
         for (int i = 0; i < serverListEntries.length; i++) {
             final ServerListConfigurationEntry serverListEntry = serverListEntries[i];
             final URI url = serverListEntry.getURI();
 
-            teeCredentialsProvider.removeCredentials(url);
-            gitCredentialsProvider.removeCredentials(url);
+            credentialsManager.removeCredentials(url);
 
             // Remove from OAuth2 access token from the internal store
             removeOAuth2Token = removeOAuth2Token || ServerURIUtils.isHosted(url);

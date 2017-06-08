@@ -31,6 +31,7 @@ public class MainPreferencePage extends BasePreferencePage {
     public static final String CONNECT_AT_IMPORT_CHECKBOX_ID = "MainPreferencePage.connectAtImportButton"; //$NON-NLS-1$
     public static final String ACCEPT_UNTRUSTED_CERTIFICATES_CHECKBOX_ID =
         "MainPreferencePage.acceptUntrustedCertificates"; //$NON-NLS-1$
+    private static final String USE_DEVICE_FLOW_AUTHENTICATION_CHECKBOX_ID = "MainPreferencePage.useDeviceFlow"; //$NON-NLS-1$
 
     /**
      * This constant is since SWT 3.7, so we duplicate it here.
@@ -40,6 +41,7 @@ public class MainPreferencePage extends BasePreferencePage {
     private Button reconnectButton;
     private Button connectAtImportButton;
     private Button acceptUntrustedCertificatesButton;
+    private Button useDeviceFlowAuthenticationButton;
 
     private Button embeddedBrowserDefault;
     private Button embeddedBrowserMozilla;
@@ -89,6 +91,11 @@ public class MainPreferencePage extends BasePreferencePage {
                 }
             }
         });
+
+        useDeviceFlowAuthenticationButton = new Button(composite, SWT.CHECK);
+        AutomationIDHelper.setWidgetID(useDeviceFlowAuthenticationButton, USE_DEVICE_FLOW_AUTHENTICATION_CHECKBOX_ID);
+        useDeviceFlowAuthenticationButton.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
+        useDeviceFlowAuthenticationButton.setText(Messages.getString("MainPreferencePage.UseDeviceFlowButtonText")); //$NON-NLS-1$
 
         if (showBrowserPreference()) {
             final Group browserGroup = new Group(composite, SWT.NONE);
@@ -143,6 +150,8 @@ public class MainPreferencePage extends BasePreferencePage {
         connectAtImportButton.setSelection(store.getBoolean(UIPreferenceConstants.CONNECT_MAPPED_PROJECTS_AT_IMPORT));
         acceptUntrustedCertificatesButton.setSelection(
             store.getBoolean(UIPreferenceConstants.ACCEPT_UNTRUSTED_CERTIFICATES));
+        useDeviceFlowAuthenticationButton.setSelection(
+            store.getBoolean(UIPreferenceConstants.USE_DEVICE_FLOW_AUTHENTICATION));
 
         if (showBrowserPreference()) {
             setEmbeddedBrowserType(store.getInt(UIPreferenceConstants.EMBEDDED_WEB_BROWSER_TYPE));
@@ -158,6 +167,8 @@ public class MainPreferencePage extends BasePreferencePage {
             store.getDefaultBoolean(UIPreferenceConstants.CONNECT_MAPPED_PROJECTS_AT_IMPORT));
         acceptUntrustedCertificatesButton.setSelection(
             store.getDefaultBoolean(UIPreferenceConstants.ACCEPT_UNTRUSTED_CERTIFICATES));
+        useDeviceFlowAuthenticationButton.setSelection(
+            store.getDefaultBoolean(UIPreferenceConstants.USE_DEVICE_FLOW_AUTHENTICATION));
 
         if (showBrowserPreference()) {
             setEmbeddedBrowserType(store.getDefaultInt(UIPreferenceConstants.EMBEDDED_WEB_BROWSER_TYPE));
@@ -175,6 +186,9 @@ public class MainPreferencePage extends BasePreferencePage {
         store.setValue(
             UIPreferenceConstants.ACCEPT_UNTRUSTED_CERTIFICATES,
             acceptUntrustedCertificatesButton.getSelection());
+        store.setValue(
+            UIPreferenceConstants.USE_DEVICE_FLOW_AUTHENTICATION,
+            useDeviceFlowAuthenticationButton.getSelection());
 
         if (showBrowserPreference()) {
             store.setValue(UIPreferenceConstants.EMBEDDED_WEB_BROWSER_TYPE, getEmbeddedBrowserType());
