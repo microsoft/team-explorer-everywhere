@@ -120,6 +120,7 @@ public abstract class CredentialsHelper {
             System.setProperty(
                 UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY,
                 UIPreferenceConstants.USER_AGENT_PROVIDER_VALUE);
+            // ClientTelemetryHelper.sendDialogOpened(this);
         } else if (UIPreferenceConstants.USER_AGENT_PROVIDER_VALUE.equalsIgnoreCase(
             System.getProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY))) {
             /*
@@ -180,7 +181,6 @@ public abstract class CredentialsHelper {
         } finally {
             if (StringUtil.isNullOrEmpty(saverUserAgentProvider)) {
                 System.getProperties().remove(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY);
-
             } else {
                 System.setProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY, saverUserAgentProvider);
             }

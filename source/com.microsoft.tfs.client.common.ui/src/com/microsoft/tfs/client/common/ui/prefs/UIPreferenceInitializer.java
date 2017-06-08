@@ -18,10 +18,7 @@ public class UIPreferenceInitializer extends AbstractPreferenceInitializer {
         prefs.setDefault(UIPreferenceConstants.RECONNECT_AT_STARTUP, true);
         prefs.setDefault(UIPreferenceConstants.CONNECT_MAPPED_PROJECTS_AT_IMPORT, true);
         prefs.setDefault(UIPreferenceConstants.ACCEPT_UNTRUSTED_CERTIFICATES, false);
-        prefs.setDefault(
-            UIPreferenceConstants.USE_DEVICE_FLOW_AUTHENTICATION,
-            UIPreferenceConstants.USER_AGENT_PROVIDER_VALUE.equalsIgnoreCase(
-                System.getProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY)));
+        prefs.setDefault(UIPreferenceConstants.USE_DEVICE_FLOW_AUTHENTICATION, true);
         prefs.setDefault(UIPreferenceConstants.EMBEDDED_WEB_BROWSER_TYPE, SWT.NONE);
 
         // default lock level for automatic checkout from edits, and default in

@@ -37,24 +37,23 @@ public class ClientTelemetryHelper extends TfsTelemetryHelper {
         sendPageView(pageName, properties);
     }
 
-    public static void sendDialogOpened(final BaseDialog dialog) {
+    public static void sendDialogOpened(final BaseDialog dialog, final Map<String, String> properties) {
         Check.notNull(dialog, "dialog"); //$NON-NLS-1$
 
         final String dialogName = getName(dialog);
-        sendDialogOpened(dialogName);
+        sendDialogOpened(dialogName, properties);
     }
 
-    public static void sendDialogOpened(final PopupDialog dialog) {
+    public static void sendDialogOpened(final PopupDialog dialog, final Map<String, String> properties) {
         Check.notNull(dialog, "dialog"); //$NON-NLS-1$
 
         final String dialogName = getName(dialog);
-        sendDialogOpened(dialogName);
+        sendDialogOpened(dialogName, properties);
     }
 
-    private static void sendDialogOpened(final String dialogName) {
+    private static void sendDialogOpened(final String dialogName, final Map<String, String> properties) {
         final String pageName = MessageFormat.format(TfsTelemetryConstants.DIALOG_PAGE_VIEW_NAME_FORMAT, dialogName);
 
-        final Map<String, String> properties = new HashMap<String, String>();
         addContextProperties(properties);
 
         sendPageView(pageName, properties);
