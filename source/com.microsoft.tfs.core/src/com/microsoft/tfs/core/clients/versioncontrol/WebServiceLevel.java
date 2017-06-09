@@ -32,6 +32,7 @@ public class WebServiceLevel extends TypesafeEnum {
     public static final WebServiceLevel TFS_2012_3 = new WebServiceLevel(6);
     public static final WebServiceLevel TFS_2012_QU1 = new WebServiceLevel(7);
     public static final WebServiceLevel TFS_2012_QU1_1 = new WebServiceLevel(8);
+    public static final WebServiceLevel TFS_2013 = new WebServiceLevel(9);
 
     private WebServiceLevel(final int value) {
         super(value);

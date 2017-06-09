@@ -42,6 +42,7 @@ public final class ServiceInterfaceIdentifiers {
     public static final GUID VERSION_CONTROL_4_DOT_3 = new GUID("71900729-7BE6-45CA-923D-3B00AA97DAE8"); //$NON-NLS-1$
     public static final GUID VERSION_CONTROL_5 = new GUID("A25D0656-DA63-4F51-9DA9-800FFF229D1A"); //$NON-NLS-1$
     public static final GUID VERSION_CONTROL_5_DOT_1 = new GUID("54EB89EB-36D1-46AD-85C1-84EB5E8C7DE7"); //$NON-NLS-1$
+    public static final GUID VERSION_CONTROL_5_DOT_2 = new GUID("96793C43-C34D-4AAD-8B2F-218EF3B46B8A"); //$NON-NLS-1$
     public static final GUID VERSION_CONTROL_ADMIN = new GUID("0ade2b5a-efa4-419e-bf11-24f7cfe7c1a2"); //$NON-NLS-1$
     public static final GUID VERSION_CONTROL_DOWNLOAD = new GUID("29b91065-1314-41d5-ab70-0bfa9896a51d"); //$NON-NLS-1$
     public static final GUID VERSION_CONTROL_LINKING = new GUID("10a3ab2b-7140-4b4b-a72a-0feca94d5b6d"); //$NON-NLS-1$
