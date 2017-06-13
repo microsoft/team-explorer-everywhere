@@ -65,32 +65,6 @@ public class CredentialsPreferencePage extends BasePreferencePage {
         layout.verticalSpacing = getVerticalSpacing();
         container.setLayout(layout);
 
-        // /* Windows and Mac platforms do not allow editing the credentials. */
-        // if (Platform.isCurrentPlatform(Platform.WINDOWS) ||
-        // Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-        // String message;
-        //
-        // if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
-        // message =
-        // Messages.getString("CredentialsPreferencePage.EditingNotSupportedWindows");
-        // //$NON-NLS-1$
-        // } else if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-        // message =
-        // Messages.getString("CredentialsPreferencePage.EditingNotSupportedMac");
-        // //$NON-NLS-1$
-        // } else {
-        // message =
-        // Messages.getString("CredentialsPreferencePage.EditingNotSupportedGeneric");
-        // //$NON-NLS-1$
-        // }
-        //
-        // final Label label = new Label(container, SWT.NONE);
-        // label.setText(message);
-        // GridDataBuilder.newInstance().hSpan(3).hGrab().hFill().applyTo(label);
-        //
-        // return container;
-        // }
-
         final Label label = new Label(container, SWT.NONE);
         label.setText(Messages.getString("CredentialsPreferencePage.Description")); //$NON-NLS-1$
         GridDataBuilder.newInstance().hSpan(3).hGrab().hFill().applyTo(label);
