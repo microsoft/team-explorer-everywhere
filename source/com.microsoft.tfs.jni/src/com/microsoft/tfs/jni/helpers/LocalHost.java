@@ -44,6 +44,8 @@ public abstract class LocalHost {
      * Where the cached computer name string goes.
      */
     private static String computerName;
+    // JetBrains TFS plugin compatible name
+    private static String computerNameJB;
 
     /**
      * <p>
@@ -108,7 +110,74 @@ public abstract class LocalHost {
                 name.substring(0, (name.length() > MAX_COMPUTER_NAME_SIZE) ? MAX_COMPUTER_NAME_SIZE : name.length());
         }
 
+        log.info("Short name resolved to: " + computerNameJB); //$NON-NLS-1$
         return computerName;
+    }
+
+    /**
+     * <p>
+     * Gets the short name of the current computer compatible with JetBrains TFS
+     * plugin.
+     * <p>
+     * The only difference with the traditional TEE method
+     * {@link #getShortName()} is in the order of particular name detection
+     * sub-method calls. This method prefers {@link #getPureJavaShortName()} to
+     * {@link #getNativeShortName()}
+     * </p>
+     * <p>
+     * The {@link #SHORT_NAME_OVERRIDE_PROPERTY} may be used to define the
+     * computer name exactly.
+     * </p>
+     *
+     * @return a short identifier (name of this computer). Never
+     *         <code>null</code> or empty.
+     */
+    public synchronized static String getShortNameJB() {
+        if (computerNameJB == null) {
+            String name = null;
+
+            /*
+             * The system property overrides all other settings.
+             */
+            name = getSystemPropertyShortName();
+
+            /*
+             * The last real technique is pure Java, which fails in certain
+             * network configurations because it uses DNS.
+             */
+            if (name == null) {
+                name = getPureJavaShortName();
+            }
+
+            /*
+             * Native code (or the appropriate fallback from that layer) is
+             * quite accurate. This will almost always work for all platforms.
+             */
+            if (name == null) {
+                name = getNativeShortName();
+            }
+
+            /*
+             * Some platforms expose an environment variable.
+             */
+            if (name == null) {
+                name = getEnvironmentShortName();
+            }
+
+            /*
+             * If we still don't have a host name, make up a cheesy one.
+             */
+            if (name == null || name.length() == 0) {
+                name = getMadeUpShortName();
+            }
+
+            // Cache the name forever. Truncate if too long.
+            computerNameJB =
+                name.substring(0, (name.length() > MAX_COMPUTER_NAME_SIZE) ? MAX_COMPUTER_NAME_SIZE : name.length());
+        }
+
+        log.info("Short name resolved to: " + computerNameJB); //$NON-NLS-1$
+        return computerNameJB;
     }
 
     /**
@@ -224,9 +293,9 @@ public abstract class LocalHost {
      */
     private static String getPureJavaShortName() {
         /*
-         * I have a feeling this may fail for some computers with unusual network
-         * configurations (lots of interfaces; no DNS; etc.). It may need to be
-         * scrapped and re-written.
+         * I have a feeling this may fail for some computers with unusual
+         * network configurations (lots of interfaces; no DNS; etc.). It may
+         * need to be scrapped and re-written.
          */
         String name = null;
 
