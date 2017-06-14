@@ -936,16 +936,12 @@ public abstract class Command
          * compilation. The code should be removed when and if this
          * compatibility is not needed anymore.
          */
-        WorkspaceInfo workspaceInfo = null;
-        try {
-            workspaceInfo = determineCachedWorkspaceImpl(pathFreeArguments, ignoreWorkspaceOptionValue);
+        WorkspaceInfo workspaceInfo = determineCachedWorkspaceImpl(pathFreeArguments, ignoreWorkspaceOptionValue);
 
-            if (LocalHost.getShortName().equalsIgnoreCase(workspaceInfo.getComputer())) {
-                /*
-                 * The workspace has been created with CLC, we can just use it.
-                 */
-                return workspaceInfo;
-            }
+        if (!LocalHost.getShortName().equalsIgnoreCase(workspaceInfo.getComputer())) {
+            /*
+             * The workspace has been created not with CLC.
+             */
 
             log.info(
                 MessageFormat.format(
@@ -954,17 +950,24 @@ public abstract class Command
                     workspaceInfo.getDisplayName(),
                     LocalHost.getShortName()));
 
-        } catch (final CannotFindWorkspaceException e) {
-            log.info(e.getMessage(), e);
+            /*
+             * Let's check if the workspace has been created not with the
+             * JetBrains plugin.
+             */
+
+            final String jbComputerName = LocalHost.getShortNameJB();
+
+            if (jbComputerName != null && jbComputerName.equalsIgnoreCase(workspaceInfo.getComputer())) {
+                log.info(
+                    MessageFormat.format(
+                        "The workspace has been created with the JetBrains plugin. Use the JetBrains computer name {0} as a short host name.", //$NON-NLS-1$
+                        jbComputerName));
+
+                System.setProperty(LocalHost.SHORT_NAME_OVERRIDE_PROPERTY, jbComputerName);
+            }
         }
 
-        final String jbComputerName = LocalHost.getShortNameJB();
-        log.info(MessageFormat.format(
-            "We'll try to find the workspace one more time using the JetBrains name {0}", //$NON-NLS-1$
-            jbComputerName));
-
-        System.setProperty(LocalHost.SHORT_NAME_OVERRIDE_PROPERTY, jbComputerName);
-        return determineCachedWorkspaceImpl(pathFreeArguments, ignoreWorkspaceOptionValue);
+        return workspaceInfo;
     }
 
     /**
