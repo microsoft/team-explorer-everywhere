@@ -121,18 +121,27 @@ public abstract class LocalHost {
      * <p>
      * The only difference with the traditional TEE method
      * {@link #getShortName()} is in the order of particular name detection
-     * sub-method calls. This method prefers {@link #getPureJavaShortName()} to
-     * {@link #getNativeShortName()}
+     * sub-method calls. This method prefers {@link #getPureJavaShortName()}.
      * </p>
      * <p>
      * The {@link #SHORT_NAME_OVERRIDE_PROPERTY} may be used to define the
      * computer name exactly.
+     * </p>
+     * 
+     * <p>
+     * We un-set the computerName variable, because we might need to recalculate
+     * it since the system property {@link #SHORT_NAME_OVERRIDE_PROPERTY} might
+     * change after call {@link #getShortNameJB()} in
+     * {@link com.microsoft.tfs.client.clc.commands.Command#determineCachedWorkspace()}.
      * </p>
      *
      * @return a short identifier (name of this computer). Never
      *         <code>null</code> or empty.
      */
     public synchronized static String getShortNameJB() {
+
+        computerName = null;
+
         if (computerNameJB == null) {
             String name = getPureJavaShortName();
 
