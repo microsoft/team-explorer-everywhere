@@ -157,10 +157,10 @@ public final class CommandWorkspace extends Command {
         final WorkspaceLocation location,
         final WorkspaceOptions workspaceOptions,
         final WorkspacePermissionProfile permissionProfile)
-            throws ArgumentException,
-                CLCException,
-                MalformedURLException,
-                LicenseException {
+        throws ArgumentException,
+            CLCException,
+            MalformedURLException,
+            LicenseException {
         if (getFreeArguments().length > 1) {
             throw new InvalidFreeArgumentException(Messages.getString("CommandWorkspace.OnlyOneNameWhenCreating")); //$NON-NLS-1$
         }
@@ -344,10 +344,10 @@ public final class CommandWorkspace extends Command {
         final WorkspaceLocation newLocation,
         final WorkspaceOptions workspaceOptions,
         final WorkspacePermissionProfile permissionProfile)
-            throws ArgumentException,
-                MalformedURLException,
-                CLCException,
-                LicenseException {
+        throws ArgumentException,
+            MalformedURLException,
+            CLCException,
+            LicenseException {
         if (getFreeArguments().length > 1) {
             throw new InvalidFreeArgumentException(Messages.getString("CommandWorkspace.OnlyOneNameWhenEditing")); //$NON-NLS-1$
         }
@@ -389,6 +389,7 @@ public final class CommandWorkspace extends Command {
         if (findOptionType(OptionNewName.class) == null
             && findOptionType(OptionComment.class) == null
             && findOptionType(OptionFileTime.class) == null
+            && findOptionType(OptionLocation.class) == null
             && findOptionType(OptionPermission.class) == null) {
             throw new InvalidOptionException(
                 Messages.getString("CommandWorkspace.SpecifyAtLeastNewnameOrCommentOrFileTime")); //$NON-NLS-1$
