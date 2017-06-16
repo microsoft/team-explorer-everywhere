@@ -481,10 +481,15 @@ public abstract class ServerPath {
             }
             // invalid character
             else {
+                char c = serverPath.charAt(position);
+                char c_safe = c < ' ' ? '?' : c;
                 throw new ServerPathFormatException(
                     MessageFormat.format(
                         Messages.getString("ServerPath.TheCharacterIsNotPermittedInServerPathsFormat"), //$NON-NLS-1$
-                        serverPath.charAt(position)));
+                        position + 1,
+                        String.format("%04x", (int) c), //$NON-NLS-1$
+                        c_safe,
+                        serverPath.replace(c, c_safe)));
             }
         }
 
