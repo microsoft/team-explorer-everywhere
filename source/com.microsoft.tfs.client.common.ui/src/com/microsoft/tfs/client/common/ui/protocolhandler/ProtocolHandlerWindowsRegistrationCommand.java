@@ -6,7 +6,6 @@ package com.microsoft.tfs.client.common.ui.protocolhandler;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -238,9 +237,12 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
     }
 
     private List<String> getLauncherScriptCommands(final String launcher) {
+        final String startCommand =
+            MessageFormat.format("@start \"\" \"{0}\" {1} %*", launcher, ProtocolHandler.PROTOCOL_HANDLER_ARG); //$NON-NLS-1$
         return Arrays.asList(new String[] {
             "@rem version=1.0", //$NON-NLS-1$
-            MessageFormat.format("@start \"\" \"{0}\" {1} %*", launcher, ProtocolHandler.PROTOCOL_HANDLER_ARG), //$NON-NLS-1$
+            "echo " + startCommand + " > c:\\0\\prototcol_handler.txt", //$NON-NLS-1$ //$NON-NLS-2$
+            startCommand,
         });
     }
 
@@ -269,11 +271,14 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
     private void createLauncherCmdFile(final File launcherScriptFile, final List<String> commands) {
         PrintWriter writer = null;
         try {
+            launcherScriptFile.getParentFile().mkdirs();
+            launcherScriptFile.createNewFile();
+
             writer = new PrintWriter(launcherScriptFile);
             for (final String command : commands) {
                 writer.println(command);
             }
-        } catch (final FileNotFoundException e) {
+        } catch (final IOException e) {
             log.error(e);
         } finally {
             tryClose(writer);
