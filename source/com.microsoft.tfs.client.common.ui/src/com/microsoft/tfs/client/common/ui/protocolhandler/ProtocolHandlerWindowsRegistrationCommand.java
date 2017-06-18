@@ -241,7 +241,6 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
             MessageFormat.format("@start \"\" \"{0}\" {1} %*", launcher, ProtocolHandler.PROTOCOL_HANDLER_ARG); //$NON-NLS-1$
         return Arrays.asList(new String[] {
             "@rem version=1.0", //$NON-NLS-1$
-            "echo " + startCommand + " > c:\\0\\prototcol_handler.txt", //$NON-NLS-1$ //$NON-NLS-2$
             startCommand,
         });
     }
