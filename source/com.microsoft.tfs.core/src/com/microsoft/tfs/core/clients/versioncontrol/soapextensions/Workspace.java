@@ -6630,7 +6630,15 @@ public final class Workspace extends WebServiceObjectWrapper implements Comparab
      * the user has renamed the machine on which the workspace is hosted.
      */
     public void updateComputerName() {
-        update(null, null, null, LocalHost.getShortName(), null, null, false);
+        updateComputerName(LocalHost.getShortName());
+    }
+    
+    /**
+     * Update the name of the computer in the repository. This is useful when
+     * the user has renamed the machine on which the workspace is hosted.
+     */
+    public void updateComputerName(final String computerName) {
+        update(null, null, null, computerName, null, null, false);
     }
 
     /**

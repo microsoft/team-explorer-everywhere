@@ -532,7 +532,7 @@ public final class CommandWorkspaces extends Command {
 
             for (int i = 0; i < workspaces.length; i++) {
                 final Workspace workspace = workspaces[i];
-                workspace.updateComputerName();
+                workspace.updateComputerName(updateComputerName);
             }
         }
 
