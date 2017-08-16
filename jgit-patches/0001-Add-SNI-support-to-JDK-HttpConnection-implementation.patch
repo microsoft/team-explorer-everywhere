@@ -1,0 +1,147 @@
+From 667eb343a416535e31d7c406e87781f5d3711268 Mon Sep 17 00:00:00 2001
+From: Alex Rukhlin <arukhlin@microsoft.com>
+Date: Tue, 15 Aug 2017 15:55:51 -0400
+Subject: [PATCH] Add SNI support to JDK HttpConnection implementation
+
+---
+ .../jgit/transport/http/JDKHttpConnection.java     | 90 +++++++++++++++++++++-
+ 1 file changed, 88 insertions(+), 2 deletions(-)
+
+diff --git a/org.eclipse.jgit/src/org/eclipse/jgit/transport/http/JDKHttpConnection.java b/org.eclipse.jgit/src/org/eclipse/jgit/transport/http/JDKHttpConnection.java
+index 534e3d734..bf1c24bc3 100644
+--- a/org.eclipse.jgit/src/org/eclipse/jgit/transport/http/JDKHttpConnection.java
++++ b/org.eclipse.jgit/src/org/eclipse/jgit/transport/http/JDKHttpConnection.java
+@@ -46,20 +46,28 @@
+ import java.io.InputStream;
+ import java.io.OutputStream;
+ import java.net.HttpURLConnection;
++import java.net.InetAddress;
+ import java.net.MalformedURLException;
+ import java.net.ProtocolException;
+ import java.net.Proxy;
++import java.net.Socket;
+ import java.net.URL;
++import java.net.UnknownHostException;
+ import java.security.KeyManagementException;
+ import java.security.NoSuchAlgorithmException;
+ import java.security.SecureRandom;
++import java.util.ArrayList;
+ import java.util.List;
+ import java.util.Map;
+ 
+ import javax.net.ssl.HostnameVerifier;
+ import javax.net.ssl.HttpsURLConnection;
+ import javax.net.ssl.KeyManager;
++import javax.net.ssl.SNIHostName;
++import javax.net.ssl.SNIServerName;
+ import javax.net.ssl.SSLContext;
++import javax.net.ssl.SSLSocket;
++import javax.net.ssl.SSLSocketFactory;
+ import javax.net.ssl.TrustManager;
+ 
+ /**
+@@ -80,6 +88,9 @@ protected JDKHttpConnection(URL url)
+ 			throws MalformedURLException,
+ 			IOException {
+ 		this.wrappedUrlConnection = (HttpURLConnection) url.openConnection();
++		if ("https".equals(url.getProtocol())) { //$NON-NLS-1$
++			enableSNIExtension();
++		}
+ 	}
+ 
+ 	/**
+@@ -92,6 +103,9 @@ protected JDKHttpConnection(URL url, Proxy proxy)
+ 			throws MalformedURLException, IOException {
+ 		this.wrappedUrlConnection = (HttpURLConnection) url
+ 				.openConnection(proxy);
++		if ("https".equals(url.getProtocol())) { //$NON-NLS-1$
++			enableSNIExtension();
++		}
+ 	}
+ 
+ 	@Override
+@@ -211,7 +225,79 @@ public void configure(KeyManager[] km, TrustManager[] tm,
+ 			KeyManagementException {
+ 		SSLContext ctx = SSLContext.getInstance("TLS"); //$NON-NLS-1$
+ 		ctx.init(km, tm, random);
+-		((HttpsURLConnection) wrappedUrlConnection).setSSLSocketFactory(ctx
+-				.getSocketFactory());
++		((HttpsURLConnection) wrappedUrlConnection)
++				.setSSLSocketFactory(ctx.getSocketFactory());
++		enableSNIExtension();
++	}
++
++	private void enableSNIExtension() {
++		HttpsURLConnection conn = (HttpsURLConnection) wrappedUrlConnection;
++		conn.setSSLSocketFactory(
++				new SNISoccetFactory(conn.getSSLSocketFactory()));
++	}
++
++	private static class SNISoccetFactory extends SSLSocketFactory {
++
++		final SSLSocketFactory wrappedSSLSocketFactory; // wrappedSSLSocketFactory;
++
++		public SNISoccetFactory(SSLSocketFactory sslSocketFactory) {
++			this.wrappedSSLSocketFactory = sslSocketFactory;
++		}
++
++		@Override
++		public String[] getDefaultCipherSuites() {
++			return wrappedSSLSocketFactory.getDefaultCipherSuites();
++		}
++
++		@Override
++		public String[] getSupportedCipherSuites() {
++			return wrappedSSLSocketFactory.getSupportedCipherSuites();
++		}
++
++		@Override
++		public Socket createSocket(Socket s, String host, int port,
++				boolean autoClose) throws IOException {
++			final SSLSocket socket = (SSLSocket) wrappedSSLSocketFactory.createSocket(s, host,
++					port, autoClose);
++			enableSNI(socket, host);
++			return socket;
++		}
++
++		@Override
++		public Socket createSocket(String host, int port)
++				throws IOException, UnknownHostException {
++			final SSLSocket socket = (SSLSocket) wrappedSSLSocketFactory.createSocket(host,
++					port);
++			enableSNI(socket, host);
++			return socket;
++		}
++
++		@Override
++		public Socket createSocket(InetAddress host, int port)
++				throws IOException, UnknownHostException {
++			return wrappedSSLSocketFactory.createSocket(host, port);
++		}
++
++		@Override
++		public Socket createSocket(String host, int port,
++				InetAddress localAddress,
++				int localPort) throws IOException, UnknownHostException {
++			final SSLSocket socket = (SSLSocket) wrappedSSLSocketFactory.createSocket(host,
++					port, localAddress, localPort);
++			enableSNI(socket, host);
++			return socket;
++		}
++
++		@Override
++		public Socket createSocket(InetAddress address, int port,
++				InetAddress localAddress, int localPort) throws IOException {
++			return wrappedSSLSocketFactory.createSocket(address, port, localAddress, localPort);
++		}
++
++		private void enableSNI(SSLSocket socket, String host) {
++			List<SNIServerName> serverNames = new ArrayList<>(1);
++			serverNames.add(new SNIHostName(host));
++			socket.getSSLParameters().setServerNames(serverNames);
++		}
+ 	}
+ }
+-- 
+2.14.1.windows.1
+

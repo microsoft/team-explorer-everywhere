@@ -1,0 +1,40 @@
+From 24beda6e133e73242a8d2af8113e85a43fbabe19 Mon Sep 17 00:00:00 2001
+From: Alex Rukhlin <arukhlin@microsoft.com>
+Date: Tue, 15 Aug 2017 15:59:15 -0400
+Subject: [PATCH] Fix for cloning from TFS with Negotiate authentication scheme
+ issue
+
+---
+ .../src/org/eclipse/jgit/transport/TransportHttp.java    | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/org.eclipse.jgit/src/org/eclipse/jgit/transport/TransportHttp.java b/org.eclipse.jgit/src/org/eclipse/jgit/transport/TransportHttp.java
+index 1bdecdb18..c202da0e0 100644
+--- a/org.eclipse.jgit/src/org/eclipse/jgit/transport/TransportHttp.java
++++ b/org.eclipse.jgit/src/org/eclipse/jgit/transport/TransportHttp.java
+@@ -500,9 +500,19 @@ private HttpConnection connect(final String service)
+ 					// background (e.g Kerberos/SPNEGO).
+ 					// That may not work for streaming requests and jgit
+ 					// explicit authentication would be required
+-					if (authMethod.getType() == HttpAuthMethod.Type.NONE
+-							&& conn.getHeaderField(HDR_WWW_AUTHENTICATE) != null)
+-						authMethod = HttpAuthMethod.scanResponse(conn, ignoreTypes);
++					if (authMethod.getType() == HttpAuthMethod.Type.NONE) {
++						if (conn.getHeaderField(HDR_WWW_AUTHENTICATE) != null) {
++							authMethod = HttpAuthMethod.scanResponse(conn, ignoreTypes);
++						}
++						else if (getCredentialsProvider() != null) {
++							HttpAuthMethod basicMethod = HttpAuthMethod.Type.BASIC
++								.method(HttpAuthMethod.EMPTY_STRING);
++							if (basicMethod.authorize(uri,
++									getCredentialsProvider())) {
++								authMethod = basicMethod;
++							}
++						}
++					}
+ 					return conn;
+ 
+ 				case HttpConnection.HTTP_NOT_FOUND:
+-- 
+2.14.1.windows.1
+

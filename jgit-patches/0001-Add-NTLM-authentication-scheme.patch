@@ -1,0 +1,60 @@
+From 792b253ad595a150249b8cce98ebd67715865e49 Mon Sep 17 00:00:00 2001
+From: Alex Rukhlin <arukhlin@microsoft.com>
+Date: Wed, 6 Jan 2016 11:08:12 -0500
+Subject: [PATCH] Add NTLM authentication scheme.
+
+---
+ .../org/eclipse/jgit/transport/HttpAuthMethod.java | 30 ++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/org.eclipse.jgit/src/org/eclipse/jgit/transport/HttpAuthMethod.java b/org.eclipse.jgit/src/org/eclipse/jgit/transport/HttpAuthMethod.java
+index 3594ea91b..9178f7834 100644
+--- a/org.eclipse.jgit/src/org/eclipse/jgit/transport/HttpAuthMethod.java
++++ b/org.eclipse.jgit/src/org/eclipse/jgit/transport/HttpAuthMethod.java
+@@ -91,6 +91,17 @@ public String getSchemeName() {
+ 				return "None"; //$NON-NLS-1$
+ 			}
+ 		},
++		NTLM {
++			@Override
++			public HttpAuthMethod method(String hdr) {
++				return Ntlm.INSTANCE;
++			}
++
++			@Override
++			public String getSchemeName() {
++				return "NTLM"; //$NON-NLS-1$
++			}
++		},
+ 		BASIC {
+ 			@Override
+ 			public HttpAuthMethod method(String hdr) {
+@@ -277,6 +288,25 @@ void configureRequest(HttpConnection conn) throws IOException {
+ 		}
+ 	}
+ 
++	/** Performs no user authentication. */
++	private static class Ntlm extends HttpAuthMethod {
++		static final Ntlm INSTANCE = new Ntlm();
++
++		public Ntlm() {
++			super(Type.NTLM);
++		}
++
++		@Override
++		void authorize(String user, String pass) {
++			// Do nothing when no authentication is enabled.
++		}
++
++		@Override
++		void configureRequest(HttpConnection conn) throws IOException {
++			// Do nothing when no authentication is enabled.
++		}
++	}
++
+ 	/** Performs HTTP basic authentication (plaintext username/password). */
+ 	private static class Basic extends HttpAuthMethod {
+ 		private String user;
+-- 
+2.14.1.windows.1
+
