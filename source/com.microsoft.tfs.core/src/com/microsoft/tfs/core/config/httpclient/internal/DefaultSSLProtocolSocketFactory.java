@@ -17,6 +17,8 @@ import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocket;
@@ -77,7 +79,10 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         final int port,
         final InetAddress localAddress,
         final int localPort,
-        final HttpConnectionParams params) throws IOException, UnknownHostException, ConnectTimeoutException {
+        final HttpConnectionParams params)
+        throws IOException,
+            UnknownHostException,
+            ConnectTimeoutException {
         Check.notNull(params, "params"); //$NON-NLS-1$
 
         final int timeout = params.getConnectionTimeout();
@@ -98,7 +103,9 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         final String host,
         final int port,
         final HttpConnectionParams params,
-        final boolean autoClose) throws IOException, UnknownHostException {
+        final boolean autoClose)
+        throws IOException,
+            UnknownHostException {
         Check.notNull(params, "params"); //$NON-NLS-1$
 
         final Socket ssocket = getSocketFactory(params).createSocket(socket, host, port, autoClose);
@@ -207,10 +214,14 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
             if (standardSocketFactory == null) {
                 final SSLContext context = getSSLContext();
 
-                /* Use the default x509 trust manager. */
-                context.init(null, new TrustManager[] {
-                    new DefaultX509TrustManager(null)
-                }, null);
+                context.init(
+                    // Use the default key managers.
+                    getDefaultKeyManagers(),
+                    // Use the default x509 trust manager.
+                    new TrustManager[] {
+                        new DefaultX509TrustManager(null)
+                    },
+                    null);
 
                 standardSocketFactory = context.getSocketFactory();
             }
@@ -235,15 +246,30 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
             if (selfSignedSocketFactory == null) {
                 final SSLContext context = getSSLContext();
 
-                /* Use the self-signed x509 trust manager. */
-                context.init(null, new TrustManager[] {
-                    new SelfSignedX509TrustManager(null)
-                }, null);
+                context.init(
+                    // Use the default key managers.
+                    getDefaultKeyManagers(),
+                    // Use the self-signed x509 trust manager.
+                    new TrustManager[] {
+                        new SelfSignedX509TrustManager(null)
+                    },
+                    null);
 
                 selfSignedSocketFactory = context.getSocketFactory();
             }
 
             return selfSignedSocketFactory;
         }
+    }
+
+    private KeyManager[] getDefaultKeyManagers() throws KeyStoreException, NoSuchAlgorithmException {
+        final String keyStorePath = System.getProperty("javax.net.ssl.keyStore"); //$NON-NLS-1$
+
+        if (!StringUtil.isNullOrEmpty(keyStorePath)) {
+            return KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm()).getKeyManagers();
+        } else {
+            return null;
+        }
+
     }
 }
