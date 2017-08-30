@@ -288,7 +288,7 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
                 return managers;
             } catch (final Exception e) {
                 // Ignore errors and use default behavior
-                log.warn(MessageFormat.format("Error accessingt the client key store {0}", keyStorePath), e); //$NON-NLS-1$
+                log.warn(MessageFormat.format("Error accessing the client key store {0}", keyStorePath), e); //$NON-NLS-1$
             }
         }
 

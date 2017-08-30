@@ -48,10 +48,11 @@ import com.microsoft.tfs.core.httpclient.auth.AuthScope;
 import com.microsoft.tfs.core.httpclient.auth.AuthState;
 import com.microsoft.tfs.core.httpclient.auth.AuthenticationException;
 import com.microsoft.tfs.core.httpclient.auth.AuthorizationHeaderScheme;
-import com.microsoft.tfs.core.httpclient.auth.BasicScheme;
 import com.microsoft.tfs.core.httpclient.auth.CredentialsNotAvailableException;
 import com.microsoft.tfs.core.httpclient.auth.CredentialsProvider;
+import com.microsoft.tfs.core.httpclient.auth.JwtAuthScheme;
 import com.microsoft.tfs.core.httpclient.auth.MalformedChallengeException;
+import com.microsoft.tfs.core.httpclient.auth.PreemptiveBasicScheme;
 import com.microsoft.tfs.core.httpclient.params.HostParams;
 import com.microsoft.tfs.core.httpclient.params.HttpClientParams;
 import com.microsoft.tfs.core.httpclient.params.HttpConnectionParams;
@@ -151,7 +152,11 @@ class HttpMethodDirector {
                     if (preemptiveCredentials != null && method.getDoAuthentication()) {
                         method.getHostAuthState().setPreemptive(preemptiveCredentials);
                         method.getHostAuthState().setAuthAttempted(true);
-                        method.getHostAuthState().setAuthScheme(new BasicScheme());
+                        if (preemptiveCredentials instanceof JwtCredentials) {
+                            method.getHostAuthState().setAuthScheme(new JwtAuthScheme());
+                        } else {
+                            method.getHostAuthState().setAuthScheme(new PreemptiveBasicScheme());
+                        }
 
                         /*
                          * Disabled. HttpClient used to force pre-emptive auth
