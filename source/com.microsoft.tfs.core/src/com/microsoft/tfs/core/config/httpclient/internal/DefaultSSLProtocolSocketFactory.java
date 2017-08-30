@@ -271,7 +271,8 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
 
         if (!StringUtil.isNullOrEmpty(keyStorePath)) {
             final String keyStoreType = System.getProperty("javax.net.ssl.keyStoreType", "JKS"); //$NON-NLS-1$ //$NON-NLS-2$
-            final String keyStorePassword = System.getProperty("javax.net.ssl.keyStorePassword", StringUtil.EMPTY); //$NON-NLS-1$
+            final char[] keyStorePassword =
+                System.getProperty("javax.net.ssl.keyStorePassword", StringUtil.EMPTY).toCharArray(); //$NON-NLS-1$
 
             final KeyManagerFactory keyManagerFactory =
                 KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
@@ -280,8 +281,8 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
             try {
                 final InputStream keyStoreFile = new FileInputStream(keyStorePath);
 
-                keyStore.load(keyStoreFile, keyStorePassword.toCharArray());
-                keyManagerFactory.init(keyStore, null);
+                keyStore.load(keyStoreFile, keyStorePassword);
+                keyManagerFactory.init(keyStore, keyStorePassword);
 
                 KeyManager[] managers = keyManagerFactory.getKeyManagers();
 
