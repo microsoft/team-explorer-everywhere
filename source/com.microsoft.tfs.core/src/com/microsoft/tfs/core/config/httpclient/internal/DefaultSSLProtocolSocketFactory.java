@@ -3,7 +3,9 @@
 
 package com.microsoft.tfs.core.config.httpclient.internal;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -11,9 +13,11 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
+import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -266,10 +270,28 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         final String keyStorePath = System.getProperty("javax.net.ssl.keyStore"); //$NON-NLS-1$
 
         if (!StringUtil.isNullOrEmpty(keyStorePath)) {
-            return KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm()).getKeyManagers();
-        } else {
-            return null;
+            final String keyStoreType = System.getProperty("javax.net.ssl.keyStoreType", "JKS"); //$NON-NLS-1$ //$NON-NLS-2$
+            final String keyStorePassword = System.getProperty("javax.net.ssl.keyStorePassword", StringUtil.EMPTY); //$NON-NLS-1$
+
+            final KeyManagerFactory keyManagerFactory =
+                KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            final KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+
+            try {
+                final InputStream keyStoreFile = new FileInputStream(keyStorePath);
+
+                keyStore.load(keyStoreFile, keyStorePassword.toCharArray());
+                keyManagerFactory.init(keyStore, null);
+
+                KeyManager[] managers = keyManagerFactory.getKeyManagers();
+
+                return managers;
+            } catch (final Exception e) {
+                // Ignore errors and use default behavior
+                log.warn(MessageFormat.format("Error accessing the client key store {0}", keyStorePath), e); //$NON-NLS-1$
+            }
         }
 
+        return null;
     }
 }
