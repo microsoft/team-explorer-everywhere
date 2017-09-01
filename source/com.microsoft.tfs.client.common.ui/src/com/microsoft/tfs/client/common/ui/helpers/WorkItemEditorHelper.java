@@ -257,7 +257,7 @@ public final class WorkItemEditorHelper {
         }
 
         // Default to embedded Web Access editor
-        return EMBEDDED_WEB_ACCESS_EDITOR_ID;
+        return EXTERNAL_WEB_ACCESS_EDITOR_ID;
     }
 
     /**

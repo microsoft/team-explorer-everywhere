@@ -911,10 +911,12 @@
               displayName="%extension.workItemEditor.teamWebAccess"
               id="com.microsoft.tfs.client.common.ui.teamwebaccess">
         </workItemEditor>
+<!--        
         <workItemEditor
               displayName="%extension.workItemEditor.embeddedWebAccess"
               id="com.microsoft.tfs.client.common.ui.webaccessintegration.editors.WebAccessWorkItemEditor">
         </workItemEditor>
+-->        
      </extension>
      <extension
            point="com.microsoft.tfs.client.common.ui.teamExplorerPage">
