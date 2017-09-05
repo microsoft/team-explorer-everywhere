@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
@@ -29,13 +28,11 @@ import com.microsoft.tfs.client.common.commands.wit.GetWorkItemByIDCommand;
 import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
 import com.microsoft.tfs.client.common.server.TFSServer;
 import com.microsoft.tfs.client.common.ui.Messages;
-import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.browser.BrowserFacade;
 import com.microsoft.tfs.client.common.ui.browser.BrowserFacade.LaunchMode;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandExecutorFactory;
 import com.microsoft.tfs.client.common.ui.framework.helper.MessageBoxHelpers;
 import com.microsoft.tfs.client.common.ui.framework.helper.ShellUtils;
-import com.microsoft.tfs.client.common.ui.prefs.UIPreferenceConstants;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.WorkItemHelpers;
 import com.microsoft.tfs.client.common.ui.webaccessintegration.editors.WebAccessWorkItemEditorInput;
 import com.microsoft.tfs.client.common.ui.wit.form.WorkItemEditorInfo;
@@ -238,9 +235,21 @@ public final class WorkItemEditorHelper {
      *         editor if the preferred editor is no longer contributed.
      */
     private static String getPreferredWorkItemEditorID() {
+
         // Find the preferred work item editor.
-        final IPreferenceStore preferences = TFSCommonUIClientPlugin.getDefault().getPreferenceStore();
-        final String prefValue = preferences.getString(UIPreferenceConstants.WORK_ITEM_EDITOR_ID);
+
+        /* @formatter:off
+         * 
+         * We decided to always use the External Web Browser Editor for work items. 
+         * S123 09/05/2017 
+         * 
+         * final IPreferenceStore preferences = TFSCommonUIClientPlugin.getDefault().getPreferenceStore();
+         * final String prefValue = preferences.getString(UIPreferenceConstants.WORK_ITEM_EDITOR_ID);
+         * 
+         * @formatter:on
+         */
+
+        final String prefValue = EXTERNAL_WEB_ACCESS_EDITOR_ID;
 
         // Check that the preferred work item editor still exists.
         final IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -257,7 +266,7 @@ public final class WorkItemEditorHelper {
         }
 
         // Default to embedded Web Access editor
-        return EMBEDDED_WEB_ACCESS_EDITOR_ID;
+        return EXTERNAL_WEB_ACCESS_EDITOR_ID;
     }
 
     /**

@@ -40,22 +40,32 @@ public class WITPreferencePage extends FieldEditorPreferencePage implements IWor
                 {
                     Messages.getString("WITPreferencePage.LaunchBrowserWithAttachment"), //$NON-NLS-1$
                     UIPreferenceConstants.WIT_DOUBLE_CLICK_FILE_ATTACHMENT_LAUNCH_BROWSER
-            }, {
-                Messages.getString("WITPreferencePage.DownloadAttachmentToTemp"), //$NON-NLS-1$
-                UIPreferenceConstants.WIT_DOUBLE_CLICK_FILE_ATTACHMENT_LAUNCH_LOCAL
-            }
-        }, getFieldEditorParent(), true);
-
-        workItemEditorPrefsEditor = new RadioGroupFieldEditor(
-            UIPreferenceConstants.WORK_ITEM_EDITOR_ID,
-            Messages.getString("WITPreferencePage.WorkItemEditorGroupLabel"), //$NON-NLS-1$
-            1,
-            getWorkItemEditors(),
+                }, {
+                    Messages.getString("WITPreferencePage.DownloadAttachmentToTemp"), //$NON-NLS-1$
+                    UIPreferenceConstants.WIT_DOUBLE_CLICK_FILE_ATTACHMENT_LAUNCH_LOCAL
+                }
+            },
             getFieldEditorParent(),
             true);
 
         addField(openFileAttachmentPrefsEditor);
-        addField(workItemEditorPrefsEditor);
+
+        /*@formatter:off
+         * 
+         * We decided to always use the External Web Browser Editor for work items. 
+         * S123 09/05/2017
+         * 
+         * workItemEditorPrefsEditor = new RadioGroupFieldEditor(
+         *    UIPreferenceConstants.WORK_ITEM_EDITOR_ID,
+         *      Messages.getString("WITPreferencePage.WorkItemEditorGroupLabel"), //$NON-NLS-1$
+         *      1,
+         *      getWorkItemEditors(),
+         *      getFieldEditorParent(),
+         *      true);
+         * addField(workItemEditorPrefsEditor);
+         * 
+         * @formatter:on
+         */
 
         /*
          * Get the controls back out of the field editor to set automation IDs.
