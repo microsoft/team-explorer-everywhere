@@ -321,7 +321,7 @@ public class QueryResultsControl extends CompatibilityVirtualTable {
         openAction.setText(Messages.getString("QueryResultsControl.OpenActionText")); //$NON-NLS-1$
 
         final List<WorkItemEditorInfo> editors = WorkItemEditorHelper.getWorkItemEditors();
-        if (editors != null && editors.size() > 0) {
+        if (editors != null && editors.size() > 1) {
             int count = 0;
             openWithActions = new OpenWorkItemWithAction[editors.size()];
 
@@ -854,9 +854,10 @@ public class QueryResultsControl extends CompatibilityVirtualTable {
                         cellData = "<a href=\"" + url + "\">" + cellData + "</a>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                     }
 
-                    sb.append("<td valign=top style='border:none;border-right:solid white 1.0pt;background:" //$NON-NLS-1$
-                        + bgColor
-                        + ";padding:1.45pt .05in 1.45pt .05in'>"); //$NON-NLS-1$
+                    sb.append(
+                        "<td valign=top style='border:none;border-right:solid white 1.0pt;background:" //$NON-NLS-1$
+                            + bgColor
+                            + ";padding:1.45pt .05in 1.45pt .05in'>"); //$NON-NLS-1$
                     sb.append("<p><span style='font-family:\"Calibri\",\"sans-serif\"'>"); //$NON-NLS-1$
                     sb.append(cellData);
                     sb.append("</span></p></td>"); //$NON-NLS-1$

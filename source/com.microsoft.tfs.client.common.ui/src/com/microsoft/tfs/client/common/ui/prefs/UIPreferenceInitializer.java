@@ -48,7 +48,7 @@ public class UIPreferenceInitializer extends AbstractPreferenceInitializer {
 
         prefs.setDefault(UIPreferenceConstants.GATED_CONFIRMATION_PRESERVE_PENDING_CHANGES, true);
 
-        prefs.setDefault(UIPreferenceConstants.WORK_ITEM_EDITOR_ID, WorkItemEditorHelper.EMBEDDED_WEB_ACCESS_EDITOR_ID);
+        prefs.setDefault(UIPreferenceConstants.WORK_ITEM_EDITOR_ID, WorkItemEditorHelper.EXTERNAL_WEB_ACCESS_EDITOR_ID);
 
         prefs.setDefault(UIPreferenceConstants.DETECT_LOCAL_CHANGES_ON_MANUAL_RECONNECT, true);
         prefs.setDefault(UIPreferenceConstants.DETECT_LOCAL_CHANGES_ON_AUTOMATIC_RECONNECT, true);
