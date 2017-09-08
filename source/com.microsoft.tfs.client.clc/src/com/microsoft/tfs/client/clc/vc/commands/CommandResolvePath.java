@@ -3,7 +3,11 @@
 
 package com.microsoft.tfs.client.clc.vc.commands;
 
+import java.net.MalformedURLException;
+import java.text.MessageFormat;
+
 import com.microsoft.tfs.client.clc.AcceptedOptionSet;
+import com.microsoft.tfs.client.clc.ExitCode;
 import com.microsoft.tfs.client.clc.Messages;
 import com.microsoft.tfs.client.clc.commands.Command;
 import com.microsoft.tfs.client.clc.exceptions.ArgumentException;
@@ -21,12 +25,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Workspace;
 import com.microsoft.tfs.core.clients.versioncontrol.workspacecache.WorkspaceInfo;
 import com.microsoft.tfs.util.Check;
 
-import java.net.MalformedURLException;
-import java.text.MessageFormat;
-
-public final class CommandResolvePath
-        extends Command
-        implements ConflictResolvedListener {
+public final class CommandResolvePath extends Command implements ConflictResolvedListener {
 
     public CommandResolvePath() {
         super();
@@ -38,8 +37,7 @@ public final class CommandResolvePath
      * @see com.microsoft.tfs.client.clc.Command#run()
      */
     @Override
-    public void run()
-            throws ArgumentException, MalformedURLException, CLCException, LicenseException {
+    public void run() throws ArgumentException, MalformedURLException, CLCException, LicenseException {
 
         if (getFreeArguments().length != 1) {
             final String messageFormat = Messages.getString("CommandResolvePath.CommandRequiresOnePathFormat"); //$NON-NLS-1$
@@ -62,32 +60,41 @@ public final class CommandResolvePath
 
         if (ServerPath.isServerPath(serverPath) == false) {
             throw new InvalidFreeArgumentException(
-                    Messages.getString("CommandResolvePath.FirstFreeArgumentMustBeServerPath")); //$NON-NLS-1$
+                Messages.getString("CommandResolvePath.FirstFreeArgumentMustBeServerPath")); //$NON-NLS-1$
         }
 
         final PathTranslation pathTranslation = workspace.translateServerPathToLocalPath(serverPath);
 
-        getDisplay().printLine(pathTranslation.getTranslatedPath());
+        if (pathTranslation != null) {
+            getDisplay().printLine(pathTranslation.getTranslatedPath());
+        } else {
+            final String messageFormat = Messages.getString("CommandResolvePath.PathNotMappedFormat"); //$NON-NLS-1$
+            final String message = MessageFormat.format(messageFormat, serverPath, workspace.toString());
+
+            getDisplay().printErrorLine(message);
+            setExitCode(ExitCode.FAILURE);
+        }
 
     }
 
     @Override
     public AcceptedOptionSet[] getSupportedOptionSets() {
 
-        final AcceptedOptionSet withCollectionAndWorkspace = new AcceptedOptionSet(new Class[]
-                {
-                        OptionCollection.class, OptionWorkspace.class
-                }, "<serverPath>"); //$NON-NLS-1$
+        final AcceptedOptionSet withCollectionAndWorkspace = new AcceptedOptionSet(new Class[] {
+            OptionCollection.class, OptionWorkspace.class
+        }, "<serverPath>"); //$NON-NLS-1$
 
-        final AcceptedOptionSet withDefaults = new AcceptedOptionSet(new Class[]{}, "<serverPath>"); //$NON-NLS-1$
+        final AcceptedOptionSet withDefaults = new AcceptedOptionSet(new Class[] {}, "<serverPath>"); //$NON-NLS-1$
 
-        return new AcceptedOptionSet[]{withCollectionAndWorkspace, withDefaults};
+        return new AcceptedOptionSet[] {
+            withCollectionAndWorkspace, withDefaults
+        };
     }
 
     @Override
     public String[] getCommandHelpText() {
         return new String[] {
-                Messages.getString("CommandResolvePath.HelpText"), //$NON-NLS-1$
+            Messages.getString("CommandResolvePath.HelpText"), //$NON-NLS-1$
         };
     }
 }

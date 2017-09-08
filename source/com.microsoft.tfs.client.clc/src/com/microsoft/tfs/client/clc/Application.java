@@ -414,8 +414,11 @@ public abstract class Application implements AbstractConsoleApplication {
             ret = ExitCode.FAILURE;
         } catch (final Throwable e) {
             CLCTelemetryHelper.sendException(new Exception("Unexpected exception.", e)); //$NON-NLS-1$
-
             log.error("Unexpected exception: ", e); //$NON-NLS-1$
+
+            final String message = Messages.getString("Application.UnexpectedException"); //$NON-NLS-1$
+            display.printErrorLine(message);
+            ret = ExitCode.FAILURE;
         }
 
         // If the exit code never got set, set it to 0.
@@ -555,7 +558,9 @@ public abstract class Application implements AbstractConsoleApplication {
     private int runCommandFile(
         final String[] commandLineArguments,
         final boolean continueOnError,
-        final String outputSeparator) throws FileNotFoundException, IOException {
+        final String outputSeparator)
+        throws FileNotFoundException,
+            IOException {
         if (commandLineArguments == null || commandLineArguments.length == 0) {
             return ExitCode.FAILURE;
         }
