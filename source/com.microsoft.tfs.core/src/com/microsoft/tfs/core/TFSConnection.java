@@ -20,6 +20,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.microsoft.alm.client.TeeClientHandler;
+import com.microsoft.alm.visualstudio.services.webapi.ApiResourceLocation;
+import com.microsoft.alm.visualstudio.services.webapi.ApiResourceLocationCollection;
+import com.microsoft.alm.visualstudio.services.webapi.ApiResourceVersion.Version;
 import com.microsoft.tfs.core.clients.commonstructure.ProjectInfo;
 import com.microsoft.tfs.core.clients.framework.ServerDataProvider;
 import com.microsoft.tfs.core.clients.framework.catalog.CatalogNode;
@@ -336,6 +340,9 @@ public abstract class TFSConnection implements Closable {
         new SingleListenerFacade(ConnectivityFailureStatusChangeListener.class);
 
     private boolean connectionClosed = false;
+
+    private Version serverApiVersion = null;
+    private final Object serverApiVersionLock = new Object();
 
     /**
      * Creates a {@link TFSConnection}. Both a {@link URI} and a
@@ -1338,6 +1345,30 @@ public abstract class TFSConnection implements Closable {
     public boolean isHosted() {
         checkNotClosed();
         return getServerCapabilities().contains(ServerCapabilities.HOSTED);
+    }
+
+    public Version getServerApiVersion() {
+
+        synchronized (serverApiVersionLock) {
+            if (serverApiVersion == null) {
+
+                final TeeClientHandler clientHandler = new TeeClientHandler(getHTTPClient());
+                clientHandler.init(true, null, getBaseURI());
+
+                ApiResourceLocationCollection locations = clientHandler.getLocations();
+
+                serverApiVersion = new Version(0, 0);
+                for (ApiResourceLocation location : locations.getLocations()) {
+                    Version v = location.getReleasedVersion();
+                    if (serverApiVersion.compareTo(v) < 0) {
+                        serverApiVersion = v;
+                    }
+                }
+
+            }
+        }
+
+        return serverApiVersion;
     }
 
     /**

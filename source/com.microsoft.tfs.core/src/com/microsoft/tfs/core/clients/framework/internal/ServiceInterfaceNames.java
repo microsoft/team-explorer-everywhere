@@ -53,6 +53,7 @@ public final class ServiceInterfaceNames {
     public static final String VERSION_CONTROL_4_DOT_3 = "ISCCProvider4.3"; //$NON-NLS-1$
     public static final String VERSION_CONTROL_5 = "ISCCProvider5"; //$NON-NLS-1$
     public static final String VERSION_CONTROL_5_DOT_1 = "ISCCProvider5.1"; //$NON-NLS-1$
+    public static final String VERSION_CONTROL_5_DOT_2 = "ISCCProvider5.2"; //$NON-NLS-1$
 
     public static final String VERSION_CONTROL_UPLOAD = "Upload"; //$NON-NLS-1$
     public static final String VERSION_CONTROL_DOWNLOAD = "Download"; //$NON-NLS-1$

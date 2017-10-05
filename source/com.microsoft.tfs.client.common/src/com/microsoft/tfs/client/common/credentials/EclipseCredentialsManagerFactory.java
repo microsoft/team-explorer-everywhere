@@ -3,9 +3,9 @@
 
 package com.microsoft.tfs.client.common.credentials;
 
-import com.microsoft.tfs.client.common.credentials.internal.EclipseCredentialsManager.EclipseGitCredentialsManager;
-import com.microsoft.tfs.client.common.credentials.internal.EclipseCredentialsManager.EclipseTeeCredentialsManager;
+import com.microsoft.tfs.client.common.credentials.internal.EclipseCredentialsManager;
 import com.microsoft.tfs.core.config.ConnectionAdvisor;
+import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.config.persistence.PersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
 import com.microsoft.tfs.util.Check;
@@ -24,9 +24,9 @@ public class EclipseCredentialsManagerFactory {
     /**
      * Gets the best {@link CredentialsManager} for this platform. If the
      * platform provides credential management services (Windows CredMan, Mac OS
-     * X Keychain), an implementation that uses that service is returned,
-     * otherwise the given {@link PersistenceStoreProvider} may be used for
-     * storage. Test the returned {@link CredentialsManager} for its
+     * X Keychain, Gnome KeyRing), an implementation that uses that service is
+     * returned, otherwise the given {@link PersistenceStoreProvider} may be
+     * used for storage. Test the returned {@link CredentialsManager} for its
      * capabilities (whether it is secure, is read-only, etc.).
      *
      * @param persistenceProvider
@@ -39,18 +39,13 @@ public class EclipseCredentialsManagerFactory {
         Check.notNull(persistenceProvider, "persistenceProvider"); //$NON-NLS-1$
 
         /*
-         * EclipseCredentialsManager uses platformCredentialsManager for
-         * Username/Password credentials and Eclipse secure storage for
-         * CookieCredentials
+         * EclipseCredentialsManager uses platformCredentialsManager and Eclipse
+         * secure storage for Username/Password and PAT credentials.
          */
-        return new EclipseTeeCredentialsManager(persistenceProvider);
+        return new EclipseCredentialsManager(persistenceProvider);
     }
 
-    public static CredentialsManager getGitCredentialsManager() {
-        /*
-         * EGit uses Eclipse secure storage only, i.e.
-         * platformCredentialsManager is null
-         */
-        return new EclipseGitCredentialsManager();
+    public static CredentialsManager getCredentialsManager() {
+        return new EclipseCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
     }
 }

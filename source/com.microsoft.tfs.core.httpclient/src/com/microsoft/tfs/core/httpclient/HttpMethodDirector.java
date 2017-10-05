@@ -50,7 +50,9 @@ import com.microsoft.tfs.core.httpclient.auth.AuthenticationException;
 import com.microsoft.tfs.core.httpclient.auth.AuthorizationHeaderScheme;
 import com.microsoft.tfs.core.httpclient.auth.CredentialsNotAvailableException;
 import com.microsoft.tfs.core.httpclient.auth.CredentialsProvider;
+import com.microsoft.tfs.core.httpclient.auth.JwtAuthScheme;
 import com.microsoft.tfs.core.httpclient.auth.MalformedChallengeException;
+import com.microsoft.tfs.core.httpclient.auth.PreemptiveBasicScheme;
 import com.microsoft.tfs.core.httpclient.params.HostParams;
 import com.microsoft.tfs.core.httpclient.params.HttpClientParams;
 import com.microsoft.tfs.core.httpclient.params.HttpConnectionParams;
@@ -150,15 +152,20 @@ class HttpMethodDirector {
                     if (preemptiveCredentials != null && method.getDoAuthentication()) {
                         method.getHostAuthState().setPreemptive(preemptiveCredentials);
                         method.getHostAuthState().setAuthAttempted(true);
+                        if (preemptiveCredentials instanceof JwtCredentials) {
+                            method.getHostAuthState().setAuthScheme(new JwtAuthScheme());
+                        } else {
+                            method.getHostAuthState().setAuthScheme(new PreemptiveBasicScheme());
+                        }
 
                         /*
-                         * Disabled. HttpClient used to force
-                         * pre-emptive auth to the proxy if it was enabled for
-                         * the host, but this doesn't work when the pre-emptive
-                         * auth uses the Authorization header. Disabling will
-                         * prevent Basic auth to proxies, which TEE never
-                         * supported in the past because we never enabled
-                         * pre-emptive authentication before Dev11.
+                         * Disabled. HttpClient used to force pre-emptive auth
+                         * to the proxy if it was enabled for the host, but this
+                         * doesn't work when the pre-emptive auth uses the
+                         * Authorization header. Disabling will prevent Basic
+                         * auth to proxies, which TEE never supported in the
+                         * past because we never enabled pre-emptive
+                         * authentication before Dev11.
                          */
                         // if (conn.isProxied() && !conn.isSecure())
                         // {

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Sample TFS Check-in Policy
 Bundle-SymbolicName: com.microsoft.tfs.sdk.samples.checkinpolicy;singleton:=true
-Bundle-Version: 14.118.0.qualifier
+Bundle-Version: 14.123.1.qualifier
 Bundle-Vendor: Microsoft Corporation
 Export-Package: com.microsoft.tfs.sdk.samples.checkinpolicy
 Require-Bundle: org.eclipse.core.runtime,

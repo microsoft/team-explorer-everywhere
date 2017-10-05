@@ -365,7 +365,7 @@ public class WorkItemLinksControl extends BaseWITComponentControl {
         openAction.setText(Messages.getString("WorkItemLinksControl.OpenActionText")); //$NON-NLS-1$
 
         final List<WorkItemEditorInfo> editors = WorkItemEditorHelper.getWorkItemEditors();
-        if (editors != null && editors.size() > 0) {
+        if (editors != null && editors.size() > 1) {
             int count = 0;
             openWithActions = new OpenWorkItemWithAction[editors.size()];
 
@@ -859,7 +859,7 @@ public class WorkItemLinksControl extends BaseWITComponentControl {
     protected void createButtons(final Composite parent) {
         newButton =
             createButton(parent, Messages.getString("WorkItemLinksControl.NewButtonText"), new SelectionAdapter() //$NON-NLS-1$
-        {
+            {
                 @Override
                 public void widgetSelected(final SelectionEvent e) {
                     performNew();
@@ -870,7 +870,7 @@ public class WorkItemLinksControl extends BaseWITComponentControl {
 
         addButton =
             createButton(parent, Messages.getString("WorkItemLinksControl.AddLinkButtonText"), new SelectionAdapter() //$NON-NLS-1$
-        {
+            {
                 @Override
                 public void widgetSelected(final SelectionEvent e) {
                     performAdd();
@@ -880,7 +880,7 @@ public class WorkItemLinksControl extends BaseWITComponentControl {
 
         openButton =
             createButton(parent, Messages.getString("WorkItemLinksControl.OpenButtonText"), new SelectionAdapter() //$NON-NLS-1$
-        {
+            {
                 @Override
                 public void widgetSelected(final SelectionEvent e) {
                     performOpen();
@@ -890,7 +890,7 @@ public class WorkItemLinksControl extends BaseWITComponentControl {
 
         deleteButton =
             createButton(parent, Messages.getString("WorkItemLinksControl.DeleteButtonText"), new SelectionAdapter() //$NON-NLS-1$
-        {
+            {
                 @Override
                 public void widgetSelected(final SelectionEvent e) {
                     performDelete();

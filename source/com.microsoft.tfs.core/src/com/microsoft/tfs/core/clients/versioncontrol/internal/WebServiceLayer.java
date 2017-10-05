@@ -280,11 +280,20 @@ public abstract class WebServiceLayer {
             /**
              * TFS 2012 QU1 early RTM
              */
-                final String repository5Dot1Uri = provider.locationForCurrentConnection(
-                    ServiceInterfaceNames.VERSION_CONTROL_5_DOT_1,
-                    ServiceInterfaceIdentifiers.VERSION_CONTROL_5_DOT_1);
+            final String repository5Dot1Uri = provider.locationForCurrentConnection(
+                ServiceInterfaceNames.VERSION_CONTROL_5_DOT_1,
+                ServiceInterfaceIdentifiers.VERSION_CONTROL_5_DOT_1);
 
-            if (null != repository5Dot1Uri) {
+            /**
+             * TFS 2012 QU1 early RTM
+             */
+            final String repository5Dot2Uri = provider.locationForCurrentConnection(
+                ServiceInterfaceNames.VERSION_CONTROL_5_DOT_2,
+                ServiceInterfaceIdentifiers.VERSION_CONTROL_5_DOT_2);
+
+            if (null != repository5Dot2Uri) {
+                serviceLevel = WebServiceLevel.TFS_2013;
+            } else if (null != repository5Dot1Uri) {
                 serviceLevel = WebServiceLevel.TFS_2012_QU1_1;
             } else if (null != repository5Uri) {
                 serviceLevel = WebServiceLevel.TFS_2012_QU1;
@@ -1511,10 +1520,12 @@ public abstract class WebServiceLayer {
         try {
             playbackQueuedEdits(workspaceName, ownerName);
 
-            return (Conflict[]) WrapperUtils.wrap(Conflict.class, repository.queryConflicts(
-                workspaceName,
-                ownerName,
-                (_ItemSpec[]) WrapperUtils.unwrap(_ItemSpec.class, items)));
+            return (Conflict[]) WrapperUtils.wrap(
+                Conflict.class,
+                repository.queryConflicts(
+                    workspaceName,
+                    ownerName,
+                    (_ItemSpec[]) WrapperUtils.unwrap(_ItemSpec.class, items)));
         } catch (final ProxyException e) {
             throw VersionControlExceptionMapper.map(e);
         }
@@ -1960,17 +1971,18 @@ public abstract class WebServiceLayer {
         playbackQueuedEdits(workspaceName, workspaceOwner);
 
         try {
-            return new ChangesetMergeDetails(repository.queryMergesWithDetails(
-                workspaceName,
-                workspaceOwner,
-                (source != null) ? source.getWebServiceObject() : null,
-                (versionSource != null) ? versionSource.getWebServiceObject() : null,
-                target.getWebServiceObject(),
-                versionTarget.getWebServiceObject(),
-                versionFrom != null ? versionFrom.getWebServiceObject() : null,
-                versionTo != null ? versionTo.getWebServiceObject() : null,
-                maxChangesets,
-                showAll));
+            return new ChangesetMergeDetails(
+                repository.queryMergesWithDetails(
+                    workspaceName,
+                    workspaceOwner,
+                    (source != null) ? source.getWebServiceObject() : null,
+                    (versionSource != null) ? versionSource.getWebServiceObject() : null,
+                    target.getWebServiceObject(),
+                    versionTarget.getWebServiceObject(),
+                    versionFrom != null ? versionFrom.getWebServiceObject() : null,
+                    versionTo != null ? versionTo.getWebServiceObject() : null,
+                    maxChangesets,
+                    showAll));
         } catch (final ProxyException e) {
             throw VersionControlExceptionMapper.map(e);
         }

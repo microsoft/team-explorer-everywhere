@@ -46,6 +46,11 @@ public class UIPreferenceConstants {
     // Whether to accept untrusted SSL certificates
     public static final String ACCEPT_UNTRUSTED_CERTIFICATES = "com.microsoft.tfs.acceptUntrustedCertificates"; //$NON-NLS-1$
 
+    // Whether to use device flow authentication with VSTS
+    public static final String USE_DEVICE_FLOW_AUTHENTICATION = "com.microsoft.tfs.useDeviceFlowAuthentication"; //$NON-NLS-1$
+    public static final String USER_AGENT_PROVIDER_PROPERTY = "userAgentProvider"; //$NON-NLS-1$
+    public static final String USER_AGENT_PROVIDER_VALUE = "none"; //$NON-NLS-1$
+
     // The type of web browser to specify when using the SWT.Browser class. The
     // value is an integer: SWT.NONE (to use the default for this platform, IE
     // on Windows), SWT.MOZILLA, or SWT.WEBKIT

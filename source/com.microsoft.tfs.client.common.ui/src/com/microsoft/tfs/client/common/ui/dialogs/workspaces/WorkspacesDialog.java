@@ -65,7 +65,7 @@ public class WorkspacesDialog extends BaseDialog {
     protected void hookAddToDialogArea(final Composite dialogArea) {
         final GridLayout layout = new GridLayout();
         layout.marginWidth = getHorizontalMargin();
-        layout.marginWidth = getVerticalMargin();
+        layout.marginHeight = getVerticalMargin();
         layout.horizontalSpacing = getHorizontalSpacing();
         layout.verticalSpacing = getVerticalSpacing();
         dialogArea.setLayout(layout);

@@ -6,7 +6,9 @@ package com.microsoft.tfs.client.common.ui.controls.teamexplorer;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
@@ -134,7 +136,7 @@ class TeamExplorerSearchControlPopup extends PopupDialog {
 
     @Override
     public int open() {
-        ClientTelemetryHelper.sendDialogOpened(this);
+        ClientTelemetryHelper.sendDialogOpened(this, getTelemetryProperties());
 
         final int ret = super.open();
 
@@ -142,6 +144,17 @@ class TeamExplorerSearchControlPopup extends PopupDialog {
         searchControl.getSearchText().setFocus();
 
         return ret;
+    }
+
+    /**
+     * Returns a set of dialog specific telemetry properties that should be sent
+     * into the DialogOpened telemetry event. The default set of properties is
+     * empty. Derived dialogs may override this method. *
+     * 
+     * @return
+     */
+    protected Map<String, String> getTelemetryProperties() {
+        return new HashMap<String, String>();
     }
 
     /**

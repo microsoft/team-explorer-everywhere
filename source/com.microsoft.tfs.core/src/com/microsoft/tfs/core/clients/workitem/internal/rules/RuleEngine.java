@@ -919,17 +919,26 @@ public class RuleEngine {
     }
 
     private void runHelpTextRule(final Rule rule) {
-        final int fieldId = rule.getThenFldID();
-        final int constId = rule.getThenConstID();
-        final String helpText = witContext.getMetadata().getConstantsTable().getConstantByID(constId);
+        try {
+            final int fieldId = rule.getThenFldID();
+            final int constId = rule.getThenConstID();
+            final String helpText = witContext.getMetadata().getConstantsTable().getConstantByID(constId);
 
-        log.trace(MessageFormat.format(
-            "applying HelpText rule [{0}] to field [{1}]", //$NON-NLS-1$
-            Integer.toString(rule.getRuleID()),
-            getFieldNameForTrace(fieldId)));
+            log.trace(MessageFormat.format(
+                "applying HelpText rule [{0}] to field [{1}]", //$NON-NLS-1$
+                Integer.toString(rule.getRuleID()),
+                getFieldNameForTrace(fieldId)));
 
-        final IRuleTargetField field = target.getRuleTargetField(fieldId);
-        field.setHelpText(helpText);
+            final IRuleTargetField field = target.getRuleTargetField(fieldId);
+            field.setHelpText(helpText);
+        } catch (final Exception e) {
+            /*
+             * WIT team recommends: evaluate possibility of hardening client
+             * code to ignore help-text rules which fail to load for some
+             * reason.
+             */
+            log.error("Exception running help-text rule", e); //$NON-NLS-1$
+        }
     }
 
     private boolean isRuleInScope(final Rule rule) {

@@ -18,6 +18,7 @@ public class UIPreferenceInitializer extends AbstractPreferenceInitializer {
         prefs.setDefault(UIPreferenceConstants.RECONNECT_AT_STARTUP, true);
         prefs.setDefault(UIPreferenceConstants.CONNECT_MAPPED_PROJECTS_AT_IMPORT, true);
         prefs.setDefault(UIPreferenceConstants.ACCEPT_UNTRUSTED_CERTIFICATES, false);
+        prefs.setDefault(UIPreferenceConstants.USE_DEVICE_FLOW_AUTHENTICATION, true);
         prefs.setDefault(UIPreferenceConstants.EMBEDDED_WEB_BROWSER_TYPE, SWT.NONE);
 
         // default lock level for automatic checkout from edits, and default in
@@ -47,7 +48,7 @@ public class UIPreferenceInitializer extends AbstractPreferenceInitializer {
 
         prefs.setDefault(UIPreferenceConstants.GATED_CONFIRMATION_PRESERVE_PENDING_CHANGES, true);
 
-        prefs.setDefault(UIPreferenceConstants.WORK_ITEM_EDITOR_ID, WorkItemEditorHelper.EMBEDDED_WEB_ACCESS_EDITOR_ID);
+        prefs.setDefault(UIPreferenceConstants.WORK_ITEM_EDITOR_ID, WorkItemEditorHelper.EXTERNAL_WEB_ACCESS_EDITOR_ID);
 
         prefs.setDefault(UIPreferenceConstants.DETECT_LOCAL_CHANGES_ON_MANUAL_RECONNECT, true);
         prefs.setDefault(UIPreferenceConstants.DETECT_LOCAL_CHANGES_ON_AUTOMATIC_RECONNECT, true);

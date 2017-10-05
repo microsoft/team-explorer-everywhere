@@ -3,7 +3,9 @@
 
 package com.microsoft.tfs.core.config.httpclient.internal;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -11,12 +13,16 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
+import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocket;
@@ -77,7 +83,10 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         final int port,
         final InetAddress localAddress,
         final int localPort,
-        final HttpConnectionParams params) throws IOException, UnknownHostException, ConnectTimeoutException {
+        final HttpConnectionParams params)
+        throws IOException,
+            UnknownHostException,
+            ConnectTimeoutException {
         Check.notNull(params, "params"); //$NON-NLS-1$
 
         final int timeout = params.getConnectionTimeout();
@@ -98,7 +107,9 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
         final String host,
         final int port,
         final HttpConnectionParams params,
-        final boolean autoClose) throws IOException, UnknownHostException {
+        final boolean autoClose)
+        throws IOException,
+            UnknownHostException {
         Check.notNull(params, "params"); //$NON-NLS-1$
 
         final Socket ssocket = getSocketFactory(params).createSocket(socket, host, port, autoClose);
@@ -207,10 +218,14 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
             if (standardSocketFactory == null) {
                 final SSLContext context = getSSLContext();
 
-                /* Use the default x509 trust manager. */
-                context.init(null, new TrustManager[] {
-                    new DefaultX509TrustManager(null)
-                }, null);
+                context.init(
+                    // Use the default key managers.
+                    getDefaultKeyManagers(),
+                    // Use the default x509 trust manager.
+                    new TrustManager[] {
+                        new DefaultX509TrustManager(null)
+                    },
+                    null);
 
                 standardSocketFactory = context.getSocketFactory();
             }
@@ -235,15 +250,49 @@ public class DefaultSSLProtocolSocketFactory implements SecureProtocolSocketFact
             if (selfSignedSocketFactory == null) {
                 final SSLContext context = getSSLContext();
 
-                /* Use the self-signed x509 trust manager. */
-                context.init(null, new TrustManager[] {
-                    new SelfSignedX509TrustManager(null)
-                }, null);
+                context.init(
+                    // Use the default key managers.
+                    getDefaultKeyManagers(),
+                    // Use the self-signed x509 trust manager.
+                    new TrustManager[] {
+                        new SelfSignedX509TrustManager(null)
+                    },
+                    null);
 
                 selfSignedSocketFactory = context.getSocketFactory();
             }
 
             return selfSignedSocketFactory;
         }
+    }
+
+    private KeyManager[] getDefaultKeyManagers() throws KeyStoreException, NoSuchAlgorithmException {
+        final String keyStorePath = System.getProperty("javax.net.ssl.keyStore"); //$NON-NLS-1$
+
+        if (!StringUtil.isNullOrEmpty(keyStorePath)) {
+            final String keyStoreType = System.getProperty("javax.net.ssl.keyStoreType", "JKS"); //$NON-NLS-1$ //$NON-NLS-2$
+            final char[] keyStorePassword =
+                System.getProperty("javax.net.ssl.keyStorePassword", StringUtil.EMPTY).toCharArray(); //$NON-NLS-1$
+
+            final KeyManagerFactory keyManagerFactory =
+                KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            final KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+
+            try {
+                final InputStream keyStoreFile = new FileInputStream(keyStorePath);
+
+                keyStore.load(keyStoreFile, keyStorePassword);
+                keyManagerFactory.init(keyStore, keyStorePassword);
+
+                KeyManager[] managers = keyManagerFactory.getKeyManagers();
+
+                return managers;
+            } catch (final Exception e) {
+                // Ignore errors and use default behavior
+                log.warn(MessageFormat.format("Error accessing the client key store {0}", keyStorePath), e); //$NON-NLS-1$
+            }
+        }
+
+        return null;
     }
 }

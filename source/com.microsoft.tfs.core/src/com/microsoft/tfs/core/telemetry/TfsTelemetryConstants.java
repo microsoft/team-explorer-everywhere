@@ -44,6 +44,8 @@ public class TfsTelemetryConstants {
     public static final String DIALOG_PAGE_VIEW_NAME_FORMAT = "TEE/Plugin/Dialog/{0}"; //$NON-NLS-1$
     public static final String EXPLORER_PAGE_VIEW_NAME_FORMAT = "TEE/Plugin/Explorer/{0}"; //$NON-NLS-1$
 
+    public static final String OAUTH_USER_AGENT_PROVIDER = "TEE.OAuth.User.Agent.Provider"; //$NON-NLS-1$
+
     public static final String CLC_COMMAND_EVENT_NAME_FORMAT = "TEE/TeamFoundationServer/CLC/Command/{0}"; //$NON-NLS-1$
     public static final String PLUGIN_COMMAND_EVENT_NAME_FORMAT = "TEE/TeamFoundationServer/Plugin/Command/{0}"; //$NON-NLS-1$
     public static final String PLUGIN_ACTION_EVENT_NAME_FORMAT = "TEE/TeamFoundationServer/Plugin/Action/{0}"; //$NON-NLS-1$

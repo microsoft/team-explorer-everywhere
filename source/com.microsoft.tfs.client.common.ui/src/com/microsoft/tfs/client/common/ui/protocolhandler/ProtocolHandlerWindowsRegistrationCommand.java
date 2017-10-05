@@ -6,7 +6,6 @@ package com.microsoft.tfs.client.common.ui.protocolhandler;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -36,8 +35,10 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
     private static final Log log = LogFactory.getLog(ProtocolHandlerWindowsRegistrationCommand.class);
 
     private final static String PROTOCOL_HANDLER_LAUNCHER_PROPERTY = "eclipse.launcher"; //$NON-NLS-1$
+    private final static String PROTOCOL_HANDLER_REGISTRY_PARENT =
+        "SOFTWARE\\Classes\\" + ProtocolHandler.PROTOCOL_HANDLER_SCHEME; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_REGISTRY_KEY =
-        "SOFTWARE\\Classes\\" + ProtocolHandler.PROTOCOL_HANDLER_SCHEME + "\\Shell\\Open\\Command"; //$NON-NLS-1$ //$NON-NLS-2$
+        PROTOCOL_HANDLER_REGISTRY_PARENT + "\\Shell\\Open\\Command"; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_REGISTRY_PATH = "HKCU\\" + PROTOCOL_HANDLER_REGISTRY_KEY; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_REG_VALUE_TYPE = "REG_EXPAND_SZ"; //$NON-NLS-1$
     private final static String PROTOCOL_HANDLER_SCRIPT_PATH = "%USERPROFILE%\\.vsts\\latestIDE.cmd"; //$NON-NLS-1$
@@ -136,7 +137,9 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
         final PrintWriter writer = new PrintWriter(script);
         try {
             writer.println("Windows Registry Editor Version 5.00"); //$NON-NLS-1$
-            writer.println(MessageFormat.format("[-HKEY_CURRENT_USER\\{0}]", PROTOCOL_HANDLER_REGISTRY_KEY)); //$NON-NLS-1$
+            writer.println(MessageFormat.format("[-HKEY_CURRENT_USER\\{0}]", PROTOCOL_HANDLER_REGISTRY_PARENT)); //$NON-NLS-1$
+            writer.println(MessageFormat.format("[HKEY_CURRENT_USER\\{0}]", PROTOCOL_HANDLER_REGISTRY_PARENT)); //$NON-NLS-1$
+            writer.println("\"URL Protocol\"=\"\""); //$NON-NLS-1$
             writer.println(MessageFormat.format("[HKEY_CURRENT_USER\\{0}]", PROTOCOL_HANDLER_REGISTRY_KEY)); //$NON-NLS-1$
             writer.print("@=hex(2):"); //$NON-NLS-1$
             writeHexValue(writer, PROTOCOL_HANDLER_REG_VALUE);
@@ -238,9 +241,11 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
     }
 
     private List<String> getLauncherScriptCommands(final String launcher) {
+        final String startCommand =
+            MessageFormat.format("@start \"\" \"{0}\" {1} %*", launcher, ProtocolHandler.PROTOCOL_HANDLER_ARG); //$NON-NLS-1$
         return Arrays.asList(new String[] {
             "@rem version=1.0", //$NON-NLS-1$
-            MessageFormat.format("@start \"\" \"{0}\" {1} %*", launcher, ProtocolHandler.PROTOCOL_HANDLER_ARG), //$NON-NLS-1$
+            startCommand,
         });
     }
 
@@ -269,11 +274,14 @@ public class ProtocolHandlerWindowsRegistrationCommand extends TFSCommand {
     private void createLauncherCmdFile(final File launcherScriptFile, final List<String> commands) {
         PrintWriter writer = null;
         try {
+            launcherScriptFile.getParentFile().mkdirs();
+            launcherScriptFile.createNewFile();
+
             writer = new PrintWriter(launcherScriptFile);
             for (final String command : commands) {
                 writer.println(command);
             }
-        } catch (final FileNotFoundException e) {
+        } catch (final IOException e) {
             log.error(e);
         } finally {
             tryClose(writer);

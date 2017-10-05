@@ -5,6 +5,7 @@ package com.microsoft.tfs.core.httpclient.auth;
 
 import com.microsoft.tfs.core.httpclient.Credentials;
 import com.microsoft.tfs.core.httpclient.PreemptiveUsernamePasswordCredentials;
+import com.microsoft.tfs.core.httpclient.UsernamePasswordCredentials.PatCredentials;
 
 /**
  * A modification on HTTP Basic to send authentication preemptively.
@@ -16,6 +17,7 @@ public class PreemptiveBasicScheme extends BasicScheme {
             return false;
         }
 
-        return (credentials instanceof PreemptiveUsernamePasswordCredentials);
+        return (credentials instanceof PatCredentials)
+            || (credentials instanceof PreemptiveUsernamePasswordCredentials);
     }
 }

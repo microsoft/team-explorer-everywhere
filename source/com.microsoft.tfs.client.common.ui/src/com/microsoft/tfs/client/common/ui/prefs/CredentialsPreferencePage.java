@@ -20,20 +20,17 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 
+import com.microsoft.tfs.client.common.credentials.EclipseCredentialsManagerFactory;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.controls.generic.CredentialsTable;
 import com.microsoft.tfs.client.common.ui.dialogs.connect.CredentialsDialog;
 import com.microsoft.tfs.client.common.ui.framework.helper.ButtonHelper;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
-import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.credentials.CachedCredentials;
 import com.microsoft.tfs.core.credentials.CredentialsManager;
-import com.microsoft.tfs.core.credentials.CredentialsManagerFactory;
-import com.microsoft.tfs.util.Platform;
 
 public class CredentialsPreferencePage extends BasePreferencePage {
-    private final CredentialsManager credentialsManager =
-        CredentialsManagerFactory.getCredentialsManager(DefaultPersistenceStoreProvider.INSTANCE);
+    private final CredentialsManager credentialsManager = EclipseCredentialsManagerFactory.getCredentialsManager();
 
     private CredentialsTable credentialsTable;
 
@@ -67,25 +64,6 @@ public class CredentialsPreferencePage extends BasePreferencePage {
         layout.horizontalSpacing = getHorizontalSpacing();
         layout.verticalSpacing = getVerticalSpacing();
         container.setLayout(layout);
-
-        /* Windows and Mac platforms do not allow editing the credentials. */
-        if (Platform.isCurrentPlatform(Platform.WINDOWS) || Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-            String message;
-
-            if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
-                message = Messages.getString("CredentialsPreferencePage.EditingNotSupportedWindows"); //$NON-NLS-1$
-            } else if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-                message = Messages.getString("CredentialsPreferencePage.EditingNotSupportedMac"); //$NON-NLS-1$
-            } else {
-                message = Messages.getString("CredentialsPreferencePage.EditingNotSupportedGeneric"); //$NON-NLS-1$
-            }
-
-            final Label label = new Label(container, SWT.NONE);
-            label.setText(message);
-            GridDataBuilder.newInstance().hSpan(3).hGrab().hFill().applyTo(label);
-
-            return container;
-        }
 
         final Label label = new Label(container, SWT.NONE);
         label.setText(Messages.getString("CredentialsPreferencePage.Description")); //$NON-NLS-1$
