@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -317,9 +319,7 @@ public class WorkItemUpdatePackage extends BaseUpdatePackage {
                 final Element computedColumnElement = (Element) computedColumns.item(i);
                 final String fieldReferenceName =
                     computedColumnElement.getAttribute(UpdateXMLConstants.ATTRIBUTE_NAME_COLUMN);
-                final String value =
-                    computedColumnElement.getElementsByTagName(UpdateXMLConstants.ELEMENT_NAME_VALUE).item(
-                        0).getChildNodes().item(0).getNodeValue();
+                final String value = getValueOfComputedColumn(computedColumnElement);
 
                 final FieldImpl field = workItem.getFieldsInternal().getFieldInternal(fieldReferenceName);
                 field.setValue(value, FieldModificationType.SERVER);
@@ -339,5 +339,14 @@ public class WorkItemUpdatePackage extends BaseUpdatePackage {
                 handler.handle(element);
             }
         }
+    }
+
+    @Nullable
+    private String getValueOfComputedColumn(final Element computedColumnElement) {
+        NodeList valueElements = computedColumnElement.getElementsByTagName(UpdateXMLConstants.ELEMENT_NAME_VALUE);
+        if (valueElements == null) {
+            return null;
+        }
+        return valueElements.item(0).getChildNodes().item(0).getNodeValue();
     }
 }
