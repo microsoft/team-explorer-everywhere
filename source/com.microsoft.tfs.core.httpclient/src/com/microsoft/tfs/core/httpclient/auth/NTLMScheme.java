@@ -70,6 +70,16 @@ public class NTLMScheme extends AuthorizationHeaderScheme implements AuthScheme 
         return supportsCredentials(credentials.getClass());
     }
 
+    @Override
+    public void cleanup() {
+        if(ntlmClient != null) {
+            ntlmClient.dispose();
+
+            ntlmClient = null;
+            inputToken = null;
+        }
+    }
+
     public static boolean supportsCredentials(final Class<?> credentialClass) {
         if (credentialClass == null || !isSupported()) {
             return false;
@@ -221,11 +231,7 @@ public class NTLMScheme extends AuthorizationHeaderScheme implements AuthScheme 
             if (ntlmClient.isComplete()) {
                 status = STATUS_COMPLETE;
 
-                /* Clean up */
-                ntlmClient.dispose();
-
-                ntlmClient = null;
-                inputToken = null;
+                cleanup();
             } else {
                 status = STATUS_EXCHANGING;
             }

@@ -15,6 +15,11 @@ public class CookieAuthScheme implements AuthScheme {
     }
 
     @Override
+    public void cleanup() {
+        //No disposing of credentials needed
+    }
+
+    @Override
     public void processChallenge(final String challenge) throws MalformedChallengeException {
         throw new MalformedChallengeException("Cookie authentication is not challenge/response"); //$NON-NLS-1$
     }
