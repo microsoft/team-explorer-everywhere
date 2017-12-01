@@ -70,6 +70,16 @@ public class NegotiateScheme extends AuthorizationHeaderScheme implements AuthSc
         return supportsCredentials(credentials.getClass());
     }
 
+    @Override
+    public void cleanup() {
+        if(negotiateClient != null) {
+            negotiateClient.dispose();
+
+            negotiateClient = null;
+            inputToken = null;
+        }
+    }
+
     public static boolean supportsCredentials(final Class<?> credentialClass) {
         if (credentialClass == null || !isSupported()) {
             return false;
@@ -222,11 +232,7 @@ public class NegotiateScheme extends AuthorizationHeaderScheme implements AuthSc
             if (negotiateClient.isComplete()) {
                 status = STATUS_COMPLETE;
 
-                /* Clean up */
-                negotiateClient.dispose();
-
-                negotiateClient = null;
-                inputToken = null;
+                cleanup();
             } else {
                 status = STATUS_EXCHANGING;
             }

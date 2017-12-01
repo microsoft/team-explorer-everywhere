@@ -22,6 +22,11 @@ public class JwtAuthScheme extends AuthorizationHeaderScheme {
     }
 
     @Override
+    public void cleanup() {
+        //No disposing of credentials needed
+    }
+
+    @Override
     public void processChallenge(final String challenge) throws MalformedChallengeException {
         complete = true;
     }

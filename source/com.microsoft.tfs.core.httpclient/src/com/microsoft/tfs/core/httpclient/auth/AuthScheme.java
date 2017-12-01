@@ -79,6 +79,11 @@ public interface AuthScheme {
      */
     public boolean supportsCredentials(Credentials credentials);
 
+    /*
+     * Performs cleanup operations that might be required, such as the disposing of handles
+     */
+    public void cleanup();
+
     /**
      * Processes the given challenge token. Some authentication schemes may
      * involve multiple challenge-response exchanges. Such schemes must be able

@@ -224,6 +224,8 @@ class HttpMethodDirector {
 
             } // end of retry loop
         } finally {
+            method.getHostAuthState().getAuthScheme().cleanup();
+
             if (conn != null) {
                 conn.setLocked(false);
             }
