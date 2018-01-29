@@ -76,7 +76,11 @@ public class AuthState {
      * Invalidates the authentication state by resetting its parameters.
      */
     public void invalidate() {
-        authScheme = null;
+        if (authScheme != null) {
+            authScheme.cleanup();
+            authScheme = null;
+        }
+        
         authRequested = false;
         authAttempted = false;
         preemptive = false;
@@ -192,6 +196,10 @@ public class AuthState {
         if (preemptive && !(this.authScheme.getClass().isInstance(authScheme))) {
             preemptive = false;
             authAttempted = false;
+        }
+        
+        if (this.authScheme != null) {
+            this.authScheme.cleanup();
         }
         this.authScheme = authScheme;
     }

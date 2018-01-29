@@ -224,6 +224,8 @@ class HttpMethodDirector {
 
             } // end of retry loop
         } finally {
+            cleanupHostAndProxyAuthState(method);
+            
             if (conn != null) {
                 conn.setLocked(false);
             }
@@ -235,6 +237,17 @@ class HttpMethodDirector {
             if ((releaseConnection || method.getResponseBodyAsStream() == null) && conn != null) {
                 conn.releaseConnection();
             }
+        }
+    }
+    
+    private void cleanupHostAndProxyAuthState(final HttpMethod method) {
+        cleanupAuthState(method.getHostAuthState());
+        cleanupAuthState(method.getProxyAuthState());
+    }
+    
+    private void cleanupAuthState(AuthState authState) {
+        if (authState != null) {
+            authState.invalidate();
         }
     }
 

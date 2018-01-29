@@ -70,6 +70,16 @@ public class NegotiateScheme extends AuthorizationHeaderScheme implements AuthSc
         return supportsCredentials(credentials.getClass());
     }
 
+    @Override
+    public void cleanup() {
+        if(negotiateClient != null) {
+            negotiateClient.dispose();
+            negotiateClient = null;
+        }
+        
+        inputToken = null;
+    }
+
     public static boolean supportsCredentials(final Class<?> credentialClass) {
         if (credentialClass == null || !isSupported()) {
             return false;
@@ -150,16 +160,7 @@ public class NegotiateScheme extends AuthorizationHeaderScheme implements AuthSc
              * We may be called for retry at an arbitrary time. If that's the
              * case, tear down any existing objects
              */
-            if (negotiateClient != null) {
-                try {
-                    negotiateClient.dispose();
-                } catch (final Exception e) {
-                }
-            }
-
-            negotiateClient = null;
-            inputToken = null;
-
+            cleanup();
             status = STATUS_INITIATED;
         }
         /* The server has responded with a challenge to our request */
@@ -193,7 +194,7 @@ public class NegotiateScheme extends AuthorizationHeaderScheme implements AuthSc
             if (status == STATUS_INITIATED && negotiateClient == null && inputToken == null) {
                 negotiateClient = (NegotiateClient) NegotiateEngine.getInstance().newClient();
                 negotiateClient.setTarget("http@" + authscope.getHost().toUpperCase());
-
+                
                 if (credentials instanceof DefaultNTCredentials) {
                     negotiateClient.setCredentialsDefault();
                 } else if (credentials instanceof UsernamePasswordCredentials) {
@@ -221,12 +222,7 @@ public class NegotiateScheme extends AuthorizationHeaderScheme implements AuthSc
 
             if (negotiateClient.isComplete()) {
                 status = STATUS_COMPLETE;
-
-                /* Clean up */
-                negotiateClient.dispose();
-
-                negotiateClient = null;
-                inputToken = null;
+                cleanup();
             } else {
                 status = STATUS_EXCHANGING;
             }

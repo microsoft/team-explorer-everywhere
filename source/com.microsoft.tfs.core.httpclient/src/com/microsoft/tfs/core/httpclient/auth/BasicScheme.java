@@ -253,4 +253,9 @@ public class BasicScheme extends RFC2617Scheme {
             + EncodingUtil.getAsciiString(Base64.encodeBase64(EncodingUtil.getBytes(buffer.toString(), charset)));
     }
 
+    @Override
+    public void cleanup() {
+        
+    }
+
 }
