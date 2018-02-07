@@ -144,6 +144,12 @@ if [ `uname` = "Linux" ] ; then
     RANDOM_DEVICE_PROPERTY="-Djava.security.egd=file:/dev/urandom"
 fi
 
-exec java -Xmx2048M -classpath "$CLC_CLASSPATH" $TF_ADDITIONAL_JAVA_ARGS \
+# Java 9 requires an additional --add-modules argument
+TF_JAVA9_ARGS=
+if [ "$(java -version 2>&1 | head -n 1 | cut -d'"' -f2 | cut -d'.' -f1)" = "9" ]; then
+    TF_JAVA9_ARGS="--add-modules java.xml.bind"
+fi
+
+exec java -Xmx2048M $TF_JAVA9_ARGS -classpath "$CLC_CLASSPATH" $TF_ADDITIONAL_JAVA_ARGS \
 	"-Dcom.microsoft.tfs.jni.native.base-directory=$BASE_DIRECTORY/native" \
     $RANDOM_DEVICE_PROPERTY @@LAUNCHER_CLASS@@ "$@"

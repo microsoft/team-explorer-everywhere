@@ -39,7 +39,22 @@ set CLC_CLASSPATH=%CLC_CLASSPATH%;%AI_JAR%
 
 setlocal DISABLEDELAYEDEXPANSION
 
-java -Xmx2048M -cp %CLC_CLASSPATH% %TF_ADDITIONAL_JAVA_ARGS% "-Dcom.microsoft.tfs.jni.native.base-directory=%BASE_DIRECTORY%native" @@LAUNCHER_CLASS@@ %*
+rem
+rem Java 9 requires an additional --add-modules argument
+rem
+
+PATH %PATH%;%JAVA_HOME%\bin\
+for /f tokens^=2^ delims^=.-_^" %%j in ('java -version 2^>^&1') do (
+    set jver_firstchar=%%j
+    goto :donegettingversion
+)
+:donegettingversion
+SET TF_JAVA9_ARGS=
+IF "%jver_firstchar%"=="9" (
+    SET TF_JAVA9_ARGS=--add-modules java.xml.bind
+)
+
+java -Xmx2048M %TF_JAVA9_ARGS% -cp %CLC_CLASSPATH% %TF_ADDITIONAL_JAVA_ARGS% "-Dcom.microsoft.tfs.jni.native.base-directory=%BASE_DIRECTORY%native" @@LAUNCHER_CLASS@@ %*
 
 set RETURN_VALUE=%errorlevel%
 goto end
