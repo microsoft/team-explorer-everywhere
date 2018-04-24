@@ -30,6 +30,7 @@ public class TfsTelemetryConstants {
     public static final String SHARED_PROPERTY_IS_HOSTED = "TEE.TeamFoundationServer.IsHostedServer"; //$NON-NLS-1$
     public static final String SHARED_PROPERTY_SERVER_ID = "TEE.TeamFoundationServer.ServerId"; //$NON-NLS-1$
     public static final String SHARED_PROPERTY_COLLECTION_ID = "TEE.TeamFoundationServer.CollectionId"; //$NON-NLS-1$
+    public static final String SHARED_PROPERTY_EXCEPTION_NAME = "TEE.ExceptionName"; //$NON-NLS-1$
 
     public static final String CLC_EVENT_PROPERTY_IS_SUCCESS = "TEE.CommandLineClient.Command.Success"; //$NON-NLS-1$
     public static final String CLC_EVENT_PROPERTY_COMMAND_NAME = "TEE.CommandLineClient.Command.Name"; //$NON-NLS-1$
@@ -49,9 +50,8 @@ public class TfsTelemetryConstants {
     public static final String CLC_COMMAND_EVENT_NAME_FORMAT = "TEE/TeamFoundationServer/CLC/Command/{0}"; //$NON-NLS-1$
     public static final String PLUGIN_COMMAND_EVENT_NAME_FORMAT = "TEE/TeamFoundationServer/Plugin/Command/{0}"; //$NON-NLS-1$
     public static final String PLUGIN_ACTION_EVENT_NAME_FORMAT = "TEE/TeamFoundationServer/Plugin/Action/{0}"; //$NON-NLS-1$
+    public static final String SHARED_EXCEPTION_EVENT_NAME = "TEE.Exception"; //$NON-NLS-1$
 
     public static final String FEEDBACK_PROPERTY_COMMENT = "TEE.Feedback.Comment"; //$NON-NLS-1$
-    public static final String FEEDBACK_PROPERTY_EMAIL = "TEE.Feedback.Email"; //$NON-NLS-1$
     public static final String FEEDBACK_PROPERTY_CONTEXT = "TEE.Feedback.Context"; //$NON-NLS-1$
-
 }
