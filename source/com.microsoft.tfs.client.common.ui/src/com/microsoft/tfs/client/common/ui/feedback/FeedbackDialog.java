@@ -128,11 +128,6 @@ public class FeedbackDialog extends BaseDialog {
     }
 
     @Override
-    protected void hookAfterButtonsCreated() {
-        new ButtonValidatorBinding(getButton(IDialogConstants.OK_ID)).bind(validator);
-    }
-
-    @Override
     protected void okPressed() {
         // grab the values
         // If there are new lines or carriage returns the events do not go
