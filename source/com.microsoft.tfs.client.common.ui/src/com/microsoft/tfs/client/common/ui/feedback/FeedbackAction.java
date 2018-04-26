@@ -33,7 +33,6 @@ public class FeedbackAction extends ExtendedAction {
         if (dialog.open() == IDialogConstants.OK_ID) {
             final Map<String, String> properties = new HashMap<String, String>();
             properties.put(TfsTelemetryConstants.FEEDBACK_PROPERTY_COMMENT, dialog.getComment());
-            properties.put(TfsTelemetryConstants.FEEDBACK_PROPERTY_EMAIL, dialog.getEmail());
             properties.put(TfsTelemetryConstants.FEEDBACK_PROPERTY_CONTEXT, feedbackContext);
 
             final String eventName = smile ? CMD_SEND_SMILE : CMD_SEND_FROWN;

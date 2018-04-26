@@ -17,13 +17,9 @@ import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
 import com.microsoft.tfs.core.product.CoreVersionInfo;
 import com.microsoft.tfs.core.product.ProductInformation;
 import com.microsoft.tfs.core.product.ProductName;
-import com.microsoft.tfs.jni.RegistryKey;
-import com.microsoft.tfs.jni.RegistryValue;
-import com.microsoft.tfs.jni.RootKey;
 import com.microsoft.tfs.jni.helpers.LocalHost;
 import com.microsoft.tfs.util.ArrayUtils;
 import com.microsoft.tfs.util.HashUtils;
-import com.microsoft.tfs.util.Platform;
 import com.microsoft.tfs.util.StringUtil;
 
 public class TfsTelemetryInitializer implements ContextInitializer {
@@ -103,21 +99,9 @@ public class TfsTelemetryInitializer implements ContextInitializer {
     }
 
     private String getUserId() {
-        if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
-            final RegistryKey sqmClientRegistryKey =
-                new RegistryKey(RootKey.HKEY_CURRENT_USER, SQM_CLIENT_KEY_ROOT_PATH);
-            if (sqmClientRegistryKey != null) {
-                final RegistryValue userIdRegistryValue = sqmClientRegistryKey.getValue(SQM_USER_ID_VALUE_NAME);
-                if (userIdRegistryValue != null) {
-                    return userIdRegistryValue.getStringValue();
-                }
-            }
-
-        }
-
         final String hostName = LocalHost.getShortName();
         final String userName = getSystemProperty("user.name"); //$NON-NLS-1$
-        final String fakeUserId = MessageFormat.format("{0}@{1}", userName, hostName); //$NON-NLS-1$
+        final String fakeUserId = MessageFormat.format("{0}@{1}_TEE", userName, hostName); //$NON-NLS-1$
 
         final byte[] hash = HashUtils.hashString(fakeUserId, "UTF-8", HashUtils.ALGORITHM_SHA_1); //$NON-NLS-1$
 

@@ -9,13 +9,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.layout.GridData;
@@ -31,16 +28,10 @@ import com.microsoft.tfs.client.common.ui.browser.BrowserFacade.LaunchMode;
 import com.microsoft.tfs.client.common.ui.controls.generic.compatibility.link.CompatibilityLinkControl;
 import com.microsoft.tfs.client.common.ui.controls.generic.compatibility.link.CompatibilityLinkFactory;
 import com.microsoft.tfs.client.common.ui.framework.dialog.BaseDialog;
-import com.microsoft.tfs.client.common.ui.framework.helper.FontHelper;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
-import com.microsoft.tfs.client.common.ui.framework.validation.AbstractTextControlValidator;
 import com.microsoft.tfs.client.common.ui.framework.validation.ButtonValidatorBinding;
 import com.microsoft.tfs.core.util.URIUtils;
-import com.microsoft.tfs.util.StringUtil;
-import com.microsoft.tfs.util.email.EmailAddressParser;
-import com.microsoft.tfs.util.valid.IValidity;
-import com.microsoft.tfs.util.valid.Validity;
 
 public class FeedbackDialog extends BaseDialog {
 
@@ -55,13 +46,7 @@ public class FeedbackDialog extends BaseDialog {
     private final boolean smile;
 
     private Text commentText;
-    private Text emailText;
-    private EmailAddressValidator validator;
-    private Label emailErrorMessageLabel;
-    private Font emailErrorMessageFont;
-
     private String commentString;
-    private String emailString;
 
     public FeedbackDialog(final Shell parentShell, final boolean smile) {
         super(parentShell);
@@ -123,40 +108,6 @@ public class FeedbackDialog extends BaseDialog {
             }
         });
 
-        final Label emailLabel = SWTUtil.createLabel(dialogArea, Messages.getString("FeedbackDialog.EmailLabel"));//$NON-NLS-1$
-        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().applyTo(emailLabel);
-
-        emailText = new Text(dialogArea, SWT.SINGLE | SWT.BORDER);
-        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().applyTo(emailText);
-        emailText.setTextLimit(MAX_APP_INSIGHTS_PROPERTY_SIZE);
-
-        /*
-         * Create a validator for the email textbox. Make sure to hook up the
-         * text box modifier listeners (if any) after the validator so that the
-         * validator gets run before the validation of all fields.
-         */
-        validator = new EmailAddressValidator(emailText);
-
-        emailErrorMessageLabel = SWTUtil.createLabel(dialogArea, SWT.WRAP, StringUtil.EMPTY);
-        emailErrorMessageFont =
-            new Font(getShell().getDisplay(), FontHelper.italicize(emailErrorMessageLabel.getFont().getFontData()));
-        emailErrorMessageLabel.setFont(emailErrorMessageFont);
-        /*
-         * Reserve three lines for the error messages. They could be pretty
-         * wordy.
-         */
-        GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().hHint(commentTextFontHeight * 3).applyTo(
-            emailErrorMessageLabel);
-
-        emailErrorMessageLabel.addDisposeListener(new DisposeListener() {
-            @Override
-            public void widgetDisposed(final DisposeEvent e) {
-                if (emailErrorMessageFont != null) {
-                    emailErrorMessageFont.dispose();
-                }
-            }
-        });
-
         final Label thankYouLabel =
             SWTUtil.createLabel(dialogArea, SWT.WRAP, Messages.getString("FeedbackDialog.ThankYouLabel")); //$NON-NLS-1$
         GridDataBuilder.newInstance().hSpan(layout).vIndent(getVerticalSpacing()).wHint(
@@ -177,59 +128,16 @@ public class FeedbackDialog extends BaseDialog {
     }
 
     @Override
-    protected void hookAfterButtonsCreated() {
-        new ButtonValidatorBinding(getButton(IDialogConstants.OK_ID)).bind(validator);
-    }
-
-    @Override
     protected void okPressed() {
         // grab the values
         // If there are new lines or carriage returns the events do not go
         // through.
         // TODO -- move this lower in the stack?
         commentString = commentText.getText().replaceAll("\\n|\\r", " ");//$NON-NLS-1$ //$NON-NLS-2$
-        emailString = emailText.getText() == null ? StringUtil.EMPTY : emailText.getText().trim();
         super.okPressed();
     }
 
     public String getComment() {
         return commentString;
-    }
-
-    public String getEmail() {
-        return emailString;
-    }
-
-    public class EmailAddressValidator extends AbstractTextControlValidator {
-
-        private final EmailAddressParser parser;
-
-        public EmailAddressValidator(final Text subject) {
-            super(subject);
-            parser = new EmailAddressParser();
-            validate();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        protected IValidity computeValidity(String text) {
-            if (emailErrorMessageLabel == null) {
-                /*
-                 * Not all controls are created yet.
-                 */
-                return Validity.VALID;
-            }
-
-            if (parser.parse(text)) {
-                emailErrorMessageLabel.setText(StringUtil.EMPTY);
-                return Validity.VALID;
-            } else {
-                final String erorMessage = parser.getErrorMessage();
-                emailErrorMessageLabel.setText(erorMessage);
-                return Validity.invalid(erorMessage);
-            }
-        }
     }
 }

@@ -151,7 +151,9 @@ public class TfsTelemetryHelper {
             // Don't send any telemetry
             return;
         }
-        getTelemetryClient().trackException(exception);
+        Map<String, String> properties = new HashMap<String, String>();
+        properties.put(TfsTelemetryConstants.SHARED_PROPERTY_EXCEPTION_NAME, getName(exception));
+        sendEvent(TfsTelemetryConstants.SHARED_EXCEPTION_EVENT_NAME, properties);
     }
 
     public static String getName(final Object o) {
