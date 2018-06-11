@@ -18,7 +18,7 @@ Compatible with IDEs that are based on Eclipse 4.2 to 4.6.
 a) The plug-in is freely available from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/team-explorer-everywhere).
 Hover over the `Install` button for more information on how to install it into your version of Eclipse.
 
-b) Follow instructions at https://java.visualstudio.com/Docs/tools/eclipse and use update site `http://dl.microsoft.com/eclipse/`.
+b) Follow instructions at https://docs.microsoft.com/vsts/java/download-eclipse-plug-in and use update site `http://dl.microsoft.com/eclipse/`.
 
 c) You can also manually download and install the plug-in from the [Releases](https://github.com/Microsoft/team-explorer-everywhere/releases) section of this GitHub repository.
 
