@@ -7,6 +7,9 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -560,40 +563,83 @@ public final class FileHelpers {
          * Do the main rename.
          */
         if (source.renameTo(target)) {
-            /*
-             * The main rename succeeded, so failing to delete the temp file is
-             * not a fatal error (but annoying).
-             */
-            if (tempFile != null && tempFile.delete() == false) {
-                final String messageFormat = "Error deleting temp file {0} after successful rename, leaving"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, tempFile);
-                log.warn(message);
-            }
-        } else {
-            log.warn("Main rename failed (source permissions problem?), trying to rename temp file back"); //$NON-NLS-1$
+            removeTempFile(tempFile);
+        }
+        else {
+            log.warn("source.renameTo failed to move file! Trying with copy+delete.");
+            if (!copyFileUsingStream(source, target))
+            {
+                log.warn("Main rename and secondary copy using stream failed (source permissions problem?), trying to rename temp file back"); //$NON-NLS-1$
 
-            /*
-             * Target shouldn't exist (we renamed it to a temp file) unless some
-             * other process put it there.
-             */
-            if (target.exists()) {
-                final String messageFormat = "Target {0} exists when it should not, lost race to some other process?"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, target);
+                /*
+                 * Target shouldn't exist (we renamed it to a temp file) unless some
+                 * other process put it there.
+                 */
+                if (target.exists()) {
+                    final String messageFormat = "Target {0} exists when it should not, lost race to some other process?"; //$NON-NLS-1$
+                    final String message = MessageFormat.format(messageFormat, target);
+                    log.warn(message);
+                    throw new IOException(message);
+                }
+
+                if (tempFile != null && tempFile.renameTo(target) == false) {
+                    final String messageFormat = "Error renaming temp file {0} back to target {1} after failed main rename"; //$NON-NLS-1$
+                    final String message = MessageFormat.format(messageFormat, tempFile, target);
+                    log.warn(message);
+                    throw new IOException(message);
+                }
+
+                final String messageFormat = Messages.getString("FileHelpers.FailedToRenameFormat"); //$NON-NLS-1$
+                final String message = MessageFormat.format(messageFormat, source, target);
                 log.warn(message);
                 throw new IOException(message);
             }
-
-            if (tempFile != null && tempFile.renameTo(target) == false) {
-                final String messageFormat = "Error renaming temp file {0} back to target {1} after failed main rename"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, tempFile, target);
-                log.warn(message);
-                throw new IOException(message);
+            else
+            {
+                if (source.delete() == false)
+                {
+                    log.warn("Failed to delete source file (source permissions problem?).");
+                }
+                removeTempFile(tempFile);
             }
 
-            final String messageFormat = Messages.getString("FileHelpers.FailedToRenameFormat"); //$NON-NLS-1$
-            final String message = MessageFormat.format(messageFormat, source, target);
+        }
+    }
+
+    private static void removeTempFile(File tempFile) {
+        /*
+         * The main rename succeeded, so failing to delete the temp file is
+         * not a fatal error (but annoying).
+         */
+        if (tempFile != null && tempFile.delete() == false) {
+            final String messageFormat = "Error deleting temp file {0} after successful rename, leaving"; //$NON-NLS-1$
+            final String message = MessageFormat.format(messageFormat, tempFile);
             log.warn(message);
-            throw new IOException(message);
+        }
+    }
+
+    private static boolean copyFileUsingStream(File source, File dest)
+    throws IOException
+    {
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = is.read(buffer)) > 0) {
+                os.write(buffer, 0, length);
+            }
+        }
+        catch (final Throwable t)
+        {
+            return false;
+        }
+        finally {
+            is.close();
+            os.close();
+            return true;
         }
     }
 
