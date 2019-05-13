@@ -1,3 +1,7 @@
+> **This project is no longer maintained.** To make changes, you may fork this repository and build your own version of Team Explorer Everywhere using instructions below.
+
+---
+
 # Team Explorer Everywhere Plug-in for Eclipse and Cross-platform Command-line Client for Team Foundation Server
 This project contains:
 - Team Explorer Everywhere Plug-in for Eclipse
