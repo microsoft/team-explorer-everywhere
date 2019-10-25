@@ -30,7 +30,6 @@ import com.microsoft.tfs.client.common.ui.framework.dialog.BaseDialog;
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
 import com.microsoft.tfs.client.common.ui.prefs.UIPreferenceConstants;
-import com.microsoft.tfs.core.telemetry.TfsTelemetryConstants;
 
 public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
     private static final Log log = LogFactory.getLog(OAuth2DeviceFlowCallbackDialog.class);
@@ -100,18 +99,6 @@ public class OAuth2DeviceFlowCallbackDialog extends BaseDialog {
             SWTUtil.createLabel(dialogArea, Messages.getString("OAuth2DeviceFlowCallbackDialog.SelectOkText")); //$NON-NLS-1$
         GridDataBuilder.newInstance().hSpan(layout).hFill().hGrab().applyTo(finishFlowLabel);
 
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected Map<String, String> getTelemetryProperties() {
-        Map<String, String> properties = super.getTelemetryProperties();
-        properties.put(
-            TfsTelemetryConstants.OAUTH_USER_AGENT_PROVIDER,
-            System.getProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY));
-        return properties;
     }
 
     /**

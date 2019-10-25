@@ -3,7 +3,6 @@
 
 package com.microsoft.tfs.client.common.ui.teamexplorer.items;
 
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 
 /**
@@ -17,8 +16,6 @@ public class TeamExplorerBaseNavigationItem implements ITeamExplorerNavigationIt
 
     @Override
     public final void clicked(final TeamExplorerContext context) {
-        ClientTelemetryHelper.sendTeamExplorerPageView(getClass().getName(), null);
-
         onClick(context);
     }
 

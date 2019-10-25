@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.Status;
 import com.microsoft.tfs.client.common.commands.TFSCommand;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.config.UIClientConnectionAdvisor;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.core.TFSConfigurationServer;
 import com.microsoft.tfs.core.TFSConnection;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
@@ -208,10 +207,6 @@ public class ConnectToConfigurationServerCommand extends TFSCommand implements C
         }
 
         Check.notNull(connection, "connection"); //$NON-NLS-1$
-
-        final Map<String, String> properties = new HashMap<String, String>();
-        ClientTelemetryHelper.addContextProperties(properties, connection);
-        ClientTelemetryHelper.sendCommandFinishedEvent(this, Status.OK_STATUS, properties);
 
         if (connection instanceof TFSTeamProjectCollection) {
             /*

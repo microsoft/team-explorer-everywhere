@@ -120,7 +120,6 @@ public abstract class CredentialsHelper {
             System.setProperty(
                 UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY,
                 UIPreferenceConstants.USER_AGENT_PROVIDER_VALUE);
-            // ClientTelemetryHelper.sendDialogOpened(this);
         } else if (UIPreferenceConstants.USER_AGENT_PROVIDER_VALUE.equalsIgnoreCase(
             System.getProperty(UIPreferenceConstants.USER_AGENT_PROVIDER_PROPERTY))) {
             /*

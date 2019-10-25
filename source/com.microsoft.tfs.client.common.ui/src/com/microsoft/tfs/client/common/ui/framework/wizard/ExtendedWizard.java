@@ -23,7 +23,6 @@ import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandExecutorFactory;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.util.Check;
 
 /**
@@ -135,8 +134,6 @@ public abstract class ExtendedWizard extends Wizard {
         if (defaultPageImageDescriptor != null) {
             setDefaultPageImageDescriptor(defaultPageImageDescriptor);
         }
-
-        ClientTelemetryHelper.sendWizardOpened(this);
 
         /*
          * Subclasses should add in all pages they might use (addPage()) in the

@@ -114,22 +114,10 @@ fi
 
 # Standard CLC resources.  Site-wide check-in policies can be dropped in 
 # the lib directory.
-#
-# 3/25/2015 Workaround added:
-# Make sure that AppInsights SDK is the last in CLASS_PATH, 
-# otherwise it will destroy CLC logging.
-#
-# Can be removed after (and if) the issue is fixed in AppInsights.
 
-AI_JAR=
 for LIBRARY_JAR in "$BASE_DIRECTORY"/lib/*.jar ; do
-    if expr "$LIBRARY_JAR" : ".*/applicationinsights[^/]*" > /dev/null; then
-        AI_JAR="$LIBRARY_JAR" 
-    else
-        CLC_CLASSPATH="$CLC_CLASSPATH:$LIBRARY_JAR"
-    fi
+    CLC_CLASSPATH="$CLC_CLASSPATH:$LIBRARY_JAR"
 done
-CLC_CLASSPATH="$CLC_CLASSPATH:$AI_JAR"
 
 # Convert to Windows-style classpath
 if [ "$PLATFORM" = "cygwin" ] ; then

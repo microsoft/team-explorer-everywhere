@@ -10,8 +10,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
 
 import com.microsoft.tfs.client.common.ui.framework.action.ExtendedAction;
-import com.microsoft.tfs.core.telemetry.TfsTelemetryConstants;
-import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 
 public class FeedbackAction extends ExtendedAction {
 
@@ -30,14 +28,6 @@ public class FeedbackAction extends ExtendedAction {
     @Override
     public void doRun(final IAction action) {
         final FeedbackDialog dialog = new FeedbackDialog(getShell(), smile);
-        if (dialog.open() == IDialogConstants.OK_ID) {
-            final Map<String, String> properties = new HashMap<String, String>();
-            properties.put(TfsTelemetryConstants.FEEDBACK_PROPERTY_COMMENT, dialog.getComment());
-            properties.put(TfsTelemetryConstants.FEEDBACK_PROPERTY_CONTEXT, feedbackContext);
-
-            final String eventName = smile ? CMD_SEND_SMILE : CMD_SEND_FROWN;
-            TfsTelemetryHelper.sendEvent(eventName, properties);
-        }
     }
 
 }

@@ -13,7 +13,6 @@ import com.microsoft.tfs.client.common.TFSCommonClientPlugin;
 import com.microsoft.tfs.client.common.framework.command.ExtendedStatus;
 import com.microsoft.tfs.client.common.framework.command.ICommand;
 import com.microsoft.tfs.client.common.framework.status.UncaughtCommandExceptionStatus;
-import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.tasks.CanceledException;
 
@@ -43,12 +42,6 @@ public class DefaultExceptionHandler implements ICommandExceptionHandler {
     public IStatus onException(final Throwable t) {
         if (t instanceof CanceledException || t instanceof InterruptedException) {
             return Status.CANCEL_STATUS;
-        }
-
-        if (t instanceof Exception) {
-            TfsTelemetryHelper.sendException((Exception) t);
-        } else {
-            TfsTelemetryHelper.sendException(new Exception(t));
         }
 
         String details = t.getLocalizedMessage();

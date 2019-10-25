@@ -141,13 +141,7 @@
 		<macro.version.generate-properties-file file="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src/com.microsoft.tfs.core-version.properties" />
 	</target>
 
-	<target name="remove_telemetry_files" if="${release.build}">
-		<echo message="[TFSBuildStep] Remove dev telemetry instrumentation property file for release build" />
-		<!-- Remove any dev properties that might already exist in this file to force default settings. -->
-		<delete file="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src/com.microsoft.tfs.core-telemetry.properties" />
-	</target>
-
-	<target name="build_2_init" depends="clean_output_directory,copy_source_files,generate_version_files,remove_telemetry_files">
+	<target name="build_2_init" depends="clean_output_directory,copy_source_files,generate_version_files">
 		<echo message="[TFSBuildStep] Initialization stage complete" />
 	</target>
 

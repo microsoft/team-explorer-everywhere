@@ -17,7 +17,6 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.SharedScrolledComposite;
 
 import com.microsoft.tfs.client.common.server.TFSServer;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.views.TeamExplorerPendingChangesView;
 import com.microsoft.tfs.core.TFSTeamProjectCollection;
@@ -271,8 +270,6 @@ public class TeamExplorerHelpers {
      * @param viewID
      */
     public static IViewPart showView(final String viewID) {
-        ClientTelemetryHelper.sendTeamExplorerPageView(viewID);
-
         IViewPart view = null;
         try {
             view = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(viewID);

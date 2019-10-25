@@ -8,8 +8,6 @@ import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 
-import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
-
 /**
  * An {@link ICommandExceptionHandler} that handles {@link CoreException}s. They
  * are handled by returning their {@link IStatus} available from
@@ -33,8 +31,6 @@ public class CoreExceptionHandler implements ICommandExceptionHandler {
         log.error(t.getMessage(), t);
 
         if (t instanceof CoreException) {
-            TfsTelemetryHelper.sendException((CoreException) t);
-
             return ((CoreException) t).getStatus();
         }
 

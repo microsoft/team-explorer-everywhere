@@ -16,7 +16,6 @@ import com.microsoft.tfs.client.common.server.TFSServer;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.controls.teamexplorer.TeamExplorerControl;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.teamexplorer.helpers.ConnectHelpers;
 import com.microsoft.tfs.core.clients.build.IBuildServer;
 import com.microsoft.tfs.core.clients.commonstructure.ProjectInfo;
@@ -24,7 +23,6 @@ import com.microsoft.tfs.core.clients.teamsettings.TeamConfiguration;
 import com.microsoft.tfs.core.clients.versioncontrol.SourceControlCapabilityFlags;
 import com.microsoft.tfs.core.clients.workitem.WorkItemClient;
 import com.microsoft.tfs.core.clients.workitem.project.Project;
-import com.microsoft.tfs.core.telemetry.TfsTelemetryConstants;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.GUID;
 
@@ -172,16 +170,6 @@ public class TeamExplorerContext {
 
         for (final ProjectInfo activeProject : activeProjects) {
             if (activeProject.getGUID().equals(projectGUID)) {
-                if (currentProject == null || !currentProject.getGUID().equalsIgnoreCase(activeProject.getGUID())) {
-                    final Map<String, String> properties = new HashMap<String, String>();
-                    final boolean tfvc =
-                        activeProject.getSourceControlCapabilityFlags().contains(SourceControlCapabilityFlags.TFS);
-                    final String vc = tfvc ? "tfvc" : "git"; //$NON-NLS-1$ //$NON-NLS-2$
-                    properties.put(TfsTelemetryConstants.PLUGIN_COMMAND_EVENT_PROPERTY_VERSION_CONTROL, vc);
-
-                    ClientTelemetryHelper.sendRunActionEvent("ProjectSelect", properties); //$NON-NLS-1$
-                }
-
                 currentProject = activeProject;
                 server.getProjectCache().setCurrentTeamProject(currentProject);
 

@@ -83,13 +83,6 @@ public abstract class EnvironmentVariables {
     public static final String NO_SUMMARY = "TFSVC_NOSUMMARY"; //$NON-NLS-1$
 
     /**
-     * When set to any value, disables the sending of telemetry values.
-     * <p>
-     * IntelliJ uses this environment variable when calling the CLC.
-     */
-    public static final String NO_TELEMETRY = "TF_NOTELEMETRY"; //$NON-NLS-1$
-
-    /**
      * This environment variable is only used on Mac OS. When set to False, No
      * or N PersistanceCredentialsManager will be used to store credentials
      * instead of KeyChain

@@ -9,7 +9,6 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.common.ui.framework.action.SelectionProviderAction;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.core.clients.versioncontrol.PropertyConstants;
 import com.microsoft.tfs.core.clients.versioncontrol.PropertyUtils;
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Change;
@@ -43,8 +42,6 @@ public abstract class RepositoryAction extends SelectionProviderAction {
             final String message = MessageFormat.format(messageFormat, getClass().getName());
             throw new IllegalStateException(message);
         }
-
-        ClientTelemetryHelper.sendRunActionEvent(this);
 
         doRun(repository);
     }

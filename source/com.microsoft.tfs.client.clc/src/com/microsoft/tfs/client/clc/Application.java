@@ -29,7 +29,6 @@ import com.microsoft.tfs.client.clc.options.shared.OptionContinueOnError;
 import com.microsoft.tfs.client.clc.options.shared.OptionExitCode;
 import com.microsoft.tfs.client.clc.options.shared.OptionHelp;
 import com.microsoft.tfs.client.clc.options.shared.OptionOutputSeparator;
-import com.microsoft.tfs.client.clc.telemetry.CLCTelemetryHelper;
 import com.microsoft.tfs.console.application.AbstractConsoleApplication;
 import com.microsoft.tfs.console.display.ConsoleDisplay;
 import com.microsoft.tfs.console.display.Display;
@@ -146,13 +145,7 @@ public abstract class Application implements AbstractConsoleApplication {
          */
         ProductInformation.initialize(ProductName.CLC);
 
-        // We need to check for the no telemetry flag before we send any
-        // telemetry to the server
-        CLCTelemetryHelper.checkNoTelemetryProperty();
-
-        CLCTelemetryHelper.sendSessionBegins();
         final int ret = run(args, false);
-        CLCTelemetryHelper.sendSessionEnds();
 
         return ret;
     }
@@ -339,8 +332,6 @@ public abstract class Application implements AbstractConsoleApplication {
              * Same as above but returned by some low level Core or Common
              * classes, e.g. HttpHost.
              */
-            CLCTelemetryHelper.sendException(e);
-
             final String messageFormat = Messages.getString("Application.AnArgumentErrorOccurredFormat"); //$NON-NLS-1$
             final String message = MessageFormat.format(messageFormat, e.getLocalizedMessage());
             display.printErrorLine(message);
@@ -405,16 +396,12 @@ public abstract class Application implements AbstractConsoleApplication {
              * The most basic core exception class. All lower level (SOAP)
              * exceptions are wrapped in these.
              */
-            CLCTelemetryHelper.sendException(e);
-
             final String messageFormat = Messages.getString("Application.AnErrorOccurredFormat"); //$NON-NLS-1$
             final String message = MessageFormat.format(messageFormat, e.getLocalizedMessage());
             log.error(message, e);
             display.printErrorLine(message);
             ret = ExitCode.FAILURE;
         } catch (final Throwable e) {
-            CLCTelemetryHelper.sendException(new Exception("Unexpected exception.", e)); //$NON-NLS-1$
-
             log.error("Unexpected exception: ", e); //$NON-NLS-1$
         }
 
@@ -430,7 +417,6 @@ public abstract class Application implements AbstractConsoleApplication {
             display.printLine(""); //$NON-NLS-1$
         }
 
-        CLCTelemetryHelper.sendCommandFinishedEvent(c, ret);
         log.debug("Leaving CLC application"); //$NON-NLS-1$
 
         return ret;

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.teambuild.editors.BuildExplorer;
 import com.microsoft.tfs.core.clients.build.IBuildDetail;
 import com.microsoft.tfs.core.clients.build.IQueuedBuild;
@@ -78,7 +77,6 @@ public abstract class QueuedBuildAction extends BaseAction {
 
     @Override
     public void run(final IAction action) {
-        ClientTelemetryHelper.sendRunActionEvent(this);
         doRun(action);
     }
 

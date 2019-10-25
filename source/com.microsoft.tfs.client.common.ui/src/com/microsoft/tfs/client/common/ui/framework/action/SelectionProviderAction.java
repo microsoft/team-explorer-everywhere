@@ -12,7 +12,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 import com.microsoft.tfs.client.common.ui.framework.helper.SelectionUtils;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 
 /**
  * <p>
@@ -236,7 +235,6 @@ public abstract class SelectionProviderAction extends Action {
 
     @Override
     public final void run() {
-        ClientTelemetryHelper.sendRunActionEvent(this);
         doRun();
     }
 
