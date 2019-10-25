@@ -1,3 +1,5 @@
+install:
+  - cinst ant
 before_build:
   - pwsh: .appveyor/prepare-eclipse.ps1
 build_script:
