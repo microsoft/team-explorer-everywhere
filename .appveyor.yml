@@ -9,6 +9,8 @@ before_build:
 build_script:
   - pwsh: .appveyor/build.ps1
 
+skip_branch_with_pr: true
+
 cache:
   - .appveyor/downloads -> .appveyor.yml
   - .appveyor/eclipse -> .appveyor.yml
