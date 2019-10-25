@@ -53,6 +53,15 @@ Download the TEE-CLC-*.zip file in the [Releases](https://github.com/Microsoft/t
  * (Windows) `SET PATH=C:\dev\apache-ant-1.9.6\bin;%PATH%`
  * (Linux) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
  * (Mac) `PATH=~/dev/apache-ant-1.9.6/bin:$PATH`
+
+### Automated Build
+
+There's a script to download the Eclipse automatically and set up its environment. To do that, execute the following PowerShell scripts:
+
+```console
+$ pwsh ./.appveyor/prepare-eclipse.ps1
+$ pwsh ./.appveyor/build.ps1
+```
     
 ### Install the Eclipse Target Environment
 Historically, we use Eclipse 3.5.2 as the base target Eclipse version.

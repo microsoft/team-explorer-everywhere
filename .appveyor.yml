@@ -1,0 +1,8 @@
+before_build:
+  - pwsh: .appveyor/prepare-eclipse.ps1
+build_script:
+  - pwsh: .appveyor/build.ps1
+
+cache:
+  - .appveyor/downloads -> .appveyor.yml, .appveyor/*.ps1
+  - .appveyor/eclipse -> .appveyor.yml, .appveyor/*.ps1
