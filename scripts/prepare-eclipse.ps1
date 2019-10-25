@@ -28,6 +28,8 @@ function isCached($url, $requiredHash, $filePath) {
 }
 
 function downloadFile($url, $requiredHash, $filePath) {
+    Write-Output "Downloading $url ($requiredHash)"
+
     # Check if the download is already cached:
     if (Test-Path $filePath) {
         Write-Output "File found, checking hash: $filePath"
