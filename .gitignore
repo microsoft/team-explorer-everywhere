@@ -1,9 +1,7 @@
-# Eclipse workspace folders (for those using the repository root as their eclipse worksace)
-.metadata
-.recommenders
+/.appveyor/downloads
+/.appveyor/eclipse
+/.idea
 
-# Eclipse output folders for all projects under source/
 bin
 
-# Maven builds
-target
+*.iml
