@@ -1,6 +1,6 @@
 param (
     [string] $SourceRoot = "$PSScriptRoot/..",
-    [string] $EclipseRoot = "$SourceRoot/.appveyor/eclipse"
+    [string] $EclipseRoot = "$SourceRoot/.build/eclipse"
 )
 
 Set-StrictMode -Version Latest

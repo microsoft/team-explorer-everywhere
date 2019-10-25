@@ -1,5 +1,5 @@
-/.appveyor/downloads
-/.appveyor/eclipse
+/.build/downloads
+/.build/eclipse
 /.idea
 
 bin

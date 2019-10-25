@@ -1,13 +1,15 @@
 environment:
   ECLIPSE_URL: https://archive.eclipse.org/eclipse/downloads/drops/R-3.5.2-201002111343/eclipse-SDK-3.5.2-win32-x86_64.zip
   ECLIPSE_HASH: 4E9EDDD6DC4F69C8A02C105DCBAF1A2DEDED6BBED138557DBC598323BBAA0AD7
+  EGIT_URL: https://archive.eclipse.org/egit/updates-2.1/org.eclipse.egit.repository-2.1.0.201209190230-r.zip
+  EGIT_HASH: AF2D9B6D946B734D5BC232DCF58A5A40980CAE78DB5E12B66FCAF1A970535328
 
 install:
   - cinst ant
 before_build:
-  - pwsh: .appveyor/prepare-eclipse.ps1 -EclipseUrl $env:ECLIPSE_URL -EclipseHash $env:ECLIPSE_HASH
+  - pwsh: scripts/prepare-eclipse.ps1 -EclipseUrl $env:ECLIPSE_URL -EclipseHash $env:ECLIPSE_HASH -EGitUrl $env:EGIT_URL -EGitFileHash $nv:EGIT_HASH
 build_script:
-  - pwsh: .appveyor/build.ps1
+  - pwsh: scripts/build.ps1
 
 skip_branch_with_pr: true
 
