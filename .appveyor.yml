@@ -16,3 +16,9 @@ skip_branch_with_pr: true
 cache:
   - .appveyor/downloads -> .appveyor.yml
   - .appveyor/eclipse -> .appveyor.yml
+
+artifacts:
+  - path: build/output/bin/clc/TEE-CLC-1*.zip
+    name: Client
+  - path: build/output/bin/sdk/*.zip
+    name: SDK
