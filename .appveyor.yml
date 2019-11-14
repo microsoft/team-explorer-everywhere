@@ -5,7 +5,8 @@ environment:
   EGIT_HASH: AF2D9B6D946B734D5BC232DCF58A5A40980CAE78DB5E12B66FCAF1A970535328
 
 install:
-  - cinst ant
+  - cinst openjdk8 --version 8.232.9
+  - cinst ant --version 1.10.5 --ignore-dependencies
 before_build:
   - pwsh: scripts/prepare-eclipse.ps1 -EclipseUrl $env:ECLIPSE_URL -EclipseFileHash $env:ECLIPSE_HASH -EGitUrl $env:EGIT_URL -EGitFileHash $env:EGIT_HASH
 build_script:
@@ -14,8 +15,10 @@ build_script:
 skip_branch_with_pr: true
 
 cache:
-  - .appveyor/downloads -> .appveyor.yml
-  - .appveyor/eclipse -> .appveyor.yml
+  - .build/downloads -> .appveyor.yml
+  - .build/eclipse -> .appveyor.yml
+  - C:/ProgramData/chocolatey/bin -> appveyor.yml
+  - C:/ProgramData/chocolatey/lib -> appveyor.yml
 
 artifacts:
   - path: build/output/bin/clc/TEE-CLC-1*.zip
