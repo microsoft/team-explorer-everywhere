@@ -29,4 +29,6 @@ Export-Package: com.microsoft.tfs.jni,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.microsoft.tfs.logging,
  com.microsoft.tfs.util
-Bundle-ClassPath: com.microsoft.tfs.jni.jar
+Bundle-ClassPath: com.microsoft.tfs.jni.jar,
+ libs/jna/jna-4.2.1.jar,
+ libs/jna/jna-platform-4.2.1.jar
