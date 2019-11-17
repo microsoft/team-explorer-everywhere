@@ -20,6 +20,7 @@
         <!-- copy core dependency jars -->
         <copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" flatten="true">
             <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs" includes="**/*.jar" />
+            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/libs" includes="**/*.jar" />
         </copy>
 
         <!-- copy dependent plugin jars -->
