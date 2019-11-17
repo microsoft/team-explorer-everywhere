@@ -1,7 +1,8 @@
 /.build/downloads
 /.build/eclipse
+/.gradle
 /.idea
-/build/resources/
+/build
 
 bin
 
