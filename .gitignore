@@ -1,6 +1,7 @@
 /.build/downloads
 /.build/eclipse
 /.idea
+/build/resources/
 
 bin
 
