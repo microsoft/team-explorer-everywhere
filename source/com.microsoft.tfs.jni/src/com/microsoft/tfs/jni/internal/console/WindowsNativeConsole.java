@@ -4,15 +4,16 @@ import com.microsoft.tfs.jni.Console;
 import com.microsoft.tfs.jni.internal.console.winapi.ConsoleScreenBufferInfo;
 import com.microsoft.tfs.jni.internal.console.winapi.Kernel32;
 import com.sun.jna.Pointer;
+import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
 
 import static com.microsoft.tfs.jni.internal.console.winapi.Kernel32.ENABLE_ECHO_INPUT;
 
-public class WindowsNativeConsole implements Console {
+class WindowsNativeConsole implements Console {
     private static ConsoleScreenBufferInfo getConsoleScreenBufferInfo() {
         Kernel32 kernel32 = Kernel32.INSTANCE;
-        Pointer handle = kernel32.GetStdHandle(Kernel32.STD_OUTPUT_HANDLE);
-        if (handle.equals(Pointer.NULL))
+        WinNT.HANDLE handle = kernel32.GetStdHandle(Kernel32.STD_OUTPUT_HANDLE);
+        if (handle.getPointer().equals(Pointer.NULL))
             return null;
 
         ConsoleScreenBufferInfo info = new ConsoleScreenBufferInfo();
@@ -34,7 +35,7 @@ public class WindowsNativeConsole implements Console {
 
     @Override public boolean disableEcho() {
         Kernel32 kernel32 = Kernel32.INSTANCE;
-        Pointer stdOut = kernel32.GetStdHandle(Kernel32.STD_OUTPUT_HANDLE);
+        WinNT.HANDLE stdOut = kernel32.GetStdHandle(Kernel32.STD_OUTPUT_HANDLE);
         if (stdOut.equals(Pointer.NULL))
             return false;
 
@@ -48,7 +49,7 @@ public class WindowsNativeConsole implements Console {
 
     @Override public boolean enableEcho() {
         Kernel32 kernel32 = Kernel32.INSTANCE;
-        Pointer stdOut = kernel32.GetStdHandle(Kernel32.STD_OUTPUT_HANDLE);
+        WinNT.HANDLE stdOut = kernel32.GetStdHandle(Kernel32.STD_OUTPUT_HANDLE);
         if (stdOut.equals(Pointer.NULL))
             return false;
 
