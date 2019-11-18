@@ -2,6 +2,9 @@
 .metadata
 .recommenders
 
+# IntelliJ IDEA
+/.idea
+
 # Eclipse output folders for all projects under source/
 bin
 
