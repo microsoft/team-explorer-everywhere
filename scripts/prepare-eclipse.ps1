@@ -62,7 +62,9 @@ if (!$cacheOk) {
 
     Write-Output "Cleaning $EclipseRoot..."
     Remove-Item -Force $EclipseRoot -ErrorAction Continue
+}
 
+if (!(Test-Path $EclipseRoot)) {
     Write-Output 'Unpacking Eclipse...'
     Expand-Archive "$Downloads/eclipse.zip" -DestinationPath $EclipseRoot
 
