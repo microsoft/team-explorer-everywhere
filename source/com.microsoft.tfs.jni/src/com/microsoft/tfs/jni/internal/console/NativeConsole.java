@@ -6,6 +6,7 @@ package com.microsoft.tfs.jni.internal.console;
 import com.microsoft.tfs.jni.Console;
 import com.microsoft.tfs.jni.internal.LibraryNames;
 import com.microsoft.tfs.jni.loader.NativeLoader;
+import com.microsoft.tfs.util.Platform;
 
 /**
  * An implementation of the {@link Console} interface that uses native methods.
@@ -13,6 +14,9 @@ import com.microsoft.tfs.jni.loader.NativeLoader;
  * @threadsafety thread-safe
  */
 public class NativeConsole implements Console {
+
+    private static Console backend;
+
     /**
      * This static initializer is a "best-effort" native code loader (no
      * exceptions thrown for normal load failures).
@@ -24,7 +28,11 @@ public class NativeConsole implements Console {
      * code will execute fine.
      */
     static {
-        NativeLoader.loadLibraryAndLogError(LibraryNames.CONSOLE_LIBRARY_NAME);
+        if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
+            backend = new WindowsNativeConsole();
+        } else {
+            NativeLoader.loadLibraryAndLogError(LibraryNames.CONSOLE_LIBRARY_NAME);
+        }
     }
 
     public NativeConsole() {
@@ -32,22 +40,22 @@ public class NativeConsole implements Console {
 
     @Override
     public int getConsoleColumns() {
-        return nativeGetColumns();
+        return backend == null ? nativeGetColumns() : backend.getConsoleColumns();
     }
 
     @Override
     public int getConsoleRows() {
-        return nativeGetRows();
+        return backend == null ?  nativeGetRows() : backend.getConsoleRows();
     }
 
     @Override
     public boolean disableEcho() {
-        return nativeDisableEcho();
+        return backend == null ? nativeDisableEcho() : backend.disableEcho();
     }
 
     @Override
     public boolean enableEcho() {
-        return nativeEnableEcho();
+        return backend == null ? nativeEnableEcho() : backend.enableEcho();
     }
 
     private static native int nativeGetRows();
