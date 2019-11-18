@@ -18,11 +18,6 @@ public abstract class LibraryNames {
     public static final String MISC_LIBRARY_NAME = "native_misc"; //$NON-NLS-1$
 
     /**
-     * The short name of the native console library.
-     */
-    public static final String CONSOLE_LIBRARY_NAME = "native_console"; //$NON-NLS-1$
-
-    /**
      * The short name of the authentication library.
      */
     public static final String AUTH_LIBRARY_NAME = "native_auth"; //$NON-NLS-1$
