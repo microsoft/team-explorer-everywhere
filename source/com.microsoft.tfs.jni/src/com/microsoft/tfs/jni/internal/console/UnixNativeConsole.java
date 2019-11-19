@@ -2,6 +2,7 @@ package com.microsoft.tfs.jni.internal.console;
 
 import com.microsoft.tfs.jni.Console;
 import com.microsoft.tfs.jni.internal.console.unix.LibC;
+import com.microsoft.tfs.jni.internal.console.unix.termios;
 import com.microsoft.tfs.jni.internal.console.unix.winsize;
 
 class UnixNativeConsole implements Console {
@@ -34,10 +35,26 @@ class UnixNativeConsole implements Console {
     }
 
     @Override public boolean disableEcho() {
-        return false;
+        LibC libC = LibC.INSTANCE;
+
+        termios settings = new termios();
+        if (libC.tcgetattr(LibC.STDIN_FILENO, settings) != 0)
+            return false;
+
+        settings.c_lflag &= ~LibC.ECHO;
+
+        return libC.tcsetattr(LibC.STDIN_FILENO, LibC.TCSANOW, settings) == 0;
     }
 
     @Override public boolean enableEcho() {
-        return false;
+        LibC libC = LibC.INSTANCE;
+
+        termios settings = new termios();
+        if (libC.tcgetattr(LibC.STDIN_FILENO, settings) != 0)
+            return false;
+
+        settings.c_lflag |= LibC.ECHO;
+
+        return libC.tcsetattr(LibC.STDIN_FILENO, LibC.TCSANOW, settings) == 0;
     }
 }
