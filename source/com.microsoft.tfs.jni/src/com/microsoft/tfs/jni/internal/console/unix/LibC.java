@@ -16,5 +16,5 @@ public interface LibC extends Library {
 
     int close(int fd);
 
-    int ioctl(int fd, long cmd, Pointer p);
+    int ioctl(int fd, long cmd, winsize p);
 }
