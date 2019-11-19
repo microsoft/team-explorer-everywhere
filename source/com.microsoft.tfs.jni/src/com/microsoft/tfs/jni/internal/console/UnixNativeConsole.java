@@ -12,7 +12,7 @@ class UnixNativeConsole implements Console {
         if (tty >= 0) {
             try {
                 winsize size = new winsize();
-                if (libC.ioctl(tty, LibC.TIOCGWINSZ, size.getPointer()) >= 0) {
+                if (libC.ioctl(tty, LibC.TIOCGWINSZ, size) >= 0) {
                     return size;
                 }
             } finally {
