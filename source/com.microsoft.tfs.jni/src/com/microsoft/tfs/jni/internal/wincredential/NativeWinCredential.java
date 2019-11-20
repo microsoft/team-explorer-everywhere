@@ -24,7 +24,7 @@ public class NativeWinCredential {
         credential.TargetName = new WString(credentialToStore.getServerUri());
 
         String password = credentialToStore.getPassword();
-        Memory passwordMemory = new Memory(password.length());
+        Memory passwordMemory = new Memory(password.length() * 2); // * 2 because of UTF-16
         try {
             passwordMemory.setString(0, password, "UTF-16");
             credential.CredentialBlobSize = new WinDef.DWORD(passwordMemory.size());
