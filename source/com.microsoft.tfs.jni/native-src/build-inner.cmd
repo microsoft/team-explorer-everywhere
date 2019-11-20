@@ -291,7 +291,6 @@ cl -c win32\filesystem_jni.c -Fo"%BUILD_TMP%\filesystem_jni.obj" %CFLAGS%
 cl -c win32\misc_jni.c -Fo"%BUILD_TMP%\misc_jni.obj" %CFLAGS%
 cl -c win32\synchronization_jni.c -Fo"%BUILD_TMP%\synchronization_jni.obj" %CFLAGS%
 cl -c win32\registry_jni.c -Fo"%BUILD_TMP%\registry_jni.obj" %CFLAGS%
-cl -c win32\wincred_jni.c -Fo"%BUILD_TMP%\wincred_jni.obj" %CFLAGS%
 cl -c win32\messagewindow_jni.c -Fo"%BUILD_TMP%\messagewindow_jni.obj" %CFLAGS%
 cl -c common\auth.c -Fo"%BUILD_TMP%\auth.obj" %CFLAGS%
 cl -c common\logger_log4j.c -Fo"%BUILD_TMP%\logger_log4j.obj" %CFLAGS%
@@ -304,7 +303,6 @@ if not exist "%BUILD_TMP%\filesystem_jni.obj" goto compileerror
 if not exist "%BUILD_TMP%\misc_jni.obj" goto compileerror
 if not exist "%BUILD_TMP%\synchronization_jni.obj" goto compileerror
 if not exist "%BUILD_TMP%\registry_jni.obj" goto compileerror
-if not exist "%BUILD_TMP%\wincred_jni.obj" goto compileerror
 if not exist "%BUILD_TMP%\messagewindow_jni.obj" goto compileerror
 if not exist "%BUILD_TMP%\auth.obj" goto compileerror
 if not exist "%BUILD_TMP%\util.obj" goto compileerror
@@ -318,7 +316,6 @@ link -dll "%BUILD_TMP%\filesystem_jni.obj" "%BUILD_TMP%\util.obj" "%BUILD_TMP%\o
 link -dll "%BUILD_TMP%\misc_jni.obj" "%BUILD_TMP%\util.obj" advapi32.lib -out:"%BUILD_TMP%\native_misc.dll" %LFLAGS%
 link -dll "%BUILD_TMP%\synchronization_jni.obj" "%BUILD_TMP%\util.obj" -out:"%BUILD_TMP%\native_synchronization.dll" %LFLAGS%
 link -dll "%BUILD_TMP%\registry_jni.obj" "%BUILD_TMP%\util.obj" advapi32.lib -out:"%BUILD_TMP%\native_registry.dll" %LFLAGS%
-link -dll "%BUILD_TMP%\wincred_jni.obj" "%BUILD_TMP%\util.obj" advapi32.lib -out:"%BUILD_TMP%\native_credential.dll" %LFLAGS%
 link -dll "%BUILD_TMP%\messagewindow_jni.obj" "%BUILD_TMP%\util.obj" user32.lib -out:"%BUILD_TMP%\native_messagewindow.dll" %LFLAGS%
 @echo off
 
@@ -327,7 +324,6 @@ if not exist "%BUILD_TMP%\native_filesystem.dll" goto compileerror
 if not exist "%BUILD_TMP%\native_misc.dll" goto compileerror
 if not exist "%BUILD_TMP%\native_synchronization.dll" goto compileerror
 if not exist "%BUILD_TMP%\native_registry.dll" goto compileerror
-if not exist "%BUILD_TMP%\native_credential.dll" goto compileerror
 if not exist "%BUILD_TMP%\native_messagewindow.dll" goto compileerror
 
 rem ###########################################################
@@ -372,11 +368,6 @@ if exist %DESTDIR%\native_registry.dll goto delerror
 if exist %SYMBOLDIR%\native_registry.pdb del %SYMBOLDIR%\native_registry.pdb
 if exist %SYMBOLDIR%\native_registry.pdb goto delerror
 
-if exist %DESTDIR%\native_credential.dll del %DESTDIR%\native_credential.dll
-if exist %DESTDIR%\native_credential.dll goto delerror
-if exist %SYMBOLDIR%\native_credential.pdb del %SYMBOLDIR%\native_credential.pdb
-if exist %SYMBOLDIR%\native_credential.pdb goto delerror
-
 if exist %DESTDIR%\native_messagewindow.dll del %DESTDIR%\native_messagewindow.dll
 if exist %DESTDIR%\native_messagewindow.dll goto delerror
 if exist %SYMBOLDIR%\native_messagewindow.pdb del %SYMBOLDIR%\native_messagewindow.pdb
@@ -410,11 +401,6 @@ copy "%BUILD_TMP%\native_registry.dll" %DESTDIR%\native_registry.dll
 if not exist %DESTDIR%\native_registry.dll goto copyerror
 copy "%BUILD_TMP%\native_registry.pdb" %SYMBOLDIR%\native_registry.pdb
 if not exist %SYMBOLDIR%\native_registry.pdb goto copyerror
-
-copy "%BUILD_TMP%\native_credential.dll" %DESTDIR%\native_credential.dll
-if not exist %DESTDIR%\native_credential.dll goto copyerror
-copy "%BUILD_TMP%\native_credential.pdb" %SYMBOLDIR%\native_credential.pdb
-if not exist %SYMBOLDIR%\native_credential.pdb goto copyerror
 
 copy "%BUILD_TMP%\native_messagewindow.dll" %DESTDIR%\native_messagewindow.dll
 if not exist %DESTDIR%\native_messagewindow.dll goto copyerror
