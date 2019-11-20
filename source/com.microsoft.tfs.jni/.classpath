@@ -6,7 +6,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-    <classpathentry exported="true" kind="lib" path="libs/jna/jna-4.2.1.jar"/>
-    <classpathentry exported="true" kind="lib" path="libs/jna/jna-platform-4.2.1.jar"/>
+    <classpathentry exported="true" kind="lib" path="libs/jna/jna-5.5.0.jar"/>
+    <classpathentry exported="true" kind="lib" path="libs/jna/jna-platform-5.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
