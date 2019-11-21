@@ -298,12 +298,12 @@
     </PackageStats>
     <PackageStats package="com.microsoft.tfs.jni.internal.platformmisc" total_bugs="0" total_types="8" total_size="254">
       <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.AbstractPlatformMisc" sourceFile="AbstractPlatformMisc.java" interface="false" size="15" bugs="0"/>
-      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.ExecPlatformMisc" sourceFile="ExecPlatformMisc.java" interface="false" size="25" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.tests.platformmisc.ExecPlatformMisc" sourceFile="ExecPlatformMisc.java" interface="false" size="25" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.NativePlatformMisc" sourceFile="NativePlatformMisc.java" interface="false" size="18" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.ProxiedPlatformMisc" sourceFile="ProxiedPlatformMisc.java" interface="true" size="1" bugs="0"/>
-      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.UnixExecPlatformMisc" sourceFile="UnixExecPlatformMisc.java" interface="false" size="72" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.tests.platformmisc.UnixExecPlatformMisc" sourceFile="UnixExecPlatformMisc.java" interface="false" size="72" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.UnixExecPlatformMiscTest" sourceFile="UnixExecPlatformMiscTest.java" interface="false" size="52" bugs="0"/>
-      <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.WindowsExecPlatformMisc" sourceFile="WindowsExecPlatformMisc.java" interface="false" size="33" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.tests.platformmisc.WindowsExecPlatformMisc" sourceFile="WindowsExecPlatformMisc.java" interface="false" size="33" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.platformmisc.WindowsExecPlatformMiscTest" sourceFile="WindowsExecPlatformMiscTest.java" interface="false" size="38" bugs="0"/>
     </PackageStats>
     <PackageStats package="com.microsoft.tfs.jni.internal.proxy" total_bugs="0" total_types="3" total_size="111">
