@@ -4,13 +4,9 @@
 package com.microsoft.tfs.jni.internal.wincredential;
 
 import com.microsoft.tfs.jni.WinCredential;
-import com.microsoft.tfs.jni.internal.LibraryNames;
 import com.microsoft.tfs.jni.internal.wincredential.winapi.Advapi32;
 import com.microsoft.tfs.jni.internal.wincredential.winapi.CREDENTIALW;
-import com.microsoft.tfs.jni.loader.NativeLoader;
 import com.sun.jna.Memory;
-import com.sun.jna.Pointer;
-import com.sun.jna.Structure;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.ptr.PointerByReference;
@@ -27,8 +23,8 @@ public class NativeWinCredential {
         Memory passwordMemory = new Memory(password.length() * 2 + 2); // * 2 because of UTF-16, + 2 for terminating zero
         try {
             passwordMemory.setWideString(0, password);
-            credential.CredentialBlobSize = new WinDef.DWORD(passwordMemory.size());
-            credential.CredentialBlob = passwordMemory.getPointer(0);
+            credential.CredentialBlobSize = new WinDef.DWORD(passwordMemory.size() - 2); // we don't need the terminating zero
+            credential.CredentialBlob = passwordMemory;
 
             credential.Persist = new WinDef.DWORD(Advapi32.CRED_PERSIST_LOCAL_MACHINE);
             credential.UserName = new WString(credentialToStore.getAccountName());
@@ -53,7 +49,7 @@ public class NativeWinCredential {
             try {
                 CREDENTIALW readCredential = new CREDENTIALW(credentialPtrPtr.getValue());
                 String accountName = readCredential.UserName == null ? null : readCredential.UserName.toString();
-                char[] passwordArray = readCredential.CredentialBlob == null ? null : readCredential.CredentialBlob.getCharArray(0, readCredential.CredentialBlobSize.intValue());
+                char[] passwordArray = readCredential.CredentialBlob == null ? null : readCredential.CredentialBlob.getCharArray(0, readCredential.CredentialBlobSize.intValue() / 2); // / 2 because this is UTF-16
                 String password = passwordArray == null ? null : new String(passwordArray);
 
                 return new WinCredential(targetName, accountName, password);
