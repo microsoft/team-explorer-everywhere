@@ -119,12 +119,14 @@ public class NativePlatformMisc implements PlatformMisc {
 
     @Override
     public String getCurrentIdentityUser() {
-        return nativeGetCurrentIdentityUser();
+        return backend == null ? nativeGetCurrentIdentityUser() : backend.getCurrentIdentityUser();
     }
 
     @Override
     public String getWellKnownSID(final int wellKnownSIDType, final String domainSIDString) {
-        return nativeGetWellKnownSID(wellKnownSIDType, domainSIDString);
+        return backend == null
+            ? nativeGetWellKnownSID(wellKnownSIDType, domainSIDString)
+            : backend.getWellKnownSID(wellKnownSIDType, domainSIDString);
     }
 
     private static native int nativeChangeCurrentDirectory(String directory);
