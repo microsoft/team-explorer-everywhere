@@ -3,7 +3,7 @@
 
 package com.microsoft.tfs.jni;
 
-import com.microsoft.tfs.jni.internal.console.NativeConsoleTest;
+import com.microsoft.tfs.jni.tests.console.NativeConsoleTest;
 import com.microsoft.tfs.jni.internal.filesystem.NativeFileSystemTest;
 import com.microsoft.tfs.jni.internal.keychain.NativeKeychainTest;
 import com.microsoft.tfs.jni.internal.negotiate.NativeNegotiateTest;

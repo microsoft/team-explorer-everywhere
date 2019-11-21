@@ -259,12 +259,12 @@
     </PackageStats>
     <PackageStats package="com.microsoft.tfs.jni.internal.console" total_bugs="0" total_types="8" total_size="159">
       <ClassStats class="com.microsoft.tfs.jni.internal.console.AbstractConsole" sourceFile="AbstractConsole.java" interface="false" size="9" bugs="0"/>
-      <ClassStats class="com.microsoft.tfs.jni.internal.console.ExecConsole" sourceFile="ExecConsole.java" interface="false" size="21" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.tests.console.ExecConsole" sourceFile="ExecConsole.java" interface="false" size="21" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.console.NativeConsole" sourceFile="NativeConsole.java" interface="false" size="16" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.console.ProxiedConsole" sourceFile="ProxiedConsole.java" interface="true" size="1" bugs="0"/>
-      <ClassStats class="com.microsoft.tfs.jni.internal.console.UnixExecConsole" sourceFile="UnixExecConsole.java" interface="false" size="53" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.tests.console.UnixExecConsole" sourceFile="UnixExecConsole.java" interface="false" size="53" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.console.UnixExecConsoleTest" sourceFile="UnixExecConsoleTest.java" interface="false" size="22" bugs="0"/>
-      <ClassStats class="com.microsoft.tfs.jni.internal.console.WindowsExecConsole" sourceFile="WindowsExecConsole.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="com.microsoft.tfs.jni.tests.console.WindowsExecConsole" sourceFile="WindowsExecConsole.java" interface="false" size="15" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.jni.internal.console.WindowsExecConsoleTest" sourceFile="WindowsExecConsoleTest.java" interface="false" size="22" bugs="0"/>
     </PackageStats>
     <PackageStats package="com.microsoft.tfs.jni.internal.filesystem" total_bugs="0" total_types="8" total_size="454">

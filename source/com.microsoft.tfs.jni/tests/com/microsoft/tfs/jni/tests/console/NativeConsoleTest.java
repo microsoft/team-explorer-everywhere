@@ -1,13 +1,14 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.tfs.jni.internal.console;
+package com.microsoft.tfs.jni.tests.console;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import com.microsoft.tfs.jni.AllNativeTests;
 
+import com.microsoft.tfs.jni.internal.console.NativeConsole;
 import junit.framework.TestCase;
 
 public class NativeConsoleTest extends TestCase {
