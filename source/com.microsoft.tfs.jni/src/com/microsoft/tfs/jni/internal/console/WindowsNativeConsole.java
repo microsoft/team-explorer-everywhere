@@ -1,13 +1,13 @@
 package com.microsoft.tfs.jni.internal.console;
 
 import com.microsoft.tfs.jni.Console;
-import com.microsoft.tfs.jni.internal.console.winapi.ConsoleScreenBufferInfo;
-import com.microsoft.tfs.jni.internal.console.winapi.Kernel32;
+import com.microsoft.tfs.jni.internal.winapi.ConsoleScreenBufferInfo;
+import com.microsoft.tfs.jni.internal.winapi.Kernel32;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
 
-import static com.microsoft.tfs.jni.internal.console.winapi.Kernel32.ENABLE_ECHO_INPUT;
+import static com.microsoft.tfs.jni.internal.winapi.Kernel32.ENABLE_ECHO_INPUT;
 
 class WindowsNativeConsole implements Console {
     private static ConsoleScreenBufferInfo getConsoleScreenBufferInfo() {

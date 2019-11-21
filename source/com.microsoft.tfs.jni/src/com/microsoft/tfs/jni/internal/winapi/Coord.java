@@ -1,4 +1,4 @@
-package com.microsoft.tfs.jni.internal.console.winapi;
+package com.microsoft.tfs.jni.internal.winapi;
 
 import com.sun.jna.Structure;
 

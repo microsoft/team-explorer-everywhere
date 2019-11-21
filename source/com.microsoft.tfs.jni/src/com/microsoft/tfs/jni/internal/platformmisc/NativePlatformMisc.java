@@ -19,6 +19,11 @@ import com.microsoft.tfs.util.Platform;
  * @threadsafety thread-safe
  */
 public class NativePlatformMisc implements PlatformMisc {
+
+    private final PlatformMisc backend = Platform.isCurrentPlatform(Platform.WINDOWS)
+        ? new WindowsNativePlatformMisc()
+        : null;
+
     /**
      * This static initializer is a "best-effort" native code loader (no
      * exceptions thrown for normal load failures).
@@ -51,7 +56,13 @@ public class NativePlatformMisc implements PlatformMisc {
     public boolean changeCurrentDirectory(final String directory) {
         Check.notNull(directory, "directory"); //$NON-NLS-1$
 
-        if (nativeChangeCurrentDirectory(directory) == 0) {
+        boolean success;
+        if (backend != null)
+            success = backend.changeCurrentDirectory(directory);
+        else
+            success = nativeChangeCurrentDirectory(directory) == 0;
+
+        if (success) {
             /*
              * We must set this variable for Java classes to have any idea that
              * the paths have changed. Canonical path is much nicer to
@@ -62,11 +73,9 @@ public class NativePlatformMisc implements PlatformMisc {
             } catch (final IOException e) {
                 System.setProperty("user.dir", new File(directory).getAbsolutePath()); //$NON-NLS-1$
             }
-
-            return true;
         }
 
-        return false;
+        return success;
     }
 
     @Override
@@ -75,12 +84,12 @@ public class NativePlatformMisc implements PlatformMisc {
             return -1;
         }
 
-        return nativeGetDefaultCodePage();
+        return backend.getDefaultCodePage();
     }
 
     @Override
     public String getComputerName() {
-        final String name = nativeGetComputerName();
+        final String name = backend == null ? nativeGetComputerName() : backend.getComputerName();
 
         if (name == null || name.length() == 0) {
             return null;
@@ -93,32 +102,8 @@ public class NativePlatformMisc implements PlatformMisc {
     public String getEnvironmentVariable(final String name) {
         Check.notNullOrEmpty(name, "name"); //$NON-NLS-1$
 
-        /*
-         * On Unix, nativeGetEnvironmentVariable() calls getenv(). The ISO C
-         * standard (as well as Open Group Base Standard IEEE 1003.1-2001, which
-         * defers to ISO C) says getenv() may return a pointer to memory which
-         * may be written to by subsequent or concurrent calls to putenv(). In
-         * short, getenv() and putenv() are notrequired to be thread-safe. On
-         * some platforms, like Solaris, they have always been safe. On others,
-         * they have been unsafe at times.
-         *
-         * Since Java's standard libraries do not implement putenv(), and
-         * System.getenv() caches the environment (on Sun's implementation, at
-         * least), a Java or JNI putenv() implementation wouldn't work with many
-         * existing System.getenv() implementations.
-         *
-         * For these reasons we assume that putenv() won't ever be called in our
-         * Java processes by any thread, so we don't use a lock when calling the
-         * native code that calls getenv().
-         *
-         * http://www.opengroup.org/onlinepubs/009695399/functions/getenv.html
-         */
-
-        /*
-         * On Windows, the native implementation is thread-safe.
-         */
-
-        return nativeGetEnvironmentVariable(name);
+        String value = backend.getEnvironmentVariable(name);
+        return value == null || value.length() == 0 ? null : value;
     }
 
     @Override
@@ -129,7 +114,7 @@ public class NativePlatformMisc implements PlatformMisc {
             return value;
         }
 
-        return nativeExpandEnvironmentString(value);
+        return backend.expandEnvironmentString(value);
     }
 
     @Override
