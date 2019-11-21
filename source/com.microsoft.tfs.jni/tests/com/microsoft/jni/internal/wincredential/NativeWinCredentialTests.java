@@ -2,6 +2,7 @@ package com.microsoft.jni.internal.wincredential;
 
 import com.microsoft.tfs.jni.WinCredential;
 import com.microsoft.tfs.jni.internal.wincredential.NativeWinCredential;
+import com.sun.jna.platform.win32.Kernel32Util;
 import junit.framework.TestCase;
 import org.junit.Assert;
 
@@ -17,12 +18,19 @@ public class NativeWinCredentialTests extends TestCase {
         return new WinCredential(TEST_SERVER_URI, UUID.randomUUID().toString(), TEST_PASSWORD);
     }
 
+    private static void assertCallResultTrue(boolean callResult) {
+        if (!callResult) {
+            throw new AssertionError(Kernel32Util.getLastErrorMessage());
+        }
+    }
+
     public void testStoreFindCredential() {
         WinCredential testCredential = createRandomCredential();
         String username = testCredential.getAccountName();
-        nativeWinCredential.storeCredential(testCredential);
+        assertCallResultTrue(nativeWinCredential.storeCredential(testCredential));
 
         WinCredential storedCredential = nativeWinCredential.findCredential(testCredential);
+        Assert.assertNotNull(storedCredential);
         Assert.assertEquals(TEST_SERVER_URI, storedCredential.getServerUri());
         Assert.assertEquals(username, storedCredential.getAccountName());
         Assert.assertEquals(TEST_PASSWORD, storedCredential.getPassword());
@@ -30,9 +38,9 @@ public class NativeWinCredentialTests extends TestCase {
 
     public void testEraseCredential() {
         WinCredential testCredential = createRandomCredential();
-        nativeWinCredential.storeCredential(testCredential);
+        assertCallResultTrue(nativeWinCredential.storeCredential(testCredential));
 
-        nativeWinCredential.eraseCredential(testCredential);
+        assertCallResultTrue(nativeWinCredential.eraseCredential(testCredential));
 
         WinCredential storedCredential = nativeWinCredential.findCredential(testCredential);
         Assert.assertNull(storedCredential);
