@@ -16,19 +16,23 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
     private final Kernel32 kernel32 = Kernel32.INSTANCE;
     private final Advapi32 advapi32 = Advapi32.INSTANCE;
 
-    @Override public String getHomeDirectory(String username) {
+    @Override
+    public String getHomeDirectory(String username) {
         return null;
     }
 
-    @Override public boolean changeCurrentDirectory(String directory) {
+    @Override
+    public boolean changeCurrentDirectory(String directory) {
         return kernel32.SetCurrentDirectoryW(new WString(directory));
     }
 
-    @Override public int getDefaultCodePage() {
+    @Override
+    public int getDefaultCodePage() {
         return kernel32.GetACP().intValue();
     }
 
-    @Override public String getComputerName() {
+    @Override
+    public String getComputerName() {
         Memory buffer = new Memory(Kernel32.MAX_COMPUTERNAME_LENGTH + 1);
         IntByReference size = new IntByReference((int) buffer.size());
         if (!kernel32.GetComputerNameW(buffer, size)) {
@@ -38,11 +42,13 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
         return buffer.getWideString(0L);
     }
 
-    @Override public String getEnvironmentVariable(String name) {
+    @Override
+    public String getEnvironmentVariable(String name) {
         return System.getenv(name);
     }
 
-    @Override public String expandEnvironmentString(String value) {
+    @Override
+    public String expandEnvironmentString(String value) {
         Memory buffer = new Memory(value.length() * 2 + 2); // * 2 because of UTF-16, + 2 for terminating zero
         WinDef.DWORD newSize = kernel32.ExpandEnvironmentStringsW(
             new WString(value),
@@ -64,7 +70,8 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
         return buffer.getWideString(0L);
     }
 
-    @Override public String getCurrentIdentityUser() {
+    @Override
+    public String getCurrentIdentityUser() {
         WinNT.HANDLE currentProcess = kernel32.GetCurrentProcess(); // doesn't need to be closed
         WinNT.HANDLEByReference processTokenHandle = new WinNT.HANDLEByReference();
 
@@ -81,8 +88,11 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
                 null,
                 0,
                 ownerTokenSize)) {
-                throw new RuntimeException(
-                    "Error getting token information size: " + Kernel32Util.getLastErrorMessage());
+                int lastError = kernel32.GetLastError();
+                if (lastError != Kernel32.ERROR_INSUFFICIENT_BUFFER) {
+                    throw new RuntimeException(
+                        "Error getting token information size: " + Kernel32Util.getLastErrorMessage());
+                }
             }
 
             Memory ownerToken = new Memory(ownerTokenSize.getValue());
@@ -114,7 +124,41 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
         }
     }
 
-    @Override public String getWellKnownSID(int wellKnownSIDType, String domainSIDString) {
-        throw new RuntimeException("Not implemented");
+    @Override
+    public String getWellKnownSID(int wellKnownSIDType, String domainSIDString) {
+        WinNT.PSIDByReference domainSid = new WinNT.PSIDByReference();
+        if (domainSIDString != null) {
+            if (!advapi32.ConvertStringSidToSidW(new WString(domainSIDString), domainSid)) {
+                throw new RuntimeException("Error converting SID " + domainSIDString + "to SID: " + Kernel32Util.getLastErrorMessage());
+            }
+        }
+
+        try {
+            WinNT.PSID wellKnownSid = new WinNT.PSID(Advapi32.SECURITY_MAX_SID_SIZE);
+            IntByReference wellKnownSidSize = new IntByReference(Advapi32.SECURITY_MAX_SID_SIZE);
+            if (!advapi32.CreateWellKnownSid(wellKnownSIDType, domainSid.getValue(), wellKnownSid, wellKnownSidSize)) {
+                throw new RuntimeException("Error retrieving a well known SID for type "
+                    + wellKnownSIDType
+                    + ", domain "
+                    + domainSIDString
+                    + ": "
+                    + Kernel32Util.getLastErrorMessage());
+            }
+
+            PointerByReference wellKnownSidString = new PointerByReference();
+            if (!advapi32.ConvertSidToStringSidW(wellKnownSid, wellKnownSidString)) {
+                throw new RuntimeException(
+                    "Error converting SID to string SID: " + Kernel32Util.getLastErrorMessage());
+            }
+
+            try {
+                return wellKnownSidString.getValue().getWideString(0L);
+            } finally {
+                kernel32.LocalFree(wellKnownSidString.getValue());
+            }
+        } finally {
+            if (domainSid.getValue() != null)
+                kernel32.LocalFree(domainSid.getValue().getPointer());
+        }
     }
 }

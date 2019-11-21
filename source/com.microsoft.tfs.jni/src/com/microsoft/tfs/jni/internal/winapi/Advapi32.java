@@ -16,6 +16,7 @@ public interface Advapi32 extends com.sun.jna.platform.win32.Advapi32 {
 
     int CRED_TYPE_GENERIC = 1;
     int CRED_PERSIST_LOCAL_MACHINE = 2;
+    int SECURITY_MAX_SID_SIZE = 68;
 
     boolean CredReadW(WString TargetName, WinDef.DWORD Type, WinDef.DWORD Flags, PointerByReference Credential);
     boolean CredWriteW(CREDENTIALW Credential, WinDef.DWORD Flags);
@@ -23,6 +24,7 @@ public interface Advapi32 extends com.sun.jna.platform.win32.Advapi32 {
     void CredFree(Pointer Buffer);
 
     boolean ConvertSidToStringSidW(WinNT.PSID Sid, PointerByReference StringSid);
+    boolean ConvertStringSidToSidW(WString StringSid, WinNT.PSIDByReference Sid);
 
     int RegQueryValueExW(
         WinReg.HKEY hkey,
