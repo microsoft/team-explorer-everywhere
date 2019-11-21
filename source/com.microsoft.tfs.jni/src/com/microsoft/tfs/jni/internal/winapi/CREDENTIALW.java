@@ -1,4 +1,4 @@
-package com.microsoft.tfs.jni.internal.wincredential.winapi;
+package com.microsoft.tfs.jni.internal.winapi;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;

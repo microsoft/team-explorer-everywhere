@@ -1,9 +1,10 @@
-package com.microsoft.tfs.jni.internal.wincredential.winapi;
+package com.microsoft.tfs.jni.internal.winapi;
 
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.platform.win32.WinReg;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
@@ -20,6 +21,8 @@ public interface Advapi32 extends com.sun.jna.platform.win32.Advapi32 {
     boolean CredWriteW(CREDENTIALW Credential, WinDef.DWORD Flags);
     boolean CredDeleteW(WString TargetName, WinDef.DWORD Type, WinDef.DWORD Flags);
     void CredFree(Pointer Buffer);
+
+    boolean ConvertSidToStringSidW(WinNT.PSID Sid, PointerByReference StringSid);
 
     int RegQueryValueExW(
         WinReg.HKEY hkey,

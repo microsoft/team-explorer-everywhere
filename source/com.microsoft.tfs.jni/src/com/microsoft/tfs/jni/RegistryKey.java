@@ -3,7 +3,7 @@
 
 package com.microsoft.tfs.jni;
 
-import com.microsoft.tfs.jni.internal.wincredential.winapi.Advapi32;
+import com.microsoft.tfs.jni.internal.winapi.Advapi32;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.LocaleInvariantStringHelpers;
 import com.sun.jna.platform.win32.WinNT;

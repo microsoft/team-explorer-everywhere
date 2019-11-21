@@ -4,8 +4,8 @@
 package com.microsoft.tfs.jni.internal.wincredential;
 
 import com.microsoft.tfs.jni.WinCredential;
-import com.microsoft.tfs.jni.internal.wincredential.winapi.Advapi32;
-import com.microsoft.tfs.jni.internal.wincredential.winapi.CREDENTIALW;
+import com.microsoft.tfs.jni.internal.winapi.Advapi32;
+import com.microsoft.tfs.jni.internal.winapi.CREDENTIALW;
 import com.sun.jna.Memory;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.WinDef;
