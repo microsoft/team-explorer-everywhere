@@ -1,4 +1,4 @@
-package com.microsoft.jni.internal.wincredential;
+package com.microsoft.tfs.jni.tests.wincredential;
 
 import com.microsoft.tfs.jni.WinCredential;
 import com.microsoft.tfs.jni.internal.wincredential.NativeWinCredential;
