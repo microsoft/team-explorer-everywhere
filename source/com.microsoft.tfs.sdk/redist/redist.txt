@@ -30,7 +30,6 @@ native/win32/x86_64/native_credential.dll
 native/win32/x86_64/native_auth.dll
 native/win32/x86_64/native_console.dll
 native/win32/x86_64/native_misc.dll
-native/win32/x86_64/native_registry.dll
 native/win32/x86/native_filesystem.dll
 native/win32/x86/native_synchronization.dll
 native/win32/x86/native_messagewindow.dll
@@ -38,7 +37,6 @@ native/win32/x86/native_credential.dll
 native/win32/x86/native_auth.dll
 native/win32/x86/native_console.dll
 native/win32/x86/native_misc.dll
-native/win32/x86/native_registry.dll
 
 native/linux/x86_64/libnative_auth.so
 native/linux/x86_64/libnative_filesystem.so
