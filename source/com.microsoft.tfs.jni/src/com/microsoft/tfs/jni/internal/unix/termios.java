@@ -1,4 +1,4 @@
-package com.microsoft.tfs.jni.internal.console.unix;
+package com.microsoft.tfs.jni.internal.unix;
 
 import com.sun.jna.Structure;
 
