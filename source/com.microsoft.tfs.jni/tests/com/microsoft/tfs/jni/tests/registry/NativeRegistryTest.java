@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.tfs.jni.internal.registry;
+package com.microsoft.tfs.jni.tests.registry;
 
 import com.microsoft.tfs.jni.RegistryKey;
 import com.microsoft.tfs.jni.RootKey;
@@ -77,12 +77,10 @@ public class NativeRegistryTest extends TestCase {
             assertTrue(key.hasValue("InsertMode")); //$NON-NLS-1$
 
             // test a valid value name with a SZ value in HKCU.
-            key = new RegistryKey(RootKey.HKEY_CURRENT_USER, "Identities"); //$NON-NLS-1$
-            assertTrue(key.hasValue("Last Username")); //$NON-NLS-1$
+            assertTrue(key.hasValue("FaceName")); //$NON-NLS-1$
 
             // test an invalid value name with a SZ value in HKCU.
-            key = new RegistryKey(RootKey.HKEY_CURRENT_USER, "Identities"); //$NON-NLS-1$
-            assertFalse(key.hasValue("Last Username1")); //$NON-NLS-1$
+            assertFalse(key.hasValue("FaceName1")); //$NON-NLS-1$
         }
     }
 
