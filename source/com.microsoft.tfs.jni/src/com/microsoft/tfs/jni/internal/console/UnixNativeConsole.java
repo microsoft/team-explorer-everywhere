@@ -1,14 +1,19 @@
 package com.microsoft.tfs.jni.internal.console;
 
 import com.microsoft.tfs.jni.Console;
-import com.microsoft.tfs.jni.internal.console.unix.LibC;
-import com.microsoft.tfs.jni.internal.console.unix.termios;
-import com.microsoft.tfs.jni.internal.console.unix.winsize;
+import com.microsoft.tfs.jni.internal.unix.LibC;
+import com.microsoft.tfs.jni.internal.unix.termios;
+import com.microsoft.tfs.jni.internal.unix.winsize;
 
 class UnixNativeConsole implements Console {
 
+    private final LibC libC;
+
+    public UnixNativeConsole(LibC libC) {
+        this.libC = libC;
+    }
+
     private winsize getTtySize() {
-        LibC libC = LibC.INSTANCE;
         int tty = libC.open("/dev/tty", LibC.O_RDONLY);
         if (tty >= 0) {
             try {
@@ -24,19 +29,20 @@ class UnixNativeConsole implements Console {
         return null;
     }
 
-    @Override public int getConsoleColumns() {
+    @Override
+    public int getConsoleColumns() {
         winsize size = getTtySize();
         return size == null ? 0 : size.ws_col;
     }
 
-    @Override public int getConsoleRows() {
+    @Override
+    public int getConsoleRows() {
         winsize size = getTtySize();
         return size == null ? 0 : size.ws_row;
     }
 
-    @Override public boolean disableEcho() {
-        LibC libC = LibC.INSTANCE;
-
+    @Override
+    public boolean disableEcho() {
         termios settings = new termios();
         if (libC.tcgetattr(LibC.STDIN_FILENO, settings) != 0)
             return false;
@@ -46,9 +52,8 @@ class UnixNativeConsole implements Console {
         return libC.tcsetattr(LibC.STDIN_FILENO, LibC.TCSANOW, settings) == 0;
     }
 
-    @Override public boolean enableEcho() {
-        LibC libC = LibC.INSTANCE;
-
+    @Override
+    public boolean enableEcho() {
         termios settings = new termios();
         if (libC.tcgetattr(LibC.STDIN_FILENO, settings) != 0)
             return false;

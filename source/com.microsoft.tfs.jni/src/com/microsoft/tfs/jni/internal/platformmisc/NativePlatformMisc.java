@@ -20,9 +20,7 @@ import com.microsoft.tfs.util.Platform;
  */
 public class NativePlatformMisc implements PlatformMisc {
 
-    private final PlatformMisc backend = Platform.isCurrentPlatform(Platform.WINDOWS)
-        ? new WindowsNativePlatformMisc()
-        : null;
+    private final PlatformMisc backend;
 
     /**
      * This static initializer is a "best-effort" native code loader (no
@@ -39,6 +37,12 @@ public class NativePlatformMisc implements PlatformMisc {
     }
 
     public NativePlatformMisc() {
+        if (Platform.isCurrentPlatform(Platform.WINDOWS))
+            backend = new WindowsNativePlatformMisc();
+        else if (Platform.isCurrentPlatform(Platform.MAC_OS_X))
+            backend = new MacOsNativePlatformMisc();
+        else
+            backend = new LinuxNativePlatformMisc();
     }
 
     @Override
@@ -49,20 +53,14 @@ public class NativePlatformMisc implements PlatformMisc {
             return null;
         }
 
-        return nativeGetHomeDirectory(username);
+        return backend.getHomeDirectory(username);
     }
 
     @Override
     public boolean changeCurrentDirectory(final String directory) {
         Check.notNull(directory, "directory"); //$NON-NLS-1$
 
-        boolean success;
-        if (backend != null)
-            success = backend.changeCurrentDirectory(directory);
-        else
-            success = nativeChangeCurrentDirectory(directory) == 0;
-
-        if (success) {
+        if (backend.changeCurrentDirectory(directory)) {
             /*
              * We must set this variable for Java classes to have any idea that
              * the paths have changed. Canonical path is much nicer to
@@ -73,9 +71,11 @@ public class NativePlatformMisc implements PlatformMisc {
             } catch (final IOException e) {
                 System.setProperty("user.dir", new File(directory).getAbsolutePath()); //$NON-NLS-1$
             }
+
+            return true;
         }
 
-        return success;
+        return false;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class NativePlatformMisc implements PlatformMisc {
 
     @Override
     public String getComputerName() {
-        final String name = backend == null ? nativeGetComputerName() : backend.getComputerName();
+        final String name = backend.getComputerName();
 
         if (name == null || name.length() == 0) {
             return null;
@@ -129,23 +129,9 @@ public class NativePlatformMisc implements PlatformMisc {
             : backend.getWellKnownSID(wellKnownSIDType, domainSIDString);
     }
 
-    private static native int nativeChangeCurrentDirectory(String directory);
-
-    private static native String nativeGetComputerName();
-
-    private static native String nativeGetEnvironmentVariable(String name);
-
     // WARNING: Following only available on Windows.
-
-    private static native int nativeGetDefaultCodePage();
 
     private static native String nativeGetCurrentIdentityUser();
 
-    private static native String nativeExpandEnvironmentString(String value);
-
     private static native String nativeGetWellKnownSID(int wellKnownSIDType, String domainSIDString);
-
-    // WARNING: Following only available on Unix.
-
-    private static native String nativeGetHomeDirectory(String username);
 }
