@@ -9,15 +9,6 @@ package com.microsoft.tfs.jni;
  * </p>
  *
  * <p>
- * Semaphores represent synchronization objects that maintain a count between
- * zero and an initial value. (The initial value is also the maximum value.)
- * This count is decremented each time a thread completes a wait for the
- * semaphore object and incremented each time a thread releases the semaphore.
- * When the count reaches zero, callers may not wait for the semaphore until
- * another caller releases the object.
- * </p>
- *
- * <p>
  * Mutexes represent synchronization objects that are either acquired or not
  * acquired - they can be considered to be identical to semaphores with a value
  * of 1.
@@ -26,10 +17,9 @@ package com.microsoft.tfs.jni;
  * @threadsafety unknown
  */
 public interface Synchronization {
-    /* Mutexes */
 
     /**
-     * Creates a semaphore with the given name.
+     * Creates a mutex with the given name.
      *
      * @param name
      *        The name of the mutex to create
