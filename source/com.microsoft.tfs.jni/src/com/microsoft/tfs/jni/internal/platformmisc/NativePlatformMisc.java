@@ -105,19 +105,11 @@ public class NativePlatformMisc implements PlatformMisc {
 
     @Override
     public String getCurrentIdentityUser() {
-        return backend == null ? nativeGetCurrentIdentityUser() : backend.getCurrentIdentityUser();
+        return backend.getCurrentIdentityUser();
     }
 
     @Override
     public String getWellKnownSID(final int wellKnownSIDType, final String domainSIDString) {
-        return backend == null
-            ? nativeGetWellKnownSID(wellKnownSIDType, domainSIDString)
-            : backend.getWellKnownSID(wellKnownSIDType, domainSIDString);
+        return backend.getWellKnownSID(wellKnownSIDType, domainSIDString);
     }
-
-    // WARNING: Following only available on Windows.
-
-    private static native String nativeGetCurrentIdentityUser();
-
-    private static native String nativeGetWellKnownSID(int wellKnownSIDType, String domainSIDString);
 }
