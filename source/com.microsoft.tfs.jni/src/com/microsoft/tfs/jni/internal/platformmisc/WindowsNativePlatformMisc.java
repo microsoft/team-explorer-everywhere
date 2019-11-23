@@ -96,6 +96,7 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
             }
 
             Memory ownerToken = new Memory(ownerTokenSize.getValue());
+            ownerToken.clear();
             WinNT.TOKEN_OWNER tokenOwner = new WinNT.TOKEN_OWNER(ownerToken);
 
             if (!advapi32.GetTokenInformation(
