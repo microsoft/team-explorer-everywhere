@@ -53,36 +53,6 @@ public class NativeSynchronization implements Synchronization {
         return nativeCloseMutex(mutexId);
     }
 
-    /* Semaphores */
-
-    @Override
-    public long createSemaphore(final String name, final int initialValue) {
-        Check.notNull(name, "name"); //$NON-NLS-1$
-
-        return nativeCreateSemaphore(name, initialValue);
-    }
-
-    @Override
-    public int waitForSemaphore(final long semaphoreId, final int timeout) {
-        Check.isTrue(semaphoreId >= 0, "semaphoreId >= 0"); //$NON-NLS-1$
-
-        return nativeWaitForSemaphore(semaphoreId, timeout);
-    }
-
-    @Override
-    public boolean releaseSemaphore(final long semaphoreId) {
-        Check.isTrue(semaphoreId >= 0, "semaphoreId >= 0"); //$NON-NLS-1$
-
-        return nativeReleaseSemaphore(semaphoreId);
-    }
-
-    @Override
-    public boolean closeSemaphore(final long semaphoreId) {
-        Check.isTrue(semaphoreId >= 0, "semaphoreId >= 0"); //$NON-NLS-1$
-
-        return nativeCloseSemaphore(semaphoreId);
-    }
-
     /*
      * Native method hooks.
      */
@@ -94,12 +64,4 @@ public class NativeSynchronization implements Synchronization {
     private static native boolean nativeReleaseMutex(long mutexId);
 
     private static native boolean nativeCloseMutex(long mutexId);
-
-    private static native long nativeCreateSemaphore(String name, int initialValue);
-
-    private static native int nativeWaitForSemaphore(long semaphoreId, int timeout);
-
-    private static native boolean nativeReleaseSemaphore(long semaphoreId);
-
-    private static native boolean nativeCloseSemaphore(long semaphoreId);
 }

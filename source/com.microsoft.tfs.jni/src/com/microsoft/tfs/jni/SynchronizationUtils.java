@@ -46,26 +46,4 @@ public class SynchronizationUtils implements Synchronization {
     public boolean closeMutex(final long mutexId) {
         return nativeImpl.closeMutex(mutexId);
     }
-
-    /* Semaphores */
-
-    @Override
-    public long createSemaphore(final String name, final int initialValue) {
-        return nativeImpl.createSemaphore(name, initialValue);
-    }
-
-    @Override
-    public int waitForSemaphore(final long semaphoreId, final int timeout) {
-        return nativeImpl.waitForSemaphore(semaphoreId, timeout);
-    }
-
-    @Override
-    public boolean releaseSemaphore(final long semaphoreId) {
-        return nativeImpl.releaseSemaphore(semaphoreId);
-    }
-
-    @Override
-    public boolean closeSemaphore(final long semaphoreId) {
-        return nativeImpl.closeSemaphore(semaphoreId);
-    }
 }
