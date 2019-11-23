@@ -4,10 +4,11 @@ import com.sun.jna.Memory;
 import com.sun.jna.Native;
 import com.sun.jna.WString;
 import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.win32.W32APIOptions;
 
 public interface Kernel32 extends com.sun.jna.platform.win32.Kernel32 {
 
-    Kernel32 INSTANCE = Native.loadLibrary("Kernel32", Kernel32.class);
+    Kernel32 INSTANCE = Native.load("Kernel32", Kernel32.class, W32APIOptions.DEFAULT_OPTIONS);
     int ENABLE_ECHO_INPUT = 0x0004;
     int MAX_COMPUTERNAME_LENGTH = 15;
 
