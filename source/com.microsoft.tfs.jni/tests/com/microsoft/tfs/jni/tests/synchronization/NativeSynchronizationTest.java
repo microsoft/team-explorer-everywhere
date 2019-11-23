@@ -34,20 +34,11 @@ public class NativeSynchronizationTest extends TestCase {
     }
 
     public void testMutex() throws Exception {
-        String mutexName;
-
-        if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
-            mutexName = UUID.randomUUID().toString();
-        } else {
-            /*
-             * On some Unix systems the mutex appears on the filesystem, and it
-             * follows POSIX filesystem semantics on all Unixes, so pick a path that
-             * will be writable.
-             */
-            final File mutexFile = File.createTempFile("mutextest", ".tmp"); //$NON-NLS-1$//$NON-NLS-2$
-            mutexName = mutexFile.getAbsolutePath();
-            mutexFile.delete();
+        if (!Platform.isCurrentPlatform(Platform.WINDOWS)) {
+            return; // currently the underlying implementation is Windows-only
         }
+
+        String mutexName = UUID.randomUUID().toString();
 
         final long mutexId = nativeImpl.createMutex(mutexName);
 
