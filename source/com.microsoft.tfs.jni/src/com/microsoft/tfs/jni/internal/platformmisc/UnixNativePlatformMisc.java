@@ -2,10 +2,7 @@ package com.microsoft.tfs.jni.internal.platformmisc;
 
 import com.microsoft.tfs.jni.PlatformMisc;
 import com.microsoft.tfs.jni.internal.unix.LibC;
-import com.microsoft.tfs.jni.internal.unix.linux.passwd;
-import com.sun.jna.platform.linux.XAttr;
 import com.sun.jna.platform.unix.LibCAPI;
-import com.sun.jna.ptr.PointerByReference;
 
 import java.nio.charset.Charset;
 
@@ -39,21 +36,21 @@ public abstract class UnixNativePlatformMisc implements PlatformMisc {
 
     @Override
     public String getEnvironmentVariable(String name) {
-        return null;
+        return System.getenv(name);
     }
 
     @Override
     public String expandEnvironmentString(String value) {
-        return null;
+        throw new RuntimeException("Platform not supported");
     }
 
     @Override
     public String getCurrentIdentityUser() {
-        return null;
+        throw new RuntimeException("Platform not supported");
     }
 
     @Override
     public String getWellKnownSID(int wellKnownSIDType, String domainSIDString) {
-        return null;
+        throw new RuntimeException("Platform not supported");
     }
 }

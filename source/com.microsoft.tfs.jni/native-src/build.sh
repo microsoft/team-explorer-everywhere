@@ -255,14 +255,12 @@ esac
 # and/or file extension is added per-platform.
 LIBRARY_AUTH="native_auth"
 LIBRARY_FILESYSTEM="native_filesystem"
-LIBRARY_MISC="native_misc"
 LIBRARY_SYNCHRONIZATION="native_synchronization"
 LIBRARY_KEYCHAIN="native_keychain"
 
 # The sources required by each library we compile and link.
 SOURCES_AUTH="common/util.c common/objects.c common/logger_log4j.c common/auth.c unix/auth_gss.c"
 SOURCES_FILESYSTEM="common/util.c common/objects.c unix/filesystem_jni.c"
-SOURCES_MISC="common/util.c common/objects.c unix/misc_jni.c"
 SOURCES_SYNCHRONIZATION="common/util.c common/objects.c unix/synchronization_jni.c"
 SOURCES_KEYCHAIN="common/util.c common/objects.c common/logger_log4j.c unix/keychain_jni.c"
 
@@ -396,7 +394,6 @@ if [ "$PREVIEW" = 0 ] ; then
     javah -jni -o "$TMP/native_auth.h" com.microsoft.tfs.jni.internal.auth.NativeAuth
     javah -jni -o "$TMP/native_filesystem.h" com.microsoft.tfs.jni.internal.filesystem.NativeFileSystem
     javah -jni -o "$TMP/native_keychain.h" com.microsoft.tfs.jni.internal.keychain.NativeKeychain
-    javah -jni -o "$TMP/native_misc.h" com.microsoft.tfs.jni.internal.platformmisc.NativePlatformMisc
     javah -jni -o "$TMP/native_synchronization.h" com.microsoft.tfs.jni.internal.synchronization.NativeSynchronization
     
     $E "done."
@@ -433,7 +430,6 @@ case $PLATFORM in
         LDFLAGS="$LDFLAGS -bundle -framework JavaVM -framework SystemConfiguration -framework CoreServices -mmacosx-version-min=10.5"
 
         build_library_gcc "$TMP/lib$LIBRARY_FILESYSTEM.jnilib" "$SOURCES_FILESYSTEM"
-        build_library_gcc "$TMP/lib$LIBRARY_MISC.jnilib" "$SOURCES_MISC"
         build_library_gcc "$TMP/lib$LIBRARY_SYNCHRONIZATION.jnilib" "$SOURCES_SYNCHRONIZATION"
 
         LDFLAGS_BACKUP="$LDFLAGS"
@@ -468,7 +464,6 @@ case $PLATFORM in
         fi
 
         build_library_gcc "$TMP/lib$LIBRARY_FILESYSTEM.so" "$SOURCES_FILESYSTEM"
-        build_library_gcc "$TMP/lib$LIBRARY_MISC.so" "$SOURCES_MISC"
         build_library_gcc "$TMP/lib$LIBRARY_SYNCHRONIZATION.so" "$SOURCES_SYNCHRONIZATION"
 
         CFLAGS="$CFLAGS -I/usr/include/kerberosv5 -I/usr/include/gssapi -DDYNAMIC_GSSAPI"
@@ -502,7 +497,6 @@ case $PLATFORM in
         fi
 
         build_library_gcc "$TMP/lib$LIBRARY_FILESYSTEM.$EXTENSION" "$SOURCES_FILESYSTEM"
-        build_library_gcc "$TMP/lib$LIBRARY_MISC.$EXTENSION" "$SOURCES_MISC"
         build_library_gcc "$TMP/lib$LIBRARY_SYNCHRONIZATION.$EXTENSION" "$SOURCES_SYNCHRONIZATION"
 
         LDFLAGS="$LDFLAGS -lgssapi_krb5 -lkrb5"
@@ -530,7 +524,6 @@ case $PLATFORM in
         fi
 
         build_library_gcc "$TMP/lib$LIBRARY_FILESYSTEM.so" "$SOURCES_FILESYSTEM"
-        build_library_gcc "$TMP/lib$LIBRARY_MISC.so" "$SOURCES_MISC"
         build_library_gcc "$TMP/lib$LIBRARY_SYNCHRONIZATION.so" "$SOURCES_SYNCHRONIZATION"
 
         # Disabled until GNOME keyring threading problems solved.
@@ -566,7 +559,6 @@ case $PLATFORM in
         fi
 
         build_library_gcc "$TMP/lib$LIBRARY_FILESYSTEM.a" "$SOURCES_FILESYSTEM"
-        build_library_gcc "$TMP/lib$LIBRARY_MISC.a" "$SOURCES_MISC"
         build_library_gcc "$TMP/lib$LIBRARY_SYNCHRONIZATION.a" "$SOURCES_SYNCHRONIZATION"
 
         # AIX 5.2 doesn't have com_err's erro_message, enable IBM version
@@ -592,7 +584,6 @@ case $PLATFORM in
         fi
 
         build_library_gcc "$TMP/lib$LIBRARY_FILESYSTEM.so" "$SOURCES_FILESYSTEM"
-        build_library_gcc "$TMP/lib$LIBRARY_MISC.so" "$SOURCES_MISC"
         build_library_gcc "$TMP/lib$LIBRARY_SYNCHRONIZATION.so" "$SOURCES_SYNCHRONIZATION"
 
 		CFLAGS="$CFLAGS -DDYNAMIC_GSSAPI"
@@ -619,7 +610,6 @@ case $PLATFORM in
         LDFLAGS="$LDFLAGS -W l,dll"
 
         build_library_zos "$TMP/lib$LIBRARY_FILESYSTEM.so" "$EBCDIC_DIR" "$SOURCES_FILESYSTEM"
-        build_library_zos "$TMP/lib$LIBRARY_MISC.so" "$EBCDIC_DIR" "$SOURCES_MISC"
         build_library_zos "$TMP/lib$LIBRARY_SYNCHRONIZATION.so" "$EBCDIC_DIR" "$SOURCES_SYNCHRONIZATION"
 
         CFLAGS="$CFLAGS -I/usr/include/skrb/"
