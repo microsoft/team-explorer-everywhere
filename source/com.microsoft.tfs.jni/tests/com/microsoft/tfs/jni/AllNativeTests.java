@@ -10,7 +10,7 @@ import com.microsoft.tfs.jni.internal.negotiate.NativeNegotiateTest;
 import com.microsoft.tfs.jni.internal.ntlm.NativeNTLMTest;
 import com.microsoft.tfs.jni.tests.platformmisc.NativePlatformMiscTest;
 import com.microsoft.tfs.jni.tests.registry.NativeRegistryTest;
-import com.microsoft.tfs.jni.internal.synchronization.NativeSynchronizationTest;
+import com.microsoft.tfs.jni.tests.synchronization.NativeSynchronizationTest;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
