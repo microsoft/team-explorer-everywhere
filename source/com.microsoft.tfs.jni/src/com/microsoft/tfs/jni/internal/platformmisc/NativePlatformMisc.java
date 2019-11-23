@@ -22,20 +22,6 @@ public class NativePlatformMisc implements PlatformMisc {
 
     private final PlatformMisc backend;
 
-    /**
-     * This static initializer is a "best-effort" native code loader (no
-     * exceptions thrown for normal load failures).
-     *
-     * Apps with multiple classloaders (like Eclipse) can run this initializer
-     * more than once in a single JVM OS process, and on some platforms
-     * (Windows) the native libraries will fail to load the second time, because
-     * they're already loaded. This failure can be ignored because the native
-     * code will execute fine.
-     */
-    static {
-        NativeLoader.loadLibraryAndLogError(LibraryNames.MISC_LIBRARY_NAME);
-    }
-
     public NativePlatformMisc() {
         if (Platform.isCurrentPlatform(Platform.WINDOWS))
             backend = new WindowsNativePlatformMisc();
