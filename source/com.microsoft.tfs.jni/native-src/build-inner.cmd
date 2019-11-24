@@ -253,11 +253,9 @@ rem ###########################################################
 if not defined NOJAVAH (
   echo Generating C headers...
   "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_auth.h" com.microsoft.tfs.jni.internal.auth.NativeAuth
-  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_filesystem.h" com.microsoft.tfs.jni.internal.filesystem.NativeFileSystem
 )
 
 if not exist "%BUILD_TMP%\native_auth.h" goto javaherror
-if not exist "%BUILD_TMP%\native_filesystem.h" goto javaherror
 
 rem ###########################################################
 rem Echo versions as reminders
@@ -279,7 +277,6 @@ echo Compiling native C code...
 rem Compile everything to objects
 @echo on
 cl -c win32\auth_sspi.c -Fo"%BUILD_TMP%\auth_sspi.obj" %CFLAGS%
-cl -c win32\filesystem_jni.c -Fo"%BUILD_TMP%\filesystem_jni.obj" %CFLAGS%
 cl -c common\auth.c -Fo"%BUILD_TMP%\auth.obj" %CFLAGS%
 cl -c common\logger_log4j.c -Fo"%BUILD_TMP%\logger_log4j.obj" %CFLAGS%
 cl -c common\objects.c -Fo"%BUILD_TMP%\objects.obj" %CFLAGS%
@@ -287,7 +284,6 @@ cl -c common\util.c -Fo"%BUILD_TMP%\util.obj" %CFLAGS%
 @echo off
 
 if not exist "%BUILD_TMP%\auth_sspi.obj" goto compileerror
-if not exist "%BUILD_TMP%\filesystem_jni.obj" goto compileerror
 if not exist "%BUILD_TMP%\auth.obj" goto compileerror
 if not exist "%BUILD_TMP%\util.obj" goto compileerror
 if not exist "%BUILD_TMP%\logger_log4j.obj" goto compileerror
@@ -296,11 +292,9 @@ rem Link individual libraries.
 
 @echo on
 link -dll "%BUILD_TMP%\auth.obj" "%BUILD_TMP%\auth_sspi.obj" "%BUILD_TMP%\util.obj" "%BUILD_TMP%\logger_log4j.obj" -out:"%BUILD_TMP%\native_auth.dll" %LFLAGS%
-link -dll "%BUILD_TMP%\filesystem_jni.obj" "%BUILD_TMP%\util.obj" "%BUILD_TMP%\objects.obj" advapi32.lib -out:"%BUILD_TMP%\native_filesystem.dll" %LFLAGS%
 @echo off
 
 if not exist "%BUILD_TMP%\native_auth.dll" goto compileerror
-if not exist "%BUILD_TMP%\native_filesystem.dll" goto compileerror
 
 rem ###########################################################
 rem Run tests
@@ -324,11 +318,6 @@ if exist %DESTDIR%\native_auth.dll goto delerror
 if exist %SYMBOLDIR%\native_auth.pdb del %SYMBOLDIR%\native_auth.pdb
 if exist %SYMBOLDIR%\native_auth.pdb goto delerror
 
-if exist %DESTDIR%\native_filesystem.dll del %DESTDIR%\native_filesystem.dll
-if exist %DESTDIR%\native_filesystem.dll goto delerror
-if exist %SYMBOLDIR%\native_filesystem.pdb del %SYMBOLDIR%\native_filesystem.pdb
-if exist %SYMBOLDIR%\native_filesystem.pdb goto delerror
-
 if not exist %DESTDIR% md %DESTDIR%
 if not exist %SYMBOLDIR% md %SYMBOLDIR%
 if not exist %DESTDIR% goto copyerror
@@ -337,11 +326,6 @@ copy "%BUILD_TMP%\native_auth.dll" %DESTDIR%\native_auth.dll
 if not exist %DESTDIR%\native_auth.dll goto copyerror
 copy "%BUILD_TMP%\native_auth.pdb" %SYMBOLDIR%\native_auth.pdb
 if not exist %SYMBOLDIR%\native_auth.pdb goto copyerror
-
-copy "%BUILD_TMP%\native_filesystem.dll" %DESTDIR%\native_filesystem.dll
-if not exist %DESTDIR%\native_filesystem.dll goto copyerror
-copy "%BUILD_TMP%\native_filesystem.pdb" %SYMBOLDIR%\native_filesystem.pdb
-if not exist %SYMBOLDIR%\native_filesystem.pdb goto copyerror
 
 echo Done.  Libraries copied to %DESTDIR%, symbols copied to %SYMBOLDIR%
 goto end
