@@ -35,17 +35,17 @@ If you prefer to use Git, you can use any Git client with TFS or Team Services a
 Download the TEE-CLC-*.zip file in the [Releases](https://github.com/Microsoft/team-explorer-everywhere/releases) area of this repo.
 
 ## Building with Ant
-### Install Java 6
-1. We use JavaSE-1.6 as the minimal supported Java execution environment.
-1. Download and install the JDK for [JavaSE-1.6](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html).
-1. Set the JAVA_HOME environment variable to point to the install, e.g.
- * (Windows) `SET JAVA_HOME=C:\dev\java\jdk1.6.0_45`
- * (Linux) `JAVA_HOME=~/dev/java/jdk1.6.0_45`
- * (Mac) `JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home`
-1. Add JAVA_HOME bin directory to the path
- * (Windows) `SET PATH=%JAVA_HOME%\bin;%PATH%`
- * (Linux) `PATH=$JAVA_HOME/bin:$PATH`
- * (Mac) `PATH=$JAVA_HOME/bin:$PATH`
+### Install Java 8
+1. We use Java 8 as the minimal supported Java execution environment.
+2. Download and install the JDK for [Java 8][adoptopenjdk]
+3. Set the JAVA_HOME environment variable to point to the install, e.g.
+   * (Windows) `SET JAVA_HOME=C:\dev\java\jdk8u192-b12`
+   * (Linux) `JAVA_HOME=~/dev/java/jdk8u192-b12`
+   * (Mac) `JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home`
+4. Add JAVA_HOME bin directory to the path
+   * (Windows) `SET PATH=%JAVA_HOME%\bin;%PATH%`
+   * (Linux) `PATH=$JAVA_HOME/bin:$PATH`
+   * (Mac) `PATH=$JAVA_HOME/bin:$PATH`
     
 ### Install Ant 
 1. If you do not already have it, download and install Apache Ant(TM) version 1.9.6 from [Ant Binary Distributions](http://ant.apache.org/bindownload.cgi).
@@ -138,3 +138,5 @@ That article specifically shows TFVC but when you go to Share the project, you�
   1. In IIS manager, click on the TFS site on the left under Connections and open up the "Authentication" section under IIS.  Set “ASP.NET Impersonation” to Enabled and “Windows Authentication” to Enabled.
   2. Under "Windows Authentication" right click and select "Providers."  Add/enable the "Negotiate" and "NTLM" providers.
   3. Under "Windows Authentication" right click and select "Advanced Settings."  Uncheck "Enable Kernel-mode" because it is incompatible with Kerberos.
+
+[adoptopenjdk]: https://adoptopenjdk.net/

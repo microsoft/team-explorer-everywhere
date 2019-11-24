@@ -14,12 +14,10 @@ Interested in contributing to the team-explorer-everywhere project? There are pl
 Install Eclipse Mars.2 Release (4.5.2) for RCP and RAP Developers or later.
 
 ### Java Requirements
-We use JavaSE-1.6 as the minimal supported Java execution environment. 
+We use Java 8 as the minimal supported Java execution environment. 
 Depending on the Eclipse version you use you might have to install a later JDK version.
 
-For Eclipse Mars install JDK 8 or later. You can find the JDK downloads on Oracle's web site at 
-[Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
-Find older versions in [Previous Releases](http://www.oracle.com/technetwork/java/javase/archive-139210.html).
+You can find the JDK downloads on [AdoptOpenJDK web site][adoptopenjdk].
 
 ### Eclipse IDE Configuration
 In a new empty Eclipse workspace open the Preferences dialog using Window -> Preferences menu option.
@@ -164,3 +162,5 @@ In order to contribute, you will need to sign a [Contributor License Agreement](
 We welcome pull requests!  Fork this repo and send us your contributions.  Go [here](https://help.github.com/articles/using-pull-requests/) to get familiar with GitHub pull requests.
 
 Before submitting your request, ensure that all tests pass.
+
+[adoptopenjdk]: https://adoptopenjdk.net/
