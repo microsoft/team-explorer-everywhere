@@ -223,27 +223,211 @@ public class WindowsNativeFileSystem implements FileSystem {
 
     @Override
     public void copyExplicitDACLEntries(String sourcePath, String targetPath) {
-        throw new RuntimeException("Not implemented");
+        Check.notNull(sourcePath, "sourcePath");
+        Check.notNull(targetPath, "targetPath");
+
+        // Get source's DACL:
+        PointerByReference sourceSecurityDescriptor = new PointerByReference();
+        WinNT.PACLByReference sourceDacl = new WinNT.PACLByReference();
+        if (advapi32.GetNamedSecurityInfoW(
+            new WString(sourcePath),
+            AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,
+            new WinDef.DWORD(WinNT.DACL_SECURITY_INFORMATION),
+            null,
+            null,
+            sourceDacl,
+            null,
+            sourceSecurityDescriptor).intValue() != WinNT.ERROR_SUCCESS) {
+            throw new RuntimeException("Error getting security info for " + sourcePath);
+        }
+
+        try {
+            // Get the explicit entries in the source DACL:
+            WinDef.ULONGByReference sourceExplicitEntriesCount = new WinDef.ULONGByReference();
+            PointerByReference sourceExplicitEntriesPointer = new PointerByReference();
+            if (advapi32.GetExplicitEntriesFromAclW(
+                sourceDacl.getValue(),
+                sourceExplicitEntriesCount,
+                sourceExplicitEntriesPointer).intValue() != WinNT.ERROR_SUCCESS) {
+                throw new RuntimeException("Error getting ACL entries");
+            }
+
+            try {
+                if (sourceExplicitEntriesCount.getValue().intValue() == 0)
+                    return;
+
+                // Get target's DACL:
+                PointerByReference targetSecurityDescriptor = new PointerByReference();
+                WinNT.PACLByReference targetDacl = new WinNT.PACLByReference();
+                if (advapi32.GetNamedSecurityInfoW(
+                    new WString(targetPath),
+                    AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,
+                    new WinDef.DWORD(WinNT.DACL_SECURITY_INFORMATION),
+                    null,
+                    null,
+                    targetDacl,
+                    null,
+                    targetSecurityDescriptor).intValue() != WinNT.ERROR_SUCCESS) {
+                    throw new RuntimeException("Error getting security info for " + targetPath);
+                }
+
+                try {
+                    // Merge the source entries into the target list:
+                    EXPLICIT_ACCESSW sourceExplicitEntries = new EXPLICIT_ACCESSW(
+                        sourceExplicitEntriesPointer.getValue());
+                    WinNT.PACLByReference newDacl = new WinNT.PACLByReference();
+                    if (advapi32.SetEntriesInAclW(
+                        sourceExplicitEntriesCount.getValue(),
+                        sourceExplicitEntries,
+                        targetDacl.getValue(),
+                        newDacl).intValue() != WinNT.ERROR_SUCCESS) {
+                        throw new RuntimeException("Error setting entries in ACL");
+                    }
+
+                    try {
+                        // Set the list on the target path:
+                        if (advapi32.SetNamedSecurityInfo(
+                            targetPath,
+                            AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,
+                            WinNT.DACL_SECURITY_INFORMATION,
+                            null,
+                            null,
+                            newDacl.getValue().getPointer(),
+                            null) != WinNT.ERROR_SUCCESS) {
+                            throw new RuntimeException("Error setting security info for " + targetPath);
+                        }
+                    } finally {
+                        kernel32.LocalFree(newDacl.getValue().getPointer());
+                    }
+                } finally {
+                    kernel32.LocalFree(targetSecurityDescriptor.getValue());
+                    // targetDacl points into targetSecurityDescriptor
+                }
+            } finally {
+                kernel32.LocalFree(sourceExplicitEntriesPointer.getValue());
+            }
+        } finally {
+            kernel32.LocalFree(sourceSecurityDescriptor.getValue());
+            // sourceDacl points into sourceSecurityDescriptor
+        }
     }
 
     @Override
     public void removeExplicitAllowEntries(String path, String user) {
-        throw new RuntimeException("Not implemented");
+        Check.notNull(path, "path");
+        Check.notNull(user, "user");
+
+        WinNT.PSIDByReference userSid = new WinNT.PSIDByReference();
+        if (!advapi32.ConvertStringSidToSid(user, userSid)) {
+            throw new RuntimeException("Error converting string SID " + user + " to SID");
+        }
+
+        try {
+            // Get file's DACL:
+            PointerByReference securityDescriptor = new PointerByReference();
+            WinNT.PACLByReference dacl = new WinNT.PACLByReference();
+            if (advapi32.GetNamedSecurityInfoW(
+                new WString(path),
+                AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,
+                new WinDef.DWORD(WinNT.DACL_SECURITY_INFORMATION),
+                null,
+                null,
+                dacl,
+                null,
+                securityDescriptor).intValue() != WinNT.ERROR_SUCCESS) {
+                throw new RuntimeException("Error getting security info for " + path);
+            }
+
+            try {
+                // Get the count of entries in the DACL:
+                ACL_SIZE_INFORMATION aclSizeInfo = new ACL_SIZE_INFORMATION();
+                if (!advapi32.GetAclInformation(
+                    dacl.getValue(),
+                    aclSizeInfo,
+                    new WinDef.DWORD(aclSizeInfo.size()),
+                    Advapi32.AclSizeInformation)) {
+                    throw new RuntimeException("Error getting DACL");
+                }
+
+                // Loop over the DACL backwards, removing matching entries:
+                boolean modifiedDacl = false;
+                for (int aceCount = aclSizeInfo.AceCount.intValue(); aceCount > 0; aceCount--) {
+                    int aceIndex = aceCount - 1;
+                    PointerByReference acePointer = new PointerByReference();
+
+                    if (!advapi32.GetAce(dacl.getValue(), aceIndex, acePointer)) {
+                        throw new RuntimeException(
+                            "Error getting ACE at index " + aceIndex + ": " + Kernel32Util.getLastErrorMessage());
+                    }
+
+                    // Skip inherited (non-explicit) entries:
+                    WinNT.ACCESS_ALLOWED_ACE ace = new WinNT.ACCESS_ALLOWED_ACE(acePointer.getValue());
+                    if ((ace.AceFlags & WinNT.INHERITED_ACE) == WinNT.INHERITED_ACE)
+                        continue;
+
+                    WinNT.PSID sid = null;
+                    switch (ace.AceType) {
+                        case WinNT.ACCESS_ALLOWED_ACE_TYPE:
+                            sid = new WinNT.ACCESS_ALLOWED_ACE(acePointer.getValue()).getSID();
+                            break;
+                        case WinNT.ACCESS_ALLOWED_CALLBACK_ACE_TYPE:
+                            sid = new ACCESS_ALLOWED_CALLBACK_ACE(acePointer.getValue()).getSID();
+                            break;
+                        case WinNT.ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_TYPE:
+                            sid = new ACCESS_ALLOWED_CALLBACK_OBJECT_ACE(acePointer.getValue()).getSID();
+                            break;
+                        case WinNT.ACCESS_ALLOWED_OBJECT_ACE_TYPE:
+                            sid = new ACCESS_ALLOWED_OBJECT_ACE(acePointer.getValue()).getSID();
+                            break;
+                        default:
+                            // These are "deny" or other entries
+                    }
+
+                    if (sid != null && advapi32.EqualSid(sid, userSid.getValue())) {
+                        if (!advapi32.DeleteAce(dacl.getValue(), new WinDef.DWORD(aceIndex))) {
+                            throw new RuntimeException("Error deleting ACE at index " + aceIndex);
+                        }
+
+                        modifiedDacl = true;
+                    }
+
+                    // Nothing to free in the loop, all pointers are into dacl.
+                }
+
+                if (modifiedDacl) {
+                    if (advapi32.SetNamedSecurityInfo(
+                        path,
+                        AccCtrl.SE_OBJECT_TYPE.SE_FILE_OBJECT,
+                        WinNT.DACL_SECURITY_INFORMATION,
+                        null,
+                        null,
+                        dacl.getValue().getPointer(),
+                        null) != WinNT.ERROR_SUCCESS) {
+                        throw new RuntimeException("Error setting security info for " + path);
+                    }
+                }
+            } finally {
+                kernel32.LocalFree(securityDescriptor.getValue());
+                // dacl points inside securityDescriptor
+            }
+        } finally {
+            kernel32.LocalFree(userSid.getValue().getPointer());
+        }
     }
 
     @Override
     public boolean createSymbolicLink(String oldpath, String newpath) {
-        throw new RuntimeException("Not implemented");
+        throw new RuntimeException("Platform not supported");
     }
 
     @Override
     public String[] listMacExtendedAttributes(String filepath) {
-        throw new RuntimeException("Not implemented");
+        throw new RuntimeException("Platform not implemented");
     }
 
     @Override
     public int readMacExtendedAttribute(String filepath, String attribute, byte[] buffer, int size, long position) {
-        throw new RuntimeException("Not implemented");
+        throw new RuntimeException("Platform not implemented");
     }
 
     @Override
@@ -253,16 +437,16 @@ public class WindowsNativeFileSystem implements FileSystem {
         byte[] buffer,
         int size,
         long position) {
-        throw new RuntimeException("Not implemented");
+        throw new RuntimeException("Platform not implemented");
     }
 
     @Override
     public byte[] getMacExtendedAttribute(String filepath, String attribute) {
-        throw new RuntimeException("Not implemented");
+        throw new RuntimeException("Platform not implemented");
     }
 
     @Override
     public boolean setMacExtendedAttribute(String filepath, String attribute, byte[] value) {
-        throw new RuntimeException("Not implemented");
+        throw new RuntimeException("Platform not implemented");
     }
 }

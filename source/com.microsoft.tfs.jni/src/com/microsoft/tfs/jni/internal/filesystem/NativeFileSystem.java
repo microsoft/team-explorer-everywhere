@@ -183,7 +183,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            nativeCopyExplicitDACLEntries(sourcePath, targetPath);
+            backend.copyExplicitDACLEntries(sourcePath, targetPath);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format(
@@ -208,7 +208,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            nativeRemoveExplicitAllowEntries(path, user);
+            backend.removeExplicitAllowEntries(path, user);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format(
@@ -441,12 +441,6 @@ public class NativeFileSystem implements FileSystem {
     private static native FileSystemAttributes nativeGetAttributes(String filepath);
 
     private static native boolean nativeSetAttributes(String filepath, FileSystemAttributes attributes);
-
-    // WARNING: Following are only available on Windows.
-
-    private static native void nativeCopyExplicitDACLEntries(String sourcePath, String targetPath);
-
-    private static native void nativeRemoveExplicitAllowEntries(String path, String user);
 
     // WARNING: Following are only available on Unix.
 

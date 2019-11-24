@@ -2,6 +2,7 @@ package com.microsoft.tfs.jni.internal.winapi;
 
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
 import com.sun.jna.WString;
 import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinNT;
@@ -14,6 +15,7 @@ public interface Advapi32 extends com.sun.jna.platform.win32.Advapi32 {
 
     Advapi32 INSTANCE = Native.load("Advapi32", Advapi32.class, W32APIOptions.DEFAULT_OPTIONS);
 
+    int AclSizeInformation = 2;
     int CRED_TYPE_GENERIC = 1;
     int CRED_PERSIST_LOCAL_MACHINE = 2;
     int GRANT_ACCESS = 1;
@@ -26,6 +28,15 @@ public interface Advapi32 extends com.sun.jna.platform.win32.Advapi32 {
     boolean CredDeleteW(WString TargetName, WinDef.DWORD Type, WinDef.DWORD Flags);
     void CredFree(Pointer Buffer);
 
+    boolean GetAclInformation(
+        WinNT.ACL pAcl,
+        Structure pAclInformation,
+        WinDef.DWORD nAclInformationLength,
+        int dwAclInformationClass);
+    WinDef.DWORD GetExplicitEntriesFromAclW(
+        WinNT.ACL pacl,
+        WinDef.ULONGByReference pcCountOfExplicitEntries,
+        PointerByReference pListOfExplicitEntries);
     WinDef.DWORD GetNamedSecurityInfoW(
         WString pObjectName,
         int ObjectType,
@@ -40,6 +51,7 @@ public interface Advapi32 extends com.sun.jna.platform.win32.Advapi32 {
         EXPLICIT_ACCESSW pListOfExplicitEntries,
         WinNT.ACL OldAcl,
         WinNT.PACLByReference NewAcl);
+    boolean DeleteAce(WinNT.ACL pAcl, WinDef.DWORD dwAceIndex);
 
     int RegQueryValueExW(
         WinReg.HKEY hkey,
