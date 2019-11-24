@@ -110,7 +110,7 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
 
             tokenOwner.read();
             PointerByReference ownerSidString = new PointerByReference();
-            if (!advapi32.ConvertSidToStringSidW(tokenOwner.Owner, ownerSidString)) {
+            if (!advapi32.ConvertSidToStringSid(tokenOwner.Owner, ownerSidString)) {
                 throw new RuntimeException(
                     "Error converting SID to string SID: " + Kernel32Util.getLastErrorMessage());
             }
@@ -129,7 +129,7 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
     public String getWellKnownSID(int wellKnownSIDType, String domainSIDString) {
         WinNT.PSIDByReference domainSid = new WinNT.PSIDByReference();
         if (domainSIDString != null) {
-            if (!advapi32.ConvertStringSidToSidW(new WString(domainSIDString), domainSid)) {
+            if (!advapi32.ConvertStringSidToSid(domainSIDString, domainSid)) {
                 throw new RuntimeException("Error converting SID " + domainSIDString + "to SID: " + Kernel32Util.getLastErrorMessage());
             }
         }
@@ -147,7 +147,7 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
             }
 
             PointerByReference wellKnownSidString = new PointerByReference();
-            if (!advapi32.ConvertSidToStringSidW(wellKnownSid, wellKnownSidString)) {
+            if (!advapi32.ConvertSidToStringSid(wellKnownSid, wellKnownSidString)) {
                 throw new RuntimeException(
                     "Error converting SID to string SID: " + Kernel32Util.getLastErrorMessage());
             }
