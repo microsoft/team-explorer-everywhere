@@ -3,12 +3,19 @@
 
 package com.microsoft.tfs.jni;
 
+import com.microsoft.tfs.jni.internal.winapi.Kernel32;
+import com.microsoft.tfs.jni.internal.winapi.User32;
+import com.microsoft.tfs.jni.internal.winapi.WNDCLASSW;
+import com.microsoft.tfs.util.Check;
+import com.sun.jna.Pointer;
+import com.sun.jna.WString;
+import com.sun.jna.platform.win32.BaseTSD;
+import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.platform.win32.WinNT;
+import com.sun.jna.platform.win32.WinUser;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.microsoft.tfs.jni.internal.LibraryNames;
-import com.microsoft.tfs.jni.loader.NativeLoader;
-import com.microsoft.tfs.util.Check;
 
 /**
  * A hidden Win32 window useful for interprocess communication via window
@@ -34,20 +41,6 @@ public class MessageWindow {
          *        the lParam (restricted to 32-bit range on 32-bit platforms)
          */
         void messageReceived(int msg, long wParam, long lParam);
-    }
-
-    /**
-     * This static initializer is a "best-effort" native code loader (no
-     * exceptions thrown for normal load failures).
-     *
-     * Apps with multiple classloaders (like Eclipse) can run this initializer
-     * more than once in a single JVM OS process, and on some platforms
-     * (Windows) the native libraries will fail to load the second time, because
-     * they're already loaded. This failure can be ignored because the native
-     * code will execute fine.
-     */
-    static {
-        NativeLoader.loadLibraryAndLogError(LibraryNames.WINDOWS_MESSAGEWINDOW_LIBRARY_NAME);
     }
 
     /**
@@ -151,15 +144,126 @@ public class MessageWindow {
         }
     }
 
-    private static native long nativeCreateWindow(long hwndParent, String className, String windowTitle, long userData);
+    private final static Kernel32 kernel32 = Kernel32.INSTANCE;
+    private final static User32 user32 = User32.INSTANCE;
 
-    private static native boolean nativeDestroyWindow(long hwnd);
+    private static WinDef.LRESULT wndProc(
+        WinDef.HWND hwnd,
+        WinDef.UINT uMsg,
+        WinDef.WPARAM wParam,
+        WinDef.LPARAM lParam) {
+        int msg = uMsg.intValue();
+        if (msg >= WinUser.WM_USER && msg <= 0x7FFFL) {
+            messageReceived(Pointer.nativeValue(hwnd.getPointer()), msg, wParam.longValue(), lParam.longValue());
+        }
 
-    private static native void nativeSendMessage(
+        return user32.DefWindowProc(hwnd, msg, wParam, lParam);
+    }
+
+    private static long nativeCreateWindow(long hwndParent, String className, String windowTitle, long userData) {
+        // Register the custom class if needed:
+        WNDCLASSW wc = new WNDCLASSW();
+        if (!user32.GetClassInfoW(kernel32.GetModuleHandle(null), new WString(className), wc)) {
+            wc.style = new WinDef.UINT(0L);
+            wc.lpfnWndProc = MessageWindow::wndProc;
+            wc.cbClsExtra = 0;
+            wc.cbWndExtra = 0;
+            wc.hInstance = kernel32.GetModuleHandle(null);
+            wc.hIcon = null;
+            wc.hCursor = null;
+            wc.hbrBackground = null;
+            wc.lpszMenuName = null;
+            wc.lpszClassName = new WString(className);
+
+            if (user32.RegisterClassW(wc) == 0) {
+                throw new RuntimeException("Error registering window class");
+            }
+        }
+
+        WinDef.HWND hwnd = user32.CreateWindowEx(
+            0,
+            className,
+            windowTitle,
+            WinUser.WS_OVERLAPPED,
+            0,
+            0,
+            0,
+            0,
+            new WinDef.HWND(Pointer.createConstant(hwndParent)),
+            null,
+            kernel32.GetModuleHandle(null),
+            null);
+        if (hwnd == null) {
+            throw new RuntimeException("Error creating native message window");
+        }
+
+        user32.SetWindowLongPtr(hwnd, User32.GWLP_USERDATA, Pointer.createConstant(userData));
+
+        return Pointer.nativeValue(hwnd.getPointer());
+    }
+
+    private static boolean nativeDestroyWindow(long hwnd) {
+        return user32.DestroyWindow(new WinDef.HWND(Pointer.createConstant(hwnd)));
+    }
+
+    private static void nativeSendMessage(
         long hwnd,
         String className,
         long[] userData,
         int msg,
         long wParam,
-        long lParam);
+        long lParam) {
+        if (!user32.EnumWindows((windowHwnd, pointer) -> {
+            // Ensure the window's user data matches:
+            if (userData != null && userData.length > 0) {
+                boolean match = false;
+                BaseTSD.LONG_PTR windowUserData = user32.GetWindowLongPtr(windowHwnd, User32.GWLP_USERDATA);
+                for (long userDataItem : userData) {
+                    if (userDataItem == windowUserData.longValue()) {
+                        match = true;
+                        break;
+                    }
+                }
+
+                if (!match) {
+                    // Not an error, keep processing other windows.
+                    return true;
+                }
+            }
+
+            // Docs for WNDCLASS/WNDCLASSEX structs say 256 is the max class name length.
+            char[] windowClassName = new char[256];
+
+            // Test the class name for a match:
+
+            if (user32.GetClassName(windowHwnd, windowClassName, windowClassName.length) == 0) {
+                // Don't throw an exception, return true to keep the send process going:
+                return true;
+            }
+
+            if (className.equals(new String(windowClassName))) {
+                if (!user32.PostMessageW(
+                    windowHwnd,
+                    new WinDef.UINT(msg),
+                    new WinDef.WPARAM(wParam),
+                    new WinDef.LPARAM(lParam))) {
+                    int error = kernel32.GetLastError();
+
+                    // ERROR_ACCESS_DENIED is expected if User Interface Privilege Isolation (UIPI) blocked it.
+                    // ERROR_NOT_ENOUGH_QUOTA is expected if we hit a configured message limit.
+                    if (error != WinNT.ERROR_SUCCESS
+                        && error != WinNT.ERROR_ACCESS_DENIED
+                        && error != WinNT.ERROR_NOT_ENOUGH_QUOTA) {
+                        // Set the error code our enumerator can report via exception:
+                        kernel32.SetLastError(error);
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }, null)) {
+            throw new RuntimeException("PostMessage failed");
+        }
+    }
 }

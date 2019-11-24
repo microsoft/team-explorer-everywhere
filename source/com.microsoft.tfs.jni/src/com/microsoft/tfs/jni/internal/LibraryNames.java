@@ -26,8 +26,4 @@ public abstract class LibraryNames {
      * The short name of the Windows credential library.
      */
     public static final String WINDOWS_CREDENTIAL_LIBRARY_NAME = "native_credential"; //$NON-NLS-1$
-    /**
-     * The short name of the Windows message window library.
-     */
-    public static final String WINDOWS_MESSAGEWINDOW_LIBRARY_NAME = "native_messagewindow"; //$NON-NLS-1$
 }
