@@ -41,14 +41,14 @@ public abstract class NativeAuth {
      * code will execute fine.
      */
     static {
-        NativeLoader.loadLibraryAndLogError(LibraryNames.AUTH_LIBRARY_NAME);
+//        NativeLoader.loadLibraryAndLogError(LibraryNames.AUTH_LIBRARY_NAME);
 
-        try {
-            // Assigns 0 on error
-            authConfiguration = nativeAuthConfigure();
-        } catch (final Throwable t) {
-            LogFactory.getLog(NativeAuth.class).error("Error configuring native authentication library", t); //$NON-NLS-1$
-        }
+//        try {
+//            // Assigns 0 on error
+//            authConfiguration = nativeAuthConfigure();
+//        } catch (final Throwable t) {
+//            LogFactory.getLog(NativeAuth.class).error("Error configuring native authentication library", t); //$NON-NLS-1$
+//        }
     }
 
     // This class is just for static methods.
@@ -56,29 +56,35 @@ public abstract class NativeAuth {
     }
 
     public static boolean authAvailable(final short mechanism) {
-        return nativeAuthAvailable(authConfiguration, mechanism);
+        return false;
+//        return nativeAuthAvailable(authConfiguration, mechanism);
     }
 
     public static boolean authSupportsCredentialsDefault(final short mechanism) {
-        return nativeAuthSupportsCredentialsDefault(authConfiguration, mechanism);
+        return false;
+//        return nativeAuthSupportsCredentialsDefault(authConfiguration, mechanism);
     }
 
     public static boolean authSupportsCredentialsSpecified(final short mechanism) {
-        return nativeAuthSupportsCredentialsSpecified(authConfiguration, mechanism);
+//        return nativeAuthSupportsCredentialsSpecified(authConfiguration, mechanism);
+        return false;
     }
 
     public static String authGetCredentialsDefault(final short mechanism) {
-        return nativeAuthGetCredentialsDefault(authConfiguration, mechanism);
+        throw new RuntimeException("Method not supported");
+//        return nativeAuthGetCredentialsDefault(authConfiguration, mechanism);
     }
 
     public static long authInitialize(final short mechanism) {
-        return nativeAuthInitialize(authConfiguration, mechanism);
+        throw new RuntimeException("Method not supported");
+//        return nativeAuthInitialize(authConfiguration, mechanism);
     }
 
     public static void authSetCredentialsDefault(final long authId) {
         Check.isTrue(authId != 0, "authId != 0"); //$NON-NLS-1$
 
-        nativeAuthSetCredentialsDefault(authId);
+        throw new RuntimeException("Method not supported");
+//        nativeAuthSetCredentialsDefault(authId);
     }
 
     public static void authSetCredentialsSpecified(
@@ -91,45 +97,52 @@ public abstract class NativeAuth {
         Check.notNull(domain, "domain"); //$NON-NLS-1$
         Check.notNull(password, "password"); //$NON-NLS-1$
 
-        nativeAuthSetCredentialsSpecified(authId, username, domain, password);
+        throw new RuntimeException("Method not supported");
+//        nativeAuthSetCredentialsSpecified(authId, username, domain, password);
     }
 
     public static void authSetTarget(final long authId, final String target) {
         Check.isTrue(authId != 0, "authId != 0"); //$NON-NLS-1$
         Check.notNull(target, "target"); //$NON-NLS-1$
 
-        nativeAuthSetTarget(authId, target);
+        throw new RuntimeException("Method not supported");
+//        nativeAuthSetTarget(authId, target);
     }
 
     public static void authSetLocalhost(final long authId, final String localhost) {
         Check.isTrue(authId != 0, "authId != 0"); //$NON-NLS-1$
         Check.notNull(localhost, "localhost"); //$NON-NLS-1$
 
-        nativeAuthSetLocalhost(authId, localhost);
+        throw new RuntimeException("Method not supported");
+//        nativeAuthSetLocalhost(authId, localhost);
     }
 
     public static byte[] authGetToken(final long authId, final byte[] inputToken) {
         Check.isTrue(authId != 0, "authId != 0"); //$NON-NLS-1$
 
-        return nativeAuthGetToken(authId, inputToken);
+        throw new RuntimeException("Method not supported");
+//        return nativeAuthGetToken(authId, inputToken);
     }
 
     public static boolean authIsComplete(final long authId) {
         Check.isTrue(authId != 0, "authId != 0"); //$NON-NLS-1$
 
-        return nativeAuthIsComplete(authId);
+        throw new RuntimeException("Method not supported");
+//        return nativeAuthIsComplete(authId);
     }
 
     public static String authGetErrorMessage(final long authId) {
         Check.isTrue(authId != 0, "authId != 0"); //$NON-NLS-1$
 
-        return nativeAuthGetErrorMessage(authId);
+        throw new RuntimeException("Method not supported");
+//        return nativeAuthGetErrorMessage(authId);
     }
 
     public static void authDispose(final long authId) {
         Check.isTrue(authId != 0, "authId != 0"); //$NON-NLS-1$
 
-        nativeAuthDispose(authId);
+        throw new RuntimeException("Method not supported");
+//        nativeAuthDispose(authId);
     }
 
     private static native long nativeAuthConfigure();
