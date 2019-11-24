@@ -24,6 +24,10 @@ import com.microsoft.tfs.util.Platform;
  * @threadsafety thread-safe
  */
 public class NativeFileSystem implements FileSystem {
+    private final FileSystem backend = Platform.isCurrentPlatform(Platform.WINDOWS)
+        ? new WindowsNativeFileSystem()
+        : null;
+
     /**
      * This static initializer is a "best-effort" native code loader (no
      * exceptions thrown for normal load failures).
@@ -63,7 +67,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            return nativeGetAttributes(filepath);
+            return backend == null ? nativeGetAttributes(filepath) : backend.getAttributes(filepath);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format("EXIT getAttributes({0})", filepath)); //$NON-NLS-1$
@@ -81,7 +85,9 @@ public class NativeFileSystem implements FileSystem {
 
         try {
             synchronized (umaskLock) {
-                return nativeSetAttributes(filepath, attributes);
+                return backend == null
+                    ? nativeSetAttributes(filepath, attributes)
+                    : backend.setAttributes(filepath, attributes);
             }
         } finally {
             if (log.isTraceEnabled()) {
@@ -103,7 +109,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            return nativeGetOwner(path);
+            return backend.getOwner(path);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format("EXIT getOwner({0})", path)); //$NON-NLS-1$
@@ -125,7 +131,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            nativeSetOwner(path, owner);
+            backend.setOwner(path, owner);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format("EXIT setOwner({0}, {1})", path, owner)); //$NON-NLS-1$
@@ -151,7 +157,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            nativeGrantInheritableFullControl(path, user, copyExplicitRulesFromPath);
+            backend.grantInheritableFullControl(path, user, copyExplicitRulesFromPath);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format(
@@ -437,15 +443,6 @@ public class NativeFileSystem implements FileSystem {
     private static native boolean nativeSetAttributes(String filepath, FileSystemAttributes attributes);
 
     // WARNING: Following are only available on Windows.
-
-    private static native String nativeGetOwner(String path);
-
-    private static native void nativeSetOwner(String path, String user);
-
-    private static native void nativeGrantInheritableFullControl(
-        String path,
-        String user,
-        String copyExistingRulesFromPath);
 
     private static native void nativeCopyExplicitDACLEntries(String sourcePath, String targetPath);
 
