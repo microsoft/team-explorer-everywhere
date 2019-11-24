@@ -254,12 +254,10 @@ if not defined NOJAVAH (
   echo Generating C headers...
   "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_auth.h" com.microsoft.tfs.jni.internal.auth.NativeAuth
   "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_filesystem.h" com.microsoft.tfs.jni.internal.filesystem.NativeFileSystem
-  "%JAVA_HOME%\bin\javah" -classpath "%BUILD_TMP%" -o "%BUILD_TMP%\native_messagewindow.h" com.microsoft.tfs.jni.MessageWindow
 )
 
 if not exist "%BUILD_TMP%\native_auth.h" goto javaherror
 if not exist "%BUILD_TMP%\native_filesystem.h" goto javaherror
-if not exist "%BUILD_TMP%\native_messagewindow.h" goto javaherror
 
 rem ###########################################################
 rem Echo versions as reminders
@@ -282,7 +280,6 @@ rem Compile everything to objects
 @echo on
 cl -c win32\auth_sspi.c -Fo"%BUILD_TMP%\auth_sspi.obj" %CFLAGS%
 cl -c win32\filesystem_jni.c -Fo"%BUILD_TMP%\filesystem_jni.obj" %CFLAGS%
-cl -c win32\messagewindow_jni.c -Fo"%BUILD_TMP%\messagewindow_jni.obj" %CFLAGS%
 cl -c common\auth.c -Fo"%BUILD_TMP%\auth.obj" %CFLAGS%
 cl -c common\logger_log4j.c -Fo"%BUILD_TMP%\logger_log4j.obj" %CFLAGS%
 cl -c common\objects.c -Fo"%BUILD_TMP%\objects.obj" %CFLAGS%
@@ -291,7 +288,6 @@ cl -c common\util.c -Fo"%BUILD_TMP%\util.obj" %CFLAGS%
 
 if not exist "%BUILD_TMP%\auth_sspi.obj" goto compileerror
 if not exist "%BUILD_TMP%\filesystem_jni.obj" goto compileerror
-if not exist "%BUILD_TMP%\messagewindow_jni.obj" goto compileerror
 if not exist "%BUILD_TMP%\auth.obj" goto compileerror
 if not exist "%BUILD_TMP%\util.obj" goto compileerror
 if not exist "%BUILD_TMP%\logger_log4j.obj" goto compileerror
@@ -301,12 +297,10 @@ rem Link individual libraries.
 @echo on
 link -dll "%BUILD_TMP%\auth.obj" "%BUILD_TMP%\auth_sspi.obj" "%BUILD_TMP%\util.obj" "%BUILD_TMP%\logger_log4j.obj" -out:"%BUILD_TMP%\native_auth.dll" %LFLAGS%
 link -dll "%BUILD_TMP%\filesystem_jni.obj" "%BUILD_TMP%\util.obj" "%BUILD_TMP%\objects.obj" advapi32.lib -out:"%BUILD_TMP%\native_filesystem.dll" %LFLAGS%
-link -dll "%BUILD_TMP%\messagewindow_jni.obj" "%BUILD_TMP%\util.obj" user32.lib -out:"%BUILD_TMP%\native_messagewindow.dll" %LFLAGS%
 @echo off
 
 if not exist "%BUILD_TMP%\native_auth.dll" goto compileerror
 if not exist "%BUILD_TMP%\native_filesystem.dll" goto compileerror
-if not exist "%BUILD_TMP%\native_messagewindow.dll" goto compileerror
 
 rem ###########################################################
 rem Run tests
@@ -335,11 +329,6 @@ if exist %DESTDIR%\native_filesystem.dll goto delerror
 if exist %SYMBOLDIR%\native_filesystem.pdb del %SYMBOLDIR%\native_filesystem.pdb
 if exist %SYMBOLDIR%\native_filesystem.pdb goto delerror
 
-if exist %DESTDIR%\native_messagewindow.dll del %DESTDIR%\native_messagewindow.dll
-if exist %DESTDIR%\native_messagewindow.dll goto delerror
-if exist %SYMBOLDIR%\native_messagewindow.pdb del %SYMBOLDIR%\native_messagewindow.pdb
-if exist %SYMBOLDIR%\native_messagewindow.pdb goto delerror
-
 if not exist %DESTDIR% md %DESTDIR%
 if not exist %SYMBOLDIR% md %SYMBOLDIR%
 if not exist %DESTDIR% goto copyerror
@@ -353,12 +342,6 @@ copy "%BUILD_TMP%\native_filesystem.dll" %DESTDIR%\native_filesystem.dll
 if not exist %DESTDIR%\native_filesystem.dll goto copyerror
 copy "%BUILD_TMP%\native_filesystem.pdb" %SYMBOLDIR%\native_filesystem.pdb
 if not exist %SYMBOLDIR%\native_filesystem.pdb goto copyerror
-
-
-copy "%BUILD_TMP%\native_messagewindow.dll" %DESTDIR%\native_messagewindow.dll
-if not exist %DESTDIR%\native_messagewindow.dll goto copyerror
-copy "%BUILD_TMP%\native_messagewindow.pdb" %SYMBOLDIR%\native_messagewindow.pdb
-if not exist %SYMBOLDIR%\native_messagewindow.pdb goto copyerror
 
 echo Done.  Libraries copied to %DESTDIR%, symbols copied to %SYMBOLDIR%
 goto end

@@ -20,13 +20,11 @@ native/aix/ppc/libnative_console.a
 native/aix/ppc/libnative_auth.a
 
 native/win32/x86_64/native_filesystem.dll
-native/win32/x86_64/native_messagewindow.dll
 native/win32/x86_64/native_credential.dll
 native/win32/x86_64/native_auth.dll
 native/win32/x86_64/native_console.dll
 native/win32/x86/native_filesystem.dll
-native/win32/x86/native_messagewindow.dll
-native/win32/x86/native_credential.dll 
+native/win32/x86/native_credential.dll
 native/win32/x86/native_auth.dll
 native/win32/x86/native_console.dll
 
