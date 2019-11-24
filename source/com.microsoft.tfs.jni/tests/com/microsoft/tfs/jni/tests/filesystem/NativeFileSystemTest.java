@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See License.txt in the repository root.
 
-package com.microsoft.tfs.jni.internal.filesystem;
+package com.microsoft.tfs.jni.tests.filesystem;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,6 +14,7 @@ import com.microsoft.tfs.jni.FileSystemAttributes;
 import com.microsoft.tfs.jni.FileSystemTime;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
 import com.microsoft.tfs.jni.WellKnownSID;
+import com.microsoft.tfs.jni.internal.filesystem.NativeFileSystem;
 import com.microsoft.tfs.util.Platform;
 
 import junit.framework.TestCase;
@@ -48,6 +49,7 @@ public class NativeFileSystemTest extends TestCase {
             return;
         }
 
+        // NOTE: this test will fail if the local temp directory isn't owned by the current user.
         final File testFile = File.createTempFile("testSetOwner", ".txt"); //$NON-NLS-1$ //$NON-NLS-2$
 
         final String existingOwner = nativeImpl.getOwner(testFile.getAbsolutePath());
@@ -517,7 +519,7 @@ public class NativeFileSystemTest extends TestCase {
         try {
             if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
                 // On Windows, these methods always pretend to succeed.
-                assertTrue(nativeImpl.getAttributes(testFilePath).isExecutable());
+                assertFalse(nativeImpl.getAttributes(testFilePath).isExecutable());
                 return;
             }
 
