@@ -13,11 +13,6 @@ public abstract class LibraryNames {
     public static final String FILESYSTEM_LIBRARY_NAME = "native_filesystem"; //$NON-NLS-1$
 
     /**
-     * The short name of the authentication library.
-     */
-    public static final String AUTH_LIBRARY_NAME = "native_auth"; //$NON-NLS-1$
-
-    /**
      * The short name of the keychain library.
      */
     public static final String KEYCHAIN_LIBRARY_NAME = "native_keychain"; //$NON-NLS-1$
