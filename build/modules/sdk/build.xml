@@ -41,11 +41,6 @@
             <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging/lib" includes="**/*.jar" />
         </copy>
 
-        <!-- copy native libraries -->
-        <copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/native">
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/os" />
-        </copy>
-
         <!-- copy samples -->
         <copy todir="${dir.binaries}/${name.dist-directory.sdk}/samples" includeemptydirs="true">
             <fileset dir="${dir.global.build.output.plugins}">

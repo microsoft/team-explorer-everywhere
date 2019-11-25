@@ -58,8 +58,6 @@
 		<junit printsummary="yes" haltonfailure="false" haltonerror="false" failureproperty="unittests.failure">
 
 			<sysproperty key="com.microsoft.tfs.util.MessagesTestCase.SourcesRoot" value="${dir.global.build.output}" />
-			<sysproperty key="com.microsoft.tfs.jni.native.base-directory"
-			             value="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/os" />
 
 			<classpath>
 				<fileset dir="${dir.global.build.output.plugins}">

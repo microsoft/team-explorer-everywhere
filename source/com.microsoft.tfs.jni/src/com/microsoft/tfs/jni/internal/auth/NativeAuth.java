@@ -5,10 +5,8 @@ package com.microsoft.tfs.jni.internal.auth;
 
 import org.apache.commons.logging.LogFactory;
 
-import com.microsoft.tfs.jni.internal.LibraryNames;
 import com.microsoft.tfs.jni.internal.negotiate.NativeNegotiate;
 import com.microsoft.tfs.jni.internal.ntlm.NativeNTLM;
-import com.microsoft.tfs.jni.loader.NativeLoader;
 import com.microsoft.tfs.util.Check;
 
 /**

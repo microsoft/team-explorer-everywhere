@@ -39,7 +39,7 @@ set CLC_CLASSPATH=%CLC_CLASSPATH%;%AI_JAR%
 
 setlocal DISABLEDELAYEDEXPANSION
 
-java -Xmx2048M -cp %CLC_CLASSPATH% %TF_ADDITIONAL_JAVA_ARGS% "-Dcom.microsoft.tfs.jni.native.base-directory=%BASE_DIRECTORY%native" @@LAUNCHER_CLASS@@ %*
+java -Xmx2048M -cp %CLC_CLASSPATH% %TF_ADDITIONAL_JAVA_ARGS% @@LAUNCHER_CLASS@@ %*
 
 set RETURN_VALUE=%errorlevel%
 goto end

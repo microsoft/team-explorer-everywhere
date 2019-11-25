@@ -228,14 +228,6 @@
 			            prefix="${name.archive-prefix.clc}" />
 			<zipfileset dir="${dir.binaries.clc}/scripts" includes="tf.cmd" prefix="${name.archive-prefix.clc}" />
 
-			<!-- core native libraries -->
-			<!-- HP-UX (and possibly other Unixes) requires shared libraries be executable. -->
-			<zipfileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/os"
-			            includes="**/*"
-			            excludes=".tpattributes"
-			            filemode="755"
-			            prefix="${name.archive-prefix.clc}/native" />
-
 			<!-- jars -->
 			<zipfileset dir="${dir.binaries.clc}" includes="lib/*.jar" prefix="${name.archive-prefix.clc}" />
 		</zip>

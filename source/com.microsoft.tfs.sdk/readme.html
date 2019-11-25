@@ -177,33 +177,7 @@ p.commandline {
 			class="path" href="samples">samples</a> directory in the SDK. Class
 			documentation can be found in the <a class="path"
 			href="docs/javadoc/index.html">docs/javadoc</a> directory.</li>
-
-		<li>When you run your application, you must define the <span
-			class="argument">com.microsoft.tfs.jni.native.base-directory</span>
-			Java system property with a value that is the local filesystem path
-			to the <span class="path">redist/native</span> directory. If you do
-			not define this system property, the client object model classes will
-			be unable to load the native libraries and will fail.</li>
 	</ul>
-
-	<h3 id="nativenotes">Notes on Native Libraries</h3>
-	<p>
-		To define a Java system property, use the <span class="argument">-D</span>
-		option when you start the Java virtual machine. For example, on Unix
-		operating systems:
-	</p>
-
-	<p class="commandline">java
-		-D"com.microsoft.tfs.jni.native.base-directory=/home/username/YourApplication/native"</p>
-	<p>and on Windows:</p>
-	<p class="commandline">java.exe
-		-D"com.microsoft.tfs.jni.native.base-directory=C:\Users\Username\YourApplication\native"</p>
-
-	<p class="notecontent">
-		When you deploy the native libraries with your application you must
-		preserve the file and directory structure inside the <span
-			class="path">native</span> directory.
-	</p>
 
 	<h3>Snippets Sample</h3>
 

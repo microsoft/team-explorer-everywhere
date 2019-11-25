@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 
 import com.microsoft.tfs.jni.PlatformMisc;
-import com.microsoft.tfs.jni.internal.LibraryNames;
-import com.microsoft.tfs.jni.loader.NativeLoader;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
 
