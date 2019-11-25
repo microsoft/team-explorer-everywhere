@@ -7,10 +7,6 @@ package com.microsoft.tfs.jni.internal;
  * Static identifiers for native libraries.
  */
 public abstract class LibraryNames {
-    /**
-     * The short name of the native filesystem library.
-     */
-    public static final String FILESYSTEM_LIBRARY_NAME = "native_filesystem"; //$NON-NLS-1$
 
     /**
      * The short name of the keychain library.

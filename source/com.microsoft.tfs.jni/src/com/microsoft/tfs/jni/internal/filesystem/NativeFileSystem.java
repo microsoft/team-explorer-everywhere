@@ -27,20 +27,6 @@ public class NativeFileSystem implements FileSystem {
     private final FileSystem backend;
 
     /**
-     * This static initializer is a "best-effort" native code loader (no
-     * exceptions thrown for normal load failures).
-     *
-     * Apps with multiple classloaders (like Eclipse) can run this initializer
-     * more than once in a single JVM OS process, and on some platforms
-     * (Windows) the native libraries will fail to load the second time, because
-     * they're already loaded. This failure can be ignored because the native
-     * code will execute fine.
-     */
-    static {
-        NativeLoader.loadLibraryAndLogError(LibraryNames.FILESYSTEM_LIBRARY_NAME);
-    }
-
-    /**
      * This object exists so that only one call to a umask-changing function is
      * allowed to run at one time. On Unix, umask cannot be queried without
      * being changed, so it must be changed right back and this introduces a
