@@ -10,7 +10,6 @@ ThirdPartyNotices.html
 
 lib/com.microsoft.tfs.sdk-14.134.0.jar
 
-native/macosx/libnative_keychain.jnilib
 native/macosx/libnative_console.jnilib
 
 native/aix/ppc/libnative_console.a
