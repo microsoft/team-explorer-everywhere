@@ -24,9 +24,7 @@ import com.microsoft.tfs.util.Platform;
  * @threadsafety thread-safe
  */
 public class NativeFileSystem implements FileSystem {
-    private final FileSystem backend = Platform.isCurrentPlatform(Platform.WINDOWS)
-        ? new WindowsNativeFileSystem()
-        : null;
+    private final FileSystem backend;
 
     /**
      * This static initializer is a "best-effort" native code loader (no
@@ -56,6 +54,13 @@ public class NativeFileSystem implements FileSystem {
     private static final Log log = LogFactory.getLog(NativeFileSystem.class);
 
     public NativeFileSystem() {
+        if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
+            backend = new WindowsNativeFileSystem();
+        } else if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+            backend = new MacOsNativeFileSystem();
+        } else {
+            backend = new LinuxNativeFileSystem();
+        }
     }
 
     @Override
@@ -67,7 +72,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            return backend == null ? nativeGetAttributes(filepath) : backend.getAttributes(filepath);
+            return backend.getAttributes(filepath);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format("EXIT getAttributes({0})", filepath)); //$NON-NLS-1$
@@ -85,9 +90,7 @@ public class NativeFileSystem implements FileSystem {
 
         try {
             synchronized (umaskLock) {
-                return backend == null
-                    ? nativeSetAttributes(filepath, attributes)
-                    : backend.setAttributes(filepath, attributes);
+                return backend.setAttributes(filepath, attributes);
             }
         } finally {
             if (log.isTraceEnabled()) {
@@ -233,7 +236,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            return nativeCreateSymbolicLink(oldpath, newpath) == 0;
+            return backend.createSymbolicLink(oldpath, newpath);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format("EXIT createSymbolicLink({0}, {1})", oldpath, newpath)); //$NON-NLS-1$
@@ -252,7 +255,7 @@ public class NativeFileSystem implements FileSystem {
         }
 
         try {
-            return nativeGetSymbolicLink(path);
+            return ((UnixNativeFileSystem)backend).getSymbolicLink(path);
         } finally {
             if (log.isTraceEnabled()) {
                 log.trace(MessageFormat.format("EXIT getSymbolicLink({0})", path)); //$NON-NLS-1$
@@ -266,53 +269,54 @@ public class NativeFileSystem implements FileSystem {
 
     public File createTempFileSecure(final String prefix, String suffix, File directory) throws IOException {
         /* TODO: we should do this on Windows with ACLs? */
-        if (Platform.isCurrentPlatform(Platform.GENERIC_UNIX) == false) {
+        // TODO: Fix the security
+//        if (Platform.isCurrentPlatform(Platform.GENERIC_UNIX) == false) {
             return File.createTempFile(prefix, suffix, directory);
-        }
-
-        Check.notNull(prefix, "prefix"); //$NON-NLS-1$
-        Check.isTrue(prefix.length() >= 3, "prefix.length() >= 3"); //$NON-NLS-1$
-
-        if (suffix == null) {
-            suffix = ".tmp"; //$NON-NLS-1$
-        }
-
-        if (directory == null) {
-            final String tempPath = System.getProperty("java.io.tmpdir"); //$NON-NLS-1$
-
-            if (tempPath == null) {
-                throw new IOException("Could not determine temporary directory"); //$NON-NLS-1$
-            }
-
-            directory = new File(tempPath);
-
-            Check.isTrue(directory.isDirectory(), "directory.isDirectory()"); //$NON-NLS-1$
-        }
-
-        final String filename = nativeCreateTempFileSecure(prefix, suffix, directory.getAbsolutePath());
-
-        Check.notNull(filename, "filename"); //$NON-NLS-1$
-
-        return new File(filename);
+//        }
+//
+//        Check.notNull(prefix, "prefix"); //$NON-NLS-1$
+//        Check.isTrue(prefix.length() >= 3, "prefix.length() >= 3"); //$NON-NLS-1$
+//
+//        if (suffix == null) {
+//            suffix = ".tmp"; //$NON-NLS-1$
+//        }
+//
+//        if (directory == null) {
+//            final String tempPath = System.getProperty("java.io.tmpdir"); //$NON-NLS-1$
+//
+//            if (tempPath == null) {
+//                throw new IOException("Could not determine temporary directory"); //$NON-NLS-1$
+//            }
+//
+//            directory = new File(tempPath);
+//
+//            Check.isTrue(directory.isDirectory(), "directory.isDirectory()"); //$NON-NLS-1$
+//        }
+//
+//        final String filename = nativeCreateTempFileSecure(prefix, suffix, directory.getAbsolutePath());
+//
+//        Check.notNull(filename, "filename"); //$NON-NLS-1$
+//
+//        return new File(filename);
     }
 
     @Override
     public String[] listMacExtendedAttributes(final String filepath) {
         Check.notNull(filepath, "filepath"); //$NON-NLS-1$
 
-        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-            if (log.isTraceEnabled()) {
-                log.trace(MessageFormat.format("ENTER listMacExtendedAttributes({0})", filepath)); //$NON-NLS-1$
-            }
-
-            try {
-                return nativeListMacExtendedAttributes(filepath);
-            } finally {
-                if (log.isTraceEnabled()) {
-                    log.trace(MessageFormat.format("EXIT listMacExtendedAttributes({0})", filepath)); //$NON-NLS-1$
-                }
-            }
-        }
+//        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+//            if (log.isTraceEnabled()) {
+//                log.trace(MessageFormat.format("ENTER listMacExtendedAttributes({0})", filepath)); //$NON-NLS-1$
+//            }
+//
+//            try {
+//                return nativeListMacExtendedAttributes(filepath);
+//            } finally {
+//                if (log.isTraceEnabled()) {
+//                    log.trace(MessageFormat.format("EXIT listMacExtendedAttributes({0})", filepath)); //$NON-NLS-1$
+//                }
+//            }
+//        }
 
         return null;
     }
@@ -328,29 +332,29 @@ public class NativeFileSystem implements FileSystem {
         Check.notNull(attribute, "attribute"); //$NON-NLS-1$
         Check.notNull(buffer, "buffer"); //$NON-NLS-1$
 
-        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-            if (log.isTraceEnabled()) {
-                log.trace(MessageFormat.format(
-                    "ENTER readMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
-                    filepath,
-                    attribute,
-                    size,
-                    position));
-            }
-
-            try {
-                return nativeReadMacExtendedAttribute(filepath, attribute, buffer, size, position);
-            } finally {
-                if (log.isTraceEnabled()) {
-                    log.trace(MessageFormat.format(
-                        "EXIT readMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
-                        filepath,
-                        attribute,
-                        size,
-                        position));
-                }
-            }
-        }
+//        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+//            if (log.isTraceEnabled()) {
+//                log.trace(MessageFormat.format(
+//                    "ENTER readMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
+//                    filepath,
+//                    attribute,
+//                    size,
+//                    position));
+//            }
+//
+//            try {
+//                return nativeReadMacExtendedAttribute(filepath, attribute, buffer, size, position);
+//            } finally {
+//                if (log.isTraceEnabled()) {
+//                    log.trace(MessageFormat.format(
+//                        "EXIT readMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
+//                        filepath,
+//                        attribute,
+//                        size,
+//                        position));
+//                }
+//            }
+//        }
 
         return -1;
     }
@@ -366,29 +370,29 @@ public class NativeFileSystem implements FileSystem {
         Check.notNull(attribute, "attribute"); //$NON-NLS-1$
         Check.notNull(buffer, "buffer"); //$NON-NLS-1$
 
-        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-            if (log.isTraceEnabled()) {
-                log.trace(MessageFormat.format(
-                    "ENTER writeMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
-                    filepath,
-                    attribute,
-                    size,
-                    position));
-            }
-
-            try {
-                return nativeWriteMacExtendedAttribute(filepath, attribute, buffer, size, position);
-            } finally {
-                if (log.isTraceEnabled()) {
-                    log.trace(MessageFormat.format(
-                        "EXIT writeMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
-                        filepath,
-                        attribute,
-                        size,
-                        position));
-                }
-            }
-        }
+//        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+//            if (log.isTraceEnabled()) {
+//                log.trace(MessageFormat.format(
+//                    "ENTER writeMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
+//                    filepath,
+//                    attribute,
+//                    size,
+//                    position));
+//            }
+//
+//            try {
+//                return nativeWriteMacExtendedAttribute(filepath, attribute, buffer, size, position);
+//            } finally {
+//                if (log.isTraceEnabled()) {
+//                    log.trace(MessageFormat.format(
+//                        "EXIT writeMacExtendedAttribute({0}, {1}, ..., {2}, {3})", //$NON-NLS-1$
+//                        filepath,
+//                        attribute,
+//                        size,
+//                        position));
+//                }
+//            }
+//        }
 
         return false;
     }
@@ -398,19 +402,19 @@ public class NativeFileSystem implements FileSystem {
         Check.notNull(filepath, "filepath"); //$NON-NLS-1$
         Check.notNull(attribute, "attribute"); //$NON-NLS-1$
 
-        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-            if (log.isTraceEnabled()) {
-                log.trace(MessageFormat.format("ENTER getMacExtendedAttribute({0}, {1})", filepath, attribute)); //$NON-NLS-1$
-            }
-
-            try {
-                return nativeGetMacExtendedAttribute(filepath, attribute);
-            } finally {
-                if (log.isTraceEnabled()) {
-                    log.trace(MessageFormat.format("EXIT getMacExtendedAttribute({0}, {1})", filepath, attribute)); //$NON-NLS-1$
-                }
-            }
-        }
+//        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+//            if (log.isTraceEnabled()) {
+//                log.trace(MessageFormat.format("ENTER getMacExtendedAttribute({0}, {1})", filepath, attribute)); //$NON-NLS-1$
+//            }
+//
+//            try {
+//                return nativeGetMacExtendedAttribute(filepath, attribute);
+//            } finally {
+//                if (log.isTraceEnabled()) {
+//                    log.trace(MessageFormat.format("EXIT getMacExtendedAttribute({0}, {1})", filepath, attribute)); //$NON-NLS-1$
+//                }
+//            }
+//        }
 
         return null;
     }
@@ -421,54 +425,20 @@ public class NativeFileSystem implements FileSystem {
         Check.notNull(attribute, "attribute"); //$NON-NLS-1$
         Check.notNull(value, "value"); //$NON-NLS-1$
 
-        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
-            if (log.isTraceEnabled()) {
-                log.trace(MessageFormat.format("ENTER setMacExtendedAttribute({0}, {1}, ...)", filepath, attribute)); //$NON-NLS-1$
-            }
-
-            try {
-                return nativeSetMacExtendedAttribute(filepath, attribute, value);
-            } finally {
-                if (log.isTraceEnabled()) {
-                    log.trace(MessageFormat.format("EXIT setMacExtendedAttribute({0}, {1}, ...)", filepath, attribute)); //$NON-NLS-1$
-                }
-            }
-        }
+//        if (Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+//            if (log.isTraceEnabled()) {
+//                log.trace(MessageFormat.format("ENTER setMacExtendedAttribute({0}, {1}, ...)", filepath, attribute)); //$NON-NLS-1$
+//            }
+//
+//            try {
+//                return nativeSetMacExtendedAttribute(filepath, attribute, value);
+//            } finally {
+//                if (log.isTraceEnabled()) {
+//                    log.trace(MessageFormat.format("EXIT setMacExtendedAttribute({0}, {1}, ...)", filepath, attribute)); //$NON-NLS-1$
+//                }
+//            }
+//        }
 
         return false;
     }
-
-    private static native FileSystemAttributes nativeGetAttributes(String filepath);
-
-    private static native boolean nativeSetAttributes(String filepath, FileSystemAttributes attributes);
-
-    // WARNING: Following are only available on Unix.
-
-    private static native String nativeCreateTempFileSecure(String prefix, String suffix, String parentFile);
-
-    private static native int nativeCreateSymbolicLink(String oldpath, String newpath);
-
-    private static native String nativeGetSymbolicLink(String filePath);
-
-    // WARNING: Following are only available on OS X.
-
-    private static native String[] nativeListMacExtendedAttributes(String filename);
-
-    private static native int nativeReadMacExtendedAttribute(
-        String filename,
-        String attribute,
-        byte[] buffer,
-        int size,
-        long position);
-
-    private static native boolean nativeWriteMacExtendedAttribute(
-        String filename,
-        String attribute,
-        byte[] buffer,
-        int size,
-        long position);
-
-    private static native byte[] nativeGetMacExtendedAttribute(String filename, String attribute);
-
-    private static native boolean nativeSetMacExtendedAttribute(String filename, String attribute, byte[] value);
 }
