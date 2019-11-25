@@ -15,19 +15,6 @@ import com.microsoft.tfs.util.Check;
  * @threadsafety unknown
  */
 public class NativeKeychain implements Keychain {
-    /**
-     * This static initializer is a "best-effort" native code loader (no
-     * exceptions thrown for normal load failures).
-     *
-     * Apps with multiple classloaders (like Eclipse) can run this initializer
-     * more than once in a single JVM OS process, and on some platforms
-     * (Windows) the native libraries will fail to load the second time, because
-     * they're already loaded. This failure can be ignored because the native
-     * code will execute fine.
-     */
-    static {
-        NativeLoader.loadLibraryAndLogError(LibraryNames.KEYCHAIN_LIBRARY_NAME);
-    }
 
     /**
      * {@inheritDoc}
@@ -75,11 +62,19 @@ public class NativeKeychain implements Keychain {
         return nativeRemoveInternetPassword(password, allowUi);
     }
 
-    private static native boolean nativeAddInternetPassword(Object password, boolean allowUi);
+    private static boolean nativeAddInternetPassword(Object password, boolean allowUi) {
+        return false;
+    }
 
-    private static native boolean nativeModifyInternetPassword(Object oldPassword, Object newPassword, boolean allowUi);
+    private static boolean nativeModifyInternetPassword(Object oldPassword, Object newPassword, boolean allowUi) {
+        return false;
+    }
 
-    private static native Object nativeFindInternetPassword(Object password, boolean allowUi);
+    private static Object nativeFindInternetPassword(Object password, boolean allowUi) {
+        return null;
+    }
 
-    private static native boolean nativeRemoveInternetPassword(Object password, boolean allowUi);
+    private static boolean nativeRemoveInternetPassword(Object password, boolean allowUi) {
+        return false;
+    }
 }

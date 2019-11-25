@@ -77,25 +77,25 @@ public class CredentialsManagerFactory {
         if (Platform.isCurrentPlatform(Platform.WINDOWS)) {
             return new WinCredentialsManager();
         }
-
-        if (Platform.isCurrentPlatform(Platform.MAC_OS_X) && !usePersistanceCredentialsManager) {
-            /*
-             * Mac OS uses Keychain for credential storage by default unless the
-             * user specifies using PersistanceStoreCredentialsManager
-             */
-            return new KeychainCredentialsManager();
-        }
-
-        if (Platform.isCurrentPlatform(Platform.LINUX)
-            && !usePersistanceCredentialsManager
-            && GnomeKeyringCredentialsManager.isGnomeKeyringSupported()) {
-
-            /*
-             * Linux uses gnome-keyring if it's available unless the user
-             * specifies using PersistanceStoreCredentialsManager
-             */
-            return new GnomeKeyringCredentialsManager();
-        }
+        // TODO: No keychains are supported for now.
+//        if (Platform.isCurrentPlatform(Platform.MAC_OS_X) && !usePersistanceCredentialsManager) {
+//            /*
+//             * Mac OS uses Keychain for credential storage by default unless the
+//             * user specifies using PersistanceStoreCredentialsManager
+//             */
+//            return new KeychainCredentialsManager();
+//        }
+//
+//        if (Platform.isCurrentPlatform(Platform.LINUX)
+//            && !usePersistanceCredentialsManager
+//            && GnomeKeyringCredentialsManager.isGnomeKeyringSupported()) {
+//
+//            /*
+//             * Linux uses gnome-keyring if it's available unless the user
+//             * specifies using PersistanceStoreCredentialsManager
+//             */
+//            return new GnomeKeyringCredentialsManager();
+//        }
 
         return new PersistenceStoreCredentialsManager(persistenceProvider.getConfigurationPersistenceStore());
     }

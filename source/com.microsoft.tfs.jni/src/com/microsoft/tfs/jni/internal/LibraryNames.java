@@ -9,11 +9,6 @@ package com.microsoft.tfs.jni.internal;
 public abstract class LibraryNames {
 
     /**
-     * The short name of the keychain library.
-     */
-    public static final String KEYCHAIN_LIBRARY_NAME = "native_keychain"; //$NON-NLS-1$
-
-    /**
      * The short name of the Windows credential library.
      */
     public static final String WINDOWS_CREDENTIAL_LIBRARY_NAME = "native_credential"; //$NON-NLS-1$
