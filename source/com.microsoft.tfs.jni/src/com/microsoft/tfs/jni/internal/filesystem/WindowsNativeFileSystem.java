@@ -422,12 +422,12 @@ public class WindowsNativeFileSystem implements FileSystem {
 
     @Override
     public String[] listMacExtendedAttributes(String filepath) {
-        throw new RuntimeException("Platform not implemented");
+        throw new RuntimeException("Platform not supported");
     }
 
     @Override
     public int readMacExtendedAttribute(String filepath, String attribute, byte[] buffer, int size, long position) {
-        throw new RuntimeException("Platform not implemented");
+        throw new RuntimeException("Platform not supported");
     }
 
     @Override
@@ -437,16 +437,16 @@ public class WindowsNativeFileSystem implements FileSystem {
         byte[] buffer,
         int size,
         long position) {
-        throw new RuntimeException("Platform not implemented");
+        throw new RuntimeException("Platform not supported");
     }
 
     @Override
     public byte[] getMacExtendedAttribute(String filepath, String attribute) {
-        throw new RuntimeException("Platform not implemented");
+        throw new RuntimeException("Platform not supported");
     }
 
     @Override
     public boolean setMacExtendedAttribute(String filepath, String attribute, byte[] value) {
-        throw new RuntimeException("Platform not implemented");
+        throw new RuntimeException("Platform not supported");
     }
 }
