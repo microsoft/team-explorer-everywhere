@@ -5,8 +5,6 @@ package com.microsoft.tfs.jni.internal.keychain;
 
 import com.microsoft.tfs.jni.Keychain;
 import com.microsoft.tfs.jni.KeychainInternetPassword;
-import com.microsoft.tfs.jni.internal.LibraryNames;
-import com.microsoft.tfs.jni.loader.NativeLoader;
 import com.microsoft.tfs.util.Check;
 
 /**

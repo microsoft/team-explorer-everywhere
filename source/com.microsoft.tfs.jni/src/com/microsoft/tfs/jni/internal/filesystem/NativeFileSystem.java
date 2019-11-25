@@ -12,8 +12,6 @@ import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.tfs.jni.FileSystem;
 import com.microsoft.tfs.jni.FileSystemAttributes;
-import com.microsoft.tfs.jni.internal.LibraryNames;
-import com.microsoft.tfs.jni.loader.NativeLoader;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Platform;
 
