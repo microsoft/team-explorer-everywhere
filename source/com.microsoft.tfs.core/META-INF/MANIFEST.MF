@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.core;singleton:=true
-Bundle-Version: 14.134.0.qualifier
+Bundle-Version: 14.135.0.qualifier
 Bundle-ClassPath: com.microsoft.tfs.core.jar,
  libs/AlmHttpClient-15.105.0.20161011/alm-vss-client-15.105.0-SNAPSHOT.jar,
  libs/AlmHttpClient-15.105.0.20161011/alm-gallery-client-15.105.0-SNAPSHOT.jar,
