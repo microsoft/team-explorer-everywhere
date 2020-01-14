@@ -6,17 +6,16 @@ package com.microsoft.tfs.client.common.ui.controls.vc.properties.branches;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jface.viewers.TableTreeViewer;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
-import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.controls.generic.BaseControl;
 import com.microsoft.tfs.core.clients.versioncontrol.BranchHistory;
@@ -24,10 +23,7 @@ import com.microsoft.tfs.core.clients.versioncontrol.BranchHistoryTreeItem;
 import com.microsoft.tfs.core.clients.versioncontrol.soapextensions.Item;
 
 public class BranchesPropertiesControl extends BaseControl {
-    private final Table table;
-    private final TableTree tableTree;
-
-    private final TableTreeViewer tableTreeViewer;
+    private final TreeViewer tableTreeViewer;
     private final StackLayout stackLayout;
     private final Composite branchHistoryComposite;
     private final Composite noBranchHistoryComposite;
@@ -102,14 +98,13 @@ public class BranchesPropertiesControl extends BaseControl {
         branchesLabel.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         branchesLabel.setText(Messages.getString("BranchesPropertiesControl.BranchesLabelText")); //$NON-NLS-1$
 
-        tableTreeViewer = new TableTreeViewer(branchHistoryComposite, SWT.BORDER);
-        tableTree = tableTreeViewer.getTableTree();
-        table = tableTree.getTable();
+        tableTreeViewer = new TreeViewer(branchHistoryComposite, SWT.BORDER | SWT.FULL_SELECTION);
+        final Tree table = tableTreeViewer.getTree();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
-        createTableColumns(table);
+        createTableColumns();
 
-        tableTree.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
+        table.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
 
         tableTreeViewer.setContentProvider(new BranchesPropertiesContentProvider());
         tableTreeViewer.setLabelProvider(new BranchesPropertiesLabelProvider());
@@ -147,25 +142,20 @@ public class BranchesPropertiesControl extends BaseControl {
         this.layout();
     }
 
-    private void createTableColumns(final Table table) {
+    private void createTableColumns() {
         final TableLayout tableLayout = new TableLayout();
-        table.setLayout(tableLayout);
+        tableTreeViewer.getTree().setLayout(tableLayout);
 
         tableLayout.addColumnData(new ColumnWeightData(5, true));
-        final TableColumn column1 = new TableColumn(table, SWT.NONE);
+        final TreeColumn column1 = new TreeViewerColumn(tableTreeViewer, SWT.NONE).getColumn();
         column1.setText(Messages.getString("BranchesPropertiesControl.ColumNameFileName")); //$NON-NLS-1$
-        column1.setResizable(true);
-
-        tableLayout.addColumnData(new ColumnWeightData(3, true));
-        final TableColumn column2 = new TableColumn(table, SWT.NONE);
-        column2.setText(Messages.getString("BranchesPropertiesControl.ColumnNameChange")); //$NON-NLS-1$
-        column2.setResizable(true);
 
         tableLayout.addColumnData(new ColumnWeightData(1, true));
-        final TableColumn column3 = new TableColumn(table, SWT.NONE);
+        final TreeColumn column2 = new TreeViewerColumn(tableTreeViewer, SWT.NONE).getColumn();
+        column2.setText(Messages.getString("BranchesPropertiesControl.ColumnNameChange")); //$NON-NLS-1$
+
+        tableLayout.addColumnData(new ColumnWeightData(1, true));
+        final TreeColumn column3 = new TreeViewerColumn(tableTreeViewer, SWT.NONE).getColumn();
         column3.setText(Messages.getString("BranchesPropertiesControl.ColumnNameBranchedFrom")); //$NON-NLS-1$
-        column3.setResizable(true);
-
     }
-
 }
