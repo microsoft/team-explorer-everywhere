@@ -20,18 +20,17 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jface.viewers.TableTreeViewer;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
@@ -54,9 +53,7 @@ import com.microsoft.tfs.core.util.Hierarchical;
  */
 public class BranchHistoryTreeControl extends Composite implements IPostSelectionProvider {
 
-    private final TableTreeViewer tableTreeViewer;
-    private final Table table;
-    private final TableTree tableTree;
+    private final TreeViewer tableTreeViewer;
 
     /**
      * SWT table styles that will always be used.
@@ -88,12 +85,11 @@ public class BranchHistoryTreeControl extends Composite implements IPostSelectio
         final FillLayout layout = new FillLayout();
         setLayout(layout);
 
-        tableTreeViewer = new TableTreeViewer(this, TREE_STYLES | (style & OPTIONAL_TREE_STYLES));
-        tableTree = tableTreeViewer.getTableTree();
-        table = tableTree.getTable();
+        tableTreeViewer = new TreeViewer(this, TREE_STYLES | (style & OPTIONAL_TREE_STYLES) | SWT.FULL_SELECTION);
+        final Tree table = tableTreeViewer.getTree();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
-        createTableColumns(table);
+        createTableColumns();
 
         tableTreeViewer.setContentProvider(new BranchHistoryContentProvider());
         tableTreeViewer.setLabelProvider(new TableLabelProvider());
@@ -103,25 +99,22 @@ public class BranchHistoryTreeControl extends Composite implements IPostSelectio
         tableTreeViewer.setInput(dummyItem);
     }
 
-    private void createTableColumns(final Table table) {
+    private void createTableColumns() {
         final TableLayout tableLayout = new TableLayout();
-        table.setLayout(tableLayout);
+        tableTreeViewer.getTree().setLayout(tableLayout);
 
         tableLayout.addColumnData(new ColumnWeightData(5, true));
-        final TableColumn column1 = new TableColumn(table, SWT.NONE);
+        final TreeColumn column1 = new TreeViewerColumn(tableTreeViewer, SWT.NONE).getColumn();
         column1.setText(Messages.getString("BranchHistoryTreeControl.ColumnHeaderFileName")); //$NON-NLS-1$
-        column1.setResizable(true);
 
         tableLayout.addColumnData(new ColumnWeightData(1, true));
-        final TableColumn column2 = new TableColumn(table, SWT.NONE);
+        final TreeColumn column2 = new TreeViewerColumn(tableTreeViewer, SWT.NONE).getColumn();
         column2.setText(Messages.getString("BranchHistoryTreeControl.ColumnHeaderBranchedFromVersion")); //$NON-NLS-1$
-        column2.setResizable(true);
 
         if (displayLatestVersion) {
             tableLayout.addColumnData(new ColumnWeightData(1, true));
-            final TableColumn column3 = new TableColumn(table, SWT.NONE);
+            final TreeColumn column3 = new TreeViewerColumn(tableTreeViewer, SWT.NONE).getColumn();
             column3.setText(Messages.getString("BranchHistoryTreeControl.ColumnHeaderLatestVersion")); //$NON-NLS-1$
-            column3.setResizable(true);
         }
     }
 
