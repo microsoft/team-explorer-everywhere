@@ -25,15 +25,16 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jface.viewers.TableTreeViewer;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableTreeItem;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPartSite;
 
@@ -69,7 +70,7 @@ public class HistoryTreeControl extends Composite implements ISelectionProvider,
         setLayout(new FillLayout());
 
         tableTreeViewer = new HistoryTableTreeViewer(this, style);
-        final Table table = tableTreeViewer.getTableTree().getTable();
+        final Tree table = tableTreeViewer.getTree();
         AutomationIDHelper.setWidgetID(table, HISTORY_TABLE_ID);
         final TableLayout tableLayout = new TableLayout();
         table.setLayout(tableLayout);
@@ -77,17 +78,17 @@ public class HistoryTreeControl extends Composite implements ISelectionProvider,
         table.setHeaderVisible(true);
 
         tableLayout.addColumnData(new ColumnWeightData(30, 30, true));
-        createTableColumn(table, Messages.getString("HistoryTreeControl.ColumNameChangeset")); //$NON-NLS-1$
+        createTableColumn(Messages.getString("HistoryTreeControl.ColumNameChangeset")); //$NON-NLS-1$
         tableLayout.addColumnData(new ColumnWeightData(40, 40, true));
-        createTableColumn(table, Messages.getString("HistoryTreeControl.ColumnNameChange")); //$NON-NLS-1$
-        tableLayout.addColumnData(new ColumnWeightData(30, 40, true));
-        createTableColumn(table, Messages.getString("HistoryTreeControl.ColumnNameUser")); //$NON-NLS-1$
-        tableLayout.addColumnData(new ColumnWeightData(60, 60, true));
-        createTableColumn(table, Messages.getString("HistoryTreeControl.ColumnNameDate")); //$NON-NLS-1$
+        createTableColumn(Messages.getString("HistoryTreeControl.ColumnNameChange")); //$NON-NLS-1$
+        tableLayout.addColumnData(new ColumnWeightData(50, 50, true));
+        createTableColumn(Messages.getString("HistoryTreeControl.ColumnNameUser")); //$NON-NLS-1$
+        tableLayout.addColumnData(new ColumnWeightData(40, 40, true));
+        createTableColumn(Messages.getString("HistoryTreeControl.ColumnNameDate")); //$NON-NLS-1$
         tableLayout.addColumnData(new ColumnWeightData(100, 100, true));
-        createTableColumn(table, Messages.getString("HistoryTreeControl.ColumnNamePath")); //$NON-NLS-1$
+        createTableColumn(Messages.getString("HistoryTreeControl.ColumnNamePath")); //$NON-NLS-1$
         tableLayout.addColumnData(new ColumnWeightData(100, 100, true));
-        createTableColumn(table, Messages.getString("HistoryTreeControl.ColumnNameComment")); //$NON-NLS-1$
+        createTableColumn(Messages.getString("HistoryTreeControl.ColumnNameComment")); //$NON-NLS-1$
 
         tableTreeViewer.setContentProvider(
             new ContentProvider(UICommandExecutorFactory.newUICommandExecutor(getShell())));
@@ -95,7 +96,7 @@ public class HistoryTreeControl extends Composite implements ISelectionProvider,
 
         contextMenu = new MenuManager("#popup"); //$NON-NLS-1$
         contextMenu.setRemoveAllWhenShown(true);
-        tableTreeViewer.getTableTree().setMenu(contextMenu.createContextMenu(table));
+        table.setMenu(contextMenu.createContextMenu(table));
         contextMenu.addMenuListener(new IMenuListener() {
             @Override
             public void menuAboutToShow(final IMenuManager manager) {
@@ -109,11 +110,10 @@ public class HistoryTreeControl extends Composite implements ISelectionProvider,
                 selection = event.getSelection();
             }
         });
-
     }
 
-    private void createTableColumn(final Table table, final String text) {
-        final TableColumn col = new TableColumn(table, SWT.NONE);
+    private void createTableColumn(final String text) {
+        final TreeColumn col = new TreeViewerColumn(tableTreeViewer, SWT.NONE).getColumn();
         col.setText(text);
         col.pack();
     }
@@ -288,10 +288,10 @@ class ContentProvider extends TreeContentProvider {
     public Object[] getElements(final Object inputElement) {
         if (inputElement instanceof HistoryInput) {
             final HistoryInput historyInput = (HistoryInput) inputElement;
-            final Iterator iter = historyInput.queryHistory();
-            final ArrayList changesets = new ArrayList();
+            final Iterator<Changeset> iter = historyInput.queryHistory();
+            final ArrayList<Changeset> changesets = new ArrayList<Changeset>();
             while (iter.hasNext()) {
-                HistoryManager.addChild(changesets, (Changeset) iter.next(), historyInput.isSlotMode());
+                HistoryManager.addChild(changesets, iter.next(), historyInput.isSlotMode());
             }
             return changesets.toArray();
         }
@@ -419,23 +419,21 @@ class LabelProvider implements ITableLabelProvider {
         }
         return padding.toString();
     }
-
 }
 
-class HistoryTableTreeViewer extends TableTreeViewer {
+class HistoryTableTreeViewer extends TreeViewer {
 
     public HistoryTableTreeViewer(final Composite parent, final int style) {
-        super(parent, style);
+        super(parent, style | SWT.FULL_SELECTION);
     }
 
     public int getLevel(final Changeset c) {
         int level = 1;
-        TableTreeItem item = (TableTreeItem) findItem(c);
+        TreeItem item = (TreeItem) findItem(c);
         while (item.getParentItem() != null) {
             item = item.getParentItem();
             level++;
         }
         return level;
     }
-
 }
