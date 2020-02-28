@@ -57,7 +57,7 @@ public class MacOsNativePlatformMisc extends UnixNativePlatformMisc {
                     }
                 }
             } finally {
-                CoreFoundation.INSTANCE.CFRelease(microsoft);
+                coreFoundation.CFRelease(microsoft);
             }
         }
 
