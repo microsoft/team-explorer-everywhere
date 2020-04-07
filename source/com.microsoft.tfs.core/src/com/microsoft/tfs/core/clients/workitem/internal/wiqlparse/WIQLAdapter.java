@@ -364,7 +364,8 @@ public class WIQLAdapter implements IExternal {
         // Add Context
         if (context != null) {
             context.remove("currentIteration"); //$NON-NLS-1$
-            context.put("currentIteration", "corso alm 2013\\Release 1\\Sprint 4"); //$NON-NLS-1$ //$NON-NLS-2$
+            // context.put("currentIteration", "corso alm 2013\\Release
+            // 1\\Sprint 4"); //$NON-NLS-1$ //$NON-NLS-2$
             for (final Entry<String, Object> entry : context.entrySet()) {
                 if (entry.getKey() != null && entry.getValue() != null) {
                     final Element cx = document.createElement(WIQLConstants.CONTEXT);
