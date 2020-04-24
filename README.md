@@ -1,30 +1,9 @@
-> **This project is no longer maintained.** To make changes, you may fork this repository and build your own version of Team Explorer Everywhere using instructions below.
-
----
-
-# Team Explorer Everywhere Plug-in for Eclipse and Cross-platform Command-line Client for Team Foundation Server
+# Team Explorer Everywhere Cross-platform Command-line Client for Team Foundation Server
 This project contains:
-- Team Explorer Everywhere Plug-in for Eclipse
 - Cross-platform Command-line Client for Team Foundation Server and Team Services
 - Team Foundation Server/Team Services SDK for Java
 
-## What is Team Explorer Everywhere?
-Team Explorer Everywhere is the official TFS plug-in for Eclipse from Microsoft. 
-It works on the operating system of your choice with your favorite Eclipse-based IDE 
-and helps you collaborate across development teams using Team Foundation Server 
-or Visual Studio Team Services. 
- 
-Supported on Linux, Mac OS X, and Windows.
-Compatible with IDEs that are based on Eclipse 4.2 to 4.6.
-
-## Where Can I Get This Eclipse Plug-in?
-
-a) The plug-in is freely available from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/team-explorer-everywhere).
-Hover over the `Install` button for more information on how to install it into your version of Eclipse.
-
-b) Follow instructions at https://docs.microsoft.com/vsts/java/download-eclipse-plug-in and use update site `http://dl.microsoft.com/eclipse/`.
-
-c) You can also manually download and install the plug-in from the [Releases](https://github.com/Microsoft/team-explorer-everywhere/releases) section of this GitHub repository.
+The purpose of this client is mainly to support [Azure DevOps Plugin for IntelliJ][azure-devops-intellij].
 
 ## What is the Command-line Client for TFS?
 The CLC for TFS allows you run version control commands from a console/terminal window against a TFS server on any operating system. 
@@ -32,7 +11,7 @@ This tool is for use with Team Foundation Version Control (TFVC), a centralized 
 If you prefer to use Git, you can use any Git client with TFS or Team Services as well.
 
 ## Where Can I Get The Command-line Client?
-Download the TEE-CLC-*.zip file in the [Releases](https://github.com/Microsoft/team-explorer-everywhere/releases) area of this repo.
+Download the TEE-CLC-*.zip file in the [Releases](https://github.com/JetBrains/team-explorer-everywhere/releases) area of this repo.
 
 ## Building with Ant
 ### Install Java 8
@@ -101,42 +80,5 @@ Please click [Localization](./Localization.md) for details on how to contribute 
 
 **Happy contributing!**
 
-
-## Frequently Asked Questions (FAQ)
-**Q: Is there a beginner's guide for TEE?**
-
-**A:** Absolutely.  You can find it on MSDN at <a href="https://msdn.microsoft.com/en-us/library/hh913026(v=vs.120).aspx" target="_blank">Team Foundation Server Plug-in for Eclipse - Beginner's Guide</a>.
-
-**Q: Is there a way to view local repos in TEE 2015 in Eclipse (Mars) or is it assumed one would use the other Git tooling for Eclipse?**
-
-**A:** It is expected that one would use the standard EGit tooling in Eclipse to view local repos, but TEE does have a "Repositories" view in which you can see which repos are available on the server.
-
-**Q: Also, is there an easy way (using TEE) to “import” a local Git repo and push it up to Team Services? Or is the Git command-line the way to do it?**
-
-**A:** There’s documentation on how to do it in TEE at <a href="https://msdn.microsoft.com/en-us/library/hh568708(v=vs.120).aspx" target="_blank">Sharing Eclipse Projects in Team Foundation Server</a>.
-That article specifically shows TFVC but when you go to Share the project, you’ll be prompted to choose a repository type (Git or TFVC).
-
-**Q: Where can I get more help?**
-
-**A:** Log an issue or check the <a href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/home?forum=tee" target="_blank">Team Explorer Everywhere forum</a>
-
-**Q: Where can I learn more about the Azure Toolkit for Eclipse?**
-
-**A:** Check the <a href="https://docs.microsoft.com/azure/azure-toolkit-for-eclipse" target="_blank">Azure Toolkit for Eclipse web page</a>
-
-**Q: The TEE Command Line Client has removed the "tf profile" command. How can I connect to TFS without having to repeatedly type my credentials?**
-
-**A:** You can use Kerberos for authentication to a TFS server. More information can be found <a href="https://msdn.microsoft.com/en-us/library/gg475929%28v=vs.120%29.aspx" target="_blank">here.</a> This article mentions the "tf profile" command because it still existed at that time this article was written but that step can be skipped now all together.
-
-**Q: How can I fix the "Authentication not supported" error when using Eclipse to perform Git operations with TFS?**
-
-**A:** Eclipse’s EGit is built on JGit, and unfortunately, recent versions of JGit actively reject NTLM authentication, resulting in “Authentication not supported” when connecting to on-premises installations of TFS that require NTLM.  We’re working to improve this situation in the next version of TEE, but until then, you can do one of the following:
-* Use <a href="http://cntlm.sourceforge.net/" target="_blank">Cntlm</a>, a locally-installed proxy that adds NTLM authentication on-the-fly
-* Use an older version of Eclipse/EGit/JGit
-* <a href="https://github.com/Microsoft/tfs-cli/blob/master/docs/configureBasicAuth.md" target="_blank">Enable</a> basic authentication with SSL in IIS on your TFS server
-* Enable Kerberos authentication in IIS on your TFS server (the default for the next version of TFS after TFS 2015):
-  1. In IIS manager, click on the TFS site on the left under Connections and open up the "Authentication" section under IIS.  Set “ASP.NET Impersonation” to Enabled and “Windows Authentication” to Enabled.
-  2. Under "Windows Authentication" right click and select "Providers."  Add/enable the "Negotiate" and "NTLM" providers.
-  3. Under "Windows Authentication" right click and select "Advanced Settings."  Uncheck "Enable Kernel-mode" because it is incompatible with Kerberos.
-
 [adoptopenjdk]: https://adoptopenjdk.net/
+[azure-devops-intellij]: https://github.com/microsoft/azure-devops-intellij
