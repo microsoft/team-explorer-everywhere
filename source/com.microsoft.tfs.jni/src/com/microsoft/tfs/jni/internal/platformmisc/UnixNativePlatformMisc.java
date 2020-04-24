@@ -26,12 +26,20 @@ public abstract class UnixNativePlatformMisc implements PlatformMisc {
 
     @Override
     public String getComputerName() {
-        byte[] buffer = new byte[LibCAPI.HOST_NAME_MAX];
+        byte[] buffer = new byte[LibCAPI.HOST_NAME_MAX + 1]; // + 1 for terminating zero
         if (libC.gethostname(buffer, buffer.length) != 0) {
             return null;
         }
 
-        return new String(buffer, Charset.defaultCharset());
+        int length = buffer.length;
+        for (int i = 0; i < buffer.length; ++i) {
+            if (buffer[i] == '\0') {
+                length = i;
+                break;
+            }
+        }
+
+        return new String(buffer, 0, length, Charset.defaultCharset());
     }
 
     @Override
