@@ -16,4 +16,10 @@
 		<echo message="[TFSBuildStep] All build stages complete" />
 	</target>
 
+	<target name="clean"
+	        depends="build_1_config">
+		<delete dir="resources" deleteonexit="true" quiet="true" />
+		<delete dir="${dir.global.build.output}" deleteonexit="true" quiet="true" />
+	</target>
+
 </project>

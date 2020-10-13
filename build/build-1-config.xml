@@ -25,12 +25,12 @@
 	<!--
 		Reads version configuration information.  Sets these properties:
 		
-		number.version.major 	("12")
-		number.version.minor 	("0")
-		number.version.service 	("2")
-		number.version.build	("1234XYZ")
-		string.version.1-2-3	("14.134.0")
-		string.version.1-2-3-4  ("14.134.0.1234XYZ")
+		number.version.major   ("1")
+		number.version.minor   ("2")
+		number.version.service ("3")
+		number.version.build   ("4567ABCD")
+		string.version.1-2-3   ("1.2.3")
+		string.version.1-2-3-4 ("1.2.3.4567ABCD")
 	-->
 	<target name="read_version_config">
 
