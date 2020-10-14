@@ -609,4 +609,9 @@ public class DigestScheme extends RFC2617Scheme {
 
         return cnonce;
     }
+
+    @Override
+    public void cleanup() {
+        
+    }
 }
