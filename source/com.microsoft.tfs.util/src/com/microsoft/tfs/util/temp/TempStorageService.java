@@ -5,8 +5,6 @@ package com.microsoft.tfs.util.temp;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,8 +16,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.tfs.util.Check;
+import com.microsoft.tfs.util.FileHelpers;
 import com.microsoft.tfs.util.GUID;
-import com.microsoft.tfs.util.IOUtils;
 import com.microsoft.tfs.util.Messages;
 import com.microsoft.tfs.util.shutdown.ShutdownEventListener;
 import com.microsoft.tfs.util.shutdown.ShutdownManager;
@@ -42,20 +40,6 @@ import com.microsoft.tfs.util.shutdown.ShutdownManager.Priority;
  */
 public final class TempStorageService {
     private final static Log log = LogFactory.getLog(TempStorageService.class);
-
-    private final static int MAX_RENAME_ATTEMPTS = 5;
-    private final static int RENAME_ATTEMPTS_DELAY = 500; // in milliseconds
-
-    private static boolean nioClassesLoadable = true;
-    private static boolean nioClassesLoaded = false;
-    private static Class<?> filesClass;
-    private static Class<?> pathInterface;
-    private static Class<?> pathsClass;
-    private static Class<?> copyOptionInterfaceArray;
-    private static Class<?> copyOptionInterface;
-    private static Method getMethod;
-    private static Method moveMethod;
-    private static Object copyOptions;
 
     /**
      * The singleton.
@@ -360,131 +344,11 @@ public final class TempStorageService {
                     targetItem.getAbsolutePath()));
         }
 
-        for (int k = 0; k < MAX_RENAME_ATTEMPTS; k++) {
-            if (k > 0) {
-                log.debug(
-                    MessageFormat.format(
-                        "delaying attempt {0} to rename ''{1}'' to ''{2}'' for {3} milliseconds.", //$NON-NLS-1$
-                        k + 1,
-                        sourceItem.getAbsolutePath(),
-                        targetItem.getAbsolutePath(),
-                        RENAME_ATTEMPTS_DELAY));
-
-                try {
-                    synchronized (Thread.currentThread()) {
-                        Thread.currentThread().wait(RENAME_ATTEMPTS_DELAY);
-                    }
-                } catch (final Exception e) {
-                    log.debug(MessageFormat.format("the renaming delay cancelled before attempt {0}.", k + 11)); //$NON-NLS-1$
-                    return;
-                }
-            }
-
-            if (renameInternal(sourceItem, targetItem)) {
-                log.debug(MessageFormat.format(
-                    "attempt {0} to rename ''{1}'' to ''{2}'' succeeded.", //$NON-NLS-1$
-                    k + 1,
-                    sourceItem.getAbsolutePath(),
-                    targetItem.getAbsolutePath()));
-                return;
-            } else {
-                log.debug(MessageFormat.format(
-                    "attempt {0} to rename ''{1}'' to ''{2}'' failed.", //$NON-NLS-1$
-                    k + 1,
-                    sourceItem.getAbsolutePath(),
-                    targetItem.getAbsolutePath()));
-            }
-        }
-
-        if (IOUtils.copy(sourceItem, targetItem)) {
+        if (!FileHelpers.renameWithoutException(sourceItem, targetItem)) {
             log.debug(MessageFormat.format(
-                "copy ''{1}'' to ''{2}'' succeeded.", //$NON-NLS-1$
+                "attempt to rename ''{0}'' to ''{1}'' failed.", //$NON-NLS-1$
                 sourceItem.getAbsolutePath(),
                 targetItem.getAbsolutePath()));
-
-        } else {
-            log.debug(MessageFormat.format(
-                "copy ''{1}'' to ''{2}'' failed.", //$NON-NLS-1$
-                sourceItem.getAbsolutePath(),
-                targetItem.getAbsolutePath()));
-        }
-
-        deleteItem(sourceItem);
-    }
-
-    private boolean renameInternal(final File sourceItem, final File targetItem) {
-        if (nioClassesLoadable && nioClassesLoaded) {
-            /*
-             * We have already tried reflection and it worked out. Let's
-             * continue the same way.
-             */
-            return renameInternalUsingReflection(sourceItem, targetItem);
-        }
-
-        /*
-         * We never tried reflection or JDK 1.7 is not available. Let's try
-         * first to rename using JDK 1.0
-         */
-        if (sourceItem.renameTo(targetItem)) {
-            return true;
-        } else if (nioClassesLoadable) {
-            /*
-             * Let's try to load JDK 1.7 classes and use reflection
-             */
-            tryLoadNioClasses();
-            return renameInternalUsingReflection(sourceItem, targetItem);
-        } else {
-            /*
-             * We did our best, but were not able neither to rename files nor to
-             * provide extended error diagnostic.
-             */
-            return false;
-        }
-    }
-
-    private boolean renameInternalUsingReflection(final File sourceItem, final File targetItem) {
-        if (nioClassesLoaded) {
-            try {
-                final Object sourcePath = getMethod.invoke(null, sourceItem.getAbsolutePath(), new String[0]);
-                final Object targetPath = getMethod.invoke(null, targetItem.getAbsolutePath(), new String[0]);
-                moveMethod.invoke(null, sourcePath, targetPath, copyOptions);
-
-                return true;
-            } catch (final Exception e) {
-                log.warn(e.getMessage());
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    private void tryLoadNioClasses() {
-        if (nioClassesLoadable && !nioClassesLoaded) {
-            try {
-                filesClass = Class.forName("java.nio.file.Files"); //$NON-NLS-1$
-                pathInterface = Class.forName("java.nio.file.Path"); //$NON-NLS-1$
-                pathsClass = Class.forName("java.nio.file.Paths"); //$NON-NLS-1$
-                copyOptionInterfaceArray = Class.forName("[Ljava.nio.file.CopyOption;"); //$NON-NLS-1$
-                copyOptionInterface = Class.forName("java.nio.file.CopyOption"); //$NON-NLS-1$
-
-                moveMethod = filesClass.getMethod("move", new Class<?>[] { //$NON-NLS-1$
-                    pathInterface,
-                    pathInterface,
-                    copyOptionInterfaceArray
-                });
-                getMethod = pathsClass.getMethod("get", new Class<?>[] { //$NON-NLS-1$
-                    String.class,
-                    String[].class
-                });
-
-                copyOptions = Array.newInstance(copyOptionInterface, 0);
-
-                nioClassesLoaded = true;
-            } catch (final Exception e) {
-                log.warn("Cannot load java.nio.file classes: " + e.getMessage()); //$NON-NLS-1$
-                nioClassesLoadable = false;
-            }
         }
     }
 

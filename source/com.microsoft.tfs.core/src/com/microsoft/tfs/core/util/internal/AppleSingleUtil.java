@@ -21,6 +21,7 @@ import com.microsoft.tfs.jni.appleforked.fileformat.AppleForkedConstants;
 import com.microsoft.tfs.jni.appleforked.fileformat.AppleForkedHeader;
 import com.microsoft.tfs.jni.appleforked.stream.AppleSingleDecoderStream;
 import com.microsoft.tfs.jni.appleforked.stream.AppleSingleEncoderStream;
+import com.microsoft.tfs.util.FileHelpers;
 import com.microsoft.tfs.util.Platform;
 
 /**
@@ -216,7 +217,7 @@ public class AppleSingleUtil {
     }
 
     private static void renameFile(final File source, final File target) throws IOException {
-        if (target.delete() == false) {
+        if (!target.delete()) {
             final String message =
                 MessageFormat.format(
                     Messages.getString("AppleSingleUtil.ErrorDeletingFileForReplacementFormat"), //$NON-NLS-1$
@@ -226,7 +227,7 @@ public class AppleSingleUtil {
             throw new IOException(message);
         }
 
-        if (source.renameTo(target) == false) {
+        if (!FileHelpers.renameWithoutException(source, target)) {
             final String message =
                 MessageFormat.format(
                     Messages.getString("AppleSingleUtil.ErrorRenamingTempFileFormat"), //$NON-NLS-1$

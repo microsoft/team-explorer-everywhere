@@ -606,14 +606,14 @@ public class NewlineUtils {
              * dependency reasons.
              */
 
-            if (file.delete() == false) {
+            if (!file.delete()) {
                 final String messageFormat = "Error deleting file '{0}' for replacement with EOL-converted file."; //$NON-NLS-1$
                 final String message = MessageFormat.format(messageFormat, file.getAbsolutePath());
                 log.error(message);
                 throw new IOException(message);
             }
 
-            if (temp.renameTo(file) == false) {
+            if (!FileHelpers.renameWithoutException(temp, file)) {
                 final String messageFormat = "Error renaming temporary file '{0}' to '{1}' after EOL conversion."; //$NON-NLS-1$
                 final String message =
                     MessageFormat.format(messageFormat, temp.getAbsolutePath(), file.getAbsolutePath());

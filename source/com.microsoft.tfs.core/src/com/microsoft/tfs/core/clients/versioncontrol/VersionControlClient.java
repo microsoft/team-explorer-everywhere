@@ -1383,11 +1383,11 @@ public final class VersionControlClient implements Closable {
         if (oldLocalMetadataDirectory != null
             && WorkspaceLocation.LOCAL == workspace.getLocation()
             && !Workspace.matchSecurityToken(workspace.getSecurityToken(), newWorkspace.getSecurityToken())) {
-            FileHelpers.deleteDirectory(newWorkspace.getLocalMetadataDirectory());
-            new File(oldLocalMetadataDirectory).renameTo(new File(newWorkspace.getLocalMetadataDirectory()));
+            String newLocalMetadataDirectory = newWorkspace.getLocalMetadataDirectory();
 
             try {
-                FileHelpers.deleteDirectory(oldLocalMetadataDirectory);
+                FileHelpers.deleteDirectory(newLocalMetadataDirectory);
+                FileHelpers.rename(oldLocalMetadataDirectory, newLocalMetadataDirectory);
             } catch (final Exception e) {
                 // This was best effort and does not block us in any way.
             }

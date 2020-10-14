@@ -276,7 +276,7 @@ public abstract class LocalMetadataTable implements Closeable {
             } else {
                 // No file in slot 1? If a file is in slot 2, move it
                 // to slot 1 and use it.
-                renameFile(slotTwoFile, slotOneFile);
+                FileHelpers.renameWithoutException(slotTwoFile, slotOneFile);
             }
         }
     }
@@ -296,14 +296,14 @@ public abstract class LocalMetadataTable implements Closeable {
         /* Move slot three file into slot two */
         slotTwoFile.delete();
 
-        if (!slotThreeFile.renameTo(slotTwoFile)) {
+        if (!FileHelpers.renameWithoutException(slotThreeFile, slotTwoFile)) {
             throw new RuntimeException(
                 MessageFormat.format("Could not rename {0} to {1}", slotThreeFilename, slotTwoFilename)); //$NON-NLS-1$
         }
 
         /* Move slot two file into slot one */
         slotOneFile.delete();
-        renameFile(slotTwoFile, slotOneFile);
+        FileHelpers.renameWithoutException(slotTwoFile, slotOneFile);
     }
 
     private FileInputStream getInputStream() {
@@ -352,41 +352,5 @@ public abstract class LocalMetadataTable implements Closeable {
 
     protected String getFilename() {
         return filename;
-    }
-
-    /**
-     * Helper method to avoid a known Java File.renameTo issue on Windows.
-     * File.renameTo appears to intermittently fail on Windows. We retry a few
-     * times after sleeping briefly. A day long experiment shows that in a
-     * scenario where renameTo is known to have intermittent failures, that we
-     * retry at most once, at which point it succeeds. The scenario where rename
-     * has failed is when renaming the slot 2 file to slot 1 in the positionFile
-     * method (note, we've never seen rename fail in the recover methods which
-     * also does a rename of slot 2 to slot 1).
-     *
-     * Interesting notes to consider - we've never seen renameTo fail when
-     * renaming slot 3 to slot 2. The slot 2 file is never opened for read or
-     * write. The slot 1 file is only ever opened for READ. The slot 3 file is
-     * only ever opened for WRITE. SEE TEE.TFSPREVIEW BUG 4184 for more info.
-     *
-     *
-     * @param source
-     * @param destination
-     */
-    private void renameFile(final File source, final File destination) {
-        for (int i = 0; i < 5; i++) {
-            if (source.renameTo(destination)) {
-                return;
-            }
-
-            try {
-                log.info("RETRY rename [" + i + "]"); //$NON-NLS-1$ //$NON-NLS-2$
-                Thread.sleep(100);
-            } catch (final InterruptedException e) {
-            }
-        }
-
-        throw new RuntimeException(
-            MessageFormat.format("Could not rename {0} to {1} in recover", source.getName(), destination.getName())); //$NON-NLS-1$
     }
 }

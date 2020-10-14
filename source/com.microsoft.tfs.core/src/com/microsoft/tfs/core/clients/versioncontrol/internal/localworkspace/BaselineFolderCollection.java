@@ -666,27 +666,22 @@ public class BaselineFolderCollection {
         // will assert.)
         final String baselineLocation = getBaselineLocation(workspace, baselineFolders, baselineFileGuid);
 
-        // Do we need to move this item at all?
-        if (null != baselineLocation
-            && !LocalPath.equals(BaselineFolder.getPartitionForPath(baselineLocation), newBaselinePartition)) {
+        if (baselineLocation != null && !LocalPath.equals(BaselineFolder.getPartitionForPath(baselineLocation), newBaselinePartition)) {
             // Is there a BaselineFolder for the new partition which is in the
             // Valid state?
             String newBaselineLocation;
-            final BaselineFolder newBaselineFolder =
-                getBaselineFolderForPartition(baselineFolders, newBaselinePartition);
+            final BaselineFolder newBaselineFolder = getBaselineFolderForPartition(baselineFolders, newBaselinePartition);
 
-            if (null != newBaselineFolder) {
+            if (newBaselineFolder != null) {
                 newBaselineLocation = newBaselineFolder.getPathFromGUID(baselineFileGuid);
             } else {
                 // There's no baseline folder for the new partition. We'll move
                 // the file from its old baseline folder to the ProgramData
                 // location.
-                newBaselineLocation =
-                    BaselineFolder.getPathFromGUID(workspace.getLocalMetadataDirectory(), baselineFileGuid);
+                newBaselineLocation = BaselineFolder.getPathFromGUID(workspace.getLocalMetadataDirectory(), baselineFileGuid);
             }
 
-            new File(baselineLocation).renameTo(
-                new File(LocalPath.combine(newBaselineLocation, LocalPath.getFileExtension(baselineLocation))));
+            FileHelpers.renameWithoutException(new File(baselineLocation), new File(LocalPath.combine(newBaselineLocation, LocalPath.getFileExtension(baselineLocation))));
         }
     }
 

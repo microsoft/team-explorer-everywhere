@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.lang.reflect.Method;
 import java.text.MessageFormat;
 
 import org.apache.commons.logging.Log;
@@ -25,6 +27,11 @@ public final class FileHelpers {
     private static final String FORCE_IGNORE_CASE_SYSPROP = "com.microsoft.tfs.util.FileHelpers.force-ignore-case"; //$NON-NLS-1$
 
     private static final Log log = LogFactory.getLog(FileHelpers.class);
+
+    private static volatile boolean nioClassesLoadable = true;
+    private static volatile boolean nioClassesLoaded = false;
+    private static Method fileDotMove, pathDotGet;
+    private static Object copyOptions;
 
     /**
      * Statically initialized with the result of a filesystem case sensitivity
@@ -163,12 +170,12 @@ public final class FileHelpers {
         } finally {
             try {
                 firstStream.close();
-            } catch (final IOException e) {
+            } catch (final Exception e) {
             }
 
             try {
                 secondStream.close();
-            } catch (final IOException e) {
+            } catch (final Exception e) {
             }
         }
     }
@@ -489,7 +496,7 @@ public final class FileHelpers {
      * @see {@link #rename(File, File)}
      */
     public static void rename(final String source, final String target) throws IOException {
-        Check.notNull(source, "source"); //$NON-NLS-1$ )
+        Check.notNull(source, "source"); //$NON-NLS-1$
         Check.notNull(target, "target"); //$NON-NLS-1$
 
         rename(new File(source), new File(target));
@@ -522,7 +529,7 @@ public final class FileHelpers {
         Check.notNull(source, "source"); //$NON-NLS-1$
         Check.notNull(target, "target"); //$NON-NLS-1$
 
-        if (source.exists() == false) {
+        if (!source.exists()) {
             throw new FileNotFoundException(MessageFormat.format("Source file {0} does not exist", source)); //$NON-NLS-1$
         }
 
@@ -542,15 +549,15 @@ public final class FileHelpers {
                 /*
                  * This is highly improbable.
                  */
-                final String messageFormat = "Temp file {0} already exists before rename"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, tempFile);
+                final String message = MessageFormat.format("Temp file {0} already exists before rename", tempFile); //$NON-NLS-1$
+
                 log.warn(message);
                 throw new IOException(message);
             }
 
-            if (target.renameTo(tempFile) == false) {
-                final String messageFormat = "Could not rename target {0} to temp file for rename"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, target);
+            if (!renameInternal(target, tempFile)) {
+                final String message = MessageFormat.format("Could not rename target {0} to temp file for rename", target); //$NON-NLS-1$
+
                 log.warn(message);
                 throw new IOException(message);
             }
@@ -559,14 +566,14 @@ public final class FileHelpers {
         /*
          * Do the main rename.
          */
-        if (source.renameTo(target)) {
+        if (renameInternal(source, target)) {
             /*
              * The main rename succeeded, so failing to delete the temp file is
              * not a fatal error (but annoying).
              */
-            if (tempFile != null && tempFile.delete() == false) {
-                final String messageFormat = "Error deleting temp file {0} after successful rename, leaving"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, tempFile);
+            if (tempFile != null && !tempFile.delete()) {
+                final String message = MessageFormat.format("Error deleting temp file {0} after successful rename, leaving", tempFile); //$NON-NLS-1$
+
                 log.warn(message);
             }
         } else {
@@ -577,30 +584,97 @@ public final class FileHelpers {
              * other process put it there.
              */
             if (target.exists()) {
-                final String messageFormat = "Target {0} exists when it should not, lost race to some other process?"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, target);
+                final String message = MessageFormat.format("Target {0} exists when it should not, lost race to some other process?", target); //$NON-NLS-1$
+
                 log.warn(message);
                 throw new IOException(message);
             }
 
-            if (tempFile != null && tempFile.renameTo(target) == false) {
-                final String messageFormat = "Error renaming temp file {0} back to target {1} after failed main rename"; //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, tempFile, target);
+            if (tempFile != null && !renameInternal(tempFile, target)) {
+                final String message = MessageFormat.format("Error renaming temp file {0} back to target {1} after failed main rename", tempFile, target); //$NON-NLS-1$
+
                 log.warn(message);
                 throw new IOException(message);
             }
 
-            final String messageFormat = Messages.getString("FileHelpers.FailedToRenameFormat"); //$NON-NLS-1$
-            final String message = MessageFormat.format(messageFormat, source, target);
+            final String message = MessageFormat.format(Messages.getString("FileHelpers.FailedToRenameFormat"), source, target); //$NON-NLS-1$
+
             log.warn(message);
             throw new IOException(message);
+        }
+    }
+
+    private static boolean renameInternal(final File source, final File target) {
+        for (int attempt = 1; attempt < 5; attempt += 1) {
+            if (attempt > 1) {
+                final int delayMillis = 250;
+
+                log.debug(MessageFormat.format(
+                    "delaying attempt {0} to rename ''{1}'' to ''{2}'' for {3} milliseconds", //$NON-NLS-1$
+                    attempt,
+                    source.getAbsolutePath(),
+                    target.getAbsolutePath(),
+                    delayMillis));
+
+                try {
+                    synchronized (Thread.currentThread()) {
+                        Thread.currentThread().wait(delayMillis);
+                    }
+                } catch (final Exception e) {
+                    log.debug(MessageFormat.format(
+                        "the rename delay was interrupted before attempt {0}", attempt)); //$NON-NLS-1$
+                    break;
+                }
+            }
+
+            if (source.renameTo(target)) {
+                return true;
+            } else if (nioClassesLoadable && tryLoadNioClasses()) {
+                try {
+                    // call java.nio.file.Files.move(Path, Path, CopyOption...) via reflection
+                    final Object sourcePath = pathDotGet.invoke(null, source.getAbsolutePath(), new String[0]);
+                    final Object targetPath = pathDotGet.invoke(null, target.getAbsolutePath(), new String[0]);
+
+                    fileDotMove.invoke(null, sourcePath, targetPath, copyOptions);
+                    return true;
+                } catch (final Exception e) {
+                    log.warn(e.getMessage());
+                }
+            }
+        }
+
+        if (!source.isDirectory()) {
+            if (IOUtils.copy(source, target)) {
+                log.debug(MessageFormat.format(
+                    "copy ''{1}'' to ''{2}'' succeeded", //$NON-NLS-1$
+                    source.getAbsolutePath(),
+                    target.getAbsolutePath()));
+                source.delete();
+                return true;
+            } else {
+                log.debug(MessageFormat.format(
+                    "copy ''{1}'' to ''{2}'' failed", //$NON-NLS-1$
+                    source.getAbsolutePath(),
+                    target.getAbsolutePath()));
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean renameWithoutException(final File source, final File target) {
+        try {
+            rename(source, target);
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 
     public static void deleteFileWithoutException(final String path) {
         try {
             new File(path).delete();
-        } catch (final Throwable t) {
+        } catch (Exception e) {
         }
     }
 
@@ -646,22 +720,51 @@ public final class FileHelpers {
     /**
      * Ensures that the parent folder of the given path exists, and creates it
      * if necessary.
-     *
-     * @param path
      */
     public static void createDirectoryIfNecessary(final String path) throws IOException {
         final File directory = new File(path);
 
         if (!directory.exists()) {
             if (!directory.mkdirs()) {
-                final String messageFormat = Messages.getString("FileHelpers.FailedToCreateFormat"); //$NON-NLS-1$
-                final String message = MessageFormat.format(messageFormat, path);
+                final String message = MessageFormat.format(Messages.getString("FileHelpers.FailedToCreateFormat"), path); //$NON-NLS-1$
+
                 throw new IOException(message);
             }
         } else if (!directory.isDirectory()) {
-            final String messageFormat = Messages.getString("FileHelpers.FailedToCreateAlreadyExistsFormat"); //$NON-NLS-1$
-            final String message = MessageFormat.format(messageFormat, path);
+            final String message = MessageFormat.format(Messages.getString("FileHelpers.FailedToCreateAlreadyExistsFormat"), path); //$NON-NLS-1$
+
             throw new IOException(message);
         }
+    }
+
+    private static boolean tryLoadNioClasses() {
+        if (!nioClassesLoaded) {
+            try {
+                Class<?> filesClass = Class.forName("java.nio.file.Files"); //$NON-NLS-1$
+                Class<?> pathInterface = Class.forName("java.nio.file.Path"); //$NON-NLS-1$
+                Class<?> pathsClass = Class.forName("java.nio.file.Paths"); //$NON-NLS-1$
+                Class<?> copyOptionInterfaceArray = Class.forName("[Ljava.nio.file.CopyOption;"); //$NON-NLS-1$
+                Class<?> copyOptionInterface = Class.forName("java.nio.file.CopyOption"); //$NON-NLS-1$
+
+                fileDotMove = filesClass.getMethod("move", new Class<?>[] { //$NON-NLS-1$
+                    pathInterface,
+                    pathInterface,
+                    copyOptionInterfaceArray
+                });
+
+                pathDotGet = pathsClass.getMethod("get", new Class<?>[] { //$NON-NLS-1$
+                    String.class,
+                    String[].class
+                });
+
+                copyOptions = Array.newInstance(copyOptionInterface, 0);
+
+                nioClassesLoaded = true;
+            } catch (final Exception e) {
+                nioClassesLoadable = false;
+                log.warn("Cannot load java.nio.file classes: " + e.getMessage()); //$NON-NLS-1$
+            }
+        }
+        return nioClassesLoaded;
     }
 }

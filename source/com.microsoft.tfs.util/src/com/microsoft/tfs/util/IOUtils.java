@@ -176,10 +176,15 @@ public class IOUtils {
         Check.notNull(outputFile, "outputFile"); //$NON-NLS-1$
 
         try {
-            final InputStream inputStream = new FileInputStream(inputFile);
             final OutputStream outputStream = new FileOutputStream(outputFile);
 
-            copy(inputStream, outputStream);
+            try {
+                final InputStream inputStream = new FileInputStream(inputFile);
+
+                copy(inputStream, outputStream);
+            } finally {
+                closeSafely(outputStream);
+            }
             return true;
         } catch (final Exception e) {
             log.error(MessageFormat.format(

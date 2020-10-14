@@ -466,13 +466,11 @@ public final class ThreeWayMerge {
      * Creates an output file for an internal or external merge by detecting the
      * extension of the original file and creating a temp file with the same
      * extension in the same directory as the original. The same directory is
-     * used to facilitate easy replacement via {@link File#renameTo(File)}
-     * (which is most likely to work in the case where the two files are on the
-     * same filesystem).
+     * used to facilitate easy rename replacement.
      * <p>
      * The caller gets to clean up the returned file. If the file is not renamed
-     * to something else before the application exits,
-     * {@link TempStorageService} will clean it up (delete it).
+     * to something else before the application exits, {@link TempStorageService}
+     * will clean it up (delete it).
      *
      * @return the temp file to be used for a merge destination.
      */

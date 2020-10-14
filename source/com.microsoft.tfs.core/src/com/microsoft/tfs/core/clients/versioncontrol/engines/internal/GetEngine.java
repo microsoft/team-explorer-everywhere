@@ -1898,20 +1898,19 @@ public final class GetEngine {
                         // do a Directory.Move, so we do,
                         // but only if source directory exists (Bug: 448888)
                         if (sourceLocalItem != null) {
-                            final File sourceLocalItemFile = new File(sourceLocalItem);
-
-                            if (sourceLocalItemFile.renameTo(new File(newLocalItem)) == false) {
-                                onNonFatalError(
-                                    new IOException(MessageFormat.format(
-                                        Messages.getString("GetEngine.FailedToRenameDirectoryFormat"), //$NON-NLS-1$
-                                        sourceLocalItemFile,
-                                        newLocalItem)),
-                                    asyncOp.getWorkspace());
-                            } else {
+                            try {
+                                FileHelpers.rename(sourceLocalItem, newLocalItem);
                                 log.debug(MessageFormat.format(
                                     "Renamed directory: {0} -> {1}", //$NON-NLS-1$
                                     action.getCurrentLocalItem(),
                                     newLocalItem));
+                            } catch (final IOException e) {
+                                onNonFatalError(
+                                    new IOException(MessageFormat.format(
+                                        Messages.getString("GetEngine.FailedToRenameDirectoryFormat"), //$NON-NLS-1$
+                                        sourceLocalItem,
+                                        newLocalItem)),
+                                    asyncOp.getWorkspace());
                             }
                         } else {
                             if (!asyncOp.isNoDiskUpdate()) {
@@ -2024,23 +2023,21 @@ public final class GetEngine {
                                     recordEvent(asyncOp, OperationStatus.UNABLE_TO_REFRESH, action);
                                     asyncOp.getStatus().incrementNumWarnings();
                                 } else {
-                                    // If this isn't a preview and this is a
-                                    // case changing rename. (i.e. rename $/project
-                                    // -> $/PROJECT)
+                                    // If this isn't a preview and this is a case changing rename. (i.e. rename $/project -> $/PROJECT)
                                     if (!asyncOp.isPreview() && isCaseChangingRename && !asyncOp.isNoDiskUpdate()) {
-                                        if (new File(action.getCurrentLocalItem()).renameTo(
-                                            new File(newLocalItem)) == false) {
+                                        try {
+                                            FileHelpers.rename(action.getCurrentLocalItem(), newLocalItem);
+                                            log.debug(MessageFormat.format(
+                                                "Renamed file from {0} to {1}", //$NON-NLS-1$
+                                                action.getCurrentLocalItem(),
+                                                newLocalItem));
+                                        } catch (Exception e) {
                                             onNonFatalError(
                                                 new IOException(MessageFormat.format(
                                                     Messages.getString("GetEngine.FailedToRenameFileFormat"), //$NON-NLS-1$
                                                     action.getCurrentLocalItem(),
                                                     newLocalItem)),
                                                 asyncOp.getWorkspace());
-                                        } else {
-                                            log.debug(MessageFormat.format(
-                                                "Renamed file from {0} to {1}", //$NON-NLS-1$
-                                                action.getCurrentLocalItem(),
-                                                newLocalItem));
                                         }
                                     }
 
