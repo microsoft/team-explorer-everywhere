@@ -7,7 +7,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -25,8 +24,6 @@ import com.microsoft.tfs.client.common.repository.RepositoryManagerEvent;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.controls.teamexplorer.TeamExplorerControl;
-import com.microsoft.tfs.client.common.ui.feedback.FeedbackAction;
-import com.microsoft.tfs.client.common.ui.framework.action.ToolbarPulldownAction;
 import com.microsoft.tfs.client.common.ui.framework.image.ImageHelper;
 import com.microsoft.tfs.client.common.ui.productplugin.TFSProductPlugin;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
@@ -99,7 +96,6 @@ public class TeamExplorerView extends ViewPart implements ITeamExplorerView {
         toolbarManager.add(new Separator());
         toolbarManager.add(new RefreshAction());
         toolbarManager.add(new Separator());
-        toolbarManager.add(buildFeedbackAction());
 
         navigator.addListener(navigationListener);
         navigator.navigateToItem(configuration.getHomeNavigationItem());
@@ -309,51 +305,4 @@ public class TeamExplorerView extends ViewPart implements ITeamExplorerView {
             navigator.navigateBack();
         }
     }
-
-    private IAction buildFeedbackAction() {
-        final ToolbarPulldownAction feedbackAction = new ToolbarPulldownAction(true);
-        feedbackAction.setToolTipText(Messages.getString("FeedbackButton.Tooltip")); //$NON-NLS-1$
-        feedbackAction.setImageDescriptor(imageHelper.getImageDescriptor("images/common/smile.png")); //$NON-NLS-1$
-
-        feedbackAction.addSubAction(new Action() {
-            @Override
-            public String getText() {
-                return Messages.getString("FeedbackButton.SendSmile"); //$NON-NLS-1$
-            }
-
-            @Override
-            public ImageDescriptor getImageDescriptor() {
-                return imageHelper.getImageDescriptor("images/common/smile.png"); //$NON-NLS-1$
-            }
-
-            @Override
-            public void run() {
-                feedbackPressed(true);
-            }
-        });
-        feedbackAction.addSubAction(new Action() {
-            @Override
-            public String getText() {
-                return Messages.getString("FeedbackButton.SendFrown"); //$NON-NLS-1$
-            }
-
-            @Override
-            public ImageDescriptor getImageDescriptor() {
-                return imageHelper.getImageDescriptor("images/common/frown.png"); //$NON-NLS-1$
-            }
-
-            @Override
-            public void run() {
-                feedbackPressed(false);
-            }
-        });
-
-        return feedbackAction;
-    }
-
-    private void feedbackPressed(final boolean smile) {
-        final String viewContext = navigator.getCurrentItem().getID();
-        new FeedbackAction(viewContext, smile).run(null);
-    }
-
 }

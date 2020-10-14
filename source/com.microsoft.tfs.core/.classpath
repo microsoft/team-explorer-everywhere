@@ -21,7 +21,6 @@
 	<classpathentry kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-tfs-client-15.105.0-SNAPSHOT.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-vss-client-15.105.0-SNAPSHOT.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar"/>
-	<classpathentry kind="lib" path="libs/applicationinsights-core/applicationinsights-core-1.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/java-auth-lib/auth-common-0.6.0-SNAPSHOT.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/java-auth-lib/auth-core-0.6.0-SNAPSHOT.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/java-auth-lib/auth-providers-0.6.0-SNAPSHOT.jar" exported="true"/>

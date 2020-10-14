@@ -44,7 +44,6 @@ import com.microsoft.tfs.client.common.ui.framework.helper.ContentProviderAdapte
 import com.microsoft.tfs.client.common.ui.framework.helper.SWTUtil;
 import com.microsoft.tfs.client.common.ui.framework.helper.SelectionUtils;
 import com.microsoft.tfs.client.common.ui.framework.layout.GridDataBuilder;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.core.clients.workitem.query.qe.WIQLOperators;
 import com.microsoft.tfs.util.CollatorFactory;
 import com.microsoft.tfs.util.MRUSet;
@@ -136,8 +135,6 @@ class TeamExplorerSearchControlPopup extends PopupDialog {
 
     @Override
     public int open() {
-        ClientTelemetryHelper.sendDialogOpened(this, getTelemetryProperties());
-
         final int ret = super.open();
 
         // Put the focus back on the text box every time

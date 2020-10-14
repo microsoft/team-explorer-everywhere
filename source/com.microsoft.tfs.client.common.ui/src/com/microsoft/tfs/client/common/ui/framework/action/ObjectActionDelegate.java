@@ -18,7 +18,6 @@ import com.microsoft.tfs.client.common.framework.command.ICommandExecutor;
 import com.microsoft.tfs.client.common.framework.command.JobOptions;
 import com.microsoft.tfs.client.common.ui.framework.command.UICommandExecutorFactory;
 import com.microsoft.tfs.client.common.ui.framework.helper.SelectionUtils;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 
 public abstract class ObjectActionDelegate implements IObjectActionDelegate {
     private IAction action;
@@ -120,10 +119,6 @@ public abstract class ObjectActionDelegate implements IObjectActionDelegate {
     }
 
     protected final IStatus execute(final ICommand command, final boolean async) {
-        final IStatus status = getCommandExecutor(async).execute(command);
-
-        ClientTelemetryHelper.sendCommandFinishedEvent(command, status);
-
-        return status;
+        return getCommandExecutor(async).execute(command);
     }
 }

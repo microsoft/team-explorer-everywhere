@@ -27,7 +27,6 @@ import com.microsoft.tfs.client.eclipse.resourcechange.TFSResourceChangeListener
 import com.microsoft.tfs.client.eclipse.resourcedata.ResourceDataManager;
 import com.microsoft.tfs.core.product.ProductInformation;
 import com.microsoft.tfs.core.product.ProductName;
-import com.microsoft.tfs.core.telemetry.TfsTelemetryHelper;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -109,8 +108,6 @@ public final class TFSEclipseClientPlugin extends Plugin {
         };
         projectStartupJob.setSystem(true);
         projectStartupJob.schedule();
-
-        TfsTelemetryHelper.sendSessionBegins();
     }
 
     /*
@@ -121,8 +118,6 @@ public final class TFSEclipseClientPlugin extends Plugin {
      */
     @Override
     public void stop(final BundleContext context) throws Exception {
-        TfsTelemetryHelper.sendSessionEnds();
-
         ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangedListener);
 
         plugin = null;

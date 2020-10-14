@@ -5,10 +5,8 @@ package com.microsoft.tfs.client.common.ui.framework.dialog;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,7 +35,6 @@ import com.microsoft.tfs.client.common.ui.framework.helper.MessageBoxHelpers;
 import com.microsoft.tfs.client.common.ui.framework.helper.ShellUtils;
 import com.microsoft.tfs.client.common.ui.framework.sizing.ShellMinimumSizeEnforcer;
 import com.microsoft.tfs.client.common.ui.framework.sizing.ShellResizeEnforcer;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.helpers.AutomationIDHelper;
 
 /**
@@ -304,21 +301,7 @@ public abstract class BaseDialog extends Dialog {
     public int open() {
         DialogSettingsHelper.recordDialogOpened(dialogSettingsKey);
         lastOpenedTime = System.currentTimeMillis();
-
-        ClientTelemetryHelper.sendDialogOpened(this, getTelemetryProperties());
-
         return super.open();
-    }
-
-    /**
-     * Returns a set of dialog specific telemetry properties that should be sent
-     * into the DialogOpened telemetry event. The default set of properties is
-     * empty. Derived dialogs may override this method. *
-     * 
-     * @return
-     */
-    protected Map<String, String> getTelemetryProperties() {
-        return new HashMap<String, String>();
     }
 
     /**

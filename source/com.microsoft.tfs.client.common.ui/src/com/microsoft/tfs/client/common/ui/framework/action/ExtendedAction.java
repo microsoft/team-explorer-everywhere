@@ -13,7 +13,6 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 
 public abstract class ExtendedAction extends ObjectActionDelegate {
     private String name;
@@ -54,7 +53,6 @@ public abstract class ExtendedAction extends ObjectActionDelegate {
     @Override
     public final void run(final IAction action) {
         try {
-            ClientTelemetryHelper.sendRunActionEvent(this);
             doRun(action);
         } catch (final Throwable t) {
             final String messageFormat = Messages.getString("ExtendedAction.ErrorDialogTitleFormat"); //$NON-NLS-1$

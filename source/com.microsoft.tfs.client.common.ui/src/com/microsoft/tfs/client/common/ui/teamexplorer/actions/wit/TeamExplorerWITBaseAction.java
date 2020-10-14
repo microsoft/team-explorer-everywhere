@@ -19,7 +19,6 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.microsoft.tfs.client.common.ui.Messages;
 import com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin;
 import com.microsoft.tfs.client.common.ui.framework.action.ObjectActionDelegate;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.teamexplorer.favorites.QueryFavoriteItem;
 import com.microsoft.tfs.client.common.ui.views.ITeamExplorerView;
@@ -72,7 +71,6 @@ public abstract class TeamExplorerWITBaseAction extends ObjectActionDelegate {
     @Override
     public void run(final IAction action) {
         try {
-            ClientTelemetryHelper.sendRunActionEvent(this);
             doRun(action);
         } catch (final Throwable t) {
             final String className = this.getClass().getName();

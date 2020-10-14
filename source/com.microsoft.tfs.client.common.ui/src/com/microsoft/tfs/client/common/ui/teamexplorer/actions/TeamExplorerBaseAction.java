@@ -7,7 +7,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.microsoft.tfs.client.common.ui.framework.action.ObjectActionDelegate;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.teamexplorer.TeamExplorerContext;
 import com.microsoft.tfs.client.common.ui.views.ITeamExplorerView;
 import com.microsoft.tfs.util.Check;
@@ -21,7 +20,6 @@ public abstract class TeamExplorerBaseAction extends ObjectActionDelegate {
 
     @Override
     public final void run(final IAction action) {
-        ClientTelemetryHelper.sendRunActionEvent(this);
         doRun(action);
     }
 

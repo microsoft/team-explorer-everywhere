@@ -10,7 +10,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.tfs.client.common.ui.framework.helper.UIHelpers;
-import com.microsoft.tfs.client.common.ui.framework.telemetry.ClientTelemetryHelper;
 import com.microsoft.tfs.client.common.ui.teamexplorer.internal.TeamExplorerNavigationItemConfig;
 import com.microsoft.tfs.client.common.ui.teamexplorer.items.ITeamExplorerNavigationItem;
 import com.microsoft.tfs.util.Check;
@@ -181,8 +180,6 @@ public class TeamExplorerNavigator {
      *        The configuration item for the target of the navigation.
      */
     private void doNavigation(final TeamExplorerNavigationItemConfig item) {
-        ClientTelemetryHelper.sendPageView(item);
-
         Runnable queueRunnable = null;
 
         // Grab the lock to coordinate with any existing runnable which may be
