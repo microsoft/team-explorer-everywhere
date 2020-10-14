@@ -156,7 +156,7 @@
                  windowtitle="Team Foundation Server SDK for Java"
                  bottom="&amp;copy; 2017 Microsoft. All rights reserved."
                  useexternalfile="true"
-                 source="1.5"
+                 source="1.6"
                  additionalparam="-J-DTaglets.NoDefaultConfiguration=true">
 
             <!-- maintain these selections in accordance with desired SDK scope.  Wildcards in package names may ONLY go at the end. -->

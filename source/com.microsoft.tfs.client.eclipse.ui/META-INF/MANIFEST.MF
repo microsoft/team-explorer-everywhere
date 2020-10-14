@@ -5,7 +5,20 @@ Bundle-SymbolicName: com.microsoft.tfs.client.eclipse.ui; singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Activator: com.microsoft.tfs.client.eclipse.ui.TFSEclipseClientUIPlugin
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.microsoft.tfs.client.common,
+ com.microsoft.tfs.client.common.ui,
+ com.microsoft.tfs.client.common.ui.vcexplorer,
+ com.microsoft.tfs.client.eclipse,
+ org.eclipse.core.filesystem,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.team.core,
+ org.eclipse.team.ui,
+ org.eclipse.ui,
+ org.eclipse.ui.ide
 Export-Package: com.microsoft.tfs.client.eclipse.ui,
  com.microsoft.tfs.client.eclipse.ui.actions,
  com.microsoft.tfs.client.eclipse.ui.actions.sync,
@@ -34,22 +47,3 @@ Export-Package: com.microsoft.tfs.client.eclipse.ui,
  com.microsoft.tfs.client.eclipse.ui.wizard.sharewizard,
  com.microsoft.tfs.client.eclipse.ui.wizard.sync,
  com.microsoft.tfs.client.eclipse.ui.wizard.teamprojectwizard
-Require-Bundle: org.eclipse.ui.ide,
- org.eclipse.compare,
- org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.team.ui,
- org.eclipse.ui.views,
- com.microsoft.tfs.logging,
- com.microsoft.tfs.core,
- org.eclipse.team.core,
- org.eclipse.core.filesystem,
- org.eclipse.core.resources,
- com.microsoft.tfs.util,
- com.microsoft.tfs.client.eclipse,
- com.microsoft.tfs.client.common,
- com.microsoft.tfs.client.common.ui,
- com.microsoft.tfs.client.common.ui.teambuild,
- com.microsoft.tfs.client.common.ui.vcexplorer
-Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6

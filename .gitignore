@@ -4,6 +4,7 @@
 
 # Eclipse output folders for all projects under source/
 bin
+bin-test
 
 # Maven builds
 target

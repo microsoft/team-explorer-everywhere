@@ -25,7 +25,6 @@ import com.microsoft.tfs.client.common.TFSCommonClientPlugin;
 import com.microsoft.tfs.client.common.commands.TFSCommand;
 import com.microsoft.tfs.client.common.git.EclipseProjectInfo;
 import com.microsoft.tfs.client.common.ui.helpers.WorkingSetHelper;
-import com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin;
 import com.microsoft.tfs.client.eclipse.ui.egit.Messages;
 import com.microsoft.tfs.client.eclipse.ui.wizard.importwizard.support.ImportEclipseProject;
 import com.microsoft.tfs.core.clients.versioncontrol.path.LocalPath;
@@ -130,7 +129,6 @@ public class ImportEclipseProjectsCommand extends TFSCommand {
             } catch (final CanceledException e) {
                 return Status.CANCEL_STATUS;
             } catch (final Exception e) {
-                TFSEclipseClientPlugin.getDefault().getConsole().printErrorMessage(e.getLocalizedMessage());
                 logger.error(e.getLocalizedMessage(), e);
                 status.add(
                     new Status(IStatus.WARNING, TFSCommonClientPlugin.PLUGIN_ID, 0, e.getLocalizedMessage(), null));

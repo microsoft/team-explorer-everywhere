@@ -5,7 +5,6 @@ package com.microsoft.alm.teamfoundation.sourcecontrol.webapi;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.microsoft.alm.teamfoundation.core.webapi.TeamProjectCollectionReference;
-import com.microsoft.alm.teamfoundation.sourcecontrol.webapi.GitRepository;
 
 public class VstsInfo {
     private String serverUrl;

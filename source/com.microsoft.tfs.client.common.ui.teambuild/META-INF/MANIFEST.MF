@@ -5,7 +5,17 @@ Bundle-SymbolicName: com.microsoft.tfs.client.common.ui.teambuild; singleton:=tr
 Bundle-Version: 14.134.0.qualifier
 Bundle-Activator: com.microsoft.tfs.client.common.ui.teambuild.TFSTeamBuildPlugin
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.client.common.ui.teambuild.jar
+Require-Bundle: com.microsoft.tfs.client.common,
+ com.microsoft.tfs.client.common.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui
+Import-Package: com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol,
+ org.eclipse.ui.forms.events,
+ org.eclipse.ui.forms.widgets
 Export-Package: com.microsoft.tfs.client.common.ui.teambuild,
  com.microsoft.tfs.client.common.ui.teambuild.actions,
  com.microsoft.tfs.client.common.ui.teambuild.commands,
@@ -20,18 +30,3 @@ Export-Package: com.microsoft.tfs.client.common.ui.teambuild,
  com.microsoft.tfs.client.common.ui.teambuild.wizards,
  com.microsoft.tfs.client.common.ui.teambuild.wizards.v1,
  com.microsoft.tfs.client.common.ui.teambuild.wizards.v1.ant
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- com.microsoft.tfs.logging,
- com.microsoft.tfs.util,
- com.microsoft.tfs.core.ws.runtime,
- com.microsoft.tfs.core.ws,
- com.microsoft.tfs.core,
- com.microsoft.tfs.client.common,
- com.microsoft.tfs.client.common.ui,
- com.microsoft.tfs.client.common.ui.vcexplorer,
- org.eclipse.ui.forms
-Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: com.microsoft.tfs.client.common.ui.teambuild.jar
-Import-Package: org.eclipse.core.resources

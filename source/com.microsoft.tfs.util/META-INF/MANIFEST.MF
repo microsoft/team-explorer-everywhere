@@ -4,7 +4,11 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.util;singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.util.jar
+Require-Bundle: com.microsoft.tfs.logging
 Export-Package: com.microsoft.tfs.util,
  com.microsoft.tfs.util.base64,
  com.microsoft.tfs.util.chunkingcodec,
@@ -22,7 +26,3 @@ Export-Package: com.microsoft.tfs.util,
  com.microsoft.tfs.util.thread,
  com.microsoft.tfs.util.valid,
  com.microsoft.tfs.util.xml
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: com.microsoft.tfs.logging
-Bundle-ClassPath: com.microsoft.tfs.util.jar
-Eclipse-LazyStart: true

@@ -1959,6 +1959,7 @@ public abstract class HttpMethodBase implements HttpMethod {
      *         if a protocol exception occurs. Usually protocol exceptions
      *         cannot be recovered from.
      */
+    @SuppressWarnings("resource")
     private InputStream readResponseBody(final HttpConnection conn) throws HttpException, IOException {
 
         LOG.trace("enter HttpMethodBase.readResponseBody(HttpConnection)");

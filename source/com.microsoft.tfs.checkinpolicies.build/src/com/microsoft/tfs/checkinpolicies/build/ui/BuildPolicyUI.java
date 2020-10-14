@@ -29,7 +29,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.UIPlugin;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.microsoft.tfs.checkinpolicies.build.BuildPolicy;
@@ -282,7 +281,7 @@ public class BuildPolicyUI extends BuildPolicy {
             try {
                 page.openEditor(editorInput, editor.getId());
             } catch (final PartInitException e) {
-                UIPlugin.getDefault().getLog().log(
+                TFSBuildCheckinPolicyPlugin.getDefault().getLog().log(
                     new Status(
                         Status.WARNING,
                         TFSBuildCheckinPolicyPlugin.PLUGIN_ID,
@@ -394,7 +393,7 @@ public class BuildPolicyUI extends BuildPolicy {
                                 e.getLocalizedMessage()),
                             this));
 
-                    UIPlugin.getDefault().getLog().log(
+                    TFSBuildCheckinPolicyPlugin.getDefault().getLog().log(
                         new Status(
                             Status.WARNING,
                             TFSBuildCheckinPolicyPlugin.PLUGIN_ID,

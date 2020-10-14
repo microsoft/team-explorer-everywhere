@@ -3,9 +3,14 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.core.ws.runtime;singleton:=true
 Bundle-Version: 14.134.0.qualifier
-Bundle-ClassPath: com.microsoft.tfs.core.ws.runtime.jar
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.core.ws.runtime.jar
+Require-Bundle: com.microsoft.tfs.core.httpclient,
+ com.microsoft.tfs.logging,
+ com.microsoft.tfs.util
 Export-Package: com.microsoft.tfs.core.ws.runtime,
  com.microsoft.tfs.core.ws.runtime.client,
  com.microsoft.tfs.core.ws.runtime.exceptions,
@@ -15,13 +20,4 @@ Export-Package: com.microsoft.tfs.core.ws.runtime,
  com.microsoft.tfs.core.ws.runtime.transport,
  com.microsoft.tfs.core.ws.runtime.types,
  com.microsoft.tfs.core.ws.runtime.util,
- com.microsoft.tfs.core.ws.runtime.xml,
- javax.xml,
- javax.xml.namespace,
- javax.xml.stream,
- javax.xml.stream.events,
- javax.xml.stream.util
-Require-Bundle: com.microsoft.tfs.util,
- com.microsoft.tfs.logging,
- com.microsoft.tfs.core.httpclient
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+ com.microsoft.tfs.core.ws.runtime.xml

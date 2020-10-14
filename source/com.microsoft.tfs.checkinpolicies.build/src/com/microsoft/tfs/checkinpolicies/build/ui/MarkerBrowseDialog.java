@@ -23,7 +23,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.internal.UIPlugin;
 
 import com.microsoft.tfs.checkinpolicies.build.Messages;
 import com.microsoft.tfs.checkinpolicies.build.TFSBuildCheckinPolicyPlugin;
@@ -100,7 +99,7 @@ public class MarkerBrowseDialog extends BaseDialog {
                 markerList.add(type);
             }
         } catch (final CoreException e) {
-            UIPlugin.getDefault().getLog().log(
+            TFSBuildCheckinPolicyPlugin.getDefault().getLog().log(
                 new Status(
                     Status.ERROR,
                     TFSBuildCheckinPolicyPlugin.PLUGIN_ID,

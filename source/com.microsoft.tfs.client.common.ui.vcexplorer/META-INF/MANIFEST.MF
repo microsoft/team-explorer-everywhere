@@ -5,20 +5,13 @@ Bundle-SymbolicName: com.microsoft.tfs.client.common.ui.vcexplorer; singleton:=t
 Bundle-Version: 14.134.0.qualifier
 Bundle-Activator: com.microsoft.tfs.client.common.ui.vcexplorer.TFSVersionControlExplorerPlugin
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: com.microsoft.tfs.client.common.ui,
+ org.eclipse.ui
 Export-Package: com.microsoft.tfs.client.common.ui.vcexplorer,
  com.microsoft.tfs.client.common.ui.vcexplorer.teamexplorer,
  com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol,
  com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions,
  com.microsoft.tfs.client.common.ui.vcexplorer.versioncontrol.actions.helper
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.compare,
- com.microsoft.tfs.core.ws.runtime,
- com.microsoft.tfs.core.ws,
- com.microsoft.tfs.core,
- com.microsoft.tfs.util,
- com.microsoft.tfs.client.common,
- com.microsoft.tfs.client.common.ui
-Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6

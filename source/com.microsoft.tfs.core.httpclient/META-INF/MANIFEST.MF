@@ -3,10 +3,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.core.httpclient;singleton:=true
 Bundle-Version: 14.134.0.qualifier
+Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: com.microsoft.tfs.core.httpclient.jar,
  libs/commons-codec-1.6/commons-codec-1.6.jar
-Bundle-Vendor: %Bundle-Vendor
-Bundle-Localization: plugin
+Require-Bundle: com.microsoft.tfs.logging,
+ com.microsoft.tfs.util,
+ com.microsoft.tfs.jni
 Export-Package: com.microsoft.tfs.core.httpclient,
  com.microsoft.tfs.core.httpclient.params,
  com.microsoft.tfs.core.httpclient.protocol,
@@ -15,12 +20,8 @@ Export-Package: com.microsoft.tfs.core.httpclient,
  com.microsoft.tfs.core.httpclient.cookie,
  com.microsoft.tfs.core.httpclient.methods,
  com.microsoft.tfs.core.httpclient.methods.multipart,
- org.apache.commons.codec,
- org.apache.commons.codec.binary,
- org.apache.commons.codec.digest,
- org.apache.commons.codec.language,
- org.apache.commons.codec.net
-Require-Bundle: com.microsoft.tfs.logging,
- com.microsoft.tfs.jni
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: com.microsoft.tfs.util
+ org.apache.commons.codec;version="1.6",
+ org.apache.commons.codec.binary;version="1.6",
+ org.apache.commons.codec.digest;version="1.6",
+ org.apache.commons.codec.language;version="1.6",
+ org.apache.commons.codec.net;version="1.6"

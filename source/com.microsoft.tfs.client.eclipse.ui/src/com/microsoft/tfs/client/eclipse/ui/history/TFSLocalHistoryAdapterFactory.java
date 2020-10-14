@@ -13,7 +13,6 @@ public class TFSLocalHistoryAdapterFactory implements IAdapterFactory {
     private static final Log log = LogFactory.getLog(TFSLocalHistoryAdapterFactory.class);
 
     @Override
-    @SuppressWarnings("rawtypes")
     public Object getAdapter(final Object adaptableObject, final Class adapterType) {
         /*
          * HACK: Eclipse local history view (GenericHistoryView) refuses to
@@ -28,7 +27,6 @@ public class TFSLocalHistoryAdapterFactory implements IAdapterFactory {
                     Class.forName("org.eclipse.team.internal.ui.history.LocalHistoryPageSource"); //$NON-NLS-1$
 
                 if (localHistoryClass != null) {
-                    @SuppressWarnings("unchecked")
                     Method instanceMethod = null;
                     try {
                         instanceMethod = localHistoryClass.getMethod("getInstance"); //$NON-NLS-1$

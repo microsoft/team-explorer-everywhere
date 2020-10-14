@@ -3,9 +3,9 @@
 	<name>com.microsoft.tfs.sdk</name>
 	<comment></comment>
 	<projects>
-    </projects>
-    <buildSpec>
-    </buildSpec>
-    <natures>
-    </natures>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
 </projectDescription>

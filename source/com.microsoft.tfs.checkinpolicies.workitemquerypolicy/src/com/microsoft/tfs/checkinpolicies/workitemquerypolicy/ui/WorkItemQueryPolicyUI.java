@@ -8,7 +8,6 @@ import java.text.MessageFormat;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.internal.UIPlugin;
 
 import com.microsoft.tfs.checkinpolicies.workitemquerypolicy.Activator;
 import com.microsoft.tfs.checkinpolicies.workitemquerypolicy.Messages;
@@ -49,7 +48,7 @@ public class WorkItemQueryPolicyUI extends WorkItemQueryPolicy {
                 shell,
                 Messages.getString("WorkItemQueryPolicyUI.ErrorMessageTitle"), //$NON-NLS-1$
                 message);
-            UIPlugin.getDefault().getLog().log(new Status(Status.WARNING, Activator.PLUGIN_ID, 0, message, null));
+            Activator.getDefault().getLog().log(new Status(Status.WARNING, Activator.PLUGIN_ID, 0, message, null));
             return false;
         }
 

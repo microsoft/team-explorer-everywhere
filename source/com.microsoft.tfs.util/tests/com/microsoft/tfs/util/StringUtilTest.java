@@ -234,13 +234,11 @@ public class StringUtilTest extends TestCase {
 
     public void testToIntConversionThrowsException() {
         try {
-            int actual = StringUtil.toInt("1H"); //$NON-NLS-1$
+            StringUtil.toInt("1H"); //$NON-NLS-1$
+            fail("NumberFormatException expected"); //$NON-NLS-1$
         } catch (final Exception e) {
             assertTrue("NumberFormatException expected", e instanceof NumberFormatException); //$NON-NLS-1$
-            return;
         }
-
-        fail("NumberFormatException expected"); //$NON-NLS-1$
     }
 
     // --- Private Test Helpers --- //

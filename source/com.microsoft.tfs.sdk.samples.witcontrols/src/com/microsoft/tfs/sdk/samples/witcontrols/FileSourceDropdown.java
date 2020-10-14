@@ -5,6 +5,7 @@ package com.microsoft.tfs.sdk.samples.witcontrols;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,9 @@ public class FileSourceDropdown extends ExternalSourceDropdown {
             if (filePath == null || filePath.length() == 0) {
                 items.add("Must specify the 'FilePath' attribute in this work item type definition Control"); //$NON-NLS-1$
             } else {
+                BufferedReader reader = null;
                 try {
-                    final BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                    reader = new BufferedReader(new FileReader(filePath));
 
                     String line;
                     while ((line = reader.readLine()) != null) {
@@ -37,6 +39,12 @@ public class FileSourceDropdown extends ExternalSourceDropdown {
                 } catch (final Exception e) {
                     items.clear();
                     items.add("Failed to read file: " + filePath + ". Error: " + e.getLocalizedMessage()); //$NON-NLS-1$ //$NON-NLS-2$
+                } finally {
+                    if (reader != null) {
+                        try { reader.close();
+                        } catch (IOException ignore) {
+                        }
+                    }
                 }
             }
 

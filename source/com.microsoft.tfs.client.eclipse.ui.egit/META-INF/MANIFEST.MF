@@ -4,27 +4,20 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.client.eclipse.ui.egit;singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.jgit;resolution:=optional,
+Bundle-ClassPath: com.microsoft.tfs.client.eclipse.ui.egit.jar
+Require-Bundle: com.microsoft.tfs.client.common.ui,
+ com.microsoft.tfs.client.eclipse.ui,
  org.eclipse.egit.core;resolution:=optional,
  org.eclipse.egit.ui;resolution:=optional,
- com.microsoft.tfs.checkinpolicies,
- org.eclipse.core.resources,
- org.eclipse.core.runtime,
- com.microsoft.tfs.client.common,
- com.microsoft.tfs.client.common.ui,
- com.microsoft.tfs.client.eclipse,
- com.microsoft.tfs.client.eclipse.ui,
+ org.eclipse.jgit;resolution:=optional,
  org.eclipse.ui,
- org.eclipse.ui.navigator,
- org.eclipse.core.variables,
- org.eclipse.swt,
- com.microsoft.tfs.core
+ org.eclipse.ui.navigator;resolution:=optional
+Import-Package: org.eclipse.core.variables,
+ org.eclipse.ui.forms.widgets
 Export-Package: com.microsoft.tfs.client.eclipse.ui.egit,
  com.microsoft.tfs.client.eclipse.ui.egit.importwizard,
  com.microsoft.tfs.client.eclipse.ui.egit.protocolhandler,
  com.microsoft.tfs.client.eclipse.ui.egit.teamexplorer
-Import-Package: org.eclipse.ui.forms.events,
- org.eclipse.ui.forms.widgets
-Bundle-ClassPath: com.microsoft.tfs.client.eclipse.ui.egit.jar

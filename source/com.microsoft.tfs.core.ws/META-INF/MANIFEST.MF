@@ -4,7 +4,12 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.core.ws;singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.core.ws.jar
+Require-Bundle: com.microsoft.tfs.core.httpclient,
+ com.microsoft.tfs.core.ws.runtime
 Export-Package: ms.sql.reporting.reportingservices,
  ms.tfs.build.buildcontroller._03,
  ms.tfs.build.buildinfo._03,
@@ -26,9 +31,3 @@ Export-Package: ms.sql.reporting.reportingservices,
  ms.tfs.workitemtracking.configurationsettingsservice._03,
  ms.ws,
  ms.wss
-Require-Bundle: com.microsoft.tfs.util,
- com.microsoft.tfs.logging,
- com.microsoft.tfs.core.httpclient,
- com.microsoft.tfs.core.ws.runtime
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: com.microsoft.tfs.core.ws.jar

@@ -4,14 +4,16 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.client.clc
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.client.clc.jar
 Require-Bundle: com.microsoft.tfs.console,
+ com.microsoft.tfs.client.common,
  com.microsoft.tfs.checkinpolicies,
  com.microsoft.tfs.checkinpolicies.build,
  com.microsoft.tfs.checkinpolicies.checkforcomments,
  com.microsoft.tfs.checkinpolicies.forbiddenpatterns,
  com.microsoft.tfs.checkinpolicies.workitempolicy,
  com.microsoft.tfs.checkinpolicies.workitemquerypolicy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: com.microsoft.tfs.client.clc.jar
 Export-Package: com.microsoft.tfs.client.clc

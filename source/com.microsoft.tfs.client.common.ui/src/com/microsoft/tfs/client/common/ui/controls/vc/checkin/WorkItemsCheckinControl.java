@@ -376,7 +376,6 @@ public class WorkItemsCheckinControl extends AbstractCheckinSubControl {
         }
 
         @Override
-        @SuppressWarnings("restriction")
         protected IStatus doRun(final IProgressMonitor progressMonitor) throws Exception {
             progressMonitor.beginTask(Messages.getString("WorkItemsCheckinControl.QueryingItemsProgressText"), 1); //$NON-NLS-1$
             final QueryWorkItemsCommand subCommand = new QueryWorkItemsCommand(query);

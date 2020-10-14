@@ -5,7 +5,6 @@ package com.microsoft.tfs.client.common.framework.resources.command;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -185,7 +184,7 @@ public class WorkspaceCommand extends CancellableCommand implements CommandWrapp
      * {@link IWorkspace#run(org.eclipse.core.resources.IWorkspaceRunnable, ISchedulingRule, int, IProgressMonitor)}
      * , which opens a new sub-monitor on the given {@link IProgressMonitor}, in
      * order to display its "Refreshing /some/path" messages. Howerver, the
-     * {@link Workspace} implementation always forces the
+     * {@link IWorkspace} implementation always forces the
      * {@link SubProgressMonitor#PREPEND_MAIN_LABEL_TO_SUBTASK} style bit, which
      * prepends any existing label the task monitor had (like "Downloading") to
      * the refresh sublabel, resulting in something ugly like

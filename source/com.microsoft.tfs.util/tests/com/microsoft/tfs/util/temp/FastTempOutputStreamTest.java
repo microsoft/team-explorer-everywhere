@@ -17,6 +17,7 @@ public class FastTempOutputStreamTest extends TestCase {
         0x4
     };
 
+    @SuppressWarnings("resource")
     public void testConstructionLimits() throws IOException {
         // Shouldn't throw because default limits are sane.
         FastTempOutputStream ftos = new FastTempOutputStream();
@@ -101,6 +102,7 @@ public class FastTempOutputStreamTest extends TestCase {
         ftos.dispose();
     }
 
+    @SuppressWarnings("resource")
     public void testReader() throws IOException {
         final FastTempOutputStream ftos = new FastTempOutputStream();
         ftos.write(BYTES, 1, 2);

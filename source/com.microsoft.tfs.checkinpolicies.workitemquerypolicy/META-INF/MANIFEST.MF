@@ -4,14 +4,11 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.checkinpolicies.workitemquerypolicy; singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Export-Package: com.microsoft.tfs.checkinpolicies.workitemquerypolicy,
- com.microsoft.tfs.checkinpolicies.workitemquerypolicy.ui
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui,
- com.microsoft.tfs.checkinpolicies,
- com.microsoft.tfs.client.common,
- com.microsoft.tfs.client.common.ui
-Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: com.microsoft.tfs.checkinpolicies.workitemquerypolicy.jar
+Require-Bundle: com.microsoft.tfs.checkinpolicies,
+ com.microsoft.tfs.client.common.ui
+Export-Package: com.microsoft.tfs.checkinpolicies.workitemquerypolicy,
+ com.microsoft.tfs.checkinpolicies.workitemquerypolicy.ui

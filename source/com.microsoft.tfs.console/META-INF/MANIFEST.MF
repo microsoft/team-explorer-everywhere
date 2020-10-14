@@ -4,13 +4,13 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.console;singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.console.jar
+Require-Bundle: com.microsoft.tfs.jni,
+ com.microsoft.tfs.util
 Export-Package: com.microsoft.tfs.console,
  com.microsoft.tfs.console.application,
  com.microsoft.tfs.console.display,
  com.microsoft.tfs.console.input
-Require-Bundle: com.microsoft.tfs.jni,
- com.microsoft.tfs.util
-Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: com.microsoft.tfs.console.jar

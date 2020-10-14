@@ -5,8 +5,26 @@ Bundle-SymbolicName: com.microsoft.tfs.client.common.ui; singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Activator: com.microsoft.tfs.client.common.ui.TFSCommonUIClientPlugin
 Bundle-Vendor: %Bundle-Vendor
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.client.common.ui.jar
+Require-Bundle: com.microsoft.tfs.client.common;visibility:=reexport,
+ org.eclipse.compare;visibility:=reexport,
+ org.eclipse.core.expressions,
+ org.eclipse.core.resources;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.jface;visibility:=reexport,
+ org.eclipse.jface.text,
+ org.eclipse.team.core,
+ org.eclipse.ui,
+ org.eclipse.ui.console,
+ org.eclipse.ui.editors,
+ org.eclipse.ui.forms,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.workbench.texteditor
+Import-Package: com.microsoft.tfs.checkinpolicies,
+ org.eclipse.core.net.proxy;resolution:=optional
 Export-Package: com.microsoft.tfs.client.common.ui,
  com.microsoft.tfs.client.common.ui.adapters,
  com.microsoft.tfs.client.common.ui.autoconnect,
@@ -135,26 +153,3 @@ Export-Package: com.microsoft.tfs.client.common.ui,
  com.microsoft.tfs.client.common.ui.wizard.eula,
  com.microsoft.tfs.client.common.ui.wizard.merge,
  com.microsoft.tfs.client.common.ui.wizard.teamprojectwizard
-Require-Bundle: org.eclipse.ui,
- org.eclipse.ui.ide,
- org.eclipse.ui.console,
- org.eclipse.core.runtime,
- org.eclipse.core.resources,
- org.eclipse.core.expressions,
- com.microsoft.tfs.core.ws.runtime,
- com.microsoft.tfs.core.ws;visibility:=reexport,
- com.microsoft.tfs.core,
- com.microsoft.tfs.util,
- org.eclipse.compare,
- com.microsoft.tfs.logging,
- com.microsoft.tfs.client.common,
- com.microsoft.tfs.checkinpolicies,
- org.eclipse.core.net;resolution:=optional,
- com.microsoft.tfs.core.httpclient,
- org.eclipse.jface.text,
- org.eclipse.ui.editors,
- org.eclipse.ui.workbench.texteditor,
- org.eclipse.ui.forms
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Bundle-ClassPath: com.microsoft.tfs.client.common.ui.jar
-Import-Package: com.microsoft.tfs.client.eclipse

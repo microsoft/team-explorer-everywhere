@@ -89,7 +89,6 @@ public class JsonHelper {
      */
     public static Map<String, String> toQueryParametersMap(final Object model) {
         final ObjectMapper objectMapper = getObjectMapper();
-
         try {
             return objectMapper.readValue(
                 objectMapper.writeValueAsString(model),
@@ -101,7 +100,6 @@ public class JsonHelper {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T deserializeResponce(final HttpMethodBase response, final Class<T> clazz) {
         try {
             if (!InputStream.class.isAssignableFrom(clazz)) {
@@ -158,16 +156,12 @@ public class JsonHelper {
             response.releaseConnection();
         }
     }
-    
+
     private static <T> boolean isArrayType(final TypeReference<T> genericType) {
-        
-        final Type type = genericType.getType();
-        
         if (genericType.getType() instanceof ParameterizedType) {
             final Type rawType = ((ParameterizedType) genericType.getType()).getRawType();
-            return (rawType == ArrayList.class) || (rawType == List.class); 
+            return (rawType == ArrayList.class) || (rawType == List.class);
         }
-        
         return false;
     }
 
@@ -183,5 +177,4 @@ public class JsonHelper {
                 e);
         }
     }
-
 }

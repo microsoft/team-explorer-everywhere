@@ -4,10 +4,9 @@ Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: com.microsoft.tfs.checkinpolicies.checkforcomments; singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
+Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
-Export-Package: com.microsoft.tfs.checkinpolicies.checkforcomments
-Require-Bundle: org.eclipse.core.runtime,
- com.microsoft.tfs.checkinpolicies
-Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: com.microsoft.tfs.checkinpolicies.checkforcomments.jar
+Require-Bundle: com.microsoft.tfs.checkinpolicies
+Export-Package: com.microsoft.tfs.checkinpolicies.checkforcomments

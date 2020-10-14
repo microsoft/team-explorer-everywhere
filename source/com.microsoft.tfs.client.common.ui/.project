@@ -3,7 +3,6 @@
 	<name>com.microsoft.tfs.client.common.ui</name>
 	<comment></comment>
 	<projects>
-		<project>com.microsoft.tfs.client.common</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

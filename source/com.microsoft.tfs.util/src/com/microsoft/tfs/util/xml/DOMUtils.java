@@ -6,8 +6,6 @@ package com.microsoft.tfs.util.xml;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,8 +35,6 @@ import com.microsoft.tfs.util.Check;
  * </p>
  */
 public class DOMUtils {
-    private static final Log log = LogFactory.getLog(DOMUtils.class.getName());
-
     /**
      * A DOM helper method to get the text contents of a {@link Node}. If the
      * {@link Node} is a text node ({@link Node#TEXT_NODE}) or a CDATA section

@@ -5,6 +5,10 @@ Bundle-SymbolicName: com.microsoft.tfs.jni;singleton:=true
 Bundle-Version: 14.134.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
 Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ClassPath: com.microsoft.tfs.jni.jar
+Require-Bundle: com.microsoft.tfs.logging,
+ com.microsoft.tfs.util
 Export-Package: com.microsoft.tfs.jni,
  com.microsoft.tfs.jni.appleforked,
  com.microsoft.tfs.jni.appleforked.fileformat,
@@ -26,7 +30,3 @@ Export-Package: com.microsoft.tfs.jni,
  com.microsoft.tfs.jni.internal.platformmisc;x-internal:=true,
  com.microsoft.tfs.jni.internal.synchronization;x-internal:=true,
  com.microsoft.tfs.jni.loader
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: com.microsoft.tfs.logging,
- com.microsoft.tfs.util
-Bundle-ClassPath: com.microsoft.tfs.jni.jar

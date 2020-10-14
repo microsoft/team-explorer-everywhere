@@ -156,6 +156,7 @@ public final class AdvisoryFileLock {
                  * If the set already contains this path, we will fail fast.
                  */
                 if (AdvisoryFileLock.heldLocks.contains(lockFile)) {
+                    raf.close();
                     return null;
                 }
 

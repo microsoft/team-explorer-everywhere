@@ -40,14 +40,13 @@
    
    <!-- View Contributions -->
    <extension
-      	 point="org.eclipse.ui.views">
+         point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
             category="com.microsoft.tfs.client.common.ui.views"
             class="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleView"
             id="com.microsoft.tfs.sdk.samples.teamexplorer.TeamExplorerSampleView"
             name="Sample Dockable Page"
-            title="Sample Dockable Page"
             restorable="false"/>
    </extension>
    
