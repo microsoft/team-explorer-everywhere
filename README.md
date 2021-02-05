@@ -19,12 +19,10 @@ Compatible with IDEs that are based on Eclipse 4.2 to 4.6.
 
 ## Where Can I Get This Eclipse Plug-in?
 
-a) The plug-in is freely available from the [Eclipse Marketplace](https://marketplace.eclipse.org/content/team-explorer-everywhere).
-Hover over the `Install` button for more information on how to install it into your version of Eclipse.
-
-b) Follow instructions at https://docs.microsoft.com/vsts/java/download-eclipse-plug-in and use update site `http://dl.microsoft.com/eclipse/`.
-
-c) You can also manually download and install the plug-in from the [Releases](https://github.com/Microsoft/team-explorer-everywhere/releases) section of this GitHub repository.
+Manually download and install the plug-in
+from the [Releases](https://github.com/Microsoft/team-explorer-everywhere/releases) section of this GitHub repository.
+Then install it in Eclipse from where its zip/archive file is saved on disk.
+Detailed instructions for installing zip/archive plugins into Eclipse are found [here](https://stackoverflow.com/questions/5482554/how-to-install-plugin-for-eclipse-from-zip).
 
 ## What is the Command-line Client for TFS?
 The CLC for TFS allows you run version control commands from a console/terminal window against a TFS server on any operating system. 
