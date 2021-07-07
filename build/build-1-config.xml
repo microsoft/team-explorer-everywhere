@@ -29,8 +29,8 @@
 		number.version.minor 	("0")
 		number.version.service 	("2")
 		number.version.build	("1234XYZ")
-		string.version.1-2-3	("14.135.1")
-		string.version.1-2-3-4  ("14.135.1.1234XYZ")
+		string.version.1-2-3	("14.135.2")
+		string.version.1-2-3-4  ("14.135.2.1234XYZ")
 	-->
 	<target name="read_version_config">
 

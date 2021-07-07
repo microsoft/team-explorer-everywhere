@@ -2,7 +2,7 @@
 <feature
       id="com.microsoft.tfs.client.eclipse.metafeature"
       label="%Feature-Name"
-      version="14.135.1.qualifier"
+      version="14.135.2.qualifier"
       provider-name="%Feature-Vendor">
 
    <description>

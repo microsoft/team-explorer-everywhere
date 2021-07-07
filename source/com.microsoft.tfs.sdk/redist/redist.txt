@@ -8,4 +8,4 @@ Software License Terms.
 
 ThirdPartyNotices.html
 
-lib/com.microsoft.tfs.sdk-14.135.1.jar
+lib/com.microsoft.tfs.sdk-14.135.2.jar

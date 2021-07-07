@@ -10,7 +10,7 @@ Instructions for Using Console Samples
 3. Run each snippet program like:
    
    (Windows)
-   java -classpath ..\..\redist\lib\com.microsoft.tfs.sdk-14.135.1.jar;.\bin com.microsoft.tfs.sdk.samples.console.ConsoleSampleClassName
+   java -classpath ..\..\redist\lib\com.microsoft.tfs.sdk-14.135.2.jar;.\bin com.microsoft.tfs.sdk.samples.console.ConsoleSampleClassName
 
    (Unix and Mac OS)
-   java -classpath ../../redist/lib/com.microsoft.tfs.sdk-14.135.1.jar:./bin com.microsoft.tfs.sdk.samples.console.ConsoleSampleClassName
+   java -classpath ../../redist/lib/com.microsoft.tfs.sdk-14.135.2.jar:./bin com.microsoft.tfs.sdk.samples.console.ConsoleSampleClassName
