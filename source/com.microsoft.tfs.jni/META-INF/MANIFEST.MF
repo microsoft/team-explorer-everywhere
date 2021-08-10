@@ -30,5 +30,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: com.microsoft.tfs.logging,
  com.microsoft.tfs.util
 Bundle-ClassPath: com.microsoft.tfs.jni.jar,
- libs/jna/jna-5.6.0.jar,
- libs/jna/jna-platform-5.6.0.jar
+ libs/jna/jna-5.8.0.jar,
+ libs/jna/jna-platform-5.8.0.jar
