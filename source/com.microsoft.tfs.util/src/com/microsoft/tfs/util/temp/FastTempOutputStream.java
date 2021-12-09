@@ -3,6 +3,8 @@
 
 package com.microsoft.tfs.util.temp;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -91,7 +93,7 @@ public class FastTempOutputStream extends OutputStream {
      * will grow automatically until the configured heap storage limit is
      * reached.
      */
-    public static final int DEFAULT_HEAP_STORAGE_INITIAL_SIZE_BYTES = 4096;
+    public static final int DEFAULT_HEAP_STORAGE_INITIAL_SIZE_BYTES = 8 * 1024;
 
     /**
      * The default limit on heap storage, after this size file storage is used.
@@ -116,7 +118,7 @@ public class FastTempOutputStream extends OutputStream {
      * Actual file storage. Only allocated when {@link #adjustStorage(int)}
      * decides to switch to file storage (which can be during construction).
      */
-    private FileOutputStream fileStream;
+    private OutputStream fileStream;
 
     /**
      * The file storage location (non-null whenever {@link #fileStream} is being
@@ -185,22 +187,16 @@ public class FastTempOutputStream extends OutputStream {
 
     private static int getDefaultHeapStorageLimit() {
         final String propertyName = "com.microsoft.tfs.fasttempstream.heaplimit"; //$NON-NLS-1$
-        final int defaultValue = 8 * 1024 * 1024;
         final String value = System.getProperty(propertyName);
-        if (StringUtil.isNullOrEmpty(value)) {
-            return defaultValue;
-        } else {
+        if (!StringUtil.isNullOrEmpty(value)) {
             try {
-                final int number = StringUtil.toInt(value);
-                return number;
+                return StringUtil.toInt(value);
             } catch (final NumberFormatException e) {
-                final String message =
-                    MessageFormat.format("Incorrect value of the system property {0} = {1}", propertyName, value); //$NON-NLS-1$
+                final String message = MessageFormat.format("Incorrect value of the system property {0} = {1}", propertyName, value); //$NON-NLS-1$
                 log.error(message, e);
-
-                return defaultValue;
             }
         }
+        return 8 * 1024 * 1024;
     }
 
     /**
@@ -230,10 +226,8 @@ public class FastTempOutputStream extends OutputStream {
          * big, start using a file.
          */
         if (heapStream != null && heapStream.size() + increase > heapStorageLimitBytes) {
-            String messageFormat =
-                "adjustment for {0} total bytes (increase of {1}) exceeds threshold of {2}, switching to file storage"; //$NON-NLS-1$
-            String message =
-                MessageFormat.format(messageFormat, (heapStream.size() + increase), increase, heapStorageLimitBytes);
+            String messageFormat = "adjustment for {0} total bytes (increase of {1}) exceeds threshold of {2}, switching to file storage"; //$NON-NLS-1$
+            String message = MessageFormat.format(messageFormat, (heapStream.size() + increase), increase, heapStorageLimitBytes);
 
             log.trace(message);
 
@@ -247,7 +241,7 @@ public class FastTempOutputStream extends OutputStream {
                 message = MessageFormat.format(messageFormat, file.getAbsolutePath(), heapStorageLimitBytes);
                 log.debug(message);
 
-                fileStream = new FileOutputStream(file);
+                fileStream = new BufferedOutputStream(new FileOutputStream(file), 16 * 1024);
             } catch (final IOException e) {
                 log.error("Error creating temp file", e); //$NON-NLS-1$
 
@@ -279,8 +273,6 @@ public class FastTempOutputStream extends OutputStream {
 
             heapStream = null;
             currentStream = fileStream;
-
-            log.trace("Now using file storage"); //$NON-NLS-1$
         }
     }
 
@@ -343,7 +335,7 @@ public class FastTempOutputStream extends OutputStream {
      *         an exception with a message about the stream being closed
      */
     private synchronized void checkWritable() throws IOException {
-        if (writable == false) {
+        if (!writable) {
             throw new IOException("The stream has been closed"); //$NON-NLS-1$
         }
     }
@@ -361,21 +353,22 @@ public class FastTempOutputStream extends OutputStream {
      */
     public synchronized InputStream getInputStream() throws IOException {
         if (writable) {
-            throw new IOException(
-                "Cannot get an InputStream because the stream is still open for writing (call close())"); //$NON-NLS-1$
+            throw new IOException("Cannot get an InputStream because the stream is still open for writing (call close())"); //$NON-NLS-1$
         }
 
         if (heapStream != null) {
+            log.trace("Creating new ByteArrayInputStream"); //$NON-NLS-1$
+
             /*
              * The byte array in the heapStream won't change from here out.
              */
-            log.trace("Creating new ByteArrayInputStream"); //$NON-NLS-1$
             return new ByteArrayInputStream(heapStream.getByteArray(), 0, heapStream.size());
         } else {
             final String messageFormat = "Creating new FileInputStream for {0}"; //$NON-NLS-1$
             final String message = MessageFormat.format(messageFormat, file.getAbsolutePath());
             log.trace(message);
-            return new FileInputStream(file);
+
+            return new BufferedInputStream(new FileInputStream(file), 16 * 1024);
         }
     }
 
@@ -396,7 +389,6 @@ public class FastTempOutputStream extends OutputStream {
 
         if (heapStream != null) {
             heapStream = null;
-            log.trace("Cleared heap storage"); //$NON-NLS-1$
         }
 
         if (fileStream != null) {
