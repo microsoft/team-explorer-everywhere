@@ -31,7 +31,6 @@
 package com.microsoft.tfs.core.httpclient;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
@@ -790,9 +789,16 @@ public class HttpConnection {
     public void open() throws IOException {
         LOG.trace("enter HttpConnection.open()");
 
-        final String host = (proxyHostName == null) ? hostName : proxyHostName;
-        final int port = (proxyHostName == null) ? portNumber : proxyPortNumber;
         assertNotOpen();
+
+        final String host; final int port;
+        if (proxyHostName == null) {
+            host = hostName;
+            port = portNumber;
+        } else {
+            host = proxyHostName;
+            port = proxyPortNumber;
+        }
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Open connection to " + host + ":" + port);
@@ -801,9 +807,7 @@ public class HttpConnection {
         try {
             if (socket == null) {
                 usingSecureSocket = isSecure() && !isProxied();
-                // use the protocol's socket factory unless this is a secure
-                // proxied connection
-                ProtocolSocketFactory socketFactory = null;
+                final ProtocolSocketFactory socketFactory;
                 if (isSecure() && isProxied()) {
                     final Protocol defaultprotocol = Protocol.getProtocol("http");
                     socketFactory = defaultprotocol.getSocketFactory();
@@ -821,9 +825,9 @@ public class HttpConnection {
              * cases, nagling may be turned off through use of the TCP_NODELAY
              * sockets option."
              */
-
             socket.setTcpNoDelay(params.getTcpNoDelay());
             socket.setSoTimeout(params.getSoTimeout());
+            socket.setKeepAlive(true);
 
             final int linger = params.getLinger();
             if (linger >= 0) {
@@ -838,16 +842,9 @@ public class HttpConnection {
             if (rcvBufSize >= 0) {
                 socket.setReceiveBufferSize(rcvBufSize);
             }
-            int outbuffersize = socket.getSendBufferSize();
-            if ((outbuffersize > 2048) || (outbuffersize <= 0)) {
-                outbuffersize = 2048;
-            }
-            int inbuffersize = socket.getReceiveBufferSize();
-            if ((inbuffersize > 2048) || (inbuffersize <= 0)) {
-                inbuffersize = 2048;
-            }
-            inputStream = new BufferedInputStream(socket.getInputStream(), inbuffersize);
-            outputStream = new BufferedOutputStream(socket.getOutputStream(), outbuffersize);
+
+            inputStream = socket.getInputStream();
+            outputStream = socket.getOutputStream();
             isOpen = true;
         } catch (final IOException e) {
             LOG.debug("", e);
@@ -886,10 +883,12 @@ public class HttpConnection {
             LOG.debug("Secure tunnel to " + hostName + ":" + portNumber);
         }
 
-        final SecureProtocolSocketFactory socketFactory =
-            (SecureProtocolSocketFactory) protocolInUse.getSocketFactory();
+        final SecureProtocolSocketFactory socketFactory = (SecureProtocolSocketFactory) protocolInUse.getSocketFactory();
 
         socket = socketFactory.createSocket(socket, hostName, portNumber, params, true);
+
+        socket.setKeepAlive(true);
+
         final int sndBufSize = params.getSendBufferSize();
         if (sndBufSize >= 0) {
             socket.setSendBufferSize(sndBufSize);
@@ -898,16 +897,9 @@ public class HttpConnection {
         if (rcvBufSize >= 0) {
             socket.setReceiveBufferSize(rcvBufSize);
         }
-        int outbuffersize = socket.getSendBufferSize();
-        if (outbuffersize > 2048) {
-            outbuffersize = 2048;
-        }
-        int inbuffersize = socket.getReceiveBufferSize();
-        if (inbuffersize > 2048) {
-            inbuffersize = 2048;
-        }
-        inputStream = new BufferedInputStream(socket.getInputStream(), inbuffersize);
-        outputStream = new BufferedOutputStream(socket.getOutputStream(), outbuffersize);
+
+        inputStream = socket.getInputStream();
+        outputStream = socket.getOutputStream();
         usingSecureSocket = true;
         tunnelEstablished = true;
     }
