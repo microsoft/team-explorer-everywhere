@@ -143,6 +143,7 @@ import com.microsoft.tfs.core.clients.webservices.IdentityDescriptor;
 import com.microsoft.tfs.core.clients.webservices.IdentityHelper;
 import com.microsoft.tfs.core.clients.workitem.files.FileAttachmentDownloadException;
 import com.microsoft.tfs.core.exceptions.internal.CoreCancelException;
+import com.microsoft.tfs.core.httpclient.Header;
 import com.microsoft.tfs.core.httpclient.HttpClient;
 import com.microsoft.tfs.core.httpclient.HttpMethodBase;
 import com.microsoft.tfs.core.httpclient.HttpStatus;
@@ -2615,6 +2616,7 @@ public final class VersionControlClient implements Closable {
      * Downloads to one or more output streams, immediately throwing on all
      * errors (never retries). The streams are always left open.
      */
+    @SuppressWarnings("resource")
     private void downloadFileToStreamsInternal(
         final DownloadSpec spec,
         final DownloadOutput[] outputs,
@@ -2630,8 +2632,8 @@ public final class VersionControlClient implements Closable {
         try {
             method = beginDownloadRequest(spec);
 
-            final String contentLength = method.getResponseHeader("Content-Length").getValue(); //$NON-NLS-1$
-            String contentType = method.getResponseHeader("Content-Type").getValue(); //$NON-NLS-1$
+            final Header contentLength = method.getResponseHeader("Content-Length"); //$NON-NLS-1$
+            final Header contentType = method.getResponseHeader("Content-Type"); //$NON-NLS-1$
 
             responseStream = method.getResponseBodyAsStream();
 
@@ -2660,18 +2662,14 @@ public final class VersionControlClient implements Closable {
              * what the server calls them and don't open a gzip decoder for
              * them.
              */
-            if ("0".equals(contentLength) //$NON-NLS-1$
-                || contentType.equalsIgnoreCase(DownloadContentTypes.APPLICATION_OCTET_STREAM)) {
-                contentType = DownloadContentTypes.APPLICATION_OCTET_STREAM;
-
+            if (contentLength == null || contentLength.getValue().equals("0") //$NON-NLS-1$
+                || contentType != null && contentType.getValue().equalsIgnoreCase(DownloadContentTypes.APPLICATION_OCTET_STREAM)) {
                 // All outputs get uncompressed files (not wire)
                 for (final DownloadOutput output : outputs) {
                     output.setActualContentType(DownloadContentTypes.APPLICATION_OCTET_STREAM);
                     normalOutputs.add(output);
                 }
-            } else if (contentType.equalsIgnoreCase(DownloadContentTypes.APPLICATION_GZIP)) {
-                contentType = DownloadContentTypes.APPLICATION_GZIP;
-
+            } else if (contentType != null && contentType.getValue().equalsIgnoreCase(DownloadContentTypes.APPLICATION_GZIP)) {
                 // Split the outputs into two lists
                 for (final DownloadOutput output : outputs) {
                     if (output.isAutoGunzip()) {
@@ -2697,7 +2695,7 @@ public final class VersionControlClient implements Closable {
                 throw new VersionControlException(
                     MessageFormat.format(
                         Messages.getString("VersionControlClient.UnsupportedContentTypeFormat"), //$NON-NLS-1$
-                        contentType));
+                        contentType != null ? contentType.getValue() : "<not set>")); //$NON-NLS-1$
             }
 
             if (needGZIPInputStream) {
