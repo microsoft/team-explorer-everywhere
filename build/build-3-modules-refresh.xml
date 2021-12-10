@@ -86,4 +86,5 @@
 
 		<echo message="[TFSBuildStep] Modules refresh stage complete" />
 	</target>
+
 </project>

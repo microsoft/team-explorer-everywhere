@@ -13,7 +13,7 @@ set INDIR=%REPO_ROOT%\build\output\bin
 set OUTDIR=%REPO_ROOT%\build\output\_packages
 if exist "%OUTDIR%" rmdir /S /Q "%OUTDIR%"
 
-echo Move signed CLC, TEE, and SDK archives to "%OUTDIR"
+echo Move signed CLC, TEE, and SDK archives to "%OUTDIR%"
 for /R "%INDIR%" %%i in (*-signed.zip) do call :move_signed %%i %OUTDIR%
 
 goto :end

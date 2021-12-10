@@ -7,11 +7,11 @@
 -->
 <project name="build-2-init" basedir="." default="build_2_init">
 
-	<!-- 
+	<!--
 		Generates a properties file with the major, minor, service, and build numbers defined
 		that can be compiled into the product.  These version files are not read by the 
 		build system, they exist so products can package them and read them at run-time.
-		-->
+	-->
 	<macrodef name="macro.version.generate-properties-file">
 		<attribute name="file" />
 
@@ -28,12 +28,12 @@
 	</macrodef>
 
 	<target name="clean_output_directory">
-		<echo message="[TFSBuildStep] Cleaning build output directory [${dir.global.build.output}" />
+		<echo message="[TFSBuildStep] Cleaning build output directory [${dir.global.build.output}]" />
 		<delete dir="${dir.global.build.output}" />
 	</target>
 
 	<target name="copy_source_files">
-		<echo message="[TFSBuildStep] Cleaning build output directory [${dir.global.build.output}" />
+		<echo message="[TFSBuildStep] Copying source files into [${dir.global.build.output}]" />
 		<copy todir="${dir.global.build.output.plugins}/com.microsoft.tfs.checkinpolicies">
 			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.checkinpolicies" />
 		</copy>
@@ -141,13 +141,7 @@
 		<macro.version.generate-properties-file file="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src/com.microsoft.tfs.core-version.properties" />
 	</target>
 
-	<target name="remove_telemetry_files" if="${release.build}">
-		<echo message="[TFSBuildStep] Remove dev telemetry instrumentation property file for release build" />
-		<!-- Remove any dev properties that might already exist in this file to force default settings. -->
-		<delete file="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src/com.microsoft.tfs.core-telemetry.properties" />
-	</target>
-
-	<target name="build_2_init" depends="clean_output_directory,copy_source_files,generate_version_files,remove_telemetry_files">
+	<target name="build_2_init" depends="clean_output_directory,copy_source_files,generate_version_files">
 		<echo message="[TFSBuildStep] Initialization stage complete" />
 	</target>
 

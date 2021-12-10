@@ -37,7 +37,7 @@
 		<!-- Defines the major, minor, and service versions (but not build). -->
 		<property file="${dir.global.buildtooling}/product_version.properties" />
 
-		<!-- 
+		<!--
 			Callers (Team Build) will almost always set number.version.build explicitly, but default to 
 			something for manual builds. 
 		-->
@@ -66,12 +66,8 @@
 	-->
 	<target name="read_machine_config">
 
-		<condition property="machine.properties" value="${basedir}/machine.properties" >
-			<not>
-				<isset property="machine.properties" />
-			</not>
-		</condition>
-				
+		<property name="machine.properties" location="${basedir}/machine.properties" />
+
 		<echo message="Checking for ${machine.properties}" />
 		<property file="${machine.properties}" />
 
@@ -85,12 +81,8 @@
 			The default paths assume a Team Build mapping configuration (with
 			Sources and Binaries).
 		-->
-		<condition property="value.eclipse-ant-runner.maxmemory" value="768M" >
-			<not>
-				<isset property="value.eclipse-ant-runner.maxmemory" />
-			</not>
-		</condition>
-		
+		<property name="value.eclipse-ant-runner.maxmemory" value="768M" />
+
 		<property name="dir.binaries" value="${dir.global.build.output}/bin" />
 
 		<!-- Controls which targets get build ("*" means all) -->

@@ -4,11 +4,8 @@
 package com.microsoft.tfs.core.ws.runtime.client;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 import java.net.URI;
@@ -39,12 +36,10 @@ import com.microsoft.tfs.core.httpclient.HttpClient;
 import com.microsoft.tfs.core.httpclient.HttpMethod;
 import com.microsoft.tfs.core.httpclient.HttpStatus;
 import com.microsoft.tfs.core.httpclient.MultiThreadedHttpConnectionManager;
-import com.microsoft.tfs.core.httpclient.StatusLine;
 import com.microsoft.tfs.core.httpclient.URIException;
 import com.microsoft.tfs.core.httpclient.auth.AuthScope;
 import com.microsoft.tfs.core.httpclient.methods.PostMethod;
 import com.microsoft.tfs.core.httpclient.params.HttpClientParams;
-import com.microsoft.tfs.core.httpclient.util.EncodingUtil;
 import com.microsoft.tfs.core.ws.runtime.Messages;
 import com.microsoft.tfs.core.ws.runtime.client.TransportRequestHandler.Status;
 import com.microsoft.tfs.core.ws.runtime.exceptions.EndpointNotFoundException;
@@ -60,7 +55,6 @@ import com.microsoft.tfs.core.ws.runtime.exceptions.UnauthorizedException;
 import com.microsoft.tfs.core.ws.runtime.stax.StaxFactoryProvider;
 import com.microsoft.tfs.core.ws.runtime.xml.XMLStreamReaderHelper;
 import com.microsoft.tfs.util.Check;
-import com.microsoft.tfs.util.GUID;
 import com.microsoft.tfs.util.LocaleUtil;
 import com.microsoft.tfs.util.tasks.CanceledException;
 import com.microsoft.tfs.util.tasks.TaskMonitorService;
@@ -73,7 +67,6 @@ import com.microsoft.tfs.util.xml.DOMSerializeUtils;
  */
 public abstract class SOAPService {
     private final static Log log = LogFactory.getLog(SOAPService.class);
-    private final static Log base64log = LogFactory.getLog("base64." + SOAPService.class.getName()); //$NON-NLS-1$
 
     private static final String NEWLINE = System.getProperty("line.separator"); //$NON-NLS-1$
 
@@ -504,16 +497,11 @@ public abstract class SOAPService {
             TransportException,
             CanceledException {
         final PostMethod method = request.getPostMethod();
-
         final long start = System.currentTimeMillis();
         long serverExecute = -1;
-        long contentLength = -1;
-        int response = -1;
-        boolean isCompressed = false;
+        int responseCode = -1;
 
-        IOException ioException = null;
-        byte[] responseBytes = null;
-        TraceInputStream responseStream = null;
+        InputStream responseStream = null;
 
         try {
             /*
@@ -542,7 +530,7 @@ public abstract class SOAPService {
              */
             final long serverStart = System.currentTimeMillis();
             try {
-                response = client.executeMethod(method);
+                responseCode = client.executeMethod(method);
             } catch (final SocketException e) {
                 /*
                  * If the user cancelled the current task, we might get a
@@ -550,33 +538,19 @@ public abstract class SOAPService {
                  * closed the socket after timing out waiting for voluntary
                  * cancel.
                  */
-                if (TaskMonitorService.getTaskMonitor().isCanceled() && (e.getMessage().startsWith("Socket closed") //$NON-NLS-1$
-                    || e.getMessage().startsWith("Stream closed"))) //$NON-NLS-1$
-                {
+                if (TaskMonitorService.getTaskMonitor().isCanceled()
+                        && (e.getMessage().startsWith("Socket closed") //$NON-NLS-1$
+                            || e.getMessage().startsWith("Stream closed"))) { //$NON-NLS-1$
                     throw new CanceledException();
                 }
 
-                /*
-                 * If this fault was not a TCP connection reset, rethrow it.
-                 */
-                if (e.getMessage().startsWith("Connection reset") == false) //$NON-NLS-1$
-                {
-                    throw e;
-                }
-
-                log.warn("Retrying invoke after a connection reset", e); //$NON-NLS-1$
-
-                /*
-                 * Give it one more try on the user's behalf.
-                 */
-                response = client.executeMethod(method);
+                throw e;
             }
             serverExecute = System.currentTimeMillis() - serverStart;
 
             responseStream = getResponseStream(method);
-            isCompressed = responseStream.isCompressed();
 
-            switch (response) {
+            switch (responseCode) {
                 case HttpStatus.SC_OK:
                     XMLStreamReader reader = null;
 
@@ -627,8 +601,7 @@ public abstract class SOAPService {
                          * If we got here, some error happened (we couldn't find
                          * our envelope and body tags).
                          */
-                        throw new InvalidServerResponseException(
-                            "The server's response does not seem to be a SOAP message."); //$NON-NLS-1$
+                        throw new InvalidServerResponseException("The server's response does not seem to be a SOAP message."); //$NON-NLS-1$
                     } catch (final XMLStreamException e) {
                         final String messageFormat = "The server's response could not be parsed as XML: {0}"; //$NON-NLS-1$
                         final String message = MessageFormat.format(messageFormat, e.getMessage());
@@ -666,12 +639,10 @@ public abstract class SOAPService {
                     examineBodyForFault(method);
                 default:
                     final String messageFormat = "The SOAP endpoint {0} could not be contacted.  HTTP status: {1}"; //$NON-NLS-1$
-                    final String message =
-                        MessageFormat.format(messageFormat, method.getURI().toString(), Integer.toString(response));
-                    throw new EndpointNotFoundException(message, response);
+                    final String message = MessageFormat.format(messageFormat, method.getURI().toString(), Integer.toString(responseCode));
+                    throw new EndpointNotFoundException(message, responseCode);
             }
         } catch (final IOException e) {
-            ioException = e;
             throw new TransportException(e.getMessage(), e);
         } finally {
             final long total = System.currentTimeMillis() - start;
@@ -679,187 +650,54 @@ public abstract class SOAPService {
             if (responseStream != null) {
                 try {
                     responseStream.close();
-                } catch (final IOException e) {
-                    ioException = e;
+                } catch (final IOException ignore) {
                 }
-                responseBytes = responseStream.getBytes();
-                contentLength = responseStream.getTotalBytes();
             }
             /*
              * perform logging
              */
             try {
-                if (log.isDebugEnabled()) {
-                    logExtended(method, serverExecute, total, contentLength, isCompressed, responseBytes, ioException);
-                } else {
-                    log.info(makeNormalLogEntry(method, serverExecute, total, contentLength, isCompressed));
+                if (log.isInfoEnabled()) {
+                    final Header contentEncoding = method.getResponseHeader("Content-Encoding"); //$NON-NLS-1$
+                    final Header contentLength = method.getResponseHeader("Content-Length"); //$NON-NLS-1$
+                    /*
+                     * In the case of multiple failed attempts at method execution, the
+                     * PostMethod may come back to us with a null status line, which will
+                     * cause NullPointerExceptions when invoking some of its methods (like
+                     * getStatusCode()). We can prevent the exceptions by checking for this
+                     * internal state.
+                     */
+                    log.info("SOAP method=\'" //$NON-NLS-1$
+                        + ((BufferedSOAPRequestEntity) method.getRequestEntity()).getMethodName()
+                        + "\', status=" //$NON-NLS-1$
+                        + (method.getStatusLine() != null ? method.getStatusCode() : -1)
+                        + ", content-length=" //$NON-NLS-1$
+                        + (contentLength != null ? contentLength.getValue() : -1)
+                        + ", server-wait=" //$NON-NLS-1$
+                        + serverExecute
+                        + " ms, parse=" //$NON-NLS-1$
+                        + (total - serverExecute)
+                        + " ms, total=" //$NON-NLS-1$
+                        + total
+                        + " ms, throughput=" //$NON-NLS-1$
+                        + Math.round((contentLength != null ? Long.parseLong(contentLength.getValue()) : -1L) / Math.max(total, 1.0) * 1000.0)
+                        + " B/s" //$NON-NLS-1$
+                        + (contentEncoding != null ? ", " + contentEncoding.getValue() : ", uncompressed")); //$NON-NLS-1$ //$NON-NLS-2$
                 }
-            } catch (final Throwable t) {
-                /*
-                 * don't propogate any errors raised while logging
-                 */
-                log.warn("Error logging SOAP call", t); //$NON-NLS-1$
+            } catch (final Throwable ignore) {
             }
 
             method.releaseConnection();
         }
     }
 
-    protected TraceInputStream getResponseStream(final PostMethod method) throws IOException {
-        boolean isCompressed = false;
-        InputStream responseStream;
+    protected InputStream getResponseStream(final PostMethod method) throws IOException {
+        InputStream responseBody = method.getResponseBodyAsStream();
         final Header encoding = method.getResponseHeader("Content-Encoding"); //$NON-NLS-1$
         if (encoding != null && encoding.getValue().equalsIgnoreCase("gzip")) //$NON-NLS-1$
-        {
-            responseStream = new GZIPInputStream(method.getResponseBodyAsStream());
-            isCompressed = true;
-        } else {
-            responseStream = method.getResponseBodyAsStream();
-        }
+            responseBody = new GZIPInputStream(method.getResponseBodyAsStream());
 
-        // Calculate if we want to store read bytes (useful for debugging)
-        int storeBytes = -1;
-        if (log.isTraceEnabled()
-            || (log.isDebugEnabled() && method.getResponseContentLength() <= RESPONSE_MAX_SIZE_FOR_DEBUG_LOGGING)) {
-            storeBytes = RESPONSE_MAX_SIZE_FOR_DEBUG_LOGGING;
-        }
-
-        return new TraceInputStream(responseStream, storeBytes, isCompressed);
-    }
-
-    private void logExtended(
-        final PostMethod method,
-        final long serverExecuteMs,
-        final long totalMs,
-        final long contentLength,
-        final boolean isCompressed,
-        final byte[] responseBytes,
-        final Throwable t) throws IOException {
-        final StringBuffer sb = new StringBuffer();
-        final String newline = System.getProperty("line.separator"); //$NON-NLS-1$
-
-        /*
-         * the first line of the trace log message is the same as a normal log
-         * message
-         */
-        sb.append(makeNormalLogEntry(method, serverExecuteMs, totalMs, contentLength, isCompressed)).append(newline);
-
-        /*
-         * append request name, path, and headers
-         */
-        sb.append(method.getName() + " " + method.getPath()).append(newline); //$NON-NLS-1$
-        sb.append(newline);
-
-        final Header[] requestHeaders = method.getRequestHeaders();
-        for (int i = 0; i < requestHeaders.length; i++) {
-            sb.append(requestHeaders[i].getName() + ": " + requestHeaders[i].getValue()).append(newline); //$NON-NLS-1$
-        }
-        sb.append(newline);
-
-        /*
-         * append request body
-         */
-        final ByteArrayOutputStream requestBodyByteStream = new ByteArrayOutputStream();
-
-        /*
-         * this line makes the assumption that we're using
-         * BufferedSoapRequestEntity
-         */
-        method.getRequestEntity().writeRequest(requestBodyByteStream);
-
-        final String requestBodyString = requestBodyByteStream.toString(SOAPRequestEntity.SOAP_ENCODING);
-        sb.append(requestBodyString).append(newline);
-
-        /*
-         * separate request and response portions of the trace log entry
-         */
-        sb.append(newline);
-
-        /*
-         * In the case of multiple failed attempts at method execution, the
-         * PostMethod may come back to us with a null status line, which will
-         * cause NullPointerExceptions when invoking some of its methods (like
-         * getStatusCode()). We can prevent the exceptions by checking for this
-         * internal state.
-         */
-        final StatusLine statusLine = method.getStatusLine();
-
-        /*
-         * append response code and headers
-         */
-        sb.append(((statusLine != null) ? method.getStatusCode() : -1)
-            + " " //$NON-NLS-1$
-            + ((statusLine != null) ? method.getStatusText() : "<no status line>")).append(newline); //$NON-NLS-1$
-        sb.append(newline);
-
-        final Header[] responseHeaders = method.getResponseHeaders();
-        for (int i = 0; i < responseHeaders.length; i++) {
-            sb.append(responseHeaders[i].getName() + ": " + responseHeaders[i].getValue()).append(newline); //$NON-NLS-1$
-        }
-        sb.append(newline);
-
-        String responseBodyAsString = null;
-        if (responseBytes != null) {
-            responseBodyAsString = EncodingUtil.getString(responseBytes, method.getResponseCharSet());
-        }
-
-        StringBuffer base64buffer = null;
-
-        /*
-         * If we have a response body, and the base64log is enabled or we
-         * couldn't convert the response body to a string, we then log a base64
-         * representation of the response body to the base64log.
-         */
-        if (responseBytes != null && (base64log.isDebugEnabled() || responseBodyAsString == null)) {
-            final String base64guid = GUID.newGUIDString();
-
-            final String base64EncodedResponse = getFormattedBase64Encoding(responseBytes);
-
-            base64buffer = new StringBuffer();
-            base64buffer.append("-- " //$NON-NLS-1$
-                + base64guid
-                + " base64 encoded response: " //$NON-NLS-1$
-                + responseBytes.length
-                + " byte(s) --"); //$NON-NLS-1$
-            base64buffer.append(newline);
-            base64buffer.append(base64EncodedResponse).append(newline);
-            base64buffer.append("-- end base64 encoded response --").append(newline); //$NON-NLS-1$
-
-            sb.append("-- base64 response key: " + base64guid).append(newline); //$NON-NLS-1$
-            sb.append(newline);
-        }
-
-        sb.append(responseBodyAsString != null ? responseBodyAsString : "-- RESPONSE UNAVAILABLE --"); //$NON-NLS-1$
-        sb.append(newline);
-
-        /*
-         * if an error occurred during the low-level HTTP call, log it
-         */
-        if (t != null) {
-            sb.append(newline);
-            final StringWriter sw = new StringWriter();
-            final PrintWriter pw = new PrintWriter(sw);
-            t.printStackTrace(pw);
-            pw.flush();
-            sb.append("ERROR: " + t.getMessage()).append(newline); //$NON-NLS-1$
-            sb.append(sw.toString());
-        }
-
-        /*
-         * finish off the log entry with a separator
-         */
-        sb.append("--------------------------------------------------------------------------------"); //$NON-NLS-1$
-        // String end = sb.toString().substring(sb.length() > 200 ? sb.length()
-        // - 200 : 0);
-        log.debug(sb.toString());
-
-        /*
-         * write the base64 log last - the ensures that if both logs are being
-         * appended to the same file, the regular log entry appears first
-         */
-        if (base64buffer != null) {
-            base64log.debug(base64buffer.toString());
-        }
+        return responseBody;
     }
 
     protected String getFormattedBase64Encoding(final byte[] responseBytes) {
@@ -875,7 +713,6 @@ public abstract class SOAPService {
              */
             throw new RuntimeException(e);
         }
-        final String newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
         final StringBuffer sb = new StringBuffer();
 
@@ -884,47 +721,12 @@ public abstract class SOAPService {
             final int newIx = Math.min(ix + 80, unformatted.length());
             sb.append(unformatted.substring(ix, newIx));
             if (newIx < unformatted.length()) {
-                sb.append(newline);
+                sb.append(NEWLINE);
             }
             ix = newIx;
         }
 
         return sb.toString();
-    }
-
-    private String makeNormalLogEntry(
-        final PostMethod method,
-        final long serverExecuteMs,
-        final long totalMs,
-        final long contentLength,
-        final boolean isCompressed) {
-        final String methodName = ((BufferedSOAPRequestEntity) method.getRequestEntity()).getMethodName();
-
-        /*
-         * In the case of multiple failed attempts at method execution, the
-         * PostMethod may come back to us with a null status line, which will
-         * cause NullPointerExceptions when invoking some of its methods (like
-         * getStatusCode()). We can prevent the exceptions by checking for this
-         * internal state.
-         */
-        final StatusLine statusLine = method.getStatusLine();
-
-        return "SOAP method=\'" //$NON-NLS-1$
-            + methodName
-            + "\', status=" //$NON-NLS-1$
-            + ((statusLine != null) ? method.getStatusCode() : -1)
-            + ", content-length=" //$NON-NLS-1$
-            + contentLength
-            + ", server-wait=" //$NON-NLS-1$
-            + serverExecuteMs
-            + " ms, parse=" //$NON-NLS-1$
-            + (totalMs - serverExecuteMs)
-            + " ms, total=" //$NON-NLS-1$
-            + totalMs
-            + " ms, throughput=" //$NON-NLS-1$
-            + Math.round(contentLength / Math.max(totalMs, 1F) * 1000F)
-            + " B/s" //$NON-NLS-1$
-            + (isCompressed ? ", gzip" : ", uncompressed"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     protected void finishSOAPRequest(final SOAPRequest request) {

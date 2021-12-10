@@ -1,238 +1,248 @@
 <project name="sdk" basedir=".">
-    <target name="clean.sdk" />
 
-    <target name="sdk" depends="clc">
-        <echo message="[TFSBuildStep] Building SDK" />
+	<target name="clean.sdk" />
 
-        <delete dir="${dir.binaries}/${name.dist-directory.sdk}" />
-        <mkdir dir="${dir.binaries}/${name.dist-directory.sdk}" />
+	<target name="sdk" depends="clc">
+		<echo message="[TFSBuildStep] Building SDK" />
 
-        <!-- delete any existing sdk packages -->
-        <delete file="${dir.binaries}/${name.dist-directory.sdk}/${name.filename-prefix.sdk-singlejar}.zip" />
-        <delete file="${dir.binaries}/${name.dist-directory.sdk}/${name.filename-prefix.sdk-multiplejars}.zip" />
+		<delete dir="${dir.binaries}/${name.dist-directory.sdk}" />
+		<mkdir dir="${dir.binaries}/${name.dist-directory.sdk}" />
 
-        <echo message="[TFSBuildStep] SDK: Copying results from previous steps" />
+		<!-- delete any existing sdk packages -->
+		<delete file="${dir.binaries}/${name.dist-directory.sdk}/${name.filename-prefix.sdk-singlejar}.zip" />
+		<delete file="${dir.binaries}/${name.dist-directory.sdk}/${name.filename-prefix.sdk-multiplejars}.zip" />
 
-        <!-- create the output dir to hold redistributable stuff -->
-        <delete dir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" />
-        <mkdir dir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" />
+		<echo message="[TFSBuildStep] SDK: Copying results from previous steps" />
 
-        <!-- copy core dependency jars -->
-        <copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" flatten="true">
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs" includes="**/*.jar" />
-        </copy>
+		<!-- create the output dir to hold redistributable stuff -->
+		<delete dir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" />
+		<mkdir dir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" />
 
-        <!-- copy dependent plugin jars -->
-        <copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib">
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging" includes="*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.util" includes="*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni" includes="*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.console" includes="*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient" includes="*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws.runtime" includes="*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws" includes="*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core" includes="*.jar" />
-        </copy>
+		<!-- copy core dependency jars -->
+		<copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" flatten="true">
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs" includes="**/*.jar" />
+		</copy>
 
-        <!-- copy util dependency jars -->
-        <copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" flatten="true">
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient" includes="**/*.jar" />
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging/lib" includes="**/*.jar" />
-        </copy>
+		<!-- copy dependent plugin jars -->
+		<copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib">
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.util" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.console" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws.runtime" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core" includes="*.jar" />
+		</copy>
 
-        <!-- copy native libraries -->
-        <copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/native">
-            <fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/os" />
-        </copy>
+		<!-- copy util dependency jars -->
+		<copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/lib" flatten="true">
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient" includes="**/*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.logging/lib" includes="**/*.jar" />
+		</copy>
 
-        <!-- copy samples -->
-        <copy todir="${dir.binaries}/${name.dist-directory.sdk}/samples" includeemptydirs="true">
-            <fileset dir="${dir.global.build.output.plugins}">
-                <include name="com.microsoft.tfs.sdk.samples.checkinpolicy/**" />
-                <include name="com.microsoft.tfs.sdk.samples.console/**" />
-                <include name="com.microsoft.tfs.sdk.samples.snippets/**" />
-                <include name="com.microsoft.tfs.sdk.samples.witcontrols/**" />
-              <include name="com.microsoft.tfs.sdk.samples.teamexplorer/**" />
-            </fileset>
-        </copy>
+		<!-- copy native libraries -->
+		<copy todir="${dir.binaries}/${name.dist-directory.sdk}/redist/native">
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/os" />
+		</copy>
 
-        <!-- Rename .classpath-sdk to .classpath for some Eclipse propjects (some don't need this fix-up, only ones that use SDK jar) -->
-        <move tofile="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.console/.classpath"
-              file="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.console/.classpath-sdk" />
-        <move tofile="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.snippets/.classpath"
-              file="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.snippets/.classpath-sdk" />
+		<!-- copy samples -->
+		<copy todir="${dir.binaries}/${name.dist-directory.sdk}/samples" includeemptydirs="true">
+			<fileset dir="${dir.global.build.output.plugins}">
+				<include name="com.microsoft.tfs.sdk.samples.checkinpolicy/**" />
+				<include name="com.microsoft.tfs.sdk.samples.console/**" />
+				<include name="com.microsoft.tfs.sdk.samples.snippets/**" />
+				<include name="com.microsoft.tfs.sdk.samples.witcontrols/**" />
+				<include name="com.microsoft.tfs.sdk.samples.teamexplorer/**" />
+			</fileset>
+		</copy>
 
-        <echo message="[TFSBuildStep] SDK: Combining into single JAR" />
+		<!-- Rename .classpath-sdk to .classpath for some Eclipse propjects (some don't need this fix-up, only ones that use SDK jar) -->
+		<move tofile="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.console/.classpath"
+		      file="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.console/.classpath-sdk" />
+		<move tofile="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.snippets/.classpath"
+		      file="${dir.binaries}/${name.dist-directory.sdk}/samples/com.microsoft.tfs.sdk.samples.snippets/.classpath-sdk" />
 
-        <!-- combine the jars into a single sdk jar -->
-        <jar destfile="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/${name.filename-prefix.jar-singlejar}.jar">
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.console.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.httpclient.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.ws.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.ws.runtime.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.jni.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.logging.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.util.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/hsqldb.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE META-INF/NOTICE"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-1.2.14.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/annotation-detector-3.0.4.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE.txt META-INF/maven/** META-INF/NOTICE.txt"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-codec-1.6.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-io-2.4.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-lang3-3.1.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/guava-12.0.1.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE META-INF/NOTICE META-INF/DEPENDENCIES META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/httpclient-4.3.1.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE META-INF/NOTICE META-INF/DEPENDENCIES META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/httpcore-4.3.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jackson-annotations-2.4.1.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jackson-core-2.4.1.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jackson-databind-2.4.1.jar" />
-            <zipfileset includes="**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jsr305-1.3.9.jar" />
-            <zipfileset includes="**"
-                        excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
-                        src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-logging-1.1.3.jar" />
-        </jar>
+		<echo message="[TFSBuildStep] SDK: Combining into single JAR" />
 
-        <echo message="[TFSBuildStep] SDK: Generating Javadoc" />
+		<!-- combine the jars into a single sdk jar -->
+		<jar destfile="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/${name.filename-prefix.jar-singlejar}.jar">
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.console.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.httpclient.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.ws.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.core.ws.runtime.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.jni.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.logging.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.util.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/hsqldb.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE META-INF/NOTICE"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-1.2.14.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/annotation-detector-3.0.4.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE.txt META-INF/maven/** META-INF/NOTICE.txt"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-codec-1.6.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-io-2.4.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-lang3-3.1.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/guava-12.0.1.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/DEPENDENCIES META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/httpclient-4.3.1.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/DEPENDENCIES META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/httpcore-4.3.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jackson-annotations-2.4.1.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jackson-core-2.4.1.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jackson-databind-2.4.1.jar" />
+			<zipfileset includes="**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jsr305-1.3.9.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-logging-1.1.3.jar" />
+		</jar>
 
-        <!-- configure javadoc class path to use single sdk jar -->
-        <path id="javadoc.classpath">
-            <fileset file="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/${name.filename-prefix.jar-singlejar}.jar" />
-        </path>
+		<echo message="[TFSBuildStep] SDK: Generating Javadoc" />
 
-        <!-- configure javadoc source path to included plug-ins -->
-        <path id="javadoc.sourcepath">
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.console/src" />
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.logging/src" />
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/src" />
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.util/src" />
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient/src" />
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws.runtime/src" />
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws/generated-src" />
-            <pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src" />
-        </path>
+		<!-- configure javadoc class path to use single sdk jar -->
+		<path id="javadoc.classpath">
+			<fileset file="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/${name.filename-prefix.jar-singlejar}.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs/AlmHttpClient-15.105.0.20161011" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs/java-auth-lib" includes="*.jar" />
+		</path>
 
-        <!-- generate javadoc; disable the Taglets default config (which would include icons/stylesheets which haven't had LCA/GEOIP review) -->
-        <javadoc sourcepathref="javadoc.sourcepath"
-                 classpathref="javadoc.classpath"
-                 defaultexcludes="yes"
-                 destdir="${dir.binaries}/${name.dist-directory.sdk}/docs/javadoc"
-                 use="true"
-                 author="false"
-                 windowtitle="Team Foundation Server SDK for Java"
-                 bottom="&amp;copy; 2017 Microsoft. All rights reserved."
-                 useexternalfile="true"
-                 source="1.6"
-                 additionalparam="-J-DTaglets.NoDefaultConfiguration=true">
+		<!-- configure javadoc source path to included plug-ins -->
+		<path id="javadoc.sourcepath">
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.console/src" />
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.logging/src" />
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.jni/src" />
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.util/src" />
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core.httpclient/src" />
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws.runtime/src" />
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core.ws/generated-src" />
+			<pathelement location="${dir.global.build.output.plugins}/com.microsoft.tfs.core/src" />
+		</path>
 
-            <!-- maintain these selections in accordance with desired SDK scope.  Wildcards in package names may ONLY go at the end. -->
+		<!-- generate javadoc; disable the Taglets default config (which would include icons/stylesheets which haven't had LCA/GEOIP review) -->
+		<javadoc sourcepathref="javadoc.sourcepath"
+		         classpathref="javadoc.classpath"
+		         defaultexcludes="yes"
+		         destdir="${dir.binaries}/${name.dist-directory.sdk}/docs/javadoc"
+		         use="true"
+		         author="false"
+		         windowtitle="Team Foundation Server SDK for Java"
+		         bottom="&amp;copy; 2021 Microsoft. All rights reserved."
+		         useexternalfile="true"
+		         source="1.6"
+		         additionalparam="-J-DTaglets.NoDefaultConfiguration=true">
 
-            <package name="com.microsoft.tfs.util.locking.*" />
-            <package name="com.microsoft.tfs.util.shutdown.*" />
-            <package name="com.microsoft.tfs.util.tasks.*" />
-            <package name="com.microsoft.tfs.util.temp.*" />
-            <package name="com.microsoft.tfs.core.*" />
+			<!-- maintain these selections in accordance with desired SDK scope.  Wildcards in package names may ONLY go at the end. -->
 
-            <excludepackage name="com.microsoft.tfs.core.checkinpolicies.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.checkinpolicies.loaders.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.build.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.commonstructure.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.framework.configuration.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.framework.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.framework.location.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.registration.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.reporting.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.sharepoint.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.engines.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.exceptions.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.path.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.soapextensions.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.workspacecache.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.clients.workitem.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.exceptions.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.externaltools.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.pguidance.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.util.diffmerge.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.util.internal.*" />
-            <excludepackage name="com.microsoft.tfs.core.ws.*" />
+			<package name="com.microsoft.tfs.util.locking.*" />
+			<package name="com.microsoft.tfs.util.shutdown.*" />
+			<package name="com.microsoft.tfs.util.tasks.*" />
+			<package name="com.microsoft.tfs.util.temp.*" />
+			<package name="com.microsoft.tfs.core.*" />
 
-            <!-- use the Taglets classes with customizations. -->
-            <taglet name="net.sourceforge.taglets.Taglets"
-                    path="${dir.global.buildtooling}/taglets-2.0.3:${dir.global.buildtooling}/taglets-2.0.3/taglets.jar" />
-        </javadoc>
+			<excludepackage name="com.microsoft.tfs.core.checkinpolicies.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.checkinpolicies.loaders.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.build.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.commonstructure.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.framework.configuration.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.framework.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.framework.location.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.registration.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.reporting.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.security.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.sharepoint.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.engines.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.exceptions.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.path.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.soapextensions.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.versioncontrol.workspacecache.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.webservices.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.clients.workitem.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.config.httpclient.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.credentials.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.exceptions.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.externaltools.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.pguidance.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.search.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.util.diffmerge.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.util.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.util.serverlist.internal.*" />
+			<excludepackage name="com.microsoft.tfs.core.ws.*" />
 
-        <echo message="[TFSBuildStep] SDK: Creating ZIP archive" />
+			<!-- use the Taglets classes with customizations. -->
+			<taglet name="net.sourceforge.taglets.Taglets"
+			        path="${dir.global.buildtooling}/taglets-2.0.3:${dir.global.buildtooling}/taglets-2.0.3/taglets.jar" />
+		</javadoc>
 
-        <!-- create the output SDK zip file -->
-        <zip destfile="${dir.binaries}/${name.dist-directory.sdk}/${name.filename-prefix.sdk-singlejar}.zip">
+		<echo message="[TFSBuildStep] SDK: Creating ZIP archive" />
 
-            <!-- start with the SDK layout file and use its include patterns -->
-            <zipfileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk"
-                        defaultexcludes="no"
-                        includesfile="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk/sdk-includes.txt"
-                        prefix="${name.archive-prefix.sdk}" />
+		<!-- create the output SDK zip file -->
+		<zip destfile="${dir.binaries}/${name.dist-directory.sdk}/${name.filename-prefix.sdk-singlejar}.zip">
 
-            <!-- add redist lib -->
-            <zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
-                        includes="redist/lib/${name.filename-prefix.jar-singlejar}.jar"
-                        prefix="${name.archive-prefix.sdk}" />
+			<!-- start with the SDK layout file and use its include patterns -->
+			<zipfileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk"
+			            defaultexcludes="no"
+			            includesfile="${dir.global.build.output.plugins}/com.microsoft.tfs.sdk/sdk-includes.txt"
+			            prefix="${name.archive-prefix.sdk}" />
 
-            <!-- add redist natives with executable permissions -->
-            <zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
-                        includes="redist/native/**"
-                        prefix="${name.archive-prefix.sdk}"
-                        filemode="755" />
+			<!-- add redist lib -->
+			<zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
+			            includes="redist/lib/${name.filename-prefix.jar-singlejar}.jar"
+			            prefix="${name.archive-prefix.sdk}" />
 
-            <!-- add all docs -->
-            <zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
-                        includes="docs/**"
-                        prefix="${name.archive-prefix.sdk}" />
+			<!-- add redist natives with executable permissions -->
+			<zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
+			            includes="redist/native/**"
+			            prefix="${name.archive-prefix.sdk}"
+			            filemode="755" />
 
-            <!-- add all samples -->
-            <zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
-                        includes="samples/**"
-                        prefix="${name.archive-prefix.sdk}" />
+			<!-- add all docs -->
+			<zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
+			            includes="docs/**"
+			            prefix="${name.archive-prefix.sdk}" />
 
-        </zip>
+			<!-- add all samples -->
+			<zipfileset dir="${dir.binaries}/${name.dist-directory.sdk}"
+			            includes="samples/**"
+			            prefix="${name.archive-prefix.sdk}" />
 
-    	<echo message="[TFSBuildStep] SDK: Cleaning" />
-        	
-        <!-- delete temporary directories -->
-        <delete dir="${dir.binaries}/${name.dist-directory.sdk}/redist" />
-        <delete dir="${dir.binaries}/${name.dist-directory.sdk}/docs" />
-        <delete dir="${dir.binaries}/${name.dist-directory.sdk}/samples" />
-    </target>
+		</zip>
+
+		<echo message="[TFSBuildStep] SDK: Cleaning" />
+
+		<!-- delete temporary directories -->
+		<delete dir="${dir.binaries}/${name.dist-directory.sdk}/redist" />
+		<delete dir="${dir.binaries}/${name.dist-directory.sdk}/docs" />
+		<delete dir="${dir.binaries}/${name.dist-directory.sdk}/samples" />
+	</target>
+
 </project>

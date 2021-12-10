@@ -83,8 +83,7 @@ public abstract class StaxUtils {
      *        the writer (not null)
      * @throws XMLStreamException
      */
-    public static void copyCurrentElement(final XMLStreamReader reader, final XMLStreamWriter writer)
-        throws XMLStreamException {
+    public static void copyCurrentElement(final XMLStreamReader reader, final XMLStreamWriter writer) throws XMLStreamException {
         Check.notNull(reader, "reader"); //$NON-NLS-1$
         Check.notNull(writer, "writer"); //$NON-NLS-1$
 
@@ -92,15 +91,8 @@ public abstract class StaxUtils {
 
         Check.isTrue(event == XMLStreamConstants.START_ELEMENT, "event == XMLStreamConstants.START_ELEMENT"); //$NON-NLS-1$
 
-        /*
-         * Start element depth at 1, increment when an element is started (not
-         * including the element that we start with), decrement when an element
-         * is ended, and when it goes to 0 we've read the end of the original
-         * reader's element.
-         */
-        int elementDepth = 1;
+        int elementDepth = 0;
 
-        boolean firstTime = true;
         while (true) {
             switch (event) {
                 case XMLStreamConstants.START_ELEMENT:
@@ -109,47 +101,30 @@ public abstract class StaxUtils {
                     final String elementNameSpace = reader.getNamespaceURI();
 
                     writer.writeStartElement(
-                        StringUtil.isNullOrEmpty(elementPrefix) ? StringUtil.EMPTY : elementPrefix,
-                        StringUtil.isNullOrEmpty(elementLocalName) ? StringUtil.EMPTY : elementLocalName,
-                        StringUtil.isNullOrEmpty(elementNameSpace) ? StringUtil.EMPTY : elementNameSpace);
+                        elementPrefix != null ? elementPrefix : StringUtil.EMPTY,
+                        elementLocalName != null ? elementLocalName : StringUtil.EMPTY,
+                        elementNameSpace != null ? elementNameSpace : StringUtil.EMPTY);
 
-                    final int attributeCount = reader.getAttributeCount();
-                    for (int i = 0; i < attributeCount; i++) {
+                    for (int i = 0, n = reader.getAttributeCount(); i < n; i += 1) {
                         final String prefix = reader.getAttributePrefix(i);
                         final String nameSpace = reader.getAttributeNamespace(i);
                         final String localName = reader.getAttributeLocalName(i);
                         final String value = reader.getAttributeValue(i);
 
                         writer.writeAttribute(
-                            StringUtil.isNullOrEmpty(prefix) ? StringUtil.EMPTY : prefix,
-                            StringUtil.isNullOrEmpty(nameSpace) ? StringUtil.EMPTY : nameSpace,
-                            StringUtil.isNullOrEmpty(localName) ? StringUtil.EMPTY : localName,
-                            StringUtil.isNullOrEmpty(value) ? StringUtil.EMPTY : value);
+                            prefix != null ? prefix : StringUtil.EMPTY,
+                            nameSpace != null ? nameSpace : StringUtil.EMPTY,
+                            localName != null ? localName : StringUtil.EMPTY,
+                            value != null ? value : StringUtil.EMPTY);
                     }
-
-                    /*
-                     * Don't increment depth the first time through, because the
-                     * caller opened the element.
-                     */
-                    if (firstTime) {
-                        firstTime = false;
-                    } else {
-                        elementDepth++;
-                    }
-
+                    elementDepth += 1;
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     writer.writeEndElement();
-                    elementDepth--;
-
-                    if (elementDepth < 1) {
-                        /*
-                         * We just wrote the end element for the original
-                         * element.
-                         */
+                    if (--elementDepth < 1) {
+                        // We just wrote the end element for the original element.
                         return;
                     }
-
                     break;
                 case XMLStreamConstants.PROCESSING_INSTRUCTION:
                     writer.writeProcessingInstruction(reader.getPITarget(), reader.getPIData());

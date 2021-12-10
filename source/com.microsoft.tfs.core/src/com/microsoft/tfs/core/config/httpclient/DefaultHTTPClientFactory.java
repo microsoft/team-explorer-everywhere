@@ -8,9 +8,6 @@ import java.text.MessageFormat;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclipse.core.runtime.IBundleGroup;
-import org.eclipse.core.runtime.IBundleGroupProvider;
-import org.eclipse.core.runtime.Platform;
 
 import com.microsoft.tfs.core.config.ConnectionInstanceData;
 import com.microsoft.tfs.core.config.EnvironmentVariables;
@@ -41,6 +38,7 @@ import com.microsoft.tfs.core.ws.runtime.transport.HTTPConnectionCanceller;
 import com.microsoft.tfs.core.ws.runtime.transport.IdleHTTPConnectionCloser;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
 import com.microsoft.tfs.util.Check;
+import com.microsoft.tfs.util.StringUtil;
 
 /**
  * <p>
@@ -538,20 +536,19 @@ public class DefaultHTTPClientFactory implements ConfigurableHTTPClientFactory {
      * is the eclipse version.
      */
     private final String getProductInformation(final String shortName) {
-
-        final String[] productInfo = new String[2];
-        String productVendorVersion = ""; //$NON-NLS-1$
+        String productVendorVersion = StringUtil.EMPTY;
 
         // collect this information only in case of running as eclipse plugin
         if (shortName.equals(ProductName.PLUGIN)) {
-            productInfo[0] = Platform.getProduct().getName().replace(' ', '_');
+            final String[] productInfo = new String[2];
 
-            final IBundleGroupProvider[] providers = Platform.getBundleGroupProviders();
+            productInfo[0] = org.eclipse.core.runtime.Platform.getProduct().getName().replace(' ', '_');
+
+            final org.eclipse.core.runtime.IBundleGroupProvider[] providers = org.eclipse.core.runtime.Platform.getBundleGroupProviders();
 
             if (providers != null) {
-                for (final IBundleGroupProvider provider : providers) {
-                    final IBundleGroup[] groups = provider.getBundleGroups();
-                    for (final IBundleGroup group : groups) {
+                for (final org.eclipse.core.runtime.IBundleGroupProvider provider : providers) {
+                    for (final org.eclipse.core.runtime.IBundleGroup group : provider.getBundleGroups()) {
                         final String groupName = group.getName();
                         final String groupVersion = group.getVersion();
 
@@ -567,11 +564,12 @@ public class DefaultHTTPClientFactory implements ConfigurableHTTPClientFactory {
                     }
                 }
             }
+
+            if (productInfo[0] != null && productInfo[1] != null) {
+                productVendorVersion = MessageFormat.format("{0} {1} ", productInfo[0], productInfo[1]); //$NON-NLS-1$
+            }
         }
 
-        if (productInfo[0] != null && productInfo[1] != null) {
-            productVendorVersion = MessageFormat.format("{0} {1} ", productInfo[0], productInfo[1]); //$NON-NLS-1$
-        }
         return productVendorVersion;
     }
 }
