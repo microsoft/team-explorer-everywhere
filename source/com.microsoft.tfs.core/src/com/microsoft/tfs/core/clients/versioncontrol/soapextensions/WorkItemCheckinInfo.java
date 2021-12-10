@@ -101,8 +101,8 @@ public class WorkItemCheckinInfo {
     public CheckinWorkItemAction[] getAvailableActions() {
         if (workItem.getNextState(WorkItemActions.VS_CHECKIN) != null) {
             return new CheckinWorkItemAction[] {
-                CheckinWorkItemAction.RESOLVE,
-                CheckinWorkItemAction.ASSOCIATE
+                CheckinWorkItemAction.ASSOCIATE,
+                CheckinWorkItemAction.RESOLVE
             };
         } else {
             return new CheckinWorkItemAction[] {
