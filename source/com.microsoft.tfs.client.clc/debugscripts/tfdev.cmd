@@ -42,7 +42,7 @@ if DEFINED JAVA_DEBUG set JAVA_DEBUG_FLAGS=-Xdebug -Xnoagent -Xrunjdwp:transport
 
 setlocal DISABLEDELAYEDEXPANSION
 
-java -Xmx512M %JAVA_DEBUG_FLAGS% -cp %CLC_CLASSPATH% "-Dcom.microsoft.tfs.jni.native.base-directory=%BASE_DIRECTORY%..\..\com.microsoft.tfs.jni\os" %LAUNCHER_CLASS% %*
+java %JAVA_DEBUG_FLAGS% -cp %CLC_CLASSPATH% "-Dcom.microsoft.tfs.jni.native.base-directory=%BASE_DIRECTORY%..\..\com.microsoft.tfs.jni\os" %LAUNCHER_CLASS% %*
 
 set RETURN_VALUE=%errorlevel%
 goto end

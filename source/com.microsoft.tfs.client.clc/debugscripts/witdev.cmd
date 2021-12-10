@@ -39,7 +39,7 @@ for %%a in (%DEP_PROJECTS_LIBDIRS%) do (for %%u in (%%a\*.jar) do set CLC_CLASSP
 
 setlocal DISABLEDELAYEDEXPANSION
 
-java -Xmx512M -cp %CLC_CLASSPATH% "-Dcom.microsoft.tfs.jni.native.base-directory=%BASE_DIRECTORY%..\..\com.microsoft.tfs.jni\os" %LAUNCHER_CLASS% %*
+java -cp %CLC_CLASSPATH% "-Dcom.microsoft.tfs.jni.native.base-directory=%BASE_DIRECTORY%..\..\com.microsoft.tfs.jni\os" %LAUNCHER_CLASS% %*
 
 set RETURN_VALUE=%errorlevel%
 goto end
