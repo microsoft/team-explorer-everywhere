@@ -27,7 +27,9 @@ Bundle-ClassPath: com.microsoft.tfs.core.jar,
  libs/jna/jna-4.2.1.jar,
  libs/jna/jna-platform-4.2.1.jar,
  libs/jsr305-1.3.9/jsr305-1.3.9.jar,
- libs/oauth2-useragent/oauth2-useragent-0.11.2.jar
+ libs/oauth2-useragent/oauth2-useragent-0.11.2.jar,
+ libs/slf4j/slf4j-api-1.7.19.jar,
+ libs/slf4j/slf4j-log4j12-1.7.19.jar
 Bundle-Vendor: %Bundle-Vendor
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
