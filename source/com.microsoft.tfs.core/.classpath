@@ -21,10 +21,10 @@
 	<classpathentry kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-tfs-client-15.105.0-SNAPSHOT.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/AlmHttpClient-15.105.0.20161011/alm-vss-client-15.105.0-SNAPSHOT.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/annotation-detector-3.0.4/annotation-detector-3.0.4.jar"/>
-	<classpathentry kind="lib" path="libs/java-auth-lib/auth-common-0.6.0-SNAPSHOT.jar" exported="true"/>
-	<classpathentry kind="lib" path="libs/java-auth-lib/auth-core-0.6.0-SNAPSHOT.jar" exported="true"/>
-	<classpathentry kind="lib" path="libs/java-auth-lib/auth-providers-0.6.0-SNAPSHOT.jar" exported="true"/>
-	<classpathentry kind="lib" path="libs/java-auth-lib/auth-secure-storage-0.6.0-SNAPSHOT.jar" exported="true"/>
+	<classpathentry kind="lib" path="libs/auth-common-0.6.4.jar" sourcepath="libs/auth-common-0.6.4-sources.jar" exported="true"/>
+	<classpathentry kind="lib" path="libs/auth-core-0.6.4.jar" sourcepath="libs/auth-core-0.6.4-sources.jar" exported="true"/>
+	<classpathentry kind="lib" path="libs/auth-providers-0.6.4.jar" sourcepath="libs/auth-providers-0.6.4-sources.jar" exported="true"/>
+	<classpathentry kind="lib" path="libs/auth-secure-storage-0.6.4.jar" sourcepath="libs/auth-secure-storage-0.6.4-sources.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/commons-io-2.4/commons-io-2.4.jar"/>
 	<classpathentry kind="lib" path="libs/commons-lang3-3.1/commons-lang3-3.1.jar"/>
 	<classpathentry kind="lib" path="libs/guava-12.0.1/guava-12.0.1.jar"/>
@@ -37,6 +37,6 @@
 	<classpathentry kind="lib" path="libs/jna/jna-4.2.1.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/jna/jna-platform-4.2.1.jar" exported="true"/>
 	<classpathentry kind="lib" path="libs/jsr305-1.3.9/jsr305-1.3.9.jar"/>
-	<classpathentry kind="lib" path="libs/oauth2-useragent/oauth2-useragent-0.11.2.jar" exported="true"/>
+	<classpathentry kind="lib" path="libs/oauth2-useragent-0.11.3.jar" sourcepath="libs/oauth2-useragent-0.11.3-sources.jar" exported="true"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 </classpath>

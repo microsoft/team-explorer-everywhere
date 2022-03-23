@@ -124,7 +124,7 @@
 
 		<!-- copy and flatten dependency jars -->
 		<copy todir="${dir.binaries.clc}/lib" flatten="true">
-			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core/libs" includes="**/*.jar" />
+			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core/libs" includes="**/*.jar" excludes="**/*-sources.jar" />
 			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.core.httpclient/libs" includes="**/*.jar" />
 			<fileset dir="${dir.global.build.source}/com.microsoft.tfs.logging/lib" includes="**/*.jar" />
 		</copy>

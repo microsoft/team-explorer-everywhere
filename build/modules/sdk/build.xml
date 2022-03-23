@@ -131,7 +131,7 @@
 		<path id="javadoc.classpath">
 			<fileset file="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/${name.filename-prefix.jar-singlejar}.jar" />
 			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs/AlmHttpClient-15.105.0.20161011" includes="*.jar" />
-			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs/java-auth-lib" includes="*.jar" />
+			<fileset dir="${dir.global.build.output.plugins}/com.microsoft.tfs.core/libs" includes="*.jar" />
 		</path>
 
 		<!-- configure javadoc source path to included plug-ins -->
