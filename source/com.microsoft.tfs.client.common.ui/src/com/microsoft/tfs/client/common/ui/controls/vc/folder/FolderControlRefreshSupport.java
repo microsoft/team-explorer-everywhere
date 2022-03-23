@@ -188,7 +188,7 @@ public class FolderControlRefreshSupport {
             }
         }
 
-        return (TFSFolder) resultItems.get(0);
+        return resultItems.isEmpty() ? null : (TFSFolder) resultItems.get(0);
     }
 
     private void addInto(final TFSFolder folder, final TFSItem child) {
