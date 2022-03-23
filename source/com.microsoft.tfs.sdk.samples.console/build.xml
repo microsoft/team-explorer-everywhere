@@ -9,7 +9,7 @@
     <path id="sdk-classpath">
         <fileset file="${tfs-sdk-jar}" />
         <!-- The "dir" value must exist; the "includes" may reference non-existent paths. -->
-        <fileset dir="../.." includes="redist/lib/com.microsoft.tfs.sdk-14.136.0.jar" />
+        <fileset dir="../.." includes="redist/lib/com.microsoft.tfs.sdk-14.137.0.jar" />
     </path>
 
     <target name="instructions" description="Prints instructions on compiling and using the console samples">

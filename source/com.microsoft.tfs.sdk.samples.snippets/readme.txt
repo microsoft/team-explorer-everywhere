@@ -10,7 +10,7 @@ Instructions for Using Snippets
 3. Run each snippet program like:
 
    (Windows)
-   java -Dcom.microsoft.tfs.jni.native.base-directory=..\..\redist\native -classpath ..\..\redist\lib\com.microsoft.tfs.sdk-14.136.0.jar;.\bin com.microsoft.tfs.sdk.samples.snippets.SnippetClassName
+   java -Dcom.microsoft.tfs.jni.native.base-directory=..\..\redist\native -classpath ..\..\redist\lib\com.microsoft.tfs.sdk-14.137.0.jar;.\bin com.microsoft.tfs.sdk.samples.snippets.SnippetClassName
 
    (Unix and Mac OS)
-   java -Dcom.microsoft.tfs.jni.native.base-directory=../../redist/native -classpath ../../redist/lib/com.microsoft.tfs.sdk-14.136.0.jar:./bin com.microsoft.tfs.sdk.samples.snippets.SnippetClassName
+   java -Dcom.microsoft.tfs.jni.native.base-directory=../../redist/native -classpath ../../redist/lib/com.microsoft.tfs.sdk-14.137.0.jar:./bin com.microsoft.tfs.sdk.samples.snippets.SnippetClassName

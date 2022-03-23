@@ -2,7 +2,7 @@
 <feature
       id="com.microsoft.tfs.client.clc.feature"
       label="%Feature-Name"
-      version="14.136.0.qualifier"
+      version="14.137.0.qualifier"
       provider-name="%Feature-Vendor">
 
    <description>

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.microsoft.tfs.client.eclipse.feature_14.136.0.qualifier.jar" id="com.microsoft.tfs.client.eclipse.feature" version="14.136.0.qualifier">
+   <feature url="features/com.microsoft.tfs.client.eclipse.feature_14.137.0.qualifier.jar" id="com.microsoft.tfs.client.eclipse.feature" version="14.137.0.qualifier">
       <category name="com.microsoft.tfs.client.eclipse.category"/>
    </feature>
-   <feature url="features/com.microsoft.tfs.client.eclipse.nl1.feature_14.136.0.qualifier.jar" id="com.microsoft.tfs.client.eclipse.nl1.feature" version="14.136.0.qualifier">
+   <feature url="features/com.microsoft.tfs.client.eclipse.nl1.feature_14.137.0.qualifier.jar" id="com.microsoft.tfs.client.eclipse.nl1.feature" version="14.137.0.qualifier">
       <category name="com.microsoft.tfs.client.eclipse.category"/>
    </feature>
-   <feature url="features/com.microsoft.tfs.client.eclipse.nlz.feature_14.136.0.qualifier.jar" id="com.microsoft.tfs.client.eclipse.nlz.feature" version="14.136.0.qualifier">
+   <feature url="features/com.microsoft.tfs.client.eclipse.nlz.feature_14.137.0.qualifier.jar" id="com.microsoft.tfs.client.eclipse.nlz.feature" version="14.137.0.qualifier">
       <category name="com.microsoft.tfs.client.eclipse.language-packs.category"/>
    </feature>
-   <feature url="features/com.microsoft.tfs.pt.alertsubscription.feature_14.136.0.qualifier.jar" id="com.microsoft.tfs.pt.alertsubscription.feature" version="14.136.0.qualifier">
+   <feature url="features/com.microsoft.tfs.pt.alertsubscription.feature_14.137.0.qualifier.jar" id="com.microsoft.tfs.pt.alertsubscription.feature" version="14.137.0.qualifier">
       <category name="com.microsoft.tfs.pt.category"/>
    </feature>
-   <feature url="features/com.microsoft.tfs.pt.findinsce.feature_14.136.0.qualifier.jar" id="com.microsoft.tfs.pt.findinsce.feature" version="14.136.0.qualifier">
+   <feature url="features/com.microsoft.tfs.pt.findinsce.feature_14.137.0.qualifier.jar" id="com.microsoft.tfs.pt.findinsce.feature" version="14.137.0.qualifier">
       <category name="com.microsoft.tfs.pt.category"/>
    </feature>
-   <feature url="features/com.microsoft.tfs.pt.testrunner.feature_14.136.0.qualifier.jar" id="com.microsoft.tfs.pt.testrunner.feature" version="14.136.0.qualifier">
+   <feature url="features/com.microsoft.tfs.pt.testrunner.feature_14.137.0.qualifier.jar" id="com.microsoft.tfs.pt.testrunner.feature" version="14.137.0.qualifier">
       <category name="com.microsoft.tfs.pt.category"/>
    </feature>
-   <feature url="features/com.microsoft.tfs.pt.wit.templates.feature_14.136.0.qualifier.jar" id="com.microsoft.tfs.pt.wit.templates.feature" version="14.136.0.qualifier">
+   <feature url="features/com.microsoft.tfs.pt.wit.templates.feature_14.137.0.qualifier.jar" id="com.microsoft.tfs.pt.wit.templates.feature" version="14.137.0.qualifier">
       <category name="com.microsoft.tfs.pt.category"/>
    </feature>
    <category-def name="com.microsoft.tfs.client.eclipse.category" label="Team Explorer Everywhere">
