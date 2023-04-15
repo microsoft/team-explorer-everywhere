@@ -43,8 +43,6 @@ jobs:
 
       - name: Install JDK 8
         run: "cinst openjdk8 --version 8.232.9"
-      - name: Install Ant
-        run: "cinst ant --version 1.10.5 --ignore-dependencies --force"
 
       - name: Prepare Eclipse dependency
         shell: pwsh
@@ -52,7 +50,7 @@ jobs:
 
       - name: Build
         shell: pwsh
-        run: $env:ANT_HOME = 'C:\ProgramData\chocolatey\lib\ant\apache-ant-1.10.5'; scripts/build.ps1
+        run: scripts/build.ps1
 
       - name: Upload CLC
         uses: actions/upload-artifact@v2
