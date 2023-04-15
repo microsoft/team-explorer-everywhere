@@ -52,7 +52,7 @@ jobs:
 
       - name: Build
         shell: pwsh
-        run: scripts/build.ps1
+        run: $env:ANT_HOME = 'C:\ProgramData\chocolatey\lib\ant\apache-ant-1.10.5'; scripts/build.ps1
 
       - name: Upload CLC
         uses: actions/upload-artifact@v2
