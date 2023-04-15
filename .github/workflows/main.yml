@@ -52,6 +52,13 @@ jobs:
         shell: pwsh
         run: $env:PATH = "C:\Program Files\OpenJDK\openjdk-8u232-b09;$env:PATH"; $env:JAVA_HOME = "C:\Program Files\OpenJDK\openjdk-8u232-b09"; scripts/build.ps1
 
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: build/output/bin/testresults/unittests/*.xml
+
       - name: Upload CLC
         uses: actions/upload-artifact@v2
         with:
