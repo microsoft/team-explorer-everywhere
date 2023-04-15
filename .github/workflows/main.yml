@@ -1,0 +1,67 @@
+name: Main
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  main:
+    runs-on: "windows-2022"
+    env:
+      ECLIPSE_URL: https://archive.eclipse.org/eclipse/downloads/drops/R-3.5.2-201002111343/eclipse-SDK-3.5.2-win32-x86_64.zip
+      ECLIPSE_HASH: 4E9EDDD6DC4F69C8A02C105DCBAF1A2DEDED6BBED138557DBC598323BBAA0AD7
+      EGIT_URL: https://archive.eclipse.org/egit/updates-2.1/org.eclipse.egit.repository-2.1.0.201209190230-r.zip
+      EGIT_HASH: AF2D9B6D946B734D5BC232DCF58A5A40980CAE78DB5E12B66FCAF1A970535328
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache downloads
+        uses: actions/cache@v2
+        with:
+          path: .build/downloads
+          key: ${{ runner.os }}.downloads.${{ hashFiles('.github/workflows/main.yml') }}
+      - name: Cache Eclipse
+        uses: actions/cache@v2
+        with:
+          path: .build/eclipse
+          key: ${{ runner.os }}.eclipse.${{ hashFiles('.github/workflows/main.yml') }}
+      - name: Cache Chocolatey bin
+        uses: actions/cache@v2
+        with:
+          path: C:/ProgramData/chocolatey/bin
+          key: ${{ runner.os }}.eclipse.${{ hashFiles('.github/workflows/main.yml') }}
+      - name: Cache Chocolatey lib
+        uses: actions/cache@v2
+        with:
+          path: C:/ProgramData/chocolatey/lib
+          key: ${{ runner.os }}.eclipse.${{ hashFiles('.github/workflows/main.yml') }}
+
+      - name: Install JDK 8
+        run: "cinst openjdk8 --version 8.232.9"
+      - name: Install Ant
+        run: "cinst ant --version 1.10.5 --ignore-dependencies --force"
+
+      - name: Prepare Eclipse dependency
+        shell: pwsh
+        run: scripts/prepare-eclipse.ps1 -EclipseUrl $env:ECLIPSE_URL -EclipseFileHash $env:ECLIPSE_HASH -EGitUrl $env:EGIT_URL -EGitFileHash $env:EGIT_HASH
+
+      - name: Build
+        shell: pwsh
+        run: scripts/build.ps1
+
+      - name: Upload CLC
+        uses: actions/upload-artifact@v2
+        with:
+          name: Client
+          path: build/output/bin/clc/TEE-CLC-1*.zip
+
+      - name: Upload SDK
+        uses: actions/upload-artifact@v2
+        with:
+          name: SDK
+          path: build/output/bin/sdk/*.zip
