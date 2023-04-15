@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 
 Push-Location "$SourceRoot/build"
 try {
-    ant "-Ddir.machine.build-runtime=$EclipseRoot/eclipse"
+    ant "-Ddir.machine.build-runtime=$EclipseRoot/eclipse" -v
     if (!$?) {
         throw "Ant exit code: $LASTEXITCODE"
     }
