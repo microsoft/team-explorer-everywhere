@@ -2,7 +2,8 @@
 /.build/eclipse
 /.gradle
 /.idea
-/build
+/build/resources/
+/gradle-build/
 
 bin
 
