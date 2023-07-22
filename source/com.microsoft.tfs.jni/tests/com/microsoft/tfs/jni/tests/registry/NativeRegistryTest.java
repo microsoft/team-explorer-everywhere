@@ -74,14 +74,14 @@ public class NativeRegistryTest extends TestCase {
 
             // test a valid value name with a DWORD value in HKCU.
             key = new RegistryKey(RootKey.HKEY_CURRENT_USER, "Console"); //$NON-NLS-1$
-            assertTrue(key.hasValue("InsertMode")); //$NON-NLS-1$
+            assertTrue("HKCU/Console/InsertMode should be available", key.hasValue("InsertMode")); //$NON-NLS-1$
 
             // test a valid value name with a SZ value in HKCU.
             key = new RegistryKey(RootKey.HKEY_CURRENT_USER, "Environment"); //$NON-NLS-1$
-            assertTrue(key.hasValue("Path")); //$NON-NLS-1$
+            assertTrue("HKCU/Environment/Path should be available", key.hasValue("Path")); //$NON-NLS-1$
 
             // test an invalid value name with a SZ value in HKCU.
-            assertFalse(key.hasValue("Path_TestValueForTEE")); //$NON-NLS-1$
+            assertFalse("HKCU/Environment/Path_TestValueForTEE should not be available", key.hasValue("Path_TestValueForTEE")); //$NON-NLS-1$
         }
     }
 
