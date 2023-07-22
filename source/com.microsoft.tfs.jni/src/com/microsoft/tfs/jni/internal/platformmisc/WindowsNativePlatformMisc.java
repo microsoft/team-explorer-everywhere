@@ -33,8 +33,9 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
 
     @Override
     public String getComputerName() {
-        Memory buffer = new Memory(Kernel32.MAX_COMPUTERNAME_LENGTH + 1);
-        IntByReference size = new IntByReference((int) buffer.size());
+        int bufferSizeInWChar = Kernel32.MAX_COMPUTERNAME_LENGTH + 1; // + 1 for terminating zero
+        Memory buffer = new Memory(bufferSizeInWChar * 2);
+        IntByReference size = new IntByReference(bufferSizeInWChar);
         if (!kernel32.GetComputerNameW(buffer, size)) {
             return null;
         }
@@ -49,19 +50,20 @@ public class WindowsNativePlatformMisc implements PlatformMisc {
 
     @Override
     public String expandEnvironmentString(String value) {
-        Memory buffer = new Memory(value.length() * 2 + 2); // * 2 because of UTF-16, + 2 for terminating zero
-        WinDef.DWORD newSize = kernel32.ExpandEnvironmentStringsW(
+        int bufferSizeInWChar = value.length() + 1; // + 1 for terminating zero
+        Memory buffer = new Memory(bufferSizeInWChar * 2);
+        WinDef.DWORD newSizeInWChar = kernel32.ExpandEnvironmentStringsW(
             new WString(value),
             buffer,
-            new WinDef.DWORD(buffer.size()));
+            new WinDef.DWORD(bufferSizeInWChar));
 
-        if (buffer.size() < newSize.longValue()) {
-            buffer = new Memory(newSize.longValue());
-            newSize = kernel32.ExpandEnvironmentStringsW(
+        if (bufferSizeInWChar < newSizeInWChar.longValue()) {
+            buffer = new Memory(newSizeInWChar.longValue() * 2);
+            newSizeInWChar = kernel32.ExpandEnvironmentStringsW(
                 new WString(value),
                 buffer,
                 new WinDef.DWORD(buffer.size()));
-            if (newSize.intValue() == 0) {
+            if (newSizeInWChar.intValue() == 0) {
                 // Some weird error (maybe syntax?).
                 return null;
             }
