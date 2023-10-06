@@ -281,7 +281,7 @@ if [ "$PREVIEW" = 0 ] ; then
     fi
 
     # A log4j configuration file exists in this directory for assistance debugging.
-    CLASSPATH=.:$TMP:junit-3.8.2.jar:../../com.microsoft.tfs.logging/lib/commons-logging-1.1/commons-logging-1.1.jar:../../com.microsoft.tfs.logging/lib/log4j-1.2.14/log4j-1.2.14.jar
+    CLASSPATH=.:$TMP:junit-3.8.2.jar:../../com.microsoft.tfs.logging/lib/commons-logging-1.1/commons-logging-1.1.jar:../../com.microsoft.tfs.logging/lib/log4j-1.2.17/log4j-1.2.17.jar
     export CLASSPATH
 
     $E ":: Building for $PLATFORM/$ARCH"

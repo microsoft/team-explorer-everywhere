@@ -129,7 +129,7 @@ rem Compile the Java classes
 rem ###########################################################
 
 echo Compiling wrapper classes...
-set CLASSPATH=.;%BUILD_TMP%;junit-3.8.2.jar;..\..\com.microsoft.tfs.logging\lib\commons-logging-1.2\commons-logging-1.2.jar;..\..\com.microsoft.tfs.logging\lib\log4j-1.2.14\log4j-1.2.14.jar
+set CLASSPATH=.;%BUILD_TMP%;junit-3.8.2.jar;..\..\com.microsoft.tfs.logging\lib\commons-logging-1.2\commons-logging-1.2.jar;..\..\com.microsoft.tfs.logging\lib\log4j-1.2.17\log4j-1.2.17.jar
 
 set SOURCEFILES=^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\Check.java ^

@@ -87,7 +87,7 @@
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/hsqldb.jar" />
 			<zipfileset includes="**"
 			            excludes="META-INF/LICENSE META-INF/NOTICE"
-			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-1.2.14.jar" />
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-1.2.17.jar" />
 			<zipfileset includes="**"
 			            excludes="META-INF/maven/**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/annotation-detector-3.0.4.jar" />
