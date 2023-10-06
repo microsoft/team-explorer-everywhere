@@ -8,11 +8,11 @@ Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: com.microsoft.tfs.logging.jar,
- lib/commons-logging-1.1.3/commons-logging-1.1.3.jar,
+ lib/commons-logging-1.2/commons-logging-1.2.jar,
  lib/log4j-1.2.14/log4j-1.2.14.jar
 Export-Package: com.microsoft.tfs.logging.config,
- org.apache.commons.logging;version="1.1.3",
- org.apache.commons.logging.impl;version="1.1.3",
+ org.apache.commons.logging;version="1.2",
+ org.apache.commons.logging.impl;version="1.2",
  org.apache.log4j;version="1.2.14",
  org.apache.log4j.chainsaw;version="1.2.14",
  org.apache.log4j.config;version="1.2.14",
