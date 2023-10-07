@@ -13,6 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="libs/com.jcraft.jsch_0.1.44.v201101211721.jar" exported="true"/>
+	<classpathentry kind="lib" path="libs/com.jcraft.jsch_0.1.44.v201101211721.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 </classpath>

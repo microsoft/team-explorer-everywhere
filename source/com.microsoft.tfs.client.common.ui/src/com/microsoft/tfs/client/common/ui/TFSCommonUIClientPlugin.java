@@ -3,8 +3,6 @@
 
 package com.microsoft.tfs.client.common.ui;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -46,8 +44,6 @@ public class TFSCommonUIClientPlugin extends AbstractUIPlugin implements TFSCons
      */
     public static final String PRODUCT_PLUGIN_PROVIDER_EXTENSION_POINT_ID =
         "com.microsoft.tfs.client.common.ui.productPluginProvider"; //$NON-NLS-1$
-
-    private static final Log log = LogFactory.getLog(TFSCommonUIClientPlugin.class);
 
     // The shared instance
     private static TFSCommonUIClientPlugin plugin;

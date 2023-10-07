@@ -24,26 +24,22 @@ public class LogConfigurationSample {
          * Use Apache Commons Logging to get a logger for test purposes. All TEE
          * SDK classes obtain loggers this way.
          */
-
         final Log log = LogFactory.getLog(LogConfigurationSample.class);
 
         /*
          * Log once using the default TFS SDK for Java log4j configuration,
-         * which is usually the log4j.properties resource contained in the TEE
-         * SDK JAR (but may be another configuration file found first on the
-         * classpath by log4j).
+         * which is usually the log4j2.xml resource contained in the TEE SDK JAR
+         * (but may be another configuration file found first on the classpath).
          */
-
-        logAllLevels(log, "default TFS SDK for Java log configuration"); //$NON-NLS-1$
+        logAllLevels(log, "Default TFS SDK for Java log configuration"); //$NON-NLS-1$
 
         /*
          * Configure with a resource from this sample project to show TRACE and
          * above (most verbose).
          */
-
         Config.configure(
             new ClassloaderConfigurationProvider(LogConfigurationSample.class.getClassLoader(), new String[] {
-                "com/microsoft/tfs/sdk/samples/console/log4j-trace.properties" //$NON-NLS-1$
+                "com/microsoft/tfs/sdk/samples/console/log4j-trace.xml" //$NON-NLS-1$
         }), EnableReconfigurationPolicy.DISABLE_WHEN_EXTERNALLY_CONFIGURED, ResetConfigurationPolicy.RESET_EXISTING);
 
         logAllLevels(log, "TRACE and above shown"); //$NON-NLS-1$
@@ -52,10 +48,9 @@ public class LogConfigurationSample {
          * Configure with a resource from this sample project to show WARN and
          * above (less verbose).
          */
-
         Config.configure(
             new ClassloaderConfigurationProvider(LogConfigurationSample.class.getClassLoader(), new String[] {
-                "com/microsoft/tfs/sdk/samples/console/log4j-warn.properties" //$NON-NLS-1$
+                "com/microsoft/tfs/sdk/samples/console/log4j-warn.xml" //$NON-NLS-1$
         }), EnableReconfigurationPolicy.DISABLE_WHEN_EXTERNALLY_CONFIGURED, ResetConfigurationPolicy.RESET_EXISTING);
 
         logAllLevels(log, "WARN and above shown"); //$NON-NLS-1$
@@ -64,8 +59,8 @@ public class LogConfigurationSample {
     private static void logAllLevels(final Log log, final String message) {
         log.trace(message);
         log.debug(message);
-        log.info(message);
-        log.warn(message);
+        log.info (message);
+        log.warn (message);
         log.error(message);
         log.fatal(message);
     }

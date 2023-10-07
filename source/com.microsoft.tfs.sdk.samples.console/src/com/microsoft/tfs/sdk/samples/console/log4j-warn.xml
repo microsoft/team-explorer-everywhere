@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Log4j configuration file used by LogConfigurationSample.java.
+-->
+<Configuration>
+	<Appenders>
+		<Console name="A1">
+			<PatternLayout pattern="%-5p [%t] %c{1} - %m%n"/>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="WARN">
+			<AppenderRef ref="A1"/>
+		</Root>
+	</Loggers>
+</Configuration>

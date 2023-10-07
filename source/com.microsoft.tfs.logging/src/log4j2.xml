@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The TFS SDK for Java default log4j configuration.
+  See com.microsoft.tfs.logging.config.Config documentation for how to override.
+-->
+<Configuration>
+	<Appenders>
+		<Console name="A1">
+			<PatternLayout pattern="%-5p [%t] %c{1} - %m%n"/>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="WARN">
+			<AppenderRef ref="A1"/>
+		</Root>
+	</Loggers>
+</Configuration>

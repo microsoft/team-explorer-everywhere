@@ -31,13 +31,13 @@ public abstract class EnableReconfigurationPolicy {
     /**
      * Allows reconfiguration only if a log4j is not externally configured:
      * {@link #allowReconfiguration()} returns <code>true</code> only if the
-     * system property <code>log4j.configuration</code> is <b>not</b> set.
+     * system property <code>log4j.configurationFile</code> is <b>not</b> set.
      */
     public static final EnableReconfigurationPolicy DISABLE_WHEN_EXTERNALLY_CONFIGURED =
         new EnableReconfigurationPolicy() {
             @Override
             public boolean allowReconfiguration() {
-                return System.getProperty("log4j.configuration") == null; //$NON-NLS-1$
+                return System.getProperty("log4j.configurationFile") == null; //$NON-NLS-1$
             }
 
             @Override

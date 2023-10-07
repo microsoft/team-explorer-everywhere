@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Appenders>
+		<File name="LOGFILE" fileName="${sys:teamexplorer-log}" append="false">
+			<PatternLayout pattern="%d %-5p [%t] (%c) %m%n"/>
+		</File>
+		<File name="SOAP-LOGFILE" fileName="${sys:teamexplorer-soap-log}" append="false">
+			<PatternLayout pattern="%d %m%n"/>
+		</File>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.microsoft.tfs.core.ws.runtime.client.SOAPService" level="INFO" additivity="false">
+			<AppenderRef ref="SOAP-LOGFILE"/>
+		</Logger>
+		<Root level="INFO">
+			<AppenderRef ref="LOGFILE"/>
+		</Root>
+	</Loggers>
+</Configuration>

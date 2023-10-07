@@ -84,15 +84,10 @@
 			<zipfileset includes="**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/com.microsoft.tfs.util.jar" />
 			<zipfileset includes="**"
-			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/hsqldb.jar" />
-			<zipfileset includes="**"
-			            excludes="META-INF/LICENSE META-INF/NOTICE"
-			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-1.2.17.jar" />
-			<zipfileset includes="**"
 			            excludes="META-INF/maven/**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/annotation-detector-3.0.4.jar" />
 			<zipfileset includes="**"
-			            excludes="META-INF/LICENSE.txt META-INF/maven/** META-INF/NOTICE.txt"
+			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-codec-1.6.jar" />
 			<zipfileset includes="**"
 			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
@@ -101,13 +96,18 @@
 			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-lang3-3.1.jar" />
 			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-logging-1.2.jar" />
+			<zipfileset includes="**"
 			            excludes="META-INF/maven/**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/guava-12.0.1.jar" />
 			<zipfileset includes="**"
-			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/DEPENDENCIES META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/hsqldb.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/DEPENDENCIES META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/httpclient-4.3.1.jar" />
 			<zipfileset includes="**"
-			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/DEPENDENCIES META-INF/maven/**"
+			            excludes="META-INF/DEPENDENCIES META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/httpcore-4.3.jar" />
 			<zipfileset includes="**"
 			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
@@ -121,8 +121,11 @@
 			<zipfileset includes="**"
 			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/jsr305-1.3.9.jar" />
 			<zipfileset includes="**"
-			            excludes="META-INF/LICENSE.txt META-INF/NOTICE.txt META-INF/maven/**"
-			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/commons-logging-1.2.jar" />
+			            excludes="META-INF/DEPENDENCIES META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-api-2.3.2.jar" />
+			<zipfileset includes="**"
+			            excludes="META-INF/LICENSE META-INF/NOTICE META-INF/maven/**"
+			            src="${dir.binaries}/${name.dist-directory.sdk}/redist/lib/log4j-core-2.3.2.jar" />
 		</jar>
 
 		<echo message="[TFSBuildStep] SDK: Generating Javadoc" />
@@ -154,7 +157,7 @@
 		         use="true"
 		         author="false"
 		         windowtitle="Team Foundation Server SDK for Java"
-		         bottom="&amp;copy; 2021 Microsoft. All rights reserved."
+		         bottom="&amp;copy; 2022 Microsoft. All rights reserved."
 		         useexternalfile="true"
 		         source="1.6"
 		         additionalparam="-J-DTaglets.NoDefaultConfiguration=true">

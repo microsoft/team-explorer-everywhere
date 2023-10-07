@@ -40,7 +40,7 @@ set CFLAGS=%CFLAGS% -GS
 rem SDL requirements: banned functions
 set CFLAGS=%CFLAGS% -D"_SDL_BANNED_RECOMMENDED=1"
 
-rem SDL requirements: use code analysis (PREfast).  This slows 
+rem SDL requirements: use code analysis (PREfast).  This slows
 rem compilation down a bit, but it's nice to have the warnings
 rem enabled so we catch and fix bugs early.
 set CFLAGS=%CFLAGS% -analyze
@@ -118,7 +118,7 @@ if not defined NOJAVAH (
   rem Full clean
   if exist "%BUILD_TMP%" rd /s /q "%BUILD_TMP%"
 ) else (
-  rem Only delete the native files 
+  rem Only delete the native files
   if exist "%BUILD_TMP%" del "%BUILD_TMP%\*.dll" "%BUILD_TMP%\*.obj"
 )
 
@@ -129,7 +129,7 @@ rem Compile the Java classes
 rem ###########################################################
 
 echo Compiling wrapper classes...
-set CLASSPATH=.;%BUILD_TMP%;junit-3.8.2.jar;..\..\com.microsoft.tfs.logging\lib\commons-logging-1.2\commons-logging-1.2.jar;..\..\com.microsoft.tfs.logging\lib\log4j-1.2.17\log4j-1.2.17.jar
+set CLASSPATH=.;%BUILD_TMP%;junit-3.8.2.jar;..\..\com.microsoft.tfs.logging\lib\commons-logging-1.2\commons-logging-1.2.jar;..\..\com.microsoft.tfs.logging\lib\log4j-2.3.2\log4j-api-2.3.2.jar;..\..\com.microsoft.tfs.logging\lib\log4j-2.3.2\log4j-core-2.3.2.jar
 
 set SOURCEFILES=^
         ..\..\com.microsoft.tfs.util\src\com\microsoft\tfs\util\Check.java ^
@@ -468,7 +468,7 @@ goto end
 echo+
 echo usage: %0 "x86"^|"x64"
 echo+
-echo Specify 32-bit or 64-bit target.  Ensure cl.exe and link.exe in your path 
+echo Specify 32-bit or 64-bit target.  Ensure cl.exe and link.exe in your path
 echo are for the specified target.
 goto end
 

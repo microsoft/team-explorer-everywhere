@@ -6,8 +6,11 @@ package com.microsoft.tfs.logging.config;
 import java.net.URL;
 import java.text.MessageFormat;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.helpers.OptionConverter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
+import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.apache.logging.log4j.core.config.ConfigurationSource;
 
 /**
  * <h1>TFS SDK for Java Logging Configuration</h1>
@@ -45,22 +48,21 @@ import org.apache.log4j.helpers.OptionConverter;
  *
  * <h2>log4j Defaults</h2>
  * <p>
- * The TFS SDK for Java ships with a <code>/log4j.properties</code> resource
+ * The TFS SDK for Java ships with a <code>/log4j2.xml</code> resource
  * that configures the root log level to <code>WARN</code> and sends all
  * messages to the console. This configuration is not appropriate for all
- * applications, and can be customized in multiple ways.
+ * applications and can be customized in multiple ways.
  * </p>
  * <p>
  * The simplest way to use your own log4j configuration file is to configure
- * your application's classpath so your custom <code>log4j.xml</code> or
- * <code>log4j.properties</code> resource is found before the TFS SDK for Java's
- * resource. See log4j documentation for more information on static
- * configuration.
+ * your application's classpath so your custom <code>log4j2.xml</code> resource
+ * is found before the TFS SDK for Java's resource. See log4j documentation for
+ * more information on static configuration.
  * </p>
  *
  * <h2>Dynamic log4j Configuration</h2>
  * <p>
- * Instead of providing <code>log4j.xml</code> or <code>log4j.properties</code>
+ * Instead of providing <code>log4j2.xml</code> or <code>log4j2.yaml</code>
  * resources ahead of the TFS SDK for Java in the classpath, you can call
  * methods in this class to load log4j configuration from other places. This
  * avoids classpath ordering problems, can load configuration files from
@@ -73,7 +75,7 @@ import org.apache.log4j.helpers.OptionConverter;
  * calling log4j methods or by calling
  * {@link #configure(LoggingConfigurationProvider, EnableReconfigurationPolicy, ResetConfigurationPolicy)}
  * , log4j will configure itself using its default process (through which the
- * TFS SDK for Java's <code>/log4j.properties</code> resource might get loaded).
+ * TFS SDK for Java's <code>/log4j2.xml</code> resource might get loaded).
  * You can use the methods in this class and the types in this package to
  * provide configuration files to log4j.
  * </p>
@@ -84,14 +86,14 @@ import org.apache.log4j.helpers.OptionConverter;
  * <code>log4j.debug</code> system property to <code>true</code>. Setting this
  * property causes log4j to print information about its configuration process to
  * standard output and error streams. TFS SDK for Java logging classes also
- * print extra information when this property is set, through
- * {@link DebugLogger}.
+ * print extra information when this property is set, through {@link DebugLogger}.
  * </p>
  *
  * @threadsafety thread-safe
  * @since TEE-SDK-10.1
  */
 public abstract class Config {
+
     /**
      * A flexible interface for configuring log4j. Most TFS SDK for Java client
      * applications will call this before calling other SDK methods to ensure
@@ -118,10 +120,8 @@ public abstract class Config {
      * @see EnableReconfigurationPolicy#ALWAYS
      * @see EnableReconfigurationPolicy#DISABLE_WHEN_EXTERNALLY_CONFIGURED
      */
-    public static void configure(
-        final LoggingConfigurationProvider provider,
-        final EnableReconfigurationPolicy enableReconfigurationPolicy,
-        final ResetConfigurationPolicy resetConfigurationPolicy) {
+    public static void configure(final LoggingConfigurationProvider provider,
+            final EnableReconfigurationPolicy enableReconfigurationPolicy, final ResetConfigurationPolicy resetConfigurationPolicy) {
         if (provider == null) {
             throw new IllegalArgumentException("provider must not be null"); //$NON-NLS-1$
         }
@@ -154,21 +154,22 @@ public abstract class Config {
             configurationURL,
             provider.getClass().getName()));
 
-        /*
-         * Not sure why we call this method but ignore the result, but I'm
-         * afraid to change it. Maybe we need the side-effects of calling
-         * LogManager.getLoggerRepository()?
-         */
-        LogManager.getLoggerRepository();
+        LoggerContext context = (LoggerContext) LogManager.getContext(Config.class.getClassLoader(), false);
 
         if (resetConfigurationPolicy.resetConfiguration()) {
             DebugLogger.verbose(
                 MessageFormat.format(
                     "logging: resetting existing logging configuration due to policy [{0}]", //$NON-NLS-1$
                     resetConfigurationPolicy));
-            LogManager.resetConfiguration();
+            // TODO: context.stop() unregisters
         }
 
-        OptionConverter.selectAndConfigure(configurationURL, null, LogManager.getLoggerRepository());
+        try {
+            ConfigurationSource source = new ConfigurationSource(configurationURL.openStream(), configurationURL);
+            Configuration config = ConfigurationFactory.getInstance().getConfiguration(source);
+            context.start(config);
+        } catch (Exception e) {
+            DebugLogger.error("logging: " + e); //$NON-NLS-1$
+        }
     }
 }

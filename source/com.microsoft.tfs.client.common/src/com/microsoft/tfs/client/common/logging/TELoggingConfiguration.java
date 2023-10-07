@@ -4,6 +4,9 @@
 package com.microsoft.tfs.client.common.logging;
 
 import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.logging.LogFactory;
 
 import com.microsoft.tfs.core.config.persistence.DefaultPersistenceStoreProvider;
 import com.microsoft.tfs.core.persistence.FilesystemPersistenceStore;
@@ -50,48 +53,124 @@ public class TELoggingConfiguration {
         final MultiConfigurationProvider mcp = new MultiConfigurationProvider();
 
         /*
-         * Look for log4j-teamexplorer.properties and log4j-teamexplorer.xml in
-         * the "common" directory.
+         * Look for log4j-teamexplorer.json or log4j-teamexplorer.xml in
+         * "~/AppData/Local/Microsoft/Team Foundation/4.0/Configuration"
          */
         mcp.addConfigurationProvider(new FromFileConfigurationProvider(new File[] {
-            logConfLocation.getItemFile("log4j-teamexplorer.properties"), //$NON-NLS-1$
+            logConfLocation.getItemFile("log4j-teamexplorer.json"), //$NON-NLS-1$
             logConfLocation.getItemFile("log4j-teamexplorer.xml"), //$NON-NLS-1$
         }));
 
         /*
-         * Load log4j-teamexplorer.properties from the classloader that loaded
-         * TELoggingConfiguration (the classloader for Core)
+         * Load teamexplorer-log4j2.xml with the ClassLoader that loaded the
+         * TELoggingConfiguration class
          */
         mcp.addConfigurationProvider(
             new ClassloaderConfigurationProvider(TELoggingConfiguration.class.getClassLoader(), new String[] {
-                "log4j-teamexplorer.properties" //$NON-NLS-1$
+                "teamexplorer-log4j2.xml" //$NON-NLS-1$
         }));
 
+        if (mcp.getConfigurationURL().getFile().endsWith("teamexplorer-log4j2.xml")) { //$NON-NLS-1$
+            final FilesystemPersistenceStore logsLocation = TELogUtils.getTeamExplorerLogsLocation();
+            try {
+                logsLocation.initialize();
+
+                for (String logType : new String[] {"teamexplorer","teamexplorer-soap"}) { //$NON-NLS-1$ //$NON-NLS-2$
+                    /*
+                     * Prune old log files in the shared directory
+                     */
+                    cleanup(logType, logsLocation);
+
+                    final File logFile = TELogUtils.createLogFileObject(logType, logsLocation.getStoreFile(), true);
+
+                    /**
+                     * Share log file path with configuration as system property
+                     */
+                    System.setProperty(logType + "-log", logFile.getAbsolutePath()); //$NON-NLS-1$
+                }
+            } catch (final Exception e) {
+                LogFactory.getLog(TELoggingConfiguration.class).error("Log setup error", e); //$NON-NLS-1$
+            }
+        }
+
         /*
-         * Safe off the current thread context classloader since we need to
-         * re-set it temporarily
+         * Call into the configuration API in com.microsoft.tfs.logging
          */
-        final ClassLoader currentContextClassLoader = Thread.currentThread().getContextClassLoader();
+        Config.configure(mcp, EnableReconfigurationPolicy.DISABLE_WHEN_EXTERNALLY_CONFIGURED, ResetConfigurationPolicy.RESET_EXISTING);
+    }
+
+    private static void cleanup(final String logType, final FilesystemPersistenceStore logsLocation) {
+        /*
+         * The basic algorithm here is to get an exclusive lock on the settings
+         * location. If that exclusive lock can't be had, we return without
+         * doing any cleanup (some other instance of the application is
+         * currently performing cleanup on this directory).
+         */
+
+        com.microsoft.tfs.util.locking.AdvisoryFileLock lock = null;
+
         try {
-            /*
-             * Setting the thread context classloader to the class loader who
-             * loaded TELoggingConfiguration allows Log4J to load custom
-             * Appenders from this class loader (eg TEAppender)
-             */
-            Thread.currentThread().setContextClassLoader(TELoggingConfiguration.class.getClassLoader());
+            lock = logsLocation.getStoreLock(false);
 
             /*
-             * Call into the configuration API in com.microsoft.tfs.logging
+             * A null lock means the lock was not immediately available.
              */
-            Config.configure(
-                mcp,
-                EnableReconfigurationPolicy.DISABLE_WHEN_EXTERNALLY_CONFIGURED,
-                ResetConfigurationPolicy.RESET_EXISTING);
-        } finally {
+            if (lock == null) {
+                return;
+            }
+
             /*
-             * Always reset the thread context classloader
+             * Here's the call to actually perform the cleanup on the directory.
+             * At this point we know we have the exclusive lock.
              */
-            Thread.currentThread().setContextClassLoader(currentContextClassLoader);
+            doCleanup(logType, logsLocation);
+        } catch (final InterruptedException e) {
+            /*
+             * Shouldn't ever happen because we aren't blocking on getting the
+             * lock.
+             */
+            return;
+        } catch (final IOException e) {
+            /*
+             * Exception trying to get lock - return without doing cleanup
+             */
+            return;
+        } finally {
+            try {
+                /*
+                 * Always release the lock
+                 */
+                if (lock != null) {
+                    lock.release();
+                }
+            } catch (final IOException e) {
+            }
+        }
+    }
+
+    private static void doCleanup(final String logType, final FilesystemPersistenceStore logsLocation) {
+        final File[] logFiles = TELogUtils.getAllLogFilesForLogType(logType, logsLocation.getStoreFile(), true);
+        final int CLEANUP_THRESHOLD = 5;
+
+        /*
+         * If the number of files is not under the cleanup threshold, this
+         * method has nothing to do
+         */
+        if (logFiles.length < CLEANUP_THRESHOLD) {
+            return;
+        }
+
+        /*
+         * Attempt to delete enough files to bring us below the cleanup
+         * threshold. If the deletes don't succeed, that's fine, as another
+         * instance may currently have the file open and locked.
+         */
+        final int numToDelete = logFiles.length - CLEANUP_THRESHOLD + 1;
+        int numDeleted = 0;
+        for (int i = 0; i < logFiles.length && numDeleted < numToDelete; i++) {
+            if (logFiles[i].delete()) {
+                numDeleted += 1;
+            }
         }
     }
 }

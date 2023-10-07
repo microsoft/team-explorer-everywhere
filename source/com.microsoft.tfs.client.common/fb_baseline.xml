@@ -1121,7 +1121,6 @@
     </PackageStats>
     <PackageStats package="com.microsoft.tfs.client.common.logging" total_bugs="0" total_types="7" total_size="217">
       <ClassStats class="com.microsoft.tfs.client.common.logging.ApplicationIdentifier" sourceFile="ApplicationIdentifier.java" interface="false" size="34" bugs="0"/>
-      <ClassStats class="com.microsoft.tfs.client.common.logging.TEAppender" sourceFile="TEAppender.java" interface="false" size="39" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.client.common.logging.TELogFileName" sourceFile="TELogFileName.java" interface="false" size="62" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.client.common.logging.TELogFileName$1" sourceFile="TELogFileName.java" interface="false" size="6" bugs="0"/>
       <ClassStats class="com.microsoft.tfs.client.common.logging.TELogFileName$2" sourceFile="TELogFileName.java" interface="false" size="10" bugs="0"/>

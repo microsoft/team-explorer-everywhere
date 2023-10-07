@@ -97,7 +97,7 @@ Export-Package: com.microsoft.tfs.client.common;uses:="com.microsoft.tfs.util",
  com.microsoft.tfs.client.common.git.utils,
  com.microsoft.tfs.client.common.item,
  com.microsoft.tfs.client.common.license,
- com.microsoft.tfs.client.common.logging;uses:="org.apache.log4j,com.microsoft.tfs.core.persistence",
+ com.microsoft.tfs.client.common.logging;uses:="com.microsoft.tfs.core.persistence",
  com.microsoft.tfs.client.common.prefs;uses:="org.eclipse.core.runtime.preferences",
  com.microsoft.tfs.client.common.repository;
   uses:="com.microsoft.tfs.core.clients.versioncontrol,

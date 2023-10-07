@@ -23,13 +23,13 @@ usage() {
     echo "Builds native libraries for this Unix platform."
     echo
     echo "  If -preview specified, no build is done.  Instead, the "
-    echo "  relative paths of the expected output files are printed" 
+    echo "  relative paths of the expected output files are printed"
     echo "  to standard output."
     echo
     echo "  If -debug is provided, non-optimized and debug versions of the"
     echo "  library are built.  The DEBUG preprocessor macro is defined"
     echo "  and compiler flags are changed."
-    echo 
+    echo
     echo "  If -noInteractiveTests is provided, unit tests that require input"
     echo "  do not run."
     echo
@@ -83,7 +83,7 @@ while [ $# -ge 1 ] ; do
 	    	fi
 	        ;;
 	esac
-	
+
     shift
 done
 
@@ -281,7 +281,7 @@ if [ "$PREVIEW" = 0 ] ; then
     fi
 
     # A log4j configuration file exists in this directory for assistance debugging.
-    CLASSPATH=.:$TMP:junit-3.8.2.jar:../../com.microsoft.tfs.logging/lib/commons-logging-1.1/commons-logging-1.1.jar:../../com.microsoft.tfs.logging/lib/log4j-1.2.17/log4j-1.2.17.jar
+    CLASSPATH=.:$TMP:junit-3.8.2.jar:../../com.microsoft.tfs.logging/lib/commons-logging-1.2/commons-logging-1.2.jar:../../com.microsoft.tfs.logging/lib/log4j-2.3.2/log4j-api-2.3.2.jar:../../com.microsoft.tfs.logging/lib/log4j-2.3.2/log4j-core-2.3.2.jar
     export CLASSPATH
 
     $E ":: Building for $PLATFORM/$ARCH"
@@ -382,7 +382,7 @@ if [ "$PREVIEW" = 0 ] ; then
         ../tests/com/microsoft/tfs/jni/MessageWindowTest.java \
         ../tests/com/microsoft/tfs/jni/AllNativeTests.java \
         ../tests/com/microsoft/tfs/jni/ExecHelpers.java"
-        
+
 
     # We require a minimum of Java 1.5
     javac $JAVA_SOURCE_ENCODING_FLAGS -source 1.5 $SOURCEFILES -encoding "UTF-8" -d "$TMP"
@@ -401,7 +401,7 @@ if [ "$PREVIEW" = 0 ] ; then
     javah -jni -o "$TMP/native_keychain.h" com.microsoft.tfs.jni.internal.keychain.NativeKeychain
     javah -jni -o "$TMP/native_misc.h" com.microsoft.tfs.jni.internal.platformmisc.NativePlatformMisc
     javah -jni -o "$TMP/native_synchronization.h" com.microsoft.tfs.jni.internal.synchronization.NativeSynchronization
-    
+
     $E "done."
 
     $E "- Compiling native C library:"
@@ -671,10 +671,10 @@ if [ "$PREVIEW" = 0 -a "$DISABLE_ALL_TESTS" = 0 ] ; then
 		mkdir -p "val"
 		VALGRIND_CMD="valgrind --log-file='val/val-%p.log' --smc-check=all --trace-children=yes --leak-check=full"
 	fi
-	
+
     # Disable errexit so we can test for unit test failures manually (and save the log regardless)
     set +e
-    
+
     # Java 1.4 on z/OS requires explicit -cp (doesn't check environment).
     CMD="$VALGRIND_CMD java -cp "$CLASSPATH" $TEST_PROPS -Djava.library.path="$TMP" junit.textui.TestRunner com.microsoft.tfs.jni.AllNativeTests"
     echo $CMD
@@ -684,20 +684,20 @@ if [ "$PREVIEW" = 0 -a "$DISABLE_ALL_TESTS" = 0 ] ; then
 
     # Re-enable errexit again
     set -e
-        
+
     # Make a copy of the test log file for later analysis (helps with remote builds)
     JUNIT_LOG="/tmp/test-`date +%Y-%m-%d-%H.%M.%S`.log"
     if [ -f "test.log" ] ; then
         cp -f "test.log" $JUNIT_LOG
     fi
 
-    if [ "$TEST_EXIT_CODE" -ne 0 ] ; then 
+    if [ "$TEST_EXIT_CODE" -ne 0 ] ; then
         echo "- Tests did not pass, JUnit log file copied to $JUNIT_LOG"
         exit 1
     else
         $E "- Tests passed (no failures, no errors)."
     fi
-    
+
 fi
 
 # Compute the platform architecture variant on the destination
@@ -714,7 +714,7 @@ if [ "$PREVIEW" = 0 ] ; then
         mkdir -p "$DEST"
         cp "$TMP/$a" "$DEST"
     done
-    
+
     $E "done."
 
     $E -n "- Cleaning up... "

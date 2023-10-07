@@ -3,7 +3,6 @@
 
 package com.microsoft.tfs.client.eclipse;
 
-import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -35,18 +34,14 @@ import com.microsoft.tfs.core.product.ProductName;
 public final class TFSEclipseClientPlugin extends Plugin {
     public static final String PLUGIN_ID = "com.microsoft.tfs.client.eclipse"; //$NON-NLS-1$
 
-    private static final Log log = LogFactory.getLog(TFSEclipseClientPlugin.class);
-
     public static final String TFS_CONSOLE_EXTENSION_POINT_ID = "com.microsoft.tfs.client.eclipse.consoleProvider"; //$NON-NLS-1$
 
     private static TFSEclipseClientPlugin plugin;
 
     private final ServerManager serverManager = new ServerManager();
     private final RepositoryManager repositoryManager = new RepositoryManager();
-    private final ProjectRepositoryManager projectManager =
-        new ProjectRepositoryManager(serverManager, repositoryManager);
-
     private final ResourceRefreshManager resourceRefreshManager = new ResourceRefreshManager(repositoryManager);
+    private final ProjectRepositoryManager projectRepositoryManager = new ProjectRepositoryManager(serverManager, repositoryManager);
 
     /*
      * ResourceDataManager listens to core events, adapts those events into
@@ -102,7 +97,7 @@ public final class TFSEclipseClientPlugin extends Plugin {
         {
             @Override
             protected IStatus run(final IProgressMonitor progressMonitor) {
-                projectManager.start();
+                projectRepositoryManager.start();
                 return Status.OK_STATUS;
             }
         };
@@ -142,7 +137,7 @@ public final class TFSEclipseClientPlugin extends Plugin {
     }
 
     public ProjectRepositoryManager getProjectManager() {
-        return projectManager;
+        return projectRepositoryManager;
     }
 
     public ResourceDataManager getResourceDataManager() {
@@ -168,7 +163,7 @@ public final class TFSEclipseClientPlugin extends Plugin {
                     consoleProvider =
                         (TFSConsoleProvider) ExtensionLoader.loadSingleExtensionClass(TFS_CONSOLE_EXTENSION_POINT_ID);
                 } catch (final Exception e) {
-                    log.error("Could not load TFS console provider for the product", e); //$NON-NLS-1$
+                    LogFactory.getLog(getClass()).error("Could not load TFS console provider for the product", e); //$NON-NLS-1$
                     consoleProvider = null;
                 }
             }
