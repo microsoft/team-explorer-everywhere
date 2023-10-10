@@ -6,10 +6,10 @@ package com.microsoft.tfs.client.common.ui.wizard.merge;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.osgi.framework.Version;
 
 import com.microsoft.tfs.client.common.codemarker.CodeMarker;
 import com.microsoft.tfs.client.common.codemarker.CodeMarkerDispatch;
@@ -87,8 +88,6 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
 
     public static final String NAME = "SelectMergeSourceTargetWizardPage"; //$NON-NLS-1$
 
-    private final Log log = LogFactory.getLog(SelectMergeSourceTargetWizardPage.class);
-
     public static final CodeMarker CODEMARKER_MERGESOURCETARGETPAGELOAD_COMPLETE = new CodeMarker(
         "com.microsoft.tfs.client.common.ui.wizard.merge.SelectMergeSourceTargetWizardPage#sourceTargetPageLoadComplete"); //$NON-NLS-1$
 
@@ -127,7 +126,7 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
 
         createMergeSourceControls(container);
         createMergeSelectionControls(container);
-        createMergeTargeControls(container);
+        createMergeTargetControls(container);
 
         calculateTargetPaths(true, sourcePath);
     }
@@ -244,7 +243,7 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
         });
     }
 
-    private void createMergeTargeControls(final Composite container) {
+    private void createMergeTargetControls(final Composite container) {
         final Label selectTheTargetLabel = new Label(container, SWT.WRAP);
         final FormData selectTheTargetLabelData = new FormData();
         selectTheTargetLabelData.top = new FormAttachment(selectedChangesetsButton, 5, SWT.BOTTOM);
@@ -400,8 +399,6 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
                 }
             }
         } catch (final Exception e) {
-            log.trace(e);
-
             MessageBoxHelpers.errorMessageBox(
                 getShell(),
                 Messages.getString("SelectMergeSourceTargetWizardPage.ErrorDialogTitle"), //$NON-NLS-1$
@@ -534,9 +531,6 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
         setPageComplete(isComplete());
     }
 
-    /**
-     * @return the sourcePath
-     */
     public String getSourcePath() {
         return sourcePath;
     }
@@ -622,12 +616,9 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
         });
     }
 
-    private List<String> getTargets(
-        final TFSRepository repository,
-        final String sourcePath,
-        final IProgressMonitor progressMonitor) throws Exception {
-        final ArrayList<String> targets = new ArrayList<String>();
-        final ItemSpec itemSpec = new ItemSpec(sourcePath, RecursionType.NONE);
+    private static List<String> getTargets(final TFSRepository repository, final String sourcePath,
+                                            final IProgressMonitor progressMonitor) throws Exception {
+        final List<String> targets = new ArrayList<String>();
 
         try {
             if (repository.getVersionControlClient().getServiceLevel().getValue() >= WebServiceLevel.TFS_2010.getValue()) {
@@ -638,31 +629,25 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
                             return null;
                         }
 
-                        if (items[i].getDeletionID() == 0
-                            && items[i].getItem() != null
-                            && items[i].getItem().length() > 0) {
+                        if (items[i].getDeletionID() == 0 && items[i].getItem() != null && !items[i].getItem().isEmpty()) {
                             targets.add(items[i].getItem());
                         }
                     }
                 }
             } else {
-                final BranchHistory branchHistory =
-                    repository.getWorkspace().getBranchHistory(itemSpec, LatestVersionSpec.INSTANCE);
+                final BranchHistory branchHistory = repository.getWorkspace().getBranchHistory(new ItemSpec(sourcePath, RecursionType.NONE), LatestVersionSpec.INSTANCE);
                 if (branchHistory != null && branchHistory.getRequestedItem() != null) {
                     final BranchHistoryTreeItem requestedItem = branchHistory.getRequestedItem();
 
-                    // Add parent history item.
                     if (requestedItem.getParentBranchHistoryTreeItem() != null
-                        && requestedItem.getParentBranchHistoryTreeItem().getItem() != null
-                        && requestedItem.getParentBranchHistoryTreeItem().getItem().getDeletionID() == 0
-                        && requestedItem.getParentBranchHistoryTreeItem().getItem().getServerItem() != null) {
+                            && requestedItem.getParentBranchHistoryTreeItem().getItem() != null
+                            && requestedItem.getParentBranchHistoryTreeItem().getItem().getDeletionID() == 0
+                            && requestedItem.getParentBranchHistoryTreeItem().getItem().getServerItem() != null) {
                         targets.add(requestedItem.getParentBranchHistoryTreeItem().getItem().getServerItem());
                     }
 
-                    // Add child history items
                     if (requestedItem.hasChildren()) {
-                        for (final Iterator<BranchHistoryTreeItem> children =
-                            requestedItem.getChildrenAsList().iterator(); children.hasNext();) {
+                        for (final Iterator<BranchHistoryTreeItem> children = requestedItem.getChildrenAsList().iterator(); children.hasNext(); ) {
                             if (progressMonitor.isCanceled()) {
                                 return null;
                             }
@@ -675,10 +660,9 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
                     }
                 }
             }
-        }
-
-        catch (final Exception e) {
-            log.error("Could not determine branch targets", e); //$NON-NLS-1$
+        } catch (final Exception e) {
+            LogFactory.getLog(SelectMergeSourceTargetWizardPage.class)
+                .error("Could not determine branch targets", e); //$NON-NLS-1$
             throw e;
         }
 
@@ -725,7 +709,6 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
             }
 
             progressMonitor.beginTask(getName(), IProgressMonitor.UNKNOWN);
-
             try {
                 targets = getTargets(repository, sourcePath, progressMonitor);
             } catch (final Exception e) {
@@ -740,31 +723,54 @@ public class SelectMergeSourceTargetWizardPage extends WizardPage {
         @Override
         public void onCommandFinished(final ICommand command, final IStatus status) {
             if (status.isOK()) {
-                final QueryTargetCandidatesCommand queryTargetCandidatesCommand =
-                    (QueryTargetCandidatesCommand) command;
+                final QueryTargetCandidatesCommand queryTargetCandidatesCommand = (QueryTargetCandidatesCommand) command;
 
                 if (queryTargetCandidatesCommand.targets != null
-                    && queryTargetCandidatesCommand.targets.size() > 0
-                    && !queryTargetCandidatesCommand.shell.isDisposed()) {
+                        && !queryTargetCandidatesCommand.targets.isEmpty()
+                        && !queryTargetCandidatesCommand.shell.isDisposed()) {
                     // run on the UI thread to avoid contention
                     UIHelpers.runOnUIThread(shell, false, new Runnable() {
                         @Override
                         public void run() {
-                            if (shell.isDisposed() || targetCombo.isDisposed()) {
-                                return;
-                            }
-
-                            Collections.sort(targets, String.CASE_INSENSITIVE_ORDER);
-
-                            int selectionIndex = 0;
-                            for (final String target : targets) {
-                                if (target.equalsIgnoreCase(targetPath)) {
-                                    selectionIndex = targetCombo.getItemCount();
+                            if (!shell.isDisposed() && !targetCombo.isDisposed()) {
+                                final int nTargets = targets.size();
+                                if (nTargets > 1) {
+                                    Collections.sort(targets, new Comparator<String>() {
+                                        @Override
+                                        public int compare(final String target1, final String target2) {
+                                            String[] segments1 = ServerPath.split(target1);
+                                            String[] segments2 = ServerPath.split(target2);
+                                            for (int i = 0; i < segments1.length && i < segments2.length; i++) {
+                                                if (Character.isDigit(segments1[i].charAt(0))) {
+                                                    try { // try numeric segment comparison
+                                                        Version v1 = new Version(segments1[i]);
+                                                        Version v2 = new Version(segments2[i]);
+                                                        int cmp = v1.compareTo(v2);
+                                                        if (cmp != 0) return cmp;
+                                                        continue;
+                                                    } catch (IllegalArgumentException ignore) {
+                                                    }
+                                                }
+                                                int cmp = segments1[i].compareToIgnoreCase(segments2[i]);
+                                                if (cmp != 0) return cmp;
+                                            }
+                                            return Integer.valueOf(segments1.length).compareTo(segments2.length);
+                                        }
+                                    });
                                 }
-                                targetCombo.add(target);
-                            }
 
-                            targetCombo.select(selectionIndex);
+                                int selectionIndex = -1;
+                                for (final String target : targets) {
+                                    if (target.equalsIgnoreCase(targetPath)) {
+                                        selectionIndex = targetCombo.getItemCount();
+                                    }
+                                    targetCombo.add(target);
+                                }
+                                if (selectionIndex == -1) {
+                                    selectionIndex += targetCombo.getItemCount();
+                                }
+                                targetCombo.select(selectionIndex);
+                            }
                         }
                     });
 
