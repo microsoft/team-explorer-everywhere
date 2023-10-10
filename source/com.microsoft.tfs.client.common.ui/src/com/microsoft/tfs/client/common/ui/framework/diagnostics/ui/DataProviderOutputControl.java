@@ -4,6 +4,8 @@
 package com.microsoft.tfs.client.common.ui.framework.diagnostics.ui;
 
 import java.text.MessageFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -187,7 +189,22 @@ public class DataProviderOutputControl extends Composite {
         tableViewer.setInput(tabularData);
 
         final TableViewerSorter sorter = new TableViewerSorter(tableViewer);
-        // TODO: if col data is Date, set Comparator
+        final Row[] rows = tabularData.getRows();
+        if (rows != null && rows.length > 1) {
+            final Object[] values = rows[0].getValues();
+            for (int i = 0; i < columnValues.length; i++) {
+                if (values[i] instanceof Date) { final int c = i;
+                    sorter.setComparator(c, new Comparator<Row>() {
+                        @Override
+                        public int compare(final Row r1, final Row r2) {
+                            Date d1 = (Date) r1.getValues()[c];
+                            Date d2 = (Date) r2.getValues()[c];
+                            return d1.compareTo(d2);
+                        }
+                    });
+                }
+            }
+        }
         tableViewer.setSorter(sorter);
 
         columns = table.getColumns();
