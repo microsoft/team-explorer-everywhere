@@ -3,7 +3,6 @@
 
 package com.microsoft.tfs.client.common.ui.framework.celleditor;
 
-import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
@@ -174,12 +173,10 @@ public abstract class TextWithDialogCellEditor extends CellEditor {
     @Override
     protected void doSetValue(Object value) {
         if (value == null) {
-            value = ""; //$NON-NLS-1$
+            text.setText(""); //$NON-NLS-1$
+        } else {
+            text.setText(value.toString());
         }
-
-        Assert.isTrue(text != null && (value instanceof String));
-
-        text.setText((String) value);
     }
 
     private Object getNewValue() {
