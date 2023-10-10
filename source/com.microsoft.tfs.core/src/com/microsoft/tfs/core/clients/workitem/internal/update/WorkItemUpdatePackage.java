@@ -308,8 +308,7 @@ public class WorkItemUpdatePackage extends BaseUpdatePackage {
          * process any computed columns
          */
         final Element computedColumnsElement =
-            (Element) updateResultsElement.getElementsByTagName(UpdateXMLConstants.ELEMENT_NAME_COMPUTED_COLUMNS).item(
-                0);
+            (Element) updateResultsElement.getElementsByTagName(UpdateXMLConstants.ELEMENT_NAME_COMPUTED_COLUMNS).item(0);
         if (computedColumnsElement != null) {
             final NodeList computedColumns =
                 computedColumnsElement.getElementsByTagName(UpdateXMLConstants.ELEMENT_NAME_COMPUTED_COLUMN);
@@ -317,12 +316,14 @@ public class WorkItemUpdatePackage extends BaseUpdatePackage {
                 final Element computedColumnElement = (Element) computedColumns.item(i);
                 final String fieldReferenceName =
                     computedColumnElement.getAttribute(UpdateXMLConstants.ATTRIBUTE_NAME_COLUMN);
-                final String value =
-                    computedColumnElement.getElementsByTagName(UpdateXMLConstants.ELEMENT_NAME_VALUE).item(
-                        0).getChildNodes().item(0).getNodeValue();
+                NodeList values =
+                    computedColumnElement.getElementsByTagName(UpdateXMLConstants.ELEMENT_NAME_VALUE);
+
+                // https://github.com/microsoft/team-explorer-everywhere/issues/242
+                if (values != null) values = values.item(0).getChildNodes();
 
                 final FieldImpl field = workItem.getFieldsInternal().getFieldInternal(fieldReferenceName);
-                field.setValue(value, FieldModificationType.SERVER);
+                field.setValue(values == null ? null : values.item(0).getNodeValue(), FieldModificationType.SERVER);
             }
         }
 
