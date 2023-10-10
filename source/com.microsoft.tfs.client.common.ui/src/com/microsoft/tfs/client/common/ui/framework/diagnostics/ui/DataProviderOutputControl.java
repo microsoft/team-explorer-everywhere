@@ -157,10 +157,9 @@ public class DataProviderOutputControl extends Composite {
                     populateText(string);
                 } else {
                     final String messageFormat = "dataProvider [{0}] did not produce valid ouput for the UI"; //$NON-NLS-1$
-                    final String message =
-                        MessageFormat.format(messageFormat, dataProvider.getDataProviderInfo().getID());
-
+                    final String message = MessageFormat.format(messageFormat, dataProvider.getDataProviderInfo().getID());
                     log.warn(message);
+
                     populateText(""); //$NON-NLS-1$
                 }
             }
@@ -188,6 +187,7 @@ public class DataProviderOutputControl extends Composite {
         tableViewer.setInput(tabularData);
 
         final TableViewerSorter sorter = new TableViewerSorter(tableViewer);
+        // TODO: if col data is Date, set Comparator
         tableViewer.setSorter(sorter);
 
         columns = table.getColumns();
@@ -209,8 +209,14 @@ public class DataProviderOutputControl extends Composite {
 
     private static class ContentProvider extends ContentProviderAdapter {
         @Override
-        public Object[] getElements(final Object inputElement) {
-            return ((TabularData) inputElement).getRows();
+        public Object[] getElements(final Object element) {
+            if (element instanceof TabularData) {
+                final Row[] rows = ((TabularData) element).getRows();
+                return rows;
+            }
+
+            final Object[] values = ((Row) element).getValues();
+            return values;
         }
     }
 
@@ -222,9 +228,8 @@ public class DataProviderOutputControl extends Composite {
 
         @Override
         public String getColumnText(final Object element, final int columnIndex) {
-            final Row row = (Row) element;
-            final Object value = row.getValues()[columnIndex];
-            String text = (String) Adapters.get(value, String.class);
+            final Object[] values = ((Row) element).getValues();
+            String text = (String) Adapters.get(values[columnIndex], String.class);
             if (text == null) {
                 text = ""; //$NON-NLS-1$
             }

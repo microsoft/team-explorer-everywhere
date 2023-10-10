@@ -7,11 +7,13 @@ import java.lang.reflect.Method;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TableViewer;
@@ -670,6 +672,18 @@ public class TableViewerSorter extends ViewerSorter {
      * @return a comparison value
      */
     protected int defaultColumnCompare(final int columnIndex, final Viewer viewer, final Object e1, final Object e2) {
+        final IStructuredContentProvider valueProvider = (IStructuredContentProvider) ((StructuredViewer) viewer).getContentProvider();
+
+        final Object[] o1 = valueProvider.getElements(e1);
+        final Object[] o2 = valueProvider.getElements(e2);
+
+        if (o1 != null && o1.length > columnIndex && o2 != null && o2.length > columnIndex) {
+            final Object v1 = o1[columnIndex], v2 = o2[columnIndex];
+            if (v1 instanceof Date && v2 instanceof Date) {
+                return ((Date) v1).compareTo((Date) v2);
+            }
+        }
+
         final ITableLabelProvider labelProvider = (ITableLabelProvider) ((StructuredViewer) viewer).getLabelProvider();
 
         String s1 = labelProvider.getColumnText(e1, columnIndex);
