@@ -7,6 +7,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
@@ -61,29 +62,35 @@ public class OpenInSourceControlExplorerAction extends Action {
         }
 
         final TypedServerItem[] serverItems = editor.getSelectedServerItems();
-
         if (serverItems == null || serverItems.length == 0) {
             return;
         }
 
-        // open the source control editor.
-        final IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-
+        // Open the Source Control Explorer.
+        final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        final IWorkbenchPage page = window.getActivePage();
         try {
             page.openEditor(new VersionControlEditorInput(), VersionControlEditor.ID);
-
-            if (VersionControlEditor.getCurrent() != null) {
-                final ServerItemPath serverItem = new ServerItemPath(serverItems[0].getServerPath());
-
-                if (ServerItemType.isFile(serverItems[0].getType())) {
-                    VersionControlEditor.getCurrent().setSelectedFile(serverItem);
-                } else {
-                    VersionControlEditor.getCurrent().setSelectedFolder(serverItem);
-                }
-            }
-
         } catch (final PartInitException e) {
             throw new RuntimeException(e);
+        }
+
+        window.getShell().getDisplay().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                selectFileOrFolder(serverItems[0].getType(), serverItems[0].getServerPath());
+            }
+        });
+    }
+
+    private void selectFileOrFolder(final ServerItemType type, final String serverPath) {
+        final VersionControlEditor editor = VersionControlEditor.getCurrent();
+        if (editor != null) {
+            if (ServerItemType.isFile(type)) {
+                editor.setSelectedFile(new ServerItemPath(serverPath));
+            } else {
+                editor.setSelectedFolder(new ServerItemPath(serverPath));
+            }
         }
     }
 }
