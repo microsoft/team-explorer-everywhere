@@ -16,7 +16,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.egit.core.Activator;
+import org.eclipse.egit.core.RepositoryUtil;
 import org.eclipse.egit.ui.internal.repository.RepositoriesView;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -212,7 +212,19 @@ public class TeamExplorerGitRepositoriesSection extends TeamExplorerBaseSection 
 
     private void loadRegisteredRepositories() {
         repositoryMap = new TreeMap<String, Repository>();
-        final List<String> repositoryFolders = Activator.getDefault().getRepositoryUtil().getConfiguredRepositories();
+        RepositoryUtil repoUtil;
+        try {
+            repoUtil = org.eclipse.egit.core.Activator.getDefault().getRepositoryUtil();
+        } catch (final NoSuchMethodError error) {
+            try { // RepositoryUtil changed to singleton class and later an enum
+                java.lang.reflect.Field ref = RepositoryUtil.class.getField("INSTANCE"); //$NON-NLS-1$
+                if (java.lang.reflect.Modifier.isPrivate(ref.getModifiers())) ref.setAccessible(true);
+                repoUtil = (RepositoryUtil) ref.get(null);
+            } catch (final Exception exception) {
+                throw new RuntimeException(exception);
+            }
+        }
+        final List<String> repositoryFolders = repoUtil.getConfiguredRepositories();
 
         for (final String repositoryFolder : repositoryFolders) {
             final File folder = new File(repositoryFolder);
