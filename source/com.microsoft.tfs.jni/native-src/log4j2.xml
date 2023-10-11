@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  This file is only used when running unit tests for JNI classes.
+  To help debug test failures related to JNI loading, make sure the level is
+  set to DEBUG or TRACE.
+-->
+<Configuration>
+	<Appenders>
+		<Console name="CONSOLE">
+			<PatternLayout pattern="%-5p [%t] %c{1} - %m%n"/>
+		</Console>
+		<File fileName="test.log">
+			<PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss.SSS} [%-5p] (%c) %m%n"/>
+		</File>
+	</Appenders>
+	<Loggers>
+		<Root level="TRACE">
+			<AppenderRef ref="LOGFILE"/>
+		</Root>
+	</Loggers>
+</Configuration>

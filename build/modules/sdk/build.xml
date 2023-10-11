@@ -157,7 +157,7 @@
 		         use="true"
 		         author="false"
 		         windowtitle="Team Foundation Server SDK for Java"
-		         bottom="&amp;copy; 2022 Microsoft. All rights reserved."
+		         bottom="&amp;copy; 2023 Microsoft. All rights reserved."
 		         useexternalfile="true"
 		         source="1.6"
 		         additionalparam="-J-DTaglets.NoDefaultConfiguration=true">
