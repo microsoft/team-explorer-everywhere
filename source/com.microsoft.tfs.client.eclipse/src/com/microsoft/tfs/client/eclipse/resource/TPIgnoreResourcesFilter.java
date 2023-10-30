@@ -10,7 +10,6 @@ import com.microsoft.tfs.client.common.framework.resources.filter.ResourceFilter
 import com.microsoft.tfs.client.common.repository.TFSRepository;
 import com.microsoft.tfs.client.eclipse.TFSEclipseClientPlugin;
 import com.microsoft.tfs.client.eclipse.tpignore.TPIgnoreCache;
-import com.microsoft.tfs.core.clients.versioncontrol.WorkspaceLocation;
 import com.microsoft.tfs.util.Check;
 
 /**
@@ -37,7 +36,6 @@ public class TPIgnoreResourcesFilter extends ResourceFilter {
      */
     public TPIgnoreResourcesFilter(final RepositoryUnavailablePolicy repositoryUnavailablePolicy) {
         Check.notNull(repositoryUnavailablePolicy, "repositoryUnavailablePolicy"); //$NON-NLS-1$
-
         this.repositoryUnavailablePolicy = repositoryUnavailablePolicy;
         this.ignorableResourcesCache = new TPIgnoreCache();
     }
@@ -48,16 +46,9 @@ public class TPIgnoreResourcesFilter extends ResourceFilter {
             return ACCEPT;
         }
 
-        final TFSRepository repository =
-            TFSEclipseClientPlugin.getDefault().getProjectManager().getRepository(resource.getProject());
-
+        final TFSRepository repository = TFSEclipseClientPlugin.getDefault().getProjectManager().getRepository(resource.getProject());
         if (repository == null) {
             return repositoryUnavailablePolicy.acceptResourceWithNoRepository(resource) ? ACCEPT : REJECT;
-        }
-
-        // Only filter for server workspaces
-        if (repository.getWorkspace().getLocation() != WorkspaceLocation.SERVER) {
-            return ACCEPT;
         }
 
         return ignorableResourcesCache.matchesAnyPattern(resource) ? REJECT : ACCEPT;
