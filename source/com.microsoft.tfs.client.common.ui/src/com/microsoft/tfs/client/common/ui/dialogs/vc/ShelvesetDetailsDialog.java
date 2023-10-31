@@ -88,14 +88,14 @@ public class ShelvesetDetailsDialog extends AbstractCheckinControlDialog {
 
     private boolean preserveShelveset = true;
     private boolean restoreData = true;
-    private TSWAHyperlinkBuilder tswaHyperlinkBuilder;
 
     /**
-     * The lazily created clipboard and transferTypes. The two field starts off
-     * as <code>null</code>, and allocated if needed.
+     * The lazily created clipboard and transferTypes.
      */
-    private Clipboard clipboard = null;
-    private Transfer[] transferTypes = null;
+    private Clipboard clipboard;
+    private Transfer[] transferTypes;
+
+    private TSWAHyperlinkBuilder tswaHyperlinkBuilder;
 
     public ShelvesetDetailsDialog(
         final Shell parentShell,
@@ -412,7 +412,7 @@ public class ShelvesetDetailsDialog extends AbstractCheckinControlDialog {
     }
 
     /**
-     * Generate hyperlink for this shelveset
+     * Generates hyperlink for the shelveset.
      *
      * @param transferType
      * @return
@@ -421,13 +421,17 @@ public class ShelvesetDetailsDialog extends AbstractCheckinControlDialog {
         if (tswaHyperlinkBuilder == null) {
             tswaHyperlinkBuilder = new TSWAHyperlinkBuilder(repository.getVersionControlClient().getConnection());
         }
-        final StringBuffer sb = new StringBuffer();
-        if (transferType.getClass().getName().equals("org.eclipse.swt.dnd.HTMLTransfer") //$NON-NLS-1$
-            && tswaHyperlinkBuilder != null) {
+
+        String shelvesetHyperlink = null;
+        if (tswaHyperlinkBuilder != null) {
+            shelvesetHyperlink = tswaHyperlinkBuilder.getShelvesetDetailsURL(shelveset.getName(), shelveset.getOwnerName()).toString();
+        }
+
+        final StringBuilder sb = new StringBuilder();
+        if (shelvesetHyperlink != null && transferType.getClass().getName().equals("org.eclipse.swt.dnd.HTMLTransfer")) { //$NON-NLS-1$
             // Create HTML to copy
             sb.append("<a href=\""); //$NON-NLS-1$
-            sb.append(
-                tswaHyperlinkBuilder.getShelvesetDetailsURL(shelveset.getName(), shelveset.getOwnerName()).toString());
+            sb.append(shelvesetHyperlink);
             sb.append("\">"); //$NON-NLS-1$
             sb.append(shelveset.getName());
             sb.append(";"); //$NON-NLS-1$
@@ -435,13 +439,22 @@ public class ShelvesetDetailsDialog extends AbstractCheckinControlDialog {
             sb.append("</a>"); //$NON-NLS-1$
         } else {
             // Assume text transfer type
-            sb.append(shelveset.getName());
-            sb.append(";"); //$NON-NLS-1$
-            sb.append(shelveset.getOwnerName());
+            if (shelvesetHyperlink != null) {
+                sb.append(shelvesetHyperlink);
+            } else {
+                sb.append(shelveset.getName());
+                sb.append(";"); //$NON-NLS-1$
+                sb.append(shelveset.getOwnerName());
+            }
         }
+
         return sb.toString();
     }
 
+    /**
+     * @param composite
+     * @return
+     */
     public final Clipboard getClipboard(final Composite composite) {
         if (clipboard == null) {
             clipboard = new Clipboard(composite.getDisplay());
@@ -451,7 +464,7 @@ public class ShelvesetDetailsDialog extends AbstractCheckinControlDialog {
     }
 
     /**
-     * Get transferTypes, if null, create them
+     * Gets transferTypes, if null, creates them.
      *
      * @return
      */

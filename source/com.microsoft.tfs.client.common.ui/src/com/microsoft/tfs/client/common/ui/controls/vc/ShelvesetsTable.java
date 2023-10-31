@@ -55,10 +55,9 @@ public class ShelvesetsTable extends TableControl {
     private static final String SHELVESET_NAME_COLUMN_ID = "name"; //$NON-NLS-1$
     private DateFormat dateFormat = DateHelper.getDefaultDateTimeFormat();
 
-    private TSWAHyperlinkBuilder tswaHyperlinkBuilder;
     private IAction copyAction;
     private IAction selectAllAction;
-
+    private TSWAHyperlinkBuilder tswaHyperlinkBuilder;
     private ActionKeyBindingSupport actionCommandSupport;
 
     /**
@@ -261,19 +260,14 @@ public class ShelvesetsTable extends TableControl {
     protected Object getTransferData(final Transfer transferType, final Object[] selectedElements) {
         final Shelveset[] selectedShelvesets = (Shelveset[]) selectedElements;
 
-        if (transferType.getClass().getName().equals("org.eclipse.swt.dnd.HTMLTransfer") //$NON-NLS-1$
-            && tswaHyperlinkBuilder != null) {
+        final StringBuilder sb = new StringBuilder();
+        if (tswaHyperlinkBuilder != null && transferType.getClass().getName().equals("org.eclipse.swt.dnd.HTMLTransfer")) { //$NON-NLS-1$
             // Create HTML to copy
-            final StringBuffer sb = new StringBuffer();
-            for (int j = 0; j < selectedShelvesets.length; j++) {
-                // TODO: Consider adding more data in the title so that
-                // there is a tooltip?
-                final Shelveset shelveset = selectedShelvesets[j];
+            for (int i = 0; i < selectedShelvesets.length; i += 1) {
+                final Shelveset shelveset = selectedShelvesets[i];
+                // TODO: Consider adding more data in the title so that there is a tooltip?
                 sb.append("<a href=\""); //$NON-NLS-1$
-                sb.append(
-                    tswaHyperlinkBuilder.getShelvesetDetailsURL(
-                        shelveset.getName(),
-                        shelveset.getOwnerName()).toString());
+                sb.append(tswaHyperlinkBuilder.getShelvesetDetailsURL(shelveset.getName(), shelveset.getOwnerName()));
                 sb.append("\">"); //$NON-NLS-1$
                 sb.append(shelveset.getName());
                 sb.append(";"); //$NON-NLS-1$
@@ -283,20 +277,23 @@ public class ShelvesetsTable extends TableControl {
             }
             // remove the last <br/>
             sb.setLength(sb.length() - NewlineUtils.PLATFORM_NEWLINE.length() - 5);
-            return sb.toString();
+        } else {
+            // Assume text transfer type
+            for (int i = 0; i < selectedShelvesets.length; i += 1) {
+                final Shelveset shelveset = selectedShelvesets[i];
+                if (tswaHyperlinkBuilder != null) {
+                    sb.append(tswaHyperlinkBuilder.getShelvesetDetailsURL(shelveset.getName(), shelveset.getOwnerName()));
+                } else {
+                    sb.append(shelveset.getName());
+                    sb.append(";"); //$NON-NLS-1$
+                    sb.append(shelveset.getOwnerName());
+                }
+                sb.append(NewlineUtils.PLATFORM_NEWLINE);
+            }
+            // remove the last newline
+            sb.setLength(sb.length() - NewlineUtils.PLATFORM_NEWLINE.length());
         }
 
-        // Assume text transfer type
-        final StringBuffer sb = new StringBuffer();
-        for (int j = 0; j < selectedShelvesets.length; j++) {
-            final Shelveset shelveset = selectedShelvesets[j];
-            sb.append(shelveset.getName());
-            sb.append(";"); //$NON-NLS-1$
-            sb.append(shelveset.getOwnerName());
-            sb.append(NewlineUtils.PLATFORM_NEWLINE);
-        }
-        // remove the last newline
-        sb.setLength(sb.length() - NewlineUtils.PLATFORM_NEWLINE.length());
         return sb.toString();
     }
 
