@@ -343,6 +343,8 @@ public abstract class TFSConnection implements Closable {
 
     private Version serverApiVersion = null;
     private final Object serverApiVersionLock = new Object();
+    private ApiResourceLocationCollection serverApiLocations = null;
+    private final Object serverApiLocationsLock = new Object();
 
     /**
      * Creates a {@link TFSConnection}. Both a {@link URI} and a
@@ -1351,11 +1353,7 @@ public abstract class TFSConnection implements Closable {
 
         synchronized (serverApiVersionLock) {
             if (serverApiVersion == null) {
-
-                final TeeClientHandler clientHandler = new TeeClientHandler(getHTTPClient());
-                clientHandler.init(true, null, getBaseURI());
-
-                ApiResourceLocationCollection locations = clientHandler.getLocations();
+                ApiResourceLocationCollection locations = getServerApiLocations();
 
                 serverApiVersion = new Version(0, 0);
                 for (ApiResourceLocation location : locations.getLocations()) {
@@ -1369,6 +1367,21 @@ public abstract class TFSConnection implements Closable {
         }
 
         return serverApiVersion;
+    }
+
+    public ApiResourceLocationCollection getServerApiLocations() {
+
+        synchronized (serverApiLocationsLock) {
+            if (serverApiLocations == null) {
+
+                final TeeClientHandler clientHandler = new TeeClientHandler(getHTTPClient());
+                clientHandler.init(false, null, getBaseURI());
+
+                serverApiLocations = clientHandler.loadLocations();
+            }
+        }
+
+        return serverApiLocations;
     }
 
     /**
