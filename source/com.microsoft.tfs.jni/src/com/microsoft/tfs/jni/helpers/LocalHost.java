@@ -44,6 +44,8 @@ public abstract class LocalHost {
      * Where the cached computer name string goes.
      */
     private static String computerName;
+    // JetBrains TFS plugin compatible name
+    private static String computerNameJB;
 
     /**
      * <p>
@@ -108,7 +110,51 @@ public abstract class LocalHost {
                 name.substring(0, (name.length() > MAX_COMPUTER_NAME_SIZE) ? MAX_COMPUTER_NAME_SIZE : name.length());
         }
 
+        log.info("Short name resolved to: " + computerNameJB); //$NON-NLS-1$
         return computerName;
+    }
+
+    /**
+     * <p>
+     * Gets the short name of the current computer compatible with JetBrains TFS
+     * plugin.
+     * <p>
+     * The only difference with the traditional TEE method
+     * {@link #getShortName()} is in the order of particular name detection
+     * sub-method calls. This method prefers {@link #getPureJavaShortName()}.
+     * </p>
+     * <p>
+     * The {@link #SHORT_NAME_OVERRIDE_PROPERTY} may be used to define the
+     * computer name exactly.
+     * </p>
+     * 
+     * <p>
+     * We un-set the computerName variable, because we might need to recalculate
+     * it since the system property {@link #SHORT_NAME_OVERRIDE_PROPERTY} might
+     * change after call {@link #getShortNameJB()} in
+     * {@link com.microsoft.tfs.client.clc.commands.Command#determineCachedWorkspace()}.
+     * </p>
+     *
+     * @return a short identifier (name of this computer). Never
+     *         <code>null</code> or empty.
+     */
+    public synchronized static String getShortNameJB() {
+
+        computerName = null;
+
+        if (computerNameJB == null) {
+            String name = getPureJavaShortName();
+
+            if (name != null) {
+                // Cache the name forever. Truncate if too long.
+                computerNameJB = name.substring(
+                    0,
+                    (name.length() > MAX_COMPUTER_NAME_SIZE) ? MAX_COMPUTER_NAME_SIZE : name.length());
+                log.info("Short name resolved to: " + computerNameJB); //$NON-NLS-1$
+            }
+        }
+
+        return computerNameJB;
     }
 
     /**
@@ -224,9 +270,9 @@ public abstract class LocalHost {
      */
     private static String getPureJavaShortName() {
         /*
-         * I have a feeling this may fail for some computers with unusual network
-         * configurations (lots of interfaces; no DNS; etc.). It may need to be
-         * scrapped and re-written.
+         * I have a feeling this may fail for some computers with unusual
+         * network configurations (lots of interfaces; no DNS; etc.). It may
+         * need to be scrapped and re-written.
          */
         String name = null;
 

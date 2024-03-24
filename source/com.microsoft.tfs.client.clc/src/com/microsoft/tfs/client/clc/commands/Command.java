@@ -124,6 +124,7 @@ import com.microsoft.tfs.core.util.notifications.MessageWindowNotificationManage
 import com.microsoft.tfs.jni.NTLMEngine;
 import com.microsoft.tfs.jni.NegotiateEngine;
 import com.microsoft.tfs.jni.PlatformMiscUtils;
+import com.microsoft.tfs.jni.helpers.LocalHost;
 import com.microsoft.tfs.util.Check;
 import com.microsoft.tfs.util.Closable;
 import com.microsoft.tfs.util.NewlineUtils;
@@ -914,6 +915,61 @@ public abstract class Command
         return determineCachedWorkspace(pathFreeArguments, false);
     }
 
+    protected final WorkspaceInfo determineCachedWorkspace(
+        final String[] pathFreeArguments,
+        final boolean ignoreWorkspaceOptionValue)
+        throws CannotFindWorkspaceException,
+            InvalidOptionValueException,
+            InvalidOptionException {
+
+        /*
+         * On all platforms but Mac OSX, we do not have issues with the computer
+         * names detected by CLC.
+         */
+        if (!Platform.isCurrentPlatform(Platform.MAC_OS_X)) {
+            return determineCachedWorkspaceImpl(pathFreeArguments, ignoreWorkspaceOptionValue);
+        }
+
+        /*
+         * On the Mac OSX we should check two versions of the short computer
+         * name to ensure compatibility with the JetBrains' method of its
+         * compilation. The code should be removed when and if this
+         * compatibility is not needed anymore.
+         */
+        WorkspaceInfo workspaceInfo = determineCachedWorkspaceImpl(pathFreeArguments, ignoreWorkspaceOptionValue);
+
+        if (!LocalHost.getShortName().equalsIgnoreCase(workspaceInfo.getComputer())) {
+            /*
+             * The workspace has been created not with CLC.
+             */
+
+            log.info(
+                MessageFormat.format(
+                    "The computer name {0} of the cached workspace {1} does not match to the current machine {2}", //$NON-NLS-1$
+                    workspaceInfo.getComputer(),
+                    workspaceInfo.getDisplayName(),
+                    LocalHost.getShortName()));
+
+            /*
+             * Let's check if the workspace has been created not with the
+             * JetBrains plugin.
+             */
+
+            final String jbComputerName = LocalHost.getShortNameJB();
+
+            if (jbComputerName != null && jbComputerName.equalsIgnoreCase(workspaceInfo.getComputer())) {
+                log.info(
+                    MessageFormat.format(
+                        "The workspace has been created with the JetBrains plugin. Use the JetBrains computer name {0} as a short host name.", //$NON-NLS-1$
+                        jbComputerName));
+
+                System.setProperty(LocalHost.SHORT_NAME_OVERRIDE_PROPERTY, jbComputerName);
+            }
+        }
+
+        return workspaceInfo;
+    }
+
     /**
      * Determines which cached workspace (if any) matches the workspace command
      * line option, or the free arguments, or the current directory (in that
@@ -944,7 +1000,7 @@ public abstract class Command
      * @throws InvalidOptionException
      *         if the server and collection options are both specified
      */
-    protected final WorkspaceInfo determineCachedWorkspace(
+    protected final WorkspaceInfo determineCachedWorkspaceImpl(
         final String[] pathFreeArguments,
         final boolean ignoreWorkspaceOptionValue)
         throws CannotFindWorkspaceException,
