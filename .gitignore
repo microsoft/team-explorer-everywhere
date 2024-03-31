@@ -5,5 +5,8 @@
 # Eclipse output folders for all projects under source/
 bin
 
+# IntelliJ IDEA workspace data
+/.idea/
+
 # Maven builds
 target
